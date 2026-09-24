@@ -1,0 +1,3 @@
+﻿category,samples,detected_any,detected_ge50pct,detected_ge80pct,detected_all,missing_pct,sample_detected_median,sample_detected_q25,sample_detected_q75,sample_detected_min,sample_detected_max
+high_stress,239,3815,2040,1323,569,43.6665742225652,2086.0,1806.0,2426.5,1258,3463
+high_temperature,280,3810,1965,1291,524,46.12522923762117,2022.5,1784.75,2241.0,1053,3292

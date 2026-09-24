@@ -1,0 +1,18 @@
+{
+  "mapping_check": "PASS: headers, positions, metadata fields and bijection checked",
+  "protein_group_rows": 3817,
+  "samples": 519,
+  "total_cells": 1981023,
+  "original_null_cells": 891322,
+  "non_numeric_cells": 0,
+  "zero_cells": 0,
+  "negative_cells": 0,
+  "infinite_cells": 0,
+  "missing_cells": 891322,
+  "missing_pct": 44.99301623454144,
+  "detected_at_least_once": 3817,
+  "detected_in_all_samples": 481,
+  "never_detected": 0,
+  "processed.xlsx_sha256": "82d265efb36af83c654835775f848b4dfd512f1fe4ca687a62c0e0837d3480d4",
+  "sample_mapping_FINAL.xlsx_sha256": "5a6a54ccc4ea901d0dbc31e271661d4e5214b3ec00edf3022cb166cfebd652c9"
+}
