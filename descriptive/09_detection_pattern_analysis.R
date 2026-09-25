@@ -1,8 +1,10 @@
 # v2.1: binary detection logistic models; never abundance limma.
 # Separation policy: record NA/status; no penalized fallback or fabricated estimate.
 arg <- grep("^--file=", commandArgs(FALSE), value = TRUE)
-ROOT_DIR <- if (length(arg) == 1L) dirname(normalizePath(sub("^--file=", "", arg))) else getwd()
+if (length(arg) != 1L) stop("Run this stage with Rscript so --file= is available.")
+ROOT_DIR <- dirname(normalizePath(sub("^--file=", "", arg), winslash = "/", mustWork = TRUE))
 source(file.path(ROOT_DIR, "v21_common.R"))
+PROTEIN_ANNOTATION <- v21_annotation(ROOT_DIR)
 v21_packages(c("detectseparation", "dplyr", "ggplot2", "svglite", "ragg"))
 library(ggplot2)
 FDR_CUTOFF <- 0.05
@@ -206,6 +208,7 @@ for (model in names(plans)) {
     all_results[[model]] <- tab
 }
 primary <- all_results[["Primary"]]
+primary <- v21_annotate(primary, PROTEIN_ANNOTATION)
 robustness <- data.frame(PG.ProteinGroups = primary$PG.ProteinGroups, Contrast = primary$Contrast)
 index <- match(robustness$PG.ProteinGroups, ids)
 robustness$Detection_pattern <- pattern[index]
@@ -264,7 +267,7 @@ for (contrast in contrasts) {
     shown <- tab[is.finite(tab$logOR) & is.finite(tab$SE) & is.finite(tab$FDR), , drop = FALSE]
     shown <- head(shown[order(shown$FDR), , drop = FALSE], 20)
     if (nrow(shown)) {
-        shown$Protein_label <- factor(shown$PG.ProteinGroups, levels = rev(shown$PG.ProteinGroups))
+        shown$Protein_label <- factor(shown$Display_label, levels = rev(shown$Display_label))
         shown$Lower <- shown$logOR - qnorm(0.975) * shown$SE
         shown$Upper <- shown$logOR + qnorm(0.975) * shown$SE
         p <- ggplot(shown, aes(logOR, Protein_label)) +
@@ -298,7 +301,7 @@ selection <- dplyr::bind_rows(lapply(names(plans), function(name) data.frame(
 v21_write(selection, file.path(OUTPUT_DIR, "model_sample_inclusion.csv"))
 v21_write(dplyr::count(dplyr::bind_rows(all_results), Model, Contrast, Model_status),
           file.path(OUTPUT_DIR, "model_status_summary.csv"))
-v21_provenance(OUTPUT_DIR, c(files, file.path(ROOT_DIR, "08_detection_pattern_analysis.R")),
+v21_provenance(OUTPUT_DIR, c(files, file.path(ROOT_DIR, "09_detection_pattern_analysis.R")),
                c(primary_model = "detected ~ exposure + environment", estimator = "binomial logit MLE",
                   separation = "detectseparation full-model separation check; NA/status, no penalized fallback",
                   detection_universe = "max(Control, Short, Long detection rate) >=0.60",

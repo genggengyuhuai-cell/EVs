@@ -36,7 +36,7 @@ get_script_dir <- function() {
         return(dirname(normalizePath(sub("^--file=", "", file_arg),
                                      winslash = "/", mustWork = TRUE)))
     }
-    normalizePath(getwd(), winslash = "/", mustWork = TRUE)
+    stop("Run this stage with Rscript so --file= is available.")
 }
 
 ROOT_DIR <- get_script_dir()

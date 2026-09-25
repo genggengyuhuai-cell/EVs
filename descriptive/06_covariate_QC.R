@@ -1,7 +1,8 @@
 # v2.1 descriptive covariate / preanalytical QC. Does not select limma covariates.
 # Figure contract: quantitative grids; raw samples + median/IQR, no significance tests.
 arg <- grep("^--file=", commandArgs(FALSE), value = TRUE)
-ROOT_DIR <- if (length(arg) == 1L) dirname(normalizePath(sub("^--file=", "", arg))) else getwd()
+if (length(arg) != 1L) stop("Run this stage with Rscript so --file= is available.")
+ROOT_DIR <- dirname(normalizePath(sub("^--file=", "", arg), winslash = "/", mustWork = TRUE))
 source(file.path(ROOT_DIR, "v21_common.R"))
 v21_packages(c("ggplot2", "dplyr", "tidyr", "patchwork", "ragg", "svglite"))
 suppressPackageStartupMessages({library(ggplot2); library(dplyr); library(tidyr); library(patchwork)})
@@ -180,7 +181,7 @@ p_complete <- ggplot(completeness, aes(Missing_pct, reorder(Variable, Missing_pc
     labs(x = "Blank / absent (%)", y = NULL, title = "Metadata completeness") + v21_theme()
 v21_save(p_complete, FIG_DIR, "Figure_04_covariate_QC_metadata_completeness", completeness,
           height_mm = max(120, 35 + 6 * nrow(completeness)))
-v21_provenance(out, c(inputs, file.path(ROOT_DIR, "04_covariate_QC.R")),
+v21_provenance(out, c(inputs, file.path(ROOT_DIR, "06_covariate_QC.R")),
                c(seed = 20260922, completeness_cohort = "all audited samples", balance_cohort = "exposure-defined only",
                  missing_definition = "blank/absent only; literal tokens kept", tests = "none",
                  summary = "median/IQR; Spearman descriptive only", plotting_backend = "R; Nature figure contract"),

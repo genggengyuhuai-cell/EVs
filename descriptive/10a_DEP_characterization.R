@@ -28,7 +28,7 @@ get_script_dir <- function() {
         return(dirname(normalizePath(sub("^--file=", "", file_arg),
                                      winslash = "/", mustWork = TRUE)))
     }
-    normalizePath(getwd(), winslash = "/", mustWork = TRUE)
+    stop("Run this stage with Rscript so --file= is available.")
 }
 
 ROOT_DIR <- get_script_dir()
@@ -256,6 +256,8 @@ print(summary)
 
 # Standalone displays of the existing DEP tables; ranking is unchanged.
 source(file.path(ROOT_DIR, "v21_common.R"))
+PROTEIN_ANNOTATION <- v21_annotation(ROOT_DIR)
+DEP <- v21_annotate(DEP, PROTEIN_ANNOTATION)
 v21_packages(c("ggplot2", "svglite", "ragg"))
 library(ggplot2)
 FIG_DIR <- file.path(ROOT_DIR, "limma_dose_analysis", "figures_final", "09_DEP_characterization", "figures_nature_v2.2")
@@ -267,7 +269,7 @@ v21_save(p, FIG_DIR, "Figure_09_DEP_characterization_direction_counts", counts)
 for (ranking in c("FDR", "absT")) {
     shown <- if (ranking == "FDR") top30 else top30_t
     if (!nrow(shown)) next
-    shown$Protein_label <- factor(shown$PG.ProteinGroups, levels = rev(shown$PG.ProteinGroups))
+    shown$Protein_label <- factor(shown$Display_label, levels = rev(shown$Display_label))
     p <- ggplot(shown, aes(logFC, Protein_label)) + geom_vline(xintercept = 0, linetype = 2, linewidth = 0.35) +
         geom_point(colour = "#3178A5", size = 2) +
         labs(x = "log2 fold change (Long - Short)", y = NULL,

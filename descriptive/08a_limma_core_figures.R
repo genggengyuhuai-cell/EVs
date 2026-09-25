@@ -111,16 +111,13 @@ get_script_dir <- function() {
         )
     }
 
-    normalizePath(
-        getwd(),
-        winslash = "/",
-        mustWork = TRUE
-    )
+    stop("Run this stage with Rscript so --file= is available.")
 }
 
 
 ROOT_DIR <- get_script_dir()
 source(file.path(ROOT_DIR, "v21_common.R"))
+PROTEIN_ANNOTATION <- v21_annotation(ROOT_DIR)
 
 LIMMA_DIR <- file.path(
     ROOT_DIR,
@@ -846,6 +843,8 @@ read_primary_result <- function(
 
     dat$Contrast <- contrast_name
 
+    dat <- v21_annotate(dat, PROTEIN_ANNOTATION)
+
     dat
 }
 
@@ -944,7 +943,7 @@ make_volcano <- function(
         geom_label_repel(
             data = label_data,
             aes(
-                label = PG.ProteinGroups
+                label = Display_label
             ),
             size = 2.55,
             box.padding = 0.32,
@@ -1222,6 +1221,12 @@ top12_long <- top12_df %>%
         by = "UniqueSampleID"
     )
 
+top12_labels <- setNames(
+    PROTEIN_ANNOTATION$Display_label[match(top12, PROTEIN_ANNOTATION$PG.ProteinGroups)],
+    top12
+)
+top12_long$Display_label <- top12_labels[top12_long$PG.ProteinGroups]
+
 top12_long$PG.ProteinGroups <- factor(
     top12_long$PG.ProteinGroups,
     levels = top12
@@ -1295,7 +1300,7 @@ set.seed(20260922)
 for (i in seq_along(top12)) {
     id <- top12[i]
     shown <- top12_long[as.character(top12_long$PG.ProteinGroups) == id, , drop = FALSE]
-    p <- (p_a4 %+% shown) + labs(title = paste("Observed abundance:", id))
+    p <- (p_a4 %+% shown) + labs(title = paste("Observed abundance:", top12_labels[[id]]))
     save_plot(p, paste0("Figure_A4_", sprintf("%02d", i), "_", v22_slug(id)))
 }
 
@@ -1408,6 +1413,7 @@ heat_colors <- colorRampPalette(
 
 
 v22_heatmap(heat_z, FIG_DIR, "Figure_A5_top30_heatmap",
+             display_labels = PROTEIN_ANNOTATION$Display_label[match(top30, PROTEIN_ANNOTATION$PG.ProteinGroups)],
              color = heat_colors, breaks = seq(-3, 3, length.out = 102),
              cluster_rows = TRUE, cluster_cols = TRUE, show_colnames = FALSE,
              annotation_col = annotation_col, annotation_colors = annotation_colors,
@@ -1458,7 +1464,7 @@ write_csv_utf8(
 
 write_csv_utf8(data.frame(Protein = rownames(heat_z), heat_z, check.names = FALSE),
                file.path(FIG_DIR, "Figure_A5_heatmap_source_data.csv"))
-v21_provenance(FIG_DIR, c(required_files, file.path(ROOT_DIR, "06a_limma_core_figures.R")),
+v21_provenance(FIG_DIR, c(required_files, file.path(ROOT_DIR, "08a_limma_core_figures.R")),
                c(UMAP_seed = umap_seed, UMAP_features = "complete-case, non-zero-variance; no DEP selection",
                  PCA = "cached scores verified against centered unscaled primary matrix",
                  interpretation = "exploratory QC, not evidence of significant group separation"),

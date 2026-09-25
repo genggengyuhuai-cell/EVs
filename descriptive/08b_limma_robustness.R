@@ -96,11 +96,7 @@ get_script_dir <- function() {
         )
     }
 
-    normalizePath(
-        getwd(),
-        winslash = "/",
-        mustWork = TRUE
-    )
+    stop("Run this stage with Rscript so --file= is available.")
 }
 
 

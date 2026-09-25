@@ -41,6 +41,23 @@ v21_output <- function(path) {
     path
 }
 v21_write <- function(data, path) write.csv(data, path, row.names = FALSE, na = "")
+v21_annotation <- function(root_dir) {
+    path <- file.path(root_dir, "canonical_protein_annotation.csv")
+    annotation <- v21_read(path, c("PG.ProteinGroups", "Gene_symbol", "Display_label"),
+                           "PG.ProteinGroups")
+    if (anyNA(annotation$Display_label) || any(!nzchar(trimws(annotation$Display_label))))
+        stop("Canonical annotation contains empty Display_label values.")
+    annotation
+}
+v21_annotate <- function(data, annotation, require_all = TRUE) {
+    v21_columns(data, "PG.ProteinGroups", "Protein-level table")
+    index <- match(data$PG.ProteinGroups, annotation$PG.ProteinGroups)
+    if (require_all && anyNA(index))
+        stop("Canonical annotation does not cover every PG.ProteinGroups value.")
+    data$Gene_symbol <- annotation$Gene_symbol[index]
+    data$Display_label <- annotation$Display_label[index]
+    data
+}
 v21_provenance <- function(out, inputs, parameters, packages = character()) {
     inputs <- unique(inputs[file.exists(inputs)])
     v21_write(data.frame(Input = normalizePath(inputs, winslash = "/"),
@@ -108,13 +125,18 @@ v22_draw <- function(draw, out, name, width_mm = 183, height_mm = 140) {
     }
 }
 
-v22_heatmap <- function(matrix, out, name, ..., width_mm = 183, height_mm = 150) {
+v22_heatmap <- function(matrix, out, name, ..., display_labels = NULL,
+                        width_mm = 183, height_mm = 150) {
     # Clustering, ordering, scaling and missing-data decisions belong to the caller.
     v21_packages("pheatmap")
     dots <- list(...)
     defaults <- list(fontsize = 8, fontsize_row = 7, fontsize_col = 7,
                      fontfamily = "sans", border_color = NA, silent = TRUE)
     for (key in names(defaults)) if (is.null(dots[[key]])) dots[[key]] <- defaults[[key]]
+    if (!is.null(display_labels)) {
+        if (length(display_labels) != nrow(matrix)) stop("Heatmap display-label length mismatch.")
+        dots$labels_row <- display_labels
+    }
     heatmap <- do.call(pheatmap::pheatmap, c(list(mat = matrix), dots))
     v22_draw(function() { grid::grid.newpage(); grid::grid.draw(heatmap$gtable) },
               out, name, width_mm, height_mm)

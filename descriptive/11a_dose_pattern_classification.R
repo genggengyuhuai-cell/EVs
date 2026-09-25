@@ -9,9 +9,10 @@ suppressPackageStartupMessages({
 script_arg <- grep("^--file=", commandArgs(FALSE), value = TRUE)
 ROOT_DIR <- if (length(script_arg) == 1L) {
     dirname(normalizePath(sub("^--file=", "", script_arg), mustWork = TRUE))
-} else normalizePath(getwd(), mustWork = TRUE)
+} else stop("Run this stage with Rscript so --file= is available.")
 BASE_DIR <- file.path(ROOT_DIR, "limma_dose_analysis")
 source(file.path(ROOT_DIR, "v21_common.R"))
+PROTEIN_ANNOTATION <- v21_annotation(ROOT_DIR)
 v21_packages(c("svglite", "ragg"))
 DEP_FILE <- file.path(BASE_DIR, "results", "09_DEP_characterization", "High_vs_Low_DEP_all.csv")
 EXPR_FILE <- file.path(ROOT_DIR, "PRIMARY_dose_log2_expression.csv.gz")
@@ -76,6 +77,9 @@ if (anyNA(meta$TREAT1_clean) || !all(meta$TREAT1_clean %in% groups) ||
 
 # Classification uses observed log2 values, never zero-filled expression.
 pattern_df <- data.frame(Protein = dep$PG.ProteinGroups, stringsAsFactors = FALSE)
+pattern_df$PG.ProteinGroups <- dep$PG.ProteinGroups
+pattern_df$Gene_symbol <- PROTEIN_ANNOTATION$Gene_symbol[match(dep$PG.ProteinGroups, PROTEIN_ANNOTATION$PG.ProteinGroups)]
+pattern_df$Display_label <- PROTEIN_ANNOTATION$Display_label[match(dep$PG.ProteinGroups, PROTEIN_ANNOTATION$PG.ProteinGroups)]
 for (i in seq_along(groups)) {
     label <- c("Control", "Short", "Long")[i]
     block <- expr_dep[, meta$TREAT1_clean == groups[i], drop = FALSE]

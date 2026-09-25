@@ -109,16 +109,13 @@ get_script_dir <- function() {
         )
     }
 
-    normalizePath(
-        getwd(),
-        winslash = "/",
-        mustWork = TRUE
-    )
+    stop("Run this stage with Rscript so --file= is available.")
 }
 
 
 ROOT_DIR <- get_script_dir()
 source(file.path(ROOT_DIR, "v21_common.R"))
+PROTEIN_ANNOTATION <- v21_annotation(ROOT_DIR)
 v21_packages(c("ragg", "svglite"))
 
 LIMMA_DIR <- file.path(
@@ -1214,6 +1211,12 @@ forest_df <- bind_rows(
     run2_forest
 )
 
+forest_df <- v21_annotate(forest_df, PROTEIN_ANNOTATION)
+forest_df$Display_label <- factor(
+    forest_df$Display_label,
+    levels = rev(PROTEIN_ANNOTATION$Display_label[match(top_ids, PROTEIN_ANNOTATION$PG.ProteinGroups)])
+)
+
 forest_df$PG.ProteinGroups <- factor(
     forest_df$PG.ProteinGroups,
     levels = rev(
@@ -1235,7 +1238,7 @@ p_c2 <- ggplot(
     forest_df,
     aes(
         x = logFC,
-        y = PG.ProteinGroups,
+        y = Display_label,
         colour = Dataset
     )
 ) +

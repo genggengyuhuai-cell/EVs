@@ -1,8 +1,10 @@
 # v2.1: read-only abundance extensions and abundance x detection integration.
 # Nature-style quantitative panels; primary limma is never refitted.
 arg <- grep("^--file=", commandArgs(FALSE), value = TRUE)
-ROOT_DIR <- if (length(arg) == 1L) dirname(normalizePath(sub("^--file=", "", arg))) else getwd()
+if (length(arg) != 1L) stop("Run this stage with Rscript so --file= is available.")
+ROOT_DIR <- dirname(normalizePath(sub("^--file=", "", arg), winslash = "/", mustWork = TRUE))
 source(file.path(ROOT_DIR, "v21_common.R"))
+PROTEIN_ANNOTATION <- v21_annotation(ROOT_DIR)
 v21_packages(c("ggplot2", "dplyr", "tidyr", "patchwork", "ggrepel", "ragg", "svglite", "limma"))
 suppressPackageStartupMessages({library(ggplot2); library(dplyr); library(tidyr); library(patchwork)})
 primary_dir <- file.path(ROOT_DIR, "limma_dose_analysis", "results", "01_PRIMARY")
@@ -129,6 +131,7 @@ pair_groups <- list(Low_vs_Control = c("Short", "Control"),
 for (contrast in names(CONTRAST_LABELS)) {
     path <- file.path(primary_dir, paste0("PRIMARY_log2_dose_environment__", contrast, ".csv"))
     abundance <- v21_read(path, c("PG.ProteinGroups", "Contrast", "logFC", "AveExpr", "adj.P.Val"), "PG.ProteinGroups")
+    abundance <- v21_annotate(abundance, PROTEIN_ANNOTATION)
     if (!all(abundance$Contrast == contrast)) stop("Contrast key conflict in primary table.")
     if (!setequal(abundance$PG.ProteinGroups, rownames(fit$coefficients)) ||
         !setequal(abundance$PG.ProteinGroups, rownames(expression))) stop("Primary table/fit/expression protein-set mismatch.")
@@ -164,7 +167,7 @@ for (contrast in names(CONTRAST_LABELS)) {
     labels <- head(labels[order(-abs(labels$logFC), labels$PG.ProteinGroups), ], LABEL_N)
     p_rank <- ggplot(rank_data, aes(Effect_rank, logFC, colour = Significance)) +
         geom_hline(yintercept = 0, linewidth = 0.3, colour = "#777777") + geom_point(size = 0.7, alpha = 0.7) +
-        ggrepel::geom_text_repel(data = labels, aes(label = PG.ProteinGroups), size = 2.2,
+        ggrepel::geom_text_repel(data = labels, aes(label = Display_label), size = 2.2,
                                  seed = 20260922, max.overlaps = Inf, show.legend = FALSE) +
         scale_colour_manual(values = signal_colors, drop = FALSE) + v21_theme() +
         labs(x = "Protein rank by adjusted log2FC", y = "Adjusted log2 fold change", colour = NULL, title = title)
@@ -172,7 +175,7 @@ for (contrast in names(CONTRAST_LABELS)) {
     ordered <- abundance[order(abundance$adj.P.Val, abundance$PG.ProteinGroups, na.last = TRUE), ]
     selected <- head(ordered[is.finite(ordered$adj.P.Val) & ordered$CI_status != "not_estimable", ], TOP_FOREST)
     if (nrow(selected)) {
-        selected$Protein_label <- factor(selected$PG.ProteinGroups, levels = rev(selected$PG.ProteinGroups))
+        selected$Protein_label <- factor(selected$Display_label, levels = rev(selected$Display_label))
         p_forest <- ggplot(selected, aes(logFC, Protein_label, colour = Significance)) +
             geom_vline(xintercept = 0, linewidth = 0.3, linetype = "dashed") +
             geom_segment(aes(x = CI_low, xend = CI_high, yend = Protein_label), linewidth = 0.5) + geom_point(size = 1.5) +
@@ -285,7 +288,7 @@ for (contrast in names(CONTRAST_LABELS)) {
 }
 v21_write(bind_rows(audit), file.path(out, "figure_inclusion_audit.csv"))
 v21_write(bind_rows(evidence_counts), file.path(out, "evidence_type_counts.csv"))
-v21_provenance(out, c(inputs, file.path(ROOT_DIR, "06d_integrated_results.R")),
+v21_provenance(out, c(inputs, file.path(ROOT_DIR, "08d_integrated_results.R")),
                c(FDR = "<0.05 separately within each branch/contrast", confidence_level = 0.95,
                  CI = "saved stdev.unscaled * sqrt(s2.post), qt(df.total); no refit",
                  profile_summary = "observed mean +/- SE; NA retained", forest_top_n = TOP_FOREST,

@@ -46,13 +46,14 @@ get_script_dir <- function() {
         return(dirname(normalizePath(sub("^--file=", "", file_arg),
                                      winslash = "/", mustWork = TRUE)))
     }
-    normalizePath(getwd(), winslash = "/", mustWork = TRUE)
+    stop("Run this stage with Rscript so --file= is available.")
 }
 
 ROOT_DIR <- get_script_dir()
 
 
 source(file.path(ROOT_DIR, "v21_common.R"))
+PROTEIN_ANNOTATION <- v21_annotation(ROOT_DIR)
 v21_packages(c("svglite", "ragg"))
 
 DEP_FILE <- file.path(
@@ -514,6 +515,7 @@ top50 <- intersect(
 
 
 v22_heatmap(z_expr[top50, , drop = FALSE], FIG_DIR, "Figure_10_protein_clustering_top50_DEP_heatmap", scale = "none",
+    display_labels = PROTEIN_ANNOTATION$Display_label[match(top50, PROTEIN_ANNOTATION$PG.ProteinGroups)],
     annotation_col = annotation_col, annotation_colors = annotation_colors,
     clustering_method = "complete",
     show_rownames = TRUE, show_colnames = FALSE,

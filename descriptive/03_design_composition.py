@@ -10,6 +10,11 @@ import matplotlib
 matplotlib.use('Agg')
 from nature_plotting import new_figure, save as save_nature, EXPOSURE_LABELS, EXPOSURE_COLORS
 OUT=Path(__file__).resolve().parent
+if not (OUT/'sample_statistics.csv').is_file():
+    raise FileNotFoundError(
+        "Required Stage 01 output is missing: sample_statistics.csv. "
+        "Run 01_describe_proteomics.py first."
+    )
 s=pd.read_csv(OUT/'sample_statistics.csv',keep_default_na=False)
 assert len(s)==519 and s.UniqueSampleID.is_unique
 s['MS_batch_proxy']=s['进样时间'].astype(str)

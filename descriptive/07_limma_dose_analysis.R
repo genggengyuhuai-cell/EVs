@@ -133,16 +133,13 @@ get_script_dir <- function() {
         )
     }
 
-    normalizePath(
-        getwd(),
-        winslash = "/",
-        mustWork = TRUE
-    )
+    stop("Run this stage with Rscript so --file= is available.")
 }
 
 
 ANALYSIS_DIR <- get_script_dir()
 source(file.path(ANALYSIS_DIR, "v21_common.R"))
+PROTEIN_ANNOTATION <- v21_annotation(ANALYSIS_DIR)
 v21_packages(c("svglite", "ragg"))
 
 PRIMARY_EXPR_FILE <- file.path(
@@ -775,6 +772,8 @@ run_limma_contrasts <- function(
 
         tab$PG.ProteinGroups <- rownames(tab)
 
+        tab <- v21_annotate(tab, PROTEIN_ANNOTATION)
+
         tab$Contrast <- contrast_name
 
         tab$Significant_FDR_0.05 <- (
@@ -787,6 +786,8 @@ run_limma_contrasts <- function(
             ,
             c(
                 "PG.ProteinGroups",
+                "Gene_symbol",
+                "Display_label",
                 "Contrast",
                 "logFC",
                 "AveExpr",

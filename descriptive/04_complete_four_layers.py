@@ -12,6 +12,14 @@ from nature_plotting import new_figure, save as save_nature, save_series
 
 OUT=Path(__file__).resolve().parent
 ROOT=OUT.parent
+required_upstream = [OUT/'audit.json', OUT/'sample_statistics.csv',
+                     OUT/'detection_gradient_long.csv']
+missing_upstream = [path.name for path in required_upstream if not path.is_file()]
+if missing_upstream:
+    raise FileNotFoundError(
+        f"Required Stage 01/02 output(s) missing: {missing_upstream}. "
+        "Run 01_describe_proteomics.py and 02_detection_gradient.py first."
+    )
 audit=json.loads((OUT/'audit.json').read_text(encoding='utf-8'))
 for name in ['processed.xlsx','sample_mapping_FINAL.xlsx']:
     assert hashlib.sha256((ROOT/'rawdata'/name).read_bytes()).hexdigest()==audit[name+'_sha256']
@@ -236,7 +244,7 @@ Figure11a展示全部蛋白在各地区的检出率（按全局检出率排序�
 - protein_detection_landscape.csv：完整蛋白检出率、分类与跨组广度。
 - cross_group_detection_breadth.csv、core_coverage_counts.csv、proteins_*.csv：跨地区分布和各口径蛋白名单。
 - Figure3–11均有PDF/SVG/PNG；原Figure1–2保留。样本结构详细交叉表见“QC前描述_样本构成与分析路线.md”。
-- 运行顺序：describe_proteomics.py → detection_gradient.py → design_composition.py → complete_four_layers.py。
+- 运行顺序：01_describe_proteomics.py → 02_detection_gradient.py → 03_design_composition.py → 04_complete_four_layers.py。
 
 本轮不开展binary PCA、Jaccard聚类、异常样本剔除、插补或批次校正；样本检测相似性可以进入下一步正式QC。
 '''

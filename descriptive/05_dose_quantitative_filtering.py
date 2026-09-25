@@ -23,6 +23,7 @@ from pathlib import Path
 import hashlib
 import json
 import math
+import runpy
 
 import numpy as np
 import pandas as pd
@@ -41,6 +42,7 @@ MAP = ROOT / "rawdata" / "sample_mapping_FINAL.xlsx"
 
 AUDIT = OUT / "audit.json"
 SAMPLE_STATS = OUT / "sample_statistics.csv"
+CANONICAL_ANNOTATION = OUT / "canonical_protein_annotation.csv"
 
 
 # ============================================================
@@ -70,7 +72,7 @@ PRIMARY_THRESHOLD = 70
 if not AUDIT.is_file():
     raise FileNotFoundError(
         f"Missing audit file: {AUDIT}\n"
-        "Run describe_proteomics.py first."
+        "Run 01_describe_proteomics.py first."
     )
 
 audit = json.loads(
@@ -104,7 +106,7 @@ for path in [
     if observed_hash != expected_hash:
         raise ValueError(
             f"Source changed: {path.name}\n"
-            "Rerun describe_proteomics.py and upstream QC scripts."
+            "Rerun 01_describe_proteomics.py first."
         )
 
 
@@ -115,7 +117,13 @@ for path in [
 if not SAMPLE_STATS.is_file():
     raise FileNotFoundError(
         f"Missing file: {SAMPLE_STATS}\n"
-        "Run describe_proteomics.py first."
+        "Run 01_describe_proteomics.py first."
+    )
+
+if not CANONICAL_ANNOTATION.is_file():
+    raise FileNotFoundError(
+        f"Required Stage 01 output is missing: {CANONICAL_ANNOTATION.name}\n"
+        "Run 01_describe_proteomics.py first."
     )
 
 sample = pd.read_csv(
@@ -275,7 +283,7 @@ if len(sample) != n_samples:
 # ============================================================
 # 6. Define observed / missing values
 #
-# Same detection rule as describe_proteomics.py:
+# Same detection rule as 01_describe_proteomics.py:
 # finite and > 0 = detected
 # everything else = missing
 # ============================================================
@@ -407,6 +415,22 @@ protein_ids = (
         str
     )
 )
+
+canonical_annotation = pd.read_csv(CANONICAL_ANNOTATION, keep_default_na=False)
+required_annotation_columns = {"PG.ProteinGroups", "Gene_symbol", "Display_label"}
+missing_annotation_columns = required_annotation_columns.difference(canonical_annotation.columns)
+if missing_annotation_columns:
+    raise ValueError(
+        "canonical_protein_annotation.csv is missing columns: "
+        f"{sorted(missing_annotation_columns)}"
+    )
+if canonical_annotation["PG.ProteinGroups"].duplicated().any():
+    raise ValueError("Canonical annotation contains duplicated PG.ProteinGroups.")
+canonical_annotation = canonical_annotation.set_index("PG.ProteinGroups").reindex(protein_ids)
+if (canonical_annotation["Display_label"].isna().any()
+        or canonical_annotation["Display_label"].eq("").any()):
+    raise ValueError("Canonical annotation does not cover every protein group.")
+canonical_annotation = canonical_annotation.reset_index()
 
 if protein_ids.isna().any():
     raise ValueError(
@@ -753,15 +777,7 @@ for threshold in THRESHOLDS:
         )
     )
 
-    protein_list = annotation.loc[
-        keep
-    ].copy()
-
-    protein_list[
-        "PG.ProteinGroups"
-    ] = protein_ids[
-        keep
-    ].to_numpy()
+    protein_list = canonical_annotation.loc[keep].copy()
 
     for dose in DOSE_LEVELS:
         protein_list[
@@ -1250,3 +1266,9 @@ for column, ylabel, name in [("protein_groups", "Retained protein groups", "prot
     ax.set_ylim(bottom=0)
     ax.legend()
     save_nature(fig, OUT, f"Quantitative_filter_{name}", threshold_summary)
+
+# Complete the two Stage 05 mother-data branches. These helpers are source
+# modules owned by this stage, not independently numbered pipeline stages.
+runpy.run_path(str(OUT / "stage05_normalization_helper.py"), run_name="__main__")
+from stage05_detection_helper import main as build_detection_mother_data
+build_detection_mother_data()

@@ -14,9 +14,17 @@ matplotlib.rcParams["font.sans-serif"] = [
 
 OUT = Path(__file__).resolve().parent
 ROOT = OUT.parent
+required_stage01 = [OUT/'audit.json', OUT/'group_protein_detection_rate.csv',
+                    OUT/'condition_protein_detection_rate.csv', OUT/'sample_statistics.csv']
+missing_stage01 = [path.name for path in required_stage01 if not path.is_file()]
+if missing_stage01:
+    raise FileNotFoundError(
+        f"Required Stage 01 output(s) missing: {missing_stage01}. "
+        "Run 01_describe_proteomics.py first."
+    )
 audit = json.loads((OUT/'audit.json').read_text(encoding='utf-8'))
 for name in ['processed.xlsx','sample_mapping_FINAL.xlsx']:
-    assert hashlib.sha256((ROOT/'rawdata'/name).read_bytes()).hexdigest() == audit[name+'_sha256'], 'Source changed: rerun describe_proteomics.py'
+    assert hashlib.sha256((ROOT/'rawdata'/name).read_bytes()).hexdigest() == audit[name+'_sha256'], 'Source changed: rerun 01_describe_proteomics.py'
 N = audit['protein_group_rows']
 thresholds = np.arange(10,101,10)
 records=[]; shared=[]; memberships={}

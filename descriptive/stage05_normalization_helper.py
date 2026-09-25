@@ -1,4 +1,4 @@
-"""Normalization and design-matrix diagnostics for the PRIMARY dose proteomics set.
+"""Stage 05 internal normalization/design helper for the PRIMARY dose set.
 
 Inputs:
     PRIMARY_dose_quantitative_expression.csv.gz

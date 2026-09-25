@@ -17,6 +17,11 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(__file__).resolve().parent
 SOURCE = ROOT / 'rawdata' / 'processed.xlsx'
 MAP = ROOT / 'rawdata' / 'sample_mapping_FINAL.xlsx'
+CANONICAL_ANNOTATION = OUT / 'canonical_protein_annotation.csv'
+
+for required_source in (SOURCE, MAP):
+    if not required_source.is_file():
+        raise FileNotFoundError(f"Required raw source is missing: {required_source}")
 
 def clean(v):
     if pd.isna(v): return ''
@@ -30,6 +35,32 @@ data = pd.DataFrame(list(rows), columns=range(len(headers)))
 wb.close()
 annotation = data.iloc[:,:7].copy()
 annotation.columns = headers[:7]
+required_annotation = {'PG.ProteinGroups', 'PG.Genes'}
+missing_annotation = required_annotation.difference(annotation.columns)
+if missing_annotation:
+    raise ValueError(
+        'processed.xlsx is missing required protein annotation columns: '
+        f'{sorted(missing_annotation)}'
+    )
+
+def canonical_gene_symbol(value):
+    """Use the first non-empty source gene token; never alter protein identity."""
+    if pd.isna(value):
+        return ''
+    for token in str(value).replace(',', ';').split(';'):
+        token = token.strip()
+        if token and token.lower() not in {'nan', 'na', 'none'}:
+            return token
+    return ''
+
+canonical_annotation = annotation.copy()
+canonical_annotation['PG.ProteinGroups'] = canonical_annotation['PG.ProteinGroups'].map(clean)
+canonical_annotation['Gene_symbol'] = canonical_annotation['PG.Genes'].map(canonical_gene_symbol)
+canonical_annotation['Display_label'] = canonical_annotation['Gene_symbol'].where(
+    canonical_annotation['Gene_symbol'].ne(''),
+    canonical_annotation['PG.ProteinGroups']
+)
+canonical_annotation.to_csv(CANONICAL_ANNOTATION, index=False, encoding='utf-8-sig')
 raw = data.iloc[:,7:]
 values = raw.apply(pd.to_numeric,errors='coerce').to_numpy(dtype=float)
 meta = pd.read_excel(SOURCE,sheet_name=1)
@@ -48,14 +79,16 @@ assert annotation.iloc[:,0].notna().all() and not annotation.iloc[:,0].duplicate
 detected=np.isfinite(values)&(values>0)
 missing=~detected
 non_numeric=int((raw.notna().to_numpy() & np.isnan(values)).sum())
-audit={'mapping_check':'PASS: headers, positions, metadata fields and bijection checked','protein_group_rows':nprot,'samples':nsamp,'total_cells':int(values.size),'original_null_cells':int(raw.isna().sum().sum()),'non_numeric_cells':non_numeric,'zero_cells':int((values==0).sum()),'negative_cells':int((values<0).sum()),'infinite_cells':int(np.isinf(values).sum()),'missing_cells':int(missing.sum()),'missing_pct':float(missing.mean()*100),'detected_at_least_once':int(detected.any(axis=1).sum()),'detected_in_all_samples':int(detected.all(axis=1).sum()),'never_detected':int((~detected.any(axis=1)).sum())}
+mapped = canonical_annotation['Gene_symbol'].ne('')
+duplicated_gene_symbols = canonical_annotation.loc[mapped, 'Gene_symbol'].duplicated(keep=False)
+audit={'mapping_check':'PASS: headers, positions, metadata fields and bijection checked','protein_group_rows':nprot,'samples':nsamp,'total_cells':int(values.size),'original_null_cells':int(raw.isna().sum().sum()),'non_numeric_cells':non_numeric,'zero_cells':int((values==0).sum()),'negative_cells':int((values<0).sum()),'infinite_cells':int(np.isinf(values).sum()),'missing_cells':int(missing.sum()),'missing_pct':float(missing.mean()*100),'detected_at_least_once':int(detected.any(axis=1).sum()),'detected_in_all_samples':int(detected.all(axis=1).sum()),'never_detected':int((~detected.any(axis=1)).sum()),'gene_symbol_mapped_count':int(mapped.sum()),'gene_symbol_unmapped_count':int((~mapped).sum()),'gene_symbol_mapping_rate':float(mapped.mean()),'duplicated_gene_symbol_count':int(duplicated_gene_symbols.sum()),'display_label_fallback_count':int((~mapped).sum())}
 for p in [SOURCE,MAP]: audit[p.name+'_sha256']=hashlib.sha256(p.read_bytes()).hexdigest()
 (OUT/'audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2),encoding='utf-8')
 sample=mapping.copy()
 sample['detected_protein_groups']=detected.sum(axis=0)
 sample['missing_pct']=missing.mean(axis=0)*100
 sample.to_csv(OUT/'sample_statistics.csv',index=False,encoding='utf-8-sig')
-protein=annotation.copy()
+protein=canonical_annotation.copy()
 protein['detected_samples']=detected.sum(axis=1)
 protein['missing_pct']=missing.mean(axis=1)*100
 positive=np.where(detected,values,np.nan)

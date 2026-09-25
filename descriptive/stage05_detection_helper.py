@@ -73,6 +73,7 @@ def main():
         "audit": HERE / "audit.json",
         "samples": HERE / "sample_statistics.csv",
         "defined": HERE / "dose_defined_metadata.csv",
+        "annotation": HERE / "canonical_protein_annotation.csv",
     }
     for path in paths.values():
         if not path.is_file():
@@ -102,10 +103,10 @@ def main():
         wb.close()
     if [clean_header(v) for v in header[7:]] != sample.Sheet1_raw_header.map(clean_header).tolist():
         raise ValueError("Raw matrix headers do not match audited sample-column order")
-    annotation = data.iloc[:, :7].copy()
-    annotation.columns = header[:7]
-    if "PG.ProteinGroups" not in annotation:
-        raise ValueError("Missing PG.ProteinGroups in source annotation")
+    annotation = pd.read_csv(paths["annotation"], keep_default_na=False)
+    required_annotation = {"PG.ProteinGroups", "Gene_symbol", "Display_label"}
+    if not required_annotation.issubset(annotation.columns):
+        raise ValueError(f"Canonical annotation is missing: {required_annotation - set(annotation.columns)}")
     unique_ids(annotation["PG.ProteinGroups"], "protein groups")
     values = data.iloc[:, 7:].apply(pd.to_numeric, errors="raise").to_numpy(dtype=float)
     if values.shape != (audit["protein_group_rows"], audit["samples"]):
