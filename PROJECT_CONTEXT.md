@@ -6,123 +6,80 @@ Last updated: 2026-09-24
 
 ## 1. Project purpose
 
-This is a long-term plasma proteomics project based on Spectronaut protein-group quantitative output.
-
-The project is actively evolving. Analysis modules may be added, removed, renamed, rewritten, or reclassified over time.
-
-This file defines the CURRENT authoritative scientific and analytical context.
-
-Historical scripts and historical README files must not override this file.
-
----
+This is a long-term plasma proteomics project based on Spectronaut
+protein-group quantitative output. This file defines the CURRENT
+authoritative scientific and analytical context. Historical scripts and
+README files must not override it.
 
 ## 2. Project root
 
-```text
+``` text
 F:\env
 ```
 
-Main working areas:
-
-```text
-F:\env\
-├── rawdata\
-├── descriptive\
-├── reademe\
-├── code\
-└── ...
-```
-
-The exact physical location of a script may change over time.
-
-File activity status must be determined from `FILE_STATUS.md`, not inferred from filename numbering alone.
-
----
+Main working area for this analysis is `F:\env\descriptive`. File
+activity status must be determined from `FILE_STATUS.md`, not inferred
+from filename numbering.
 
 ## 3. Dataset
 
 Primary source:
 
-- Plasma proteomics
-- Spectronaut output
-- Quantitative field: PG.Quantity
-- Protein-group level analysis
+-   plasma proteomics;
+-   Spectronaut output;
+-   quantitative field: `PG.Quantity`;
+-   protein-group level analysis.
 
-Current verified dataset structure:
+Current verified structure:
 
-- 3817 protein-group rows
-- 519 sample columns
-- 515 exposure-defined samples
+``` text
+3817 protein-group rows
+519 mapped sample columns
+515 exposure-defined samples
+```
 
-All 3817 protein groups are detected in at least one sample.
-
-Global missingness is substantial and is biologically and technically meaningful.
-
-Missingness must not automatically be treated as random numerical missingness.
-
----
+All 3817 protein groups are detected in at least one sample. Missingness
+is substantial and may be biologically and technically meaningful; it
+must not automatically be treated as random numerical missingness.
 
 ## 4. Sample mapping
 
-Sample mapping has already been resolved and validated.
+The P1/P2/P3 mapping chain is frozen and validated:
 
-Original mapping workflow:
-
-```text
-P1.py
-P2.py
-P3.py
+``` text
+519 mapped sample columns
+519 unique metadata assignments
+no duplicate metadata assignment
+no unresolved sample mapping
+mapping check PASS
 ```
 
-Final status:
-
-- 519 mapped sample columns
-- 519 unique metadata assignments
-- no duplicate metadata assignment
-- no unresolved sample mapping
-- mapping check PASS
-
-P1/P2/P3 are retained for auditability.
-
-They are frozen unless explicitly reopened.
-
-Do not rewrite the mapping logic during unrelated tasks.
-
----
+Do not rewrite mapping logic unless mapping is explicitly reopened.
 
 ## 5. Exposure-group structure and compatibility keys
 
-The scientific interpretation of the three analysis groups is:
+Scientific interpretation:
 
-```text
+``` text
 Control
 Short exposure
 Long exposure
 ```
 
-The current internal compatibility keys remain:
+Internal compatibility keys may remain:
 
-```text
+``` text
 control
 low
 high
 ```
 
-These keys are retained because existing scripts, contrasts, directories, and saved result objects use them.
+They are categorical compatibility identifiers, not a validated
+continuous dose scale.
 
-They must not be interpreted as continuous concentration dose labels.
+Historical contrast keys:
 
-Preferred display mapping:
-
-```text
-control -> Control
-low     -> Short exposure
-high    -> Long exposure
-```
-
-Historical contrast keys remain:
-
-```text
+``` text
 Low_vs_Control
 High_vs_Control
 High_vs_Low
@@ -130,50 +87,34 @@ High_vs_Low
 
 Preferred display wording:
 
-```text
+``` text
 Short exposure vs Control
 Long exposure vs Control
 Long vs Short exposure
 ```
 
-Unknown exposure samples may remain in descriptive QC but are excluded from exposure-defined differential abundance analysis unless explicitly stated otherwise.
-
----
-
 ## 6. Environment and region structure
 
-### Environment
+Canonical scientific/display environment labels:
 
-Canonical scientific / display labels:
-
-```text
+``` text
 高海拔
 湿热
 ```
 
-Historical internal compatibility keys:
+Historical internal compatibility identifiers may remain where required:
 
-```text
+``` text
 high_stress
 high_temperature
 ```
 
-Compatibility relationship:
+The English keys must not replace the canonical Chinese labels in final
+user-facing environment displays.
 
-```text
-高海拔 <-> high_stress
-湿热   <-> high_temperature
-```
+Region/group values include:
 
-The English keys are retained only for internal compatibility with existing
-code, saved objects, directories, or validation logic. They must not be used
-as final scientific or user-facing display labels in figures, legends, axes,
-facets, annotations, display tables, or reports. Source metadata remains
-unchanged as `高海拔` and `湿热`.
-
-### Region / group
-
-```text
+``` text
 FJ_FQ
 FJ_PT
 FJ_QZ
@@ -185,196 +126,118 @@ XZ_YC
 XZ_YD
 ```
 
-Region is descriptive / sensitivity context and is not an independent crossed primary factor when structurally nested within environment.
-
----
+Region is descriptive/sensitivity context and is not an independent
+crossed primary factor when structurally nested within environment.
 
 ## 7. Acquisition-date information
 
-Injection / acquisition date can be used descriptively and in sensitivity analysis.
+Injection/acquisition date may be used descriptively and in sensitivity
+analysis.
 
-IMPORTANT:
-
-```text
+``` text
 MS run date is NOT a confirmed technical batch ID.
 ```
 
-Preferred wording:
-
-```text
-MS run date
-run-date proxy
-acquisition-date proxy
-acquisition-date stratum
-MS run-date proxy
-```
-
-Do not present run date as a confirmed batch unless new experimental records establish that.
-
----
+Preferred wording includes `MS run date`, `run-date proxy`,
+`acquisition-date proxy`, and `acquisition-date stratum`.
 
 ## 8. Other preanalytical variables
 
-Possible metadata variables include:
+Possible metadata variables include `Tube_Mixing`, `WoleBlood_oldTime`,
+`Plasma_HoldTime_h`, and `TREAT2`. Do not fabricate missing metadata.
 
-```text
-Tube_Mixing
-WoleBlood_oldTime
-Plasma_HoldTime_h
-TREAT2
-```
-
-Do not fabricate missing metadata.
-
-Age/Sex should only be used if they actually exist in the current metadata and satisfy completeness requirements.
-
----
+Age/Sex may only be used when present and sufficiently complete. In the
+current detection sensitivity implementation, the Age/Sex branch is
+unavailable because the fields are absent or below the prespecified
+completeness requirement.
 
 # 9. Current analytical architecture
 
-The project now contains TWO main analytical branches.
+The project contains two main analytical branches. Both are part of the
+main analysis and answer different questions.
 
-Both are part of the main analysis.
+## 9.1 Branch A --- quantitative abundance analysis
 
-They answer different biological questions and must not be conflated.
+Primary quantitative inclusion rule:
 
----
-
-## 9.1 Branch A — quantitative abundance analysis
-
-Scientific question:
-
-> Among proteins with sufficiently stable quantitative detection across Control, Short exposure, and Long exposure, which proteins show exposure-group abundance differences?
-
-### Primary quantitative protein set
-
-A protein enters the primary quantitative analysis when it is detected in:
-
-```text
->=70% of control samples
-AND
->=70% of short-exposure samples
-AND
->=70% of long-exposure samples
+``` text
+>=70% detection in control
+AND >=70% detection in short exposure
+AND >=70% detection in long exposure
 ```
 
-Current primary quantitative protein count:
+Current primary quantitative universe:
 
-```text
-1434
+``` text
+1434 proteins
 ```
 
-### Filtering sets generated upstream
+Upstream filtering sets:
 
-The quantitative filtering stage evaluates / retains threshold sets including:
-
-```text
-50%
-60%
-70%
-80%
+``` text
+50% = 1935
+60% = 1670
+70% = 1434
+80% = 1214
 ```
 
-### Primary threshold
+Formal limma threshold sensitivities remain 50% and 80%; the 60% set is
+an upstream filtering/descriptive set, not a formal limma sensitivity
+branch.
 
-```text
-70%
-```
+Quantitative input:
 
-### Formal limma threshold sensitivities
-
-The locked limma threshold-sensitivity analyses are:
-
-```text
-50%
-80%
-```
-
-The 60% set exists as an upstream filtering / descriptive set but is not a locked formal limma threshold-sensitivity branch.
-
-### Quantitative input
-
-```text
+``` text
 log2(PG.Quantity)
 ```
 
-Primary analysis rules:
+Primary rules:
 
-- no imputation
-- missing values remain NA
-- no NA -> 0 conversion
-- no additional normalization in the primary model
-- no ComBat
-- no removeBatchEffect before differential analysis
-- no KNN / MinProb / QRILC in the primary differential analysis
+-   no imputation;
+-   missing values remain NA;
+-   no NA -\> 0;
+-   no additional normalization in the primary model;
+-   no ComBat/removeBatchEffect before differential analysis;
+-   median normalization is sensitivity-only.
 
-Median normalization is a sensitivity analysis only.
+Primary model:
 
-### Primary model
-
-```text
-abundance ~ exposure_group + environment
+``` text
+abundance ~ exposure group + environment
 ```
-
-Implementation compatibility may still use the internal `dose` factor name.
 
 Current limma settings:
 
-```text
+``` text
 lmFit()
 contrasts.fit()
 eBayes(trend = TRUE, robust = TRUE)
 BH-adjusted P values
 ```
 
-### Main contrasts
+Primary categorical contrasts:
 
-Internal keys:
-
-```text
-Low vs Control
-High vs Control
-High vs Low
-```
-
-Preferred interpretation:
-
-```text
+``` text
 Short exposure vs Control
 Long exposure vs Control
 Long vs Short exposure
 ```
 
-Current downstream emphasis:
+Current locked abundance results:
 
-```text
-Long vs Short exposure
+``` text
+Short exposure vs Control: FDR < 0.05 = 14
+Long exposure vs Control:  FDR < 0.05 = 0
+Long vs Short exposure:    FDR < 0.05 = 256
 ```
 
-### Current locked results
+For Long vs Short exposure, all 256 significant proteins are higher in
+Short exposure than Long exposure; median log2FC is approximately -0.295
+and mean log2FC approximately -0.304.
 
-Using historical contrast keys:
+Effect-size reporting layers:
 
-```text
-Low vs Control:
-FDR < 0.05 = 14
-
-High vs Control:
-FDR < 0.05 = 0
-
-High vs Low:
-FDR < 0.05 = 256
-```
-
-For High vs Low / Long vs Short exposure:
-
-- all 256 significant proteins are higher in Short exposure than Long exposure
-- median log2FC approximately -0.295
-- mean log2FC approximately -0.304
-
-Effect-size reporting layers include:
-
-```text
+``` text
 FDR < 0.05
 FDR < 0.05 and |log2FC| >= 0.5
 FDR < 0.05 and |log2FC| >= 1
@@ -382,138 +245,105 @@ FDR < 0.05 and |log2FC| >= 1
 
 These layers do not refit the model.
 
----
+## 9.2 Branch B --- detection-based analysis
 
-## 9.2 Branch B — detection-based analysis
+Scientific question: are proteins preferentially detected, restricted,
+or absent across exposure groups, including proteins outside the common
+quantitative core?
 
-Scientific question:
+This is a MAIN analytical branch and remains distinct from abundance
+inference.
 
-> Are there proteins preferentially detected, restricted, or absent across exposure groups even when they do not belong to the common quantitative core?
+Detection-model universe:
 
-This is now a MAIN analytical branch.
-
-It is not merely supplementary.
-
-This branch uses the broader protein universe and focuses on detection patterns rather than continuous abundance alone.
-
-Potential categories include:
-
-```text
-Control-specific
-Short-specific
-Long-specific
-Control + Short
-Control + Long
-Short + Long
-Broad detection
-Sparse
-Other / unresolved
-```
-
-Internal compatibility naming may still use `Low` / `High` in code or historical files.
-
-Primary restricted-detection threshold:
-
-```text
->=70%
-```
-
-Sensitivity threshold:
-
-```text
->=60%
-```
-
-### Detection-analysis universe
-
-The frozen retention rule for detection logistic modelling is:
-
-```text
+``` text
 max(Control detection rate,
     Short-exposure detection rate,
     Long-exposure detection rate) >= 60%
 ```
 
-Equivalently, a protein is detection-evaluable when at least one exposure group
-has a detection rate of 60% or greater. The full all-protein detection-rate
-mother table remains complete; proteins outside this universe are retained in
-that table but are not modelled.
+Confirmed durable counts:
 
-The `<20%` rule is used only to classify specific/restricted detection patterns.
-It must never be used as a retention criterion for the detection-analysis
-universe.
-
-For each detection-model contrast, the BH correction family is the complete
-fixed `>=60% in any exposure group` detection-analysis universe. The 70% primary
-and 60% sensitivity pattern classifications remain separate classification
-thresholds and do not redefine this universe.
-
-The exact category logic must be defined by the active detection-analysis code.
-
-Current implementation / validation state:
-
-```text
-Detection-universe correction = IMPLEMENTED
-Analysis executed             = YES
-Runtime validation            = PASS
-Scientific result validation  = IN PROGRESS
+``` text
+full detection mother table = 3817
+detection-model universe    = 1848
 ```
 
-Detection status and abundance status must remain separate.
+The `<20%` rule is classification-only for specific/restricted patterns
+and never controls detection-model universe membership.
 
-A protein outside the abundance core must NOT automatically be labelled:
+For each detection-model contrast, BH correction uses the complete fixed
+1848-protein universe.
 
-```text
-not differentially expressed
+Primary detection model:
+
+``` text
+detected ~ exposure + environment
 ```
 
-Preferred wording:
+Estimator policy:
 
-```text
-abundance not evaluated in the primary quantitative model
+``` text
+standard binomial logistic MLE
+no Firth fallback
+no penalized fallback
+no pseudo-count fallback
 ```
 
-where appropriate.
+Final primary detection status per contrast:
 
----
+``` text
+constant_detection                   = 481
+full_model_separation_no_finite_MLE = 182
+ok                                   = 1185
+```
+
+Final primary detection BH FDR \< 0.05:
+
+``` text
+Short exposure vs Control = 1
+Long exposure vs Control  = 0
+Long vs Short exposure    = 0
+```
+
+Acquisition-matched-primary reproduces the same 481 / 182 / 1185
+estimability structure.
+
+For the acquisition-adjusted model
+(`detected ~ exposure + environment + acquisition_date`), all 1367
+nonconstant proteins show full-model separation and no standard
+finite-MLE exposure inference is reported. This is an estimability
+limitation of that sensitivity specification; it does not redefine the
+primary detection result and does not justify silently substituting
+another estimator.
+
+Detection status and abundance status must remain separate. A protein
+outside the abundance core should be described as
+`abundance not evaluated in the primary quantitative model`, not
+automatically as `not differentially expressed`.
 
 # 10. Missing-value policy
 
-Missing-value handling depends on analysis purpose.
+Primary limma:
 
-## Primary limma analysis
-
-```text
+``` text
 NA retained
 no imputation
 no NA -> 0
 ```
 
-## Detection analysis
+Detection/non-detection is itself information; do not impute
+quantitative abundance before defining detection status.
 
-Detection / non-detection is itself information.
-
-Do not impute quantitative abundance before defining detection status.
-
-## Clustering / visualisation
-
-Some exploratory clustering or pattern-visualisation scripts may use:
-
-```text
-NA -> 0
-```
-
-only when explicitly defined by that script.
-
-This is analysis-specific and must never propagate into the primary limma analysis.
-
----
+Exploratory clustering/visualisation may use NA -\> 0 only when
+explicitly defined by that script. This must never propagate into
+primary limma.
 
 # 11. Sensitivity / robustness framework
 
-Current formal limma sensitivity analyses include:
+Formal abundance robustness includes:
 
-```text
+``` text
 median normalization
 acquisition-date proxy covariate
 50% detection threshold
@@ -524,187 +354,88 @@ within-run / acquisition-date-stratified robustness
 
 These do not replace the primary model.
 
-Primary model remains:
-
-```text
-exposure group + environment
-```
-
-Implementation may still use the historical internal factor name `dose`.
-
-Within-run analyses are sensitivity / robustness analyses only.
-
----
-
 # 12. Linear trend analysis
 
-The previous linear trend analysis used the historical compatibility coding:
+The historical continuous coding:
 
-```text
+``` text
 control = 0
 low = 1
 high = 2
 ```
 
-This route is no longer active.
-
-Reasons:
-
-- no FDR-significant linear-trend proteins
-- the biological comparison is exposure duration category, not a validated continuous dose scale
-- the current emphasis is categorical exposure comparison, especially Long vs Short exposure
-
-Do not restore linear trend to the active workflow unless explicitly requested.
-
----
+is no longer active. Do not restore it unless explicitly requested.
 
 # 13. DEP downstream analysis
 
 Primary DEP source:
 
-```text
-High vs Low
-FDR < 0.05
-```
-
-Preferred interpretation:
-
-```text
+``` text
 Long vs Short exposure
+BH FDR < 0.05
 ```
 
 Current DEP count:
 
-```text
+``` text
 256
 ```
 
-Current downstream modules include:
+All 256 are higher in Short exposure / lower in Long exposure.
 
-```text
-DEP characterization
-effect-size summary
-protein clustering
-exposure-pattern analysis
-protein annotation
+Current effect-size counts:
+
+``` text
+FDR < 0.05                      = 256
+FDR < 0.05 and |log2FC| >= 0.5 = 3
+FDR < 0.05 and |log2FC| >= 1   = 0
 ```
 
-Not all downstream modules are equally active.
-
-Current activity status must be read from `FILE_STATUS.md`.
-
----
+Clustering and exposure-pattern classification are downstream
+exploratory descriptions; their activity/acceptance status is controlled
+by `FILE_STATUS.md`.
 
 # 14. Integrated abundance + detection layer
 
-The project now includes an integrated interpretation / figure layer.
+`06d_integrated_results.R` combines already computed abundance and
+detection evidence for interpretation/visualisation and does not refit
+the primary limma model or create a combined significance test.
 
-Primary active integration script:
+Final verified inclusion contract:
 
-```text
-06d_integrated_results.R
+``` text
+N_abundance              = 1434
+N_detection_mother_table = 3817
+N_detection_universe     = 1848
+N_joint                  = 1434
+N_outside_core           = 414
 ```
 
-Its role is to combine already computed abundance and detection evidence for interpretation and visualisation.
-
-It must not refit the locked primary limma analysis.
-
-Important principles:
-
-- retain proteins not jointly evaluable
-- do not convert missing abundance estimates to zero
-- do not merge abundance and detection FDR values into a new significance test
-- keep abundance-only, detection-only, both, neither, and not-jointly-evaluable states explicit
-
----
+This contract is identical across all three categorical contrasts.
 
 # 15. Plotting policy
 
-All active publication-oriented plotting code should follow Nature-style scientific figure principles.
-
-Current plotting rules:
-
-- prefer one figure per output
-- avoid unnecessary multi-panel composites
-- use clean scientific typography
-- use restrained, consistent colour palettes
-- keep labels readable
-- preserve adequate margins and whitespace
-- export editable PDF/SVG where appropriate
-- export high-resolution PNG previews
-- plot meaningful summaries instead of only exporting tables when a visual representation is useful
-- do not alter statistical definitions merely to make a figure look better
-- figure code must remain downstream of the locked statistical analysis unless explicitly stated otherwise
-
-When a Nature-related plotting skill is available, use it for figure-code design.
-
----
+Publication-oriented figures should use clean scientific typography,
+readable labels, restrained palettes, adequate whitespace, editable
+PDF/SVG where appropriate, high-resolution PNG previews, and matching
+source-data exports. Figure aesthetics must not alter statistical
+definitions.
 
 # 16. Code modification policy
 
-For maintenance tasks, the default rule is:
+Do not rerun or redesign locked analyses merely for maintenance. Do not
+modify raw data, mapping files, frozen inputs, or scientific definitions
+without an explicit task.
 
-```text
-MODIFY CODE ONLY
-DO NOT RUN ANALYSIS
-```
+# 17. Persistent R coding rule
 
-Unless explicitly requested, do NOT:
+Never break `[[...]]` indexing. Before finalising R code, check pairing
+of `[[ ]]`, `[ ]`, `( )`, `{ }`, and ensure ggplot `+` is not left as a
+standalone expression.
 
-- execute R analysis scripts
-- execute Python analysis scripts
-- fit models
-- regenerate figures
-- regenerate result tables
-- rerun the whole pipeline
-- modify raw data
-- delete additional scripts
-- archive additional scripts
+# 18. Documentation authority
 
-Static inspection may be used when necessary.
-
-Static syntax checking should only be performed when explicitly requested or when it does not execute the scientific workflow.
-
----
-
-# 17. R coding rule
-
-This is a persistent project-wide rule.
-
-Never break double-bracket indexing.
-
-Correct:
-
-```r
-x[[name]] <- value
-folds_now[[fold_id]]
-pathway_rank[[sample_name]]
-```
-
-Never generate malformed forms that split `[[...]]` across lines.
-
-Before finalising R code, check pairing of:
-
-```text
-[[ ]]
-[ ]
-( )
-{ }
-```
-
-Also check ggplot continuation so that `+` is not left as a standalone expression.
-
----
-
-# 18. Documentation policy
-
-Historical README files are retained as change records.
-
-They are NOT the primary current context source.
-
-Authority is domain-specific:
-
-```text
+``` text
 Scientific / statistical design truth -> PROJECT_CONTEXT.md
 File-role / activity truth           -> FILE_STATUS.md
 Current work-progress truth           -> TASK_CURRENT.md
@@ -712,23 +443,15 @@ Implementation truth                  -> current active source code
 Historical rationale / chronology     -> README files
 ```
 
-If sources conflict, resolve the conflict according to the domain above rather than using one universal priority list.
-
----
-
 # 19. Context-reading rule for Codex
 
 At the beginning of a new task:
 
-1. Read `CODEX_WORKFLOW.md`.
-2. Read `PROJECT_CONTEXT.md`.
-3. Read `FILE_STATUS.md`.
-4. Read `TASK_CURRENT.md`.
-5. Do NOT recursively scan the whole repository.
-6. Do NOT read every historical README.
-7. Inspect only files required by the current `In progress` task.
-8. Read direct dependencies only when necessary.
-9. Deprecated and archived files must not be interpreted as part of the current workflow.
-10. Historical files may be consulted only when the task specifically requires understanding an old decision.
-
-This rule exists to keep long-term project context accurate and to minimise unnecessary context usage.
+1.  Read `CODEX_WORKFLOW.md`.
+2.  Read `PROJECT_CONTEXT.md`.
+3.  Read `FILE_STATUS.md`.
+4.  Read `TASK_CURRENT.md`.
+5.  Do not recursively scan the repository.
+6.  Inspect only files required by the current task and direct
+    dependencies.
+7.  Do not use deprecated/archived scripts to infer current design.

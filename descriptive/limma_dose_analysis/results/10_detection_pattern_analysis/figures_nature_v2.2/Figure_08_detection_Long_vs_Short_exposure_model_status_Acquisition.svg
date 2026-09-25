@@ -24,30 +24,30 @@
 <rect x='0.00' y='0.00' width='518.74' height='340.16' style='stroke-width: 0.78; stroke: #FFFFFF; fill: #FFFFFF;' />
 </g>
 <defs>
-  <clipPath id='cpOTEuMDF8NTA2Ljc4fDQxLjU5fDMxMC43Mg=='>
-    <rect x='91.01' y='41.59' width='415.78' height='269.13' />
+  <clipPath id='cpMTIwLjk3fDUwNi43OHw0MS41OXwzMTAuNzI='>
+    <rect x='120.97' y='41.59' width='385.82' height='269.13' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpOTEuMDF8NTA2Ljc4fDQxLjU5fDMxMC43Mg==)'>
-<rect x='91.01' y='41.59' width='415.78' height='269.13' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<rect x='109.91' y='197.56' width='133.00' height='79.52' style='stroke-width: 0.78; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #3178A5;' />
-<rect x='109.91' y='75.23' width='377.98' height='79.52' style='stroke-width: 0.78; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #3178A5;' />
+<g clip-path='url(#cpMTIwLjk3fDUwNi43OHw0MS41OXwzMTAuNzI=)'>
+<rect x='120.97' y='41.59' width='385.82' height='269.13' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<rect x='138.50' y='197.56' width='123.41' height='79.52' style='stroke-width: 0.78; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #3178A5;' />
+<rect x='138.50' y='75.23' width='350.74' height='79.52' style='stroke-width: 0.78; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #3178A5;' />
 </g>
 <g clip-path='url(#cpMC4wMHw1MTguNzR8MC4wMHwzNDAuMTY=)'>
-<polyline points='91.01,310.72 91.01,41.59 ' style='stroke-width: 0.75; stroke-linecap: square;' />
-<text x='87.42' y='239.83' text-anchor='end' style='font-size: 7.00px; font-family: "Arial";' textLength='56.83px' lengthAdjust='spacingAndGlyphs'>constant detection</text>
-<text x='87.42' y='117.49' text-anchor='end' style='font-size: 7.00px; font-family: "Arial";' textLength='77.46px' lengthAdjust='spacingAndGlyphs'>separation nonfinite MLE</text>
-<polyline points='89.01,237.32 91.01,237.32 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
-<polyline points='89.01,114.99 91.01,114.99 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
-<polyline points='91.01,310.72 506.78,310.72 ' style='stroke-width: 0.75; stroke-linecap: square;' />
-<polyline points='109.91,312.71 109.91,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
-<polyline points='248.16,312.71 248.16,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
-<polyline points='386.41,312.71 386.41,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
-<text x='109.91' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='3.90px' lengthAdjust='spacingAndGlyphs'>0</text>
-<text x='248.16' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='11.69px' lengthAdjust='spacingAndGlyphs'>500</text>
-<text x='386.41' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='15.58px' lengthAdjust='spacingAndGlyphs'>1000</text>
-<text x='298.90' y='328.51' text-anchor='middle' style='font-size: 8.00px; font-family: "Arial";' textLength='52.04px' lengthAdjust='spacingAndGlyphs'>Protein groups</text>
-<text x='91.01' y='31.93' style='font-size: 8.00px; font-family: "Arial";' textLength='210.85px' lengthAdjust='spacingAndGlyphs'>Model status across the &gt;=60% detection-analysis universe</text>
-<text x='91.01' y='17.13' style='font-size: 10.00px; font-weight: bold; font-family: "Arial";' textLength='282.88px' lengthAdjust='spacingAndGlyphs'>Acquisition-date sensitivity model: Long vs Short exposure</text>
+<polyline points='120.97,310.72 120.97,41.59 ' style='stroke-width: 0.75; stroke-linecap: square;' />
+<text x='117.38' y='239.83' text-anchor='end' style='font-size: 7.00px; font-family: "Arial";' textLength='56.83px' lengthAdjust='spacingAndGlyphs'>constant detection</text>
+<text x='117.38' y='117.49' text-anchor='end' style='font-size: 7.00px; font-family: "Arial";' textLength='107.42px' lengthAdjust='spacingAndGlyphs'>full model separation no finite MLE</text>
+<polyline points='118.97,237.32 120.97,237.32 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<polyline points='118.97,114.99 120.97,114.99 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<polyline points='120.97,310.72 506.78,310.72 ' style='stroke-width: 0.75; stroke-linecap: square;' />
+<polyline points='138.50,312.71 138.50,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<polyline points='266.79,312.71 266.79,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<polyline points='395.08,312.71 395.08,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<text x='138.50' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='3.90px' lengthAdjust='spacingAndGlyphs'>0</text>
+<text x='266.79' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='11.69px' lengthAdjust='spacingAndGlyphs'>500</text>
+<text x='395.08' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='15.58px' lengthAdjust='spacingAndGlyphs'>1000</text>
+<text x='313.88' y='328.51' text-anchor='middle' style='font-size: 8.00px; font-family: "Arial";' textLength='52.04px' lengthAdjust='spacingAndGlyphs'>Protein groups</text>
+<text x='120.97' y='31.93' style='font-size: 8.00px; font-family: "Arial";' textLength='210.85px' lengthAdjust='spacingAndGlyphs'>Model status across the &gt;=60% detection-analysis universe</text>
+<text x='120.97' y='17.13' style='font-size: 10.00px; font-weight: bold; font-family: "Arial";' textLength='282.88px' lengthAdjust='spacingAndGlyphs'>Acquisition-date sensitivity model: Long vs Short exposure</text>
 </g>
 </svg>

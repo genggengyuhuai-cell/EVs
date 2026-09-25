@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='518.74pt' height='340.16pt' viewBox='0 0 518.74 340.16'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw1MTguNzR8MC4wMHwzNDAuMTY='>
+    <rect x='0.00' y='0.00' width='518.74' height='340.16' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw1MTguNzR8MC4wMHwzNDAuMTY=)'>
+<rect x='0.00' y='0.00' width='518.74' height='340.16' style='stroke-width: 0.78; stroke: #FFFFFF; fill: #FFFFFF;' />
+</g>
+<defs>
+  <clipPath id='cpMTM4Ljg4fDUwNi43OHw0MS41OXwzMTAuNzI='>
+    <rect x='138.88' y='41.59' width='367.91' height='269.13' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMTM4Ljg4fDUwNi43OHw0MS41OXwzMTAuNzI=)'>
+<rect x='138.88' y='41.59' width='367.91' height='269.13' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<rect x='155.60' y='103.26' width='334.46' height='145.78' style='stroke-width: 0.78; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #3178A5;' />
+</g>
+<g clip-path='url(#cpMC4wMHw1MTguNzR8MC4wMHwzNDAuMTY=)'>
+<polyline points='138.88,310.72 138.88,41.59 ' style='stroke-width: 0.75; stroke-linecap: square;' />
+<text x='135.29' y='178.66' text-anchor='end' style='font-size: 7.00px; font-family: "Arial";' textLength='125.33px' lengthAdjust='spacingAndGlyphs'>age sex absent or below 90pct complete</text>
+<polyline points='136.89,176.15 138.88,176.15 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<polyline points='138.88,310.72 506.78,310.72 ' style='stroke-width: 0.75; stroke-linecap: square;' />
+<polyline points='155.60,312.71 155.60,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<polyline points='246.09,312.71 246.09,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<polyline points='336.59,312.71 336.59,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<polyline points='427.08,312.71 427.08,310.72 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
+<text x='155.60' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='3.90px' lengthAdjust='spacingAndGlyphs'>0</text>
+<text x='246.09' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='11.69px' lengthAdjust='spacingAndGlyphs'>500</text>
+<text x='336.59' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='15.58px' lengthAdjust='spacingAndGlyphs'>1000</text>
+<text x='427.08' y='319.32' text-anchor='middle' style='font-size: 7.00px; font-family: "Arial";' textLength='15.58px' lengthAdjust='spacingAndGlyphs'>1500</text>
+<text x='322.83' y='328.51' text-anchor='middle' style='font-size: 8.00px; font-family: "Arial";' textLength='52.04px' lengthAdjust='spacingAndGlyphs'>Protein groups</text>
+<text x='138.88' y='31.93' style='font-size: 8.00px; font-family: "Arial";' textLength='210.85px' lengthAdjust='spacingAndGlyphs'>Model status across the &gt;=60% detection-analysis universe</text>
+<text x='138.88' y='17.13' style='font-size: 10.00px; font-weight: bold; font-family: "Arial";' textLength='242.90px' lengthAdjust='spacingAndGlyphs'>Age/sex sensitivity model: Long vs Short exposure</text>
+</g>
+</svg>

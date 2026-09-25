@@ -2,322 +2,268 @@
 
 Last updated: 2026-09-24
 
-# Current Task --- Final scientific / output audit
+# Current Task --- Core runtime validation complete / project close-out
 
 ## Status
 
-The controlled runtime-validation phase is substantially complete.
-
-```text
-PYTHON UPSTREAM RUNTIME      = PASS
-ACTIVE R RUNTIME            = SUBSTANTIALLY COMPLETE
-PRIMARY LIMMA                = PASS
-DETECTION MODEL RUNTIME      = PASS
-INTEGRATED RESULTS RUNTIME   = PASS
-DOWNSTREAM DEP RUNTIME       = PASS
-FINAL SCIENTIFIC / OUTPUT QC = IN PROGRESS
+``` text
+PYTHON UPSTREAM RUNTIME            = PASS
+05_limma_dose_analysis.R           = RUNTIME PASS
+06a_limma_core_figures.R           = RUNTIME PASS
+06b_limma_robustness.R             = RUNTIME PASS
+06c_run_replication.R              = RUNTIME PASS
+04_covariate_QC.R                  = RUNTIME PASS
+08_detection_pattern_analysis.R    = FINAL RUNTIME PASS
+06d_integrated_results.R           = FINAL RUNTIME PASS
+09_DEP_characterization.R          = RUNTIME PASS
+DEP_effect_size_summary.R          = RUNTIME PASS
+10_protein_clustering.R            = RUNTIME PASS
+10_dose_pattern_classification.R   = RUNTIME PASS / SCIENTIFIC REVIEW
+FINAL CORE ANALYSIS CONTRACT       = PASS
 ```
 
-Do not rerun already validated modules merely to reconfirm them. The current
-breakpoint is final scientific, methodological, output-contract, and figure/source-data
-audit.
+The active core code/runtime-validation phase is complete. Do not rerun
+completed modules merely to reconfirm them. Future work should begin
+from scientific interpretation, final figure/table selection,
+manuscript-oriented synthesis, or an explicitly reopened analysis
+question.
 
-## Locked scientific definitions --- DO NOT CHANGE
+## Locked scientific contracts
 
-- exposure-defined samples = 515
-- primary quantitative rule = >=70% detection in EACH of Control / Short / Long
-- primary quantitative core = 1434 proteins
-- detection mother table = 3817 proteins
-- detection-analysis universe = 1848 proteins
-- detection-universe rule =
-  `max(Control, Short, Long detection rate) >= 0.60`
-- `<20%` is classification-only and is NOT a detection-universe retention rule
-- detection-model BH family = complete fixed 1848-protein universe per contrast
-- primary abundance model = exposure group + environment
-- primary abundance missing values remain NA; no primary imputation
-- primary limma uses categorical contrasts and BH-adjusted P values
-- formal DEP definition = BH FDR < 0.05
-- effect-size thresholds are characterization only and do not redefine DEP
-- canonical environment display labels = `高海拔` / `湿热`
-- historical English environment keys are internal compatibility identifiers only
-- deprecated continuous 0/1/2 exposure trend remains outside the active workflow
+### Samples and quantitative abundance
 
-## Verified Python upstream
+``` text
+Exposure-defined samples = 515
+Quantitative sets:
+50% = 1935
+60% = 1670
+70% = 1434
+80% = 1214
 
-- `run_all.py` = PASS
-- `normalization_design_diagnostics.py` = PASS
-- `dose_restricted_detection.py` = PASS
-- exposure-defined samples = 515
-- quantitative sets:
-  - 50% = 1935
-  - 60% = 1670
-  - 70% = 1434
-  - 80% = 1214
-- detection mother table = 3817
-- detection-analysis universe = 1848
-- outside detection-analysis universe = 1969
-
-## Verified R runtime
-
-- `05_limma_dose_analysis.R` = PASS
-- `06a_limma_core_figures.R` = PASS
-  - structural output contract PASS
-  - visual QC PASS
-- `06b_limma_robustness.R` = PASS
-  - structural output contract PASS
-  - visual QC PASS
-- `06c_run_replication.R` = PASS
-- `04_covariate_QC.R` = executed without runtime error
-- `08_detection_pattern_analysis.R` = PASS
-- `06d_integrated_results.R` = PASS
-- `09_DEP_characterization.R` = PASS
-- `DEP_effect_size_summary.R` = PASS
-- `10_protein_clustering.R` = runtime PASS
-- `10_dose_pattern_classification.R` = runtime PASS
-
-Runtime PASS does not automatically mean final scientific acceptance.
-
-## Primary abundance checkpoints
-
-Primary quantitative universe:
-
-```text
-1434 proteins
+Primary quantitative universe = 1434
+Primary threshold = >=70% detection in EACH exposure group
+Primary model = abundance ~ exposure group + environment
+Primary contrasts = categorical
+BH FDR threshold = 0.05
 ```
 
-Primary categorical FDR counts:
+Primary abundance results:
 
-```text
-Short exposure vs Control = 14
-Long exposure vs Control  = 0
-Long vs Short exposure    = 256
+``` text
+Short exposure vs Control: FDR < 0.05 = 14
+Long exposure vs Control:  FDR < 0.05 = 0
+Long vs Short exposure:    FDR < 0.05 = 256
 ```
 
-For Long vs Short exposure:
+For Long vs Short exposure, all 256 significant proteins are higher in
+Short exposure / lower in Long exposure.
 
-- DEP = 256 by BH FDR < 0.05
-- Higher in Long = 0
-- Higher in Short = 256
-- median logFC approximately -0.295
-- mean logFC approximately -0.304
+### Detection branch
 
-Effect-size characterization:
+Frozen detection-model universe:
 
-```text
-FDR < 0.05                         = 256
-FDR < 0.05 and |log2FC| >= 0.5    = 3
-FDR < 0.05 and |log2FC| >= 1.0    = 0
+``` text
+max(Control detection rate,
+    Short-exposure detection rate,
+    Long-exposure detection rate) >= 0.60
 ```
 
-These effect-size layers do not redefine DEP.
+Confirmed:
 
-## Detection-analysis runtime checkpoints
-
-Primary detection model, per contrast:
-
-```text
-detection universe          = 1848
-ok                          = 1185
-constant_detection          = 481
-separation_nonfinite_MLE    = 182
-finite P                    = 1185
-finite FDR                  = 1185
+``` text
+Detection mother table = 3817
+Detection universe = 1848
+Proteins outside detection universe remain in the mother table
+<20% is classification-only and never controls universe membership
+BH family = complete fixed 1848-protein detection universe for each contrast
 ```
 
-Primary detection FDR < 0.05:
+Primary detection model status, per contrast:
 
-```text
+``` text
+constant_detection                         = 481
+full_model_separation_no_finite_MLE       = 182
+ok                                         = 1185
+total                                      = 1848
+finite FDR                                 = 1185
+```
+
+Primary detection BH FDR \< 0.05:
+
+``` text
 Short exposure vs Control = 1
 Long exposure vs Control  = 0
 Long vs Short exposure    = 0
 ```
 
-Age/Sex sensitivity:
+Acquisition-matched-primary status reproduces the primary estimability
+structure:
 
-```text
-age_sex_absent_or_below_90pct_complete = 1848 per contrast
+``` text
+481 constant
+182 full-model separation
+1185 ok
 ```
 
-Acquisition-matched primary:
+Acquisition-adjusted model:
 
-```text
-ok                       = 1185
-constant_detection       = 481
-separation_nonfinite_MLE = 182
+``` text
+481 constant
+1367 full-model separation
+0 ok
 ```
 
-Acquisition-adjusted detection sensitivity:
+Interpretation: adding categorical acquisition date causes full-model
+separation across all nonconstant proteins under the prespecified
+standard logistic-MLE framework. Exposure contrasts are therefore not
+reported for those fits. No Firth, penalized, pseudo-count, or other
+fallback estimator is substituted. The matched-primary diagnostic shows
+that this collapse is not caused merely by restriction to the
+acquisition-eligible sample set.
 
-```text
-constant_detection       = 481
-separation_nonfinite_MLE = 1367
-ok                       = 0
+Age/Sex sensitivity was not fitted because Age/Sex were absent or below
+the prespecified completeness requirement. Do not fabricate or force
+this branch.
+
+### Integrated abundance + detection
+
+Final `06d_integrated_results.R` rerun after the final 08 output:
+
+``` text
+N_abundance              = 1434
+N_detection_mother_table = 3817
+N_detection_universe     = 1848
+N_joint                  = 1434
+N_outside_core           = 414
 ```
 
-This acquisition-adjusted branch remains a scientific/design audit item.
-Do not silently replace failed/non-finite MLEs with pseudo-counts, Firth,
-penalized logistic regression, or another estimator without a separate explicit
-methodological decision.
+All three contrasts satisfy this same inclusion contract.
 
-## Integrated-results checkpoint
-
-`06d_integrated_results.R` runtime = PASS.
-
-For each of the three abundance contrasts:
-
-```text
-N_abundance               = 1434
-N_detection_mother_table  = 3817
-N_detection_universe      = 1848
-N_joint                   = 1434
-N_outside_core            = 414
+``` text
+FINAL CORE ANALYSIS CONTRACT = PASS
 ```
 
-The complete 3817-protein mother table remains retained. The detection universe
-is not collapsed to the 1185 estimable proteins. Abundance and detection
-universes remain distinct.
+## Downstream abundance-derived modules
 
-## Downstream DEP checkpoints
+These modules do not depend on the final 08/06d outputs and therefore
+did not require another rerun after the final detection repair.
 
-`09_DEP_characterization.R`:
+### 09_DEP_characterization.R
 
-```text
-DEP = 256
-Higher in Long = 0
-Higher in Short = 256
+``` text
+Long vs Short DEP = 256
+Higher in Long    = 0
+Higher in Short   = 256
 ```
 
-`DEP_effect_size_summary.R`:
+### DEP_effect_size_summary.R
 
-```text
-input proteins = 1434
-FDR DEP = 256
-FDR + |log2FC| >= 0.5 = 3
-FDR + |log2FC| >= 1.0 = 0
+``` text
+FDR < 0.05                         = 256
+FDR < 0.05 and |log2FC| >= 0.5    = 3
+FDR < 0.05 and |log2FC| >= 1.0    = 0
 ```
 
-`10_protein_clustering.R`:
+### 10_protein_clustering.R
 
-```text
-DEP proteins = 256
-expression proteins = 256
-missing values before replacement = 3017
-missing values after replacement = 0
-proteins after z-score = 256
-NA in z matrix = 0
-Inf in z matrix = 0
+Runtime PASS on 256 DEP proteins.
 
+``` text
 Cluster 1 = 131
 Cluster 2 = 108
 Cluster 3 = 5
 Cluster 4 = 12
 ```
 
-Clustering remains exploratory. The project permits `NA -> 0` only for explicitly
-defined clustering/visualisation use; this must never propagate into primary
-limma analysis.
+Clustering remains exploratory. Its clustering-only missing-value
+handling must not propagate to the primary limma analysis.
 
-`10_dose_pattern_classification.R`:
+### 10_dose_pattern_classification.R
 
-```text
+Runtime PASS under the rewritten mutually exclusive v2 classification:
+
+``` text
 Short_peak       = 249
 Long_suppression = 7
 Total            = 256
 ```
 
-Runtime PASS only. This module remains scientifically under REVIEW until the
-exact mutually exclusive classification formulas are audited and accepted.
-Pattern classes do not define statistical significance.
+This module remains `REVIEW`, not fully scientifically locked. Runtime
+success does not by itself constitute final scientific acceptance.
 
 `11_pattern_protein_annotation.R` remains HOLD.
 
-## Current final-audit priorities
+## Environment terminology --- locked
 
-1. Audit `10_protein_clustering.R`.
-   - verify the exact missing-value replacement implementation;
-   - confirm replacement occurs only in the exploratory clustering/visualisation
-     working matrix;
-   - confirm it cannot propagate into primary limma or DEP definition;
-   - review clustering parameters and interpretation.
+Canonical scientific/display labels:
 
-2. Audit `10_dose_pattern_classification.R`.
-   - verify exact mathematical definitions of `Short_peak` and
-     `Long_suppression`;
-   - verify mutual exclusivity and complete intentional classification of all
-     256 DEP;
-   - keep this module exploratory unless explicitly accepted.
-
-3. Audit the acquisition-adjusted detection sensitivity.
-   - explain/document why all 1367 non-constant proteins are
-     `separation_nonfinite_MLE`;
-   - determine whether this is an estimability/design limitation;
-   - do not introduce a replacement estimator without a separate methodological
-     decision.
-
-4. Audit `04_covariate_QC.R`.
-   - runtime completed without error;
-   - output contract and scientific QC remain to be explicitly verified.
-
-5. Complete downstream figure/source-data QC where still pending.
-   - 06a = complete;
-   - 06b = complete;
-   - review applicable outputs from 06c, 08, 06d, clustering, and pattern
-     classification for structural contract, terminology, source-data integrity,
-     and visual quality.
-
-6. Non-blocking code hygiene after scientific audit.
-   - maintain `v21_output()` protection for reproducible output directories;
-   - clean deprecation/package/locale warnings only where doing so does not alter
-     scientific definitions.
-
-## Known non-blocking warnings / limitations
-
-- known R locale startup warnings;
-- package build-version warnings;
-- ggplot2 deprecation warnings in some figure modules;
-- five partial-NA coefficients in the primary fit;
-- Python Matplotlib deprecation warning;
-- Chinese-font handling must remain compatible with canonical display labels.
-
-Do not repair these by changing scientific definitions.
-
-## Explicitly not part of the current task
-
-Do not start:
-
-- Age/Sex expansion beyond currently available/completeness-qualified data
-- platelet/hemolysis formal module
-- processing-time/freeze-thaw expansion
-- QC/reference/technical-replicate redesign
-- Spectronaut normalization redesign
-- GO/KEGG/pathway enrichment
-- STRING
-- pattern annotation
-- repository-wide low/high/dose terminology migration
-- new primary imputation
-- new primary normalization
-- new primary covariates
-- deprecated continuous 0/1/2 exposure trend
-- EV-workstream analyses
-
-These belong in the master audit/backlog unless the project breakpoint explicitly
-moves to one of them.
-
-## Exact breakpoint for the next session
-
-```text
-START HERE:
-
-Runtime validation is substantially complete.
-
-NEXT:
-Audit `10_protein_clustering.R` only.
-
-Then:
-Audit `10_dose_pattern_classification.R`.
-
-Do not rerun 05/06a/06b/06c/08/06d/09/DEP summary/10 modules merely to
-reconfirm successful execution.
-
-Do not alter 1434 / 1848 / 3817 / 70% / 60% / BH / DEP=FDR<0.05 definitions.
+``` text
+高海拔
+湿热
 ```
+
+Historical internal compatibility keys may remain where required:
+
+``` text
+high_stress
+high_temperature
+```
+
+They must not replace the canonical Chinese labels in final user-facing
+environment displays.
+
+## Completed runtime notes retained
+
+-   `06a_limma_core_figures.R`: output contract and visual QC PASS.
+-   `06b_limma_robustness.R`: all five approved sensitivity branches
+    PASS.
+-   `06c_run_replication.R`: acquisition-date-stratified robustness
+    completed.
+-   `04_covariate_QC.R`: executed successfully.
+-   `08_detection_pattern_analysis.R`: final universe parsing,
+    model-status logic, BH family, and outputs verified.
+-   `06d_integrated_results.R`: rerun against final 08 outputs and
+    inclusion contract verified.
+-   Known package-build / locale / plotting warnings remain non-fatal
+    where already documented.
+-   Five partial-NA coefficients in the upstream abundance fit remain
+    documented and were not repaired by changing the scientific model.
+
+## Do not change without explicit reopening
+
+``` text
+1434 primary abundance universe
+3817 detection mother table
+1848 detection-model universe
+414 detection-universe proteins outside the 1434 abundance core
+70% primary quantitative threshold
+60% detection-model retention threshold (>=60% in any exposure group)
+BH adjustment
+DEP = BH FDR < 0.05
+categorical exposure contrasts
+primary missing-value policy
+standard logistic MLE / no penalized fallback policy
+```
+
+Do not restore the deprecated continuous control=0 / low=1 / high=2
+trend route.
+
+## Current breakpoint / next work
+
+``` text
+CORE CODE + RUNTIME VALIDATION = COMPLETE
+```
+
+Next work should not be another blanket rerun. Proceed only with an
+explicit scientific task, such as:
+
+-   final scientific interpretation and result synthesis;
+-   selection/review of manuscript figures and tables;
+-   final review of the exposure-pattern v2 branch before annotation;
+-   a separately authorized biological annotation/enrichment phase;
+-   a separately authorized covariate/preanalytical expansion.
+
+Do not automatically start Age/Sex expansion, platelet/hemolysis
+modules, processing-time/freeze-thaw work, enrichment, STRING, pattern
+annotation, new imputation, new normalization, new primary covariates,
+or EV analyses.

@@ -1,4 +1,4 @@
 "Model_status","N","Status_label"
 "constant_detection",481,"constant detection"
+"full_model_separation_no_finite_MLE",182,"full model separation no finite MLE"
 "ok",1185,"ok"
-"separation_nonfinite_MLE",182,"separation nonfinite MLE"
