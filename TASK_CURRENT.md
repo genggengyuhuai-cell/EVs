@@ -13,6 +13,7 @@ FULL END-TO-END RUN_ALL: PASS 17/17
 FINAL POST-FIX RUN_ALL: PASS 17/17
 FINAL OUTPUT AUDIT: PASS
 CATEGORY 4 DANGEROUS COMPETING SOURCE-OF-TRUTH: NONE
+MISSINGNESS / IMPUTATION ROBUSTNESS ANALYSIS: COMPLETED
 ```
 
 The locked analysis state is 3,817 raw protein groups, 519 raw samples, 3,810 mapped
@@ -31,3 +32,31 @@ verified scientific or software bug, explicit authorization, a version increment
 affected-stage revalidation, and end-to-end reproducibility when required. Cosmetic
 cleanup, deduplication, refactoring, warning suppression, or style improvement alone
 is not sufficient. Prefer downstream modules for new biological analyses.
+
+## Completed post-freeze analysis
+
+`descriptive/missingness_robustness/` is a completed **POST-FREEZE DOWNSTREAM
+ROBUSTNESS ANALYSIS** and is not called by `run_all.py`. D0 reproduced frozen Stage
+07 to floating-point precision using 1,434 proteins, 515 samples, and 46,443 missing
+cells (6.2887%), including exact identity of the 256 Long-vs-Short DEP set.
+
+Missingness had a strong inverse descriptive association with observed abundance
+(mean-abundance Spearman rho approximately -0.739), without establishing MCAR, MAR,
+MNAR, or another missingness mechanism. D1 retained 206/256 canonical DEP and showed
+substantial zero-replacement distortion. D2 retained 227/256; its 29 losses retained
+negative effect direction and had median absolute delta-logFC approximately 0.040,
+so the sensitivity was mainly statistical rather than directional. D3 retained
+254/256, had 100% canonical direction concordance, and retained all 256 Stage 11a
+patterns. The frozen 256 remain canonical.
+
+All seven canonical `Long_suppression` proteins—NRP1, IL7R, ICAM3, BGN, RARRES2,
+HSP90AB1, and CSF1R—are completely observed in all three exposure groups, remain
+`Long_suppression` under D0–D3, retain unchanged Long-vs-Short logFC values, remain
+FDR < 0.05, and were independently assigned to Stage 11b C3.
+
+## Immediate next analytical task
+
+Build the canonical 256-DEP master biological characterization table integrating
+primary statistics, Control/Short/Long profiles, Stage 11a pattern, Stage 11b cluster,
+and missingness-robustness flags. Do not begin this analysis until separately
+authorized.

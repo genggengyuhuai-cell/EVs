@@ -1,0 +1,15 @@
+"Check","Observed","Passed"
+"matrix_rows_1434","1434",TRUE
+"matrix_sample_columns_515","515",TRUE
+"metadata_rows_515","515",TRUE
+"protein_ids_unique","TRUE",TRUE
+"sample_ids_unique","TRUE",TRUE
+"matrix_ids_exactly_match_metadata","TRUE",TRUE
+"missing_cells_46443","46443",TRUE
+"missing_fraction_6.2887pct","0.0628874355",TRUE
+"all_observed_values_finite","TRUE",TRUE
+"canonical_rows_1434_unique","TRUE",TRUE
+"canonical_dep_rows_256_unique","TRUE",TRUE
+"canonical_dep_equals_stage07_fdr","TRUE",TRUE
+"exposure_counts_153_186_176","153/186/176",TRUE
+"all_proteins_detection_ge_0.70_each_group","TRUE",TRUE

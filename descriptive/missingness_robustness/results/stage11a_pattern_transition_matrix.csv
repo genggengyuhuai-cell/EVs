@@ -1,0 +1,12 @@
+"Method","D0_Pattern","Sensitivity_Pattern","Freq"
+"D1","Long_suppression","Long_suppression",7
+"D1","Short_peak","Long_suppression",5
+"D1","Short_peak","Ordered_decrease",6
+"D1","Short_peak","Short_elevation_plateau",1
+"D1","Short_peak","Short_peak",237
+"D2","Long_suppression","Long_suppression",7
+"D2","Short_peak","Long_suppression",5
+"D2","Short_peak","Ordered_decrease",1
+"D2","Short_peak","Short_peak",243
+"D3","Long_suppression","Long_suppression",7
+"D3","Short_peak","Short_peak",249

@@ -1,0 +1,62 @@
+POST-FREEZE MISSINGNESS ROBUSTNESS ANALYSIS
+Completed: 2026-09-25 08:07:28
+Preflight: PASS
+D0 reproduction: PASS
+D0 DEP: 256; exact canonical set: TRUE
+D0 maximum absolute differences:
+logFC = 4.996004e-16
+AveExpr = 4.973799e-14
+t = 5.329071e-15
+P.Value = 7.216450e-16
+adj.P.Val = 9.992007e-16
+B = 6.217249e-14
+Abundance-missingness Spearman correlations:
+Overall All Observed_mean rho=-0.739198
+Overall All Observed_median rho=-0.736533
+Group_specific Control Observed_mean rho=-0.703440
+Group_specific Control Observed_median rho=-0.697480
+Group_specific Long Observed_mean rho=-0.735989
+Group_specific Long Observed_median rho=-0.733108
+Group_specific Short Observed_mean rho=-0.715528
+Group_specific Short Observed_median rho=-0.714719
+Robustness summary:
+ Method N_tested N_FDR_lt_0.05 Pearson_logFC_with_D0 Spearman_logFC_with_D0
+     D1     1434           264             0.4969071              0.5532057
+     D2     1434           310             0.7816876              0.8111269
+     D3     1434           294             0.9760990              0.9788863
+ Median_absolute_delta_logFC P95_absolute_delta_logFC
+                 0.062203607                0.5649281
+                 0.031358840                0.2612721
+                 0.008073348                0.0808395
+ Maximum_absolute_delta_logFC Rank_correlation Canonical_256_retained
+                    1.2669505        0.7595059                    206
+                    0.7454901        0.8627786                    227
+                    0.1853634        0.9591211                    254
+ Canonical_256_lost Noncanonical_newly_FDR_lt_0.05 DEP_set_Jaccard
+                 50                             58       0.6560510
+                 29                             83       0.6696165
+                  2                             40       0.8581081
+ Sign_concordance_logFC
+              0.8688982
+              0.8940028
+              0.9442120
+Canonical 256 stability:
+ Method   N Direction_concordance Pearson_logFC Spearman_logFC
+     D1 256             0.9960938     0.4693136      0.6879048
+     D2 256             1.0000000     0.6852508      0.8004499
+     D3 256             1.0000000     0.9677880      0.9631416
+ Median_absolute_delta_logFC P95_absolute_delta_logFC FDR_retention_count
+                           0               0.43626879                 206
+                           0               0.20247437                 227
+                           0               0.03617001                 254
+ FDR_retention_percent Rank_stability
+              80.46875      0.6241274
+              88.67188      0.6966347
+              99.21875      0.9344580
+Stage 11a D0: Short_peak=249; Long_suppression=7
+Stage 11a stability:
+ Method Retained Changed
+     D1      244      12
+     D2      250       6
+     D3      256       0
+Warnings/errors: none raised to completion.

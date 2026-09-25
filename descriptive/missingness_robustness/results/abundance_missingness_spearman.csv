@@ -1,0 +1,9 @@
+"Scope","Exposure","Abundance","Spearman_rho","N"
+"Overall","All","Observed_mean",-0.739198325814215,1434
+"Overall","All","Observed_median",-0.73653294543544,1434
+"Group_specific","Control","Observed_mean",-0.703440160042696,1434
+"Group_specific","Control","Observed_median",-0.697480265046781,1434
+"Group_specific","Long","Observed_mean",-0.735989149732235,1434
+"Group_specific","Long","Observed_median",-0.73310750389154,1434
+"Group_specific","Short","Observed_mean",-0.71552845423835,1434
+"Group_specific","Short","Observed_median",-0.714718757324861,1434

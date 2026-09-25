@@ -140,3 +140,10 @@ when required. Cosmetic cleanup, code deduplication, refactoring, warning suppre
 or style improvement alone is not sufficient reason to modify frozen v1.0 analytical
 source. New biological analyses should preferentially be implemented as downstream
 modules rather than by modifying the frozen primary pipeline.
+
+## H. Optional post-freeze module
+
+`descriptive/missingness_robustness/` is a completed optional **POST-FREEZE
+DOWNSTREAM ROBUSTNESS ANALYSIS**. It is not part of the canonical Stage 01–12 / 17-step
+execution order and is not called by `run_all.py`. Its sensitivity results do not
+replace or redefine the frozen primary analysis or canonical 256 DEP set.
