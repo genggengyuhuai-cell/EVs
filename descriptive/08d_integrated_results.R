@@ -197,6 +197,10 @@ for (contrast in names(CONTRAST_LABELS)) {
                 sd(Log2_abundance[is.finite(Log2_abundance)]) / sqrt(sum(is.finite(Log2_abundance))) else NA_real_, .groups = "drop")
         for (i in seq_along(profile_ids)) {
         id <- profile_ids[i]
+        display_label <- PROTEIN_ANNOTATION$Display_label[
+            match(id, PROTEIN_ANNOTATION$PG.ProteinGroups)
+        ]
+        if (is.na(display_label) || !nzchar(trimws(display_label))) display_label <- id
         one_protein <- means[means$Protein == id, , drop = FALSE]
         p_profile <- ggplot(one_protein, aes(Exposure, Mean, group = Protein)) +
             geom_line(linewidth = 0.4, colour = "#595959", na.rm = TRUE) +
@@ -204,7 +208,7 @@ for (contrast in names(CONTRAST_LABELS)) {
             geom_point(aes(colour = Exposure), size = 2, na.rm = TRUE) +
             scale_colour_manual(values = setNames(EXPOSURE_COLORS, unname(EXPOSURE_LABELS))) + v21_theme() +
             theme(axis.text.x = element_text(angle = 25, hjust = 1), legend.position = "none") +
-            labs(x = NULL, y = "Observed mean log2 abundance +/- SE", title = paste(title, id, sep = ": "),
+            labs(x = NULL, y = "Observed mean log2 abundance +/- SE", title = paste(title, display_label, sep = ": "),
                  subtitle = "Descriptive unadjusted profiles; categorical connections, not longitudinal trajectories")
         v21_save(p_profile, out, paste0(figure_stem, "_single_protein_profile_", sprintf("%02d", i), "_", v22_slug(id)),
                   one_protein, height_mm = 125)

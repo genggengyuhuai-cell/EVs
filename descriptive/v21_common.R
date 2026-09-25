@@ -34,10 +34,18 @@ v21_match <- function(reference_ids, other, label, exact = TRUE) {
         !all(reference_ids %in% other$UniqueSampleID)) stop("Sample-ID mismatch: ", label)
     other[match(reference_ids, other$UniqueSampleID), , drop = FALSE]
 }
-v21_output <- function(path) {
-    if (dir.exists(path) && length(list.files(path, all.files = TRUE, no.. = TRUE)))
-        stop("Output directory is non-empty; preserve it and choose a new destination: ", path)
+v21_output <- function(path, replace = TRUE) {
+    # Callers must pass a directory wholly owned by the current analysis stage.
+    # Generated contents are deterministically replaced at the canonical path.
+    if (file.exists(path) && !dir.exists(path))
+        stop("Expected a generated-output directory but found a file: ", path)
+    if (dir.exists(path) && isTRUE(replace)) {
+        removed <- unlink(path, recursive = TRUE, force = TRUE)
+        if (removed != 0L || dir.exists(path))
+            stop("Could not replace stage-owned generated-output directory: ", path)
+    }
     dir.create(path, recursive = TRUE, showWarnings = FALSE)
+    if (!dir.exists(path)) stop("Could not create generated-output directory: ", path)
     path
 }
 v21_write <- function(data, path) write.csv(data, path, row.names = FALSE, na = "")

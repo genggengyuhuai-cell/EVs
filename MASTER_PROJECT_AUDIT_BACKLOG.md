@@ -1,29 +1,30 @@
 # Master project audit backlog
 
-## Next phase: manual clean regeneration and validation
+## Current audit state
 
-Status: **NOT YET STARTED**.
+Analytical pipeline version: **v1.0**. Status: **FROZEN**.
 
 ```text
-01 → inspect
-02 → inspect
-03 → inspect
-04 → inspect
-05 → inspect
-06 → inspect
-07 → inspect
-08a/b/c/d → inspect
-09 → inspect
-10a/b → inspect
-11a/b → inspect
-12 → inspect
-run_all.py LAST
+ANALYTICAL PIPELINE VERSION: v1.0
+STATUS: FROZEN
+MANUAL STAGE VALIDATION: PASS
+FULL END-TO-END RUN_ALL: PASS 17/17
+FINAL POST-FIX RUN_ALL: PASS 17/17
+FINAL OUTPUT AUDIT: PASS
+CATEGORY 4 DANGEROUS COMPETING SOURCE-OF-TRUTH: NONE
 ```
 
 For actual dependency safety, Stage 09 must run before 08d because 08d consumes its
 results; numbering does not imply adjacent dependencies. `descriptive/RUN_ORDER.md`
 contains the exact manual sequence.
 
-Final future item: **Clean end-to-end reproducibility test from rawdata using
-`run_all.py`** — **NOT YET PERFORMED**. It may run only after all individual stages
-have been manually executed and inspected.
+Reasonable regression checks and downstream derivations are not competing sources of
+truth and should not be removed merely to eliminate duplicated calculations.
+
+There are no remaining validation items for the v1.0 freeze. Stages 01–12 constitute
+the frozen v1.0 analytical pipeline. Modification requires a verified scientific or
+software bug, explicit authorization, a version increment, affected-stage
+revalidation, and end-to-end reproducibility when required. Cosmetic cleanup, code
+deduplication, refactoring, warning suppression, or style improvement alone is not a
+sufficient reason to modify frozen source. New biological analyses should
+preferentially be implemented as downstream modules.

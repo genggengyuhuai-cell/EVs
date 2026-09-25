@@ -7,6 +7,7 @@ from pathlib import Path
 import hashlib
 import importlib.metadata
 import json
+import shutil
 from datetime import datetime, timezone
 
 import numpy as np
@@ -45,6 +46,17 @@ def clean_header(value):
     return text[:-2] if text.endswith(".0") else text
 
 
+def remove_owned_output(path):
+    """Remove only an exact Stage 05-owned generated path."""
+    path = Path(path)
+    if path.parent.resolve() != HERE.resolve():
+        raise ValueError(f"Refusing to remove output outside Stage 05 directory: {path}")
+    if path.is_symlink() or path.is_file():
+        path.unlink()
+    elif path.is_dir():
+        shutil.rmtree(path)
+
+
 def classify_rates(rates, target, other):
     """Specific: one high, both others low; enriched: two high, third low.
 
@@ -78,9 +90,11 @@ def main():
     for path in paths.values():
         if not path.is_file():
             raise FileNotFoundError(path)
-    out = HERE / "detection_pattern"
-    if out.exists() and any(out.iterdir()):
-        raise FileExistsError(f"Preserve existing outputs; use a new destination: {out}")
+    canonical_out = HERE / "detection_pattern"
+    out = HERE / ".detection_pattern_stage05_building"
+    # Build separately so an existing canonical result is preserved if generation
+    # fails. The staging directory is also exclusively owned by this helper.
+    remove_owned_output(out)
     audit = json.loads(paths["audit"].read_text(encoding="utf-8-sig"))
     for key in ("source", "mapping"):
         path = paths[key]
@@ -220,6 +234,9 @@ def main():
         "No proteins dropped by the quantitative 70% filter. Specific is operational, not absolute uniqueness.\n"
         "Sparse means every group is below 20%; moderate/mixed rates are Other_unbalanced.\n"
         "Neither absence nor zero binary detection establishes biological absence.\n", encoding="utf-8")
+    # Commit the complete deterministic build to the canonical Stage 05 path.
+    remove_owned_output(canonical_out)
+    out.replace(canonical_out)
 
 
 if __name__ == "__main__":

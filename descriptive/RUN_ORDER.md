@@ -71,11 +71,11 @@ requires Stage 09 and therefore is run after it despite its filename.
 | 08b | `08b_limma_robustness.R` | 07 | primary and sensitivity limma tables | robustness figures/tables |
 | 08c | `08c_run_replication.R` | 05, 07 | primary expression/metadata and primary limma tables | run-replication fits/tables/figures |
 | 09 | `09_detection_pattern_analysis.R` | 05 | binary matrix, detection metadata/rates/membership | logistic-model detection results |
-| 08d | `08d_integrated_results.R` | 05, 07, 09 | abundance results/fit/expression plus detection results/rates | integrated abundance/detection figures and tables |
+| 08d | `08d_integrated_results.R` | 05, 07, 09 | abundance results/fit/expression plus detection results/rates | integrated abundance/detection figures and tables; individual-protein titles use canonical `Display_label` |
 | 10a | `10a_DEP_characterization.R` | 07 | primary Long-vs-Short limma table | DEP tables and characterization figures |
 | 10b | `10b_DEP_effect_size_summary.R` | 07 | primary Long-vs-Short limma table | effect-size summaries and figures |
 | 11a | `11a_dose_pattern_classification.R` | 05, 10a | DEP table, primary expression, metadata | descriptive three-group pattern tables/figures |
-| 11b | `11b_protein_clustering.R` | 05, 10a | DEP table, primary expression, metadata | clustering tables/figures |
+| 11b | `11b_protein_clustering.R` | 05, 10a | DEP table, primary expression, metadata | exploratory clustering of z-scored observed three-group response profiles; no sample-level imputation |
 | 12 | `12_pattern_protein_annotation.R` | 01, 11a | canonical annotation and Stage 11a pattern table | deterministically annotated pattern results |
 
 ## E. Manual execution commands
@@ -104,10 +104,39 @@ Rscript --vanilla 12_pattern_protein_annotation.R
 
 ## F. Validation rule
 
-> During the current validation phase, execute exactly one stage at a time and inspect its outputs before proceeding.
+Manual stage validation has passed. The locked core state is 3,817 raw protein groups,
+519 raw samples, 3,810 mapped gene symbols plus 7 fallback/unmapped labels, 515
+dose-defined samples, 1,434 primary quantitative proteins, approximately 6.29%
+primary residual missingness, and 256 DEPs. The primary threshold is at least 70%
+detection in each exposure group. Primary input is log2 only; missing values
+remain `NA`, primary imputation is none, primary `NA -> 0` is not used, and median
+normalization is sensitivity-only.
+
+Stage 11a remains the canonical rule-based classification (`Short_peak = 249`,
+`Long_suppression = 7`). Stage 11b is exploratory unsupervised response-profile
+clustering using the 256 × 3 observed Control/Short/Long group-mean matrix followed by
+protein-wise z-scoring (`C1 = 130`, `C2 = 96`, `C3 = 7`, `C4 = 23`), with no
+sample-level imputation. All 7 `Long_suppression` proteins map to C3; the 249
+`Short_peak` proteins map to C1/C2/C4 as 130/96/23. K-means K=2–6 is
+sensitivity-only and no optimal biological K is claimed.
 
 ## G. `run_all.py`
 
-> `run_all.py` is reserved for the final end-to-end reproducibility test after all individual stages have been manually validated.
+```text
+ANALYTICAL PIPELINE VERSION: v1.0
+STATUS: FROZEN
+MANUAL STAGE VALIDATION: PASS
+FULL END-TO-END RUN_ALL: PASS 17/17
+FINAL POST-FIX RUN_ALL: PASS 17/17
+FINAL OUTPUT AUDIT: PASS
+CATEGORY 4 DANGEROUS COMPETING SOURCE-OF-TRUTH: NONE
+```
 
-It has not been executed and is not runtime validated.
+Stages 01–12 constitute the frozen v1.0 analytical pipeline. Do not modify frozen
+analytical source unless a verified scientific or software bug is identified, the
+modification is explicitly authorized, the analytical version is incremented,
+affected stages are revalidated, and end-to-end reproducibility is re-established
+when required. Cosmetic cleanup, code deduplication, refactoring, warning suppression,
+or style improvement alone is not sufficient reason to modify frozen v1.0 analytical
+source. New biological analyses should preferentially be implemented as downstream
+modules rather than by modifying the frozen primary pipeline.

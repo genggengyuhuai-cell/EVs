@@ -187,18 +187,15 @@ DIAGNOSTIC_DIR <- file.path(
     "diagnostics"
 )
 
-for (directory in c(
-    OUTPUT_DIR,
-    RESULT_DIR,
-    ROBUSTNESS_DIR,
-    DIAGNOSTIC_DIR
-)) {
+for (directory in c(OUTPUT_DIR, RESULT_DIR)) {
     dir.create(
         directory,
         recursive = TRUE,
         showWarnings = FALSE
     )
 }
+ROBUSTNESS_DIR <- v21_output(ROBUSTNESS_DIR)
+DIAGNOSTIC_DIR <- v21_output(DIAGNOSTIC_DIR)
 
 
 # ============================================================
@@ -734,11 +731,7 @@ run_limma_contrasts <- function(
         output_subdir
     )
 
-    dir.create(
-        output_path,
-        recursive = TRUE,
-        showWarnings = FALSE
-    )
+    output_path <- v21_output(output_path)
 
     fit <- lmFit(
         expression_matrix,

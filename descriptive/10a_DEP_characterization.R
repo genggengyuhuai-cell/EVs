@@ -32,6 +32,7 @@ get_script_dir <- function() {
 }
 
 ROOT_DIR <- get_script_dir()
+source(file.path(ROOT_DIR, "v21_common.R"))
 
 
 INPUT <- file.path(
@@ -51,11 +52,7 @@ OUTDIR <- file.path(
 )
 
 
-dir.create(
-    OUTDIR,
-    recursive=TRUE,
-    showWarnings=FALSE
-)
+OUTDIR <- v21_output(OUTDIR)
 
 
 
@@ -255,7 +252,6 @@ write.csv(
 print(summary)
 
 # Standalone displays of the existing DEP tables; ranking is unchanged.
-source(file.path(ROOT_DIR, "v21_common.R"))
 PROTEIN_ANNOTATION <- v21_annotation(ROOT_DIR)
 DEP <- v21_annotate(DEP, PROTEIN_ANNOTATION)
 v21_packages(c("ggplot2", "svglite", "ragg"))

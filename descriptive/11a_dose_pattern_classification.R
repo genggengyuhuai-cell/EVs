@@ -99,8 +99,8 @@ pattern_df$adj.P.Val <- dep$adj.P.Val
 pattern_df$Pattern_version <- rep("2.0", nrow(pattern_df))
 pattern_df$Tolerance_log2 <- rep(tol, nrow(pattern_df))
 pattern_summary <- count(pattern_df, Pattern, name = "n")
-dir.create(RESULT_DIR, recursive = TRUE, showWarnings = FALSE)
-dir.create(FIG_DIR, recursive = TRUE, showWarnings = FALSE)
+RESULT_DIR <- v21_output(RESULT_DIR)
+FIG_DIR <- v21_output(FIG_DIR)
 write.csv(pattern_df, file.path(RESULT_DIR, "DEP_three_group_pattern.csv"), row.names = FALSE)
 write.csv(pattern_summary, file.path(RESULT_DIR, "DEP_pattern_summary.csv"), row.names = FALSE)
 writeLines(c(

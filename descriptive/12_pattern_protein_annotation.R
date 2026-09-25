@@ -33,7 +33,7 @@ dep <- v21_annotate(dep, annotation)
 dep <- dep[, c("PG.ProteinGroups", "Gene_symbol", "Display_label",
                setdiff(names(dep), c("PG.ProteinGroups", "Gene_symbol", "Display_label"))), drop = FALSE]
 
-dir.create(RESULT_DIR, recursive = TRUE, showWarnings = FALSE)
+RESULT_DIR <- v21_output(RESULT_DIR)
 v21_write(dep, file.path(RESULT_DIR, "01_DEP_protein_annotation.csv"))
 if ("Pattern" %in% names(dep)) {
     v21_write(dplyr::count(dep, Pattern, name = "N_proteins"),

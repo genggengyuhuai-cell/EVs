@@ -40,6 +40,7 @@ get_script_dir <- function() {
 }
 
 ROOT_DIR <- get_script_dir()
+source(file.path(ROOT_DIR, "v21_common.R"))
 
 
 RESULT_FILE <- file.path(
@@ -59,11 +60,7 @@ OUTPUT_DIR <- file.path(
 )
 
 
-dir.create(
-    OUTPUT_DIR,
-    recursive=TRUE,
-    showWarnings=FALSE
-)
+OUTPUT_DIR <- v21_output(OUTPUT_DIR)
 
 
 
@@ -265,7 +262,6 @@ print(
 )
 
 # Display existing threshold layers; no refitting or threshold changes.
-source(file.path(ROOT_DIR, "v21_common.R"))
 v21_packages(c("ggplot2", "tidyr", "svglite", "ragg"))
 library(ggplot2)
 FIG_DIR <- file.path(OUTPUT_DIR, "figures_nature_v2.2")

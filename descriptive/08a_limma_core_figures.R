@@ -135,7 +135,7 @@ FIG_DIR <- file.path(
     "06a_core_v2.2"
 )
 
-# New versioned destination; refuse to overwrite any historical or partial run.
+# This stage owns the versioned figure directory and replaces it on rerun.
 FIG_DIR <- v21_output(FIG_DIR)
 
 
