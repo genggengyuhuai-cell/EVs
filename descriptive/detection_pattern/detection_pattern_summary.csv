@@ -1,7 +1,0 @@
-Target_threshold,Detection_pattern,N_proteins
-0.6,Broad_detection,1670
-0.6,Other_unbalanced,1367
-0.6,Sparse,780
-0.7,Broad_detection,1434
-0.7,Other_unbalanced,1603
-0.7,Sparse,780

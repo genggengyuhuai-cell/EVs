@@ -391,9 +391,33 @@ FDR < 0.05 and |log2FC| >= 0.5 = 3
 FDR < 0.05 and |log2FC| >= 1   = 0
 ```
 
-Clustering and exposure-pattern classification are downstream
-exploratory descriptions; their activity/acceptance status is controlled
-by `FILE_STATUS.md`.
+Clustering remains an exploratory downstream description.
+
+The rewritten exposure-pattern v2 module has completed runtime and scientific
+review. It operates on the same 256 primary Long-vs-Short DEP and classifies
+unadjusted observed three-group means descriptively:
+
+``` text
+Short_peak        = 249
+Long_suppression  = 7
+Total             = 256
+```
+
+These pattern labels are descriptive profile metadata only. They are not
+independent inferential discoveries, do not replace the primary limma
+contrasts, and must not be interpreted as separate significance tests.
+The canonical current pattern output is
+`10_dose_pattern_classification_v2`; the historical Low/High output directory
+is not the current source.
+
+`11_pattern_protein_annotation.R` has completed final runtime validation on
+all 256 primary DEP. UniProt mapping is 256/256 (100%), with zero unmapped
+proteins. Annotation does not filter the DEP universe by Pattern.
+
+The next biological phase should begin with protein-level interpretation of
+the annotated 256 DEP. Formal functional enrichment requires an explicit
+foreground/background contract before execution; the tested-protein
+background must not be silently replaced by the whole human proteome.
 
 # 14. Integrated abundance + detection layer
 

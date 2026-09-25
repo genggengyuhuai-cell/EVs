@@ -44,27 +44,32 @@ The plasma exposure-proteomics pipeline has passed the main implementation/stati
 
 The detection-analysis universe correction has also been implemented and statically reviewed.
 
-The current project breakpoint is therefore:
+The controlled runtime-validation and core scientific-validation stages
+have been completed for the current plasma exposure-proteomics pipeline.
+
+The current project breakpoint is:
 
 ```text
-PHASE 2 — CONTROLLED RUNTIME VALIDATION
+PHASE 5 — BIOLOGICAL DOWNSTREAM ANALYSIS
+CURRENT SUBSTEP — protein-level biological audit before formal enrichment
 ```
 
 The immediate sequence is:
 
 ```text
-run_full_upstream.py
+review annotated 256 primary Long-vs-Short DEP
         ↓
-verify Python outputs/contracts
+compare top-FDR and top-effect-size proteins
         ↓
-prepare R output destinations safely
+identify recurring protein families / biological themes
         ↓
-run_active_r.R fail-fast
+lock enrichment foreground/background/database contract
         ↓
-scientific validation
+run formal enrichment / network analyses only after that contract is explicit
 ```
 
-Do not continue redesigning scientific code before runtime validation unless a concrete runtime defect requires a targeted repair.
+Do not reopen validated core statistical modules without a concrete inconsistency
+or an explicitly reopened scientific question.
 
 ---
 
@@ -555,59 +560,67 @@ UMAP remains supplementary; it does not replace PCA.
 
 ---
 
-# 10. Exposure-pattern classification
+# 10. Exposure-pattern classification and annotation
 
 ## 10.1 `10_dose_pattern_classification.R`
 
 Status:
 
 ```text
-SCIENTIFIC REVIEW REQUIRED
+DONE / SCIENTIFICALLY ACCEPTED AS DESCRIPTIVE-EXPLORATORY
 ```
 
-Current state:
-
-- v2 code exists;
-- static code is available;
-- runtime validation is pending;
-- scientific acceptance is explicitly pending.
-
-Historical run produced approximately:
+Final v2 runtime:
 
 ```text
-High_suppression = 7
-Low_peak         = 249
+Short_peak        = 249
+Long_suppression  = 7
+Total             = 256
 ```
 
-These results were explicitly judged unsatisfactory and must not be treated as accepted biology.
+The classification is mutually exclusive and exhaustive for the 256 primary
+Long-vs-Short abundance DEP. Review of the actual three-group effect
+distribution showed that the dominant Short-high shape is not merely an
+artifact of the 0.05 descriptive tolerance.
 
-Required future action:
+Scientific qualification is locked: these labels describe unadjusted observed
+group-mean profiles. They are not independent inferential discoveries and do
+not replace the primary limma contrasts.
 
-1. first complete runtime validation of the main pipeline;
-2. inspect the actual Long-vs-Short DEP abundance profiles;
-3. re-evaluate whether the current mutually exclusive pattern definitions answer the intended biological question;
-4. distinguish a coding defect from a scientifically unsuitable classification rule;
-5. only after acceptance should downstream annotation consume the pattern schema.
+Canonical output directory:
 
-Do not call this module complete merely because code executes.
+```text
+10_dose_pattern_classification_v2
+```
 
----
+The historical `10_dose_pattern_classification/` Low/High output is retained
+only as historical/compatibility material and must not be used as the current
+pattern source.
 
 ## 10.2 `11_pattern_protein_annotation.R`
 
 Status:
 
 ```text
-HOLD
+DONE / FINAL RUNTIME PASS
 ```
 
-Reason:
+Final mapping QC:
 
-It depends on scientific acceptance of the upstream pattern-classification schema.
+```text
+Input_DEP                    = 256
+UniProt_mapped               = 256
+UniProt_unmapped             = 0
+UniProt_mapping_rate_percent = 100
+```
 
-Do not expand, repair for new schema, or activate it yet unless the pattern module is accepted first.
+All 256 primary Long-vs-Short DEP are annotated and retained. Pattern v2 is
+metadata only and does not filter the inferential universe. Top statistical
+and effect-size outputs are ranked from the primary limma results.
 
----
+The next step is not further pattern reclassification. It is protein-level
+biological interpretation of the annotated 256-protein set, followed by an
+explicit enrichment-design contract.
 
 # 11. Preanalytical / methodological QC backlog
 
@@ -856,29 +869,34 @@ Future reviews must ensure clustering-specific preprocessing never leaks into pr
 Status:
 
 ```text
-PLANNED — AFTER SCIENTIFIC VALIDATION
+CURRENT — PROTEIN-LEVEL AUDIT FIRST; FORMAL ENRICHMENT CONTRACT NEXT
 ```
 
-Potential modules:
+Completed prerequisite:
 
-- protein annotation;
-- STRING/PPI;
-- GO;
-- KEGG;
-- pathway enrichment;
-- biological narrative integration.
+- protein annotation of all 256 primary Long-vs-Short DEP;
+- UniProt mapping 256/256 (100%).
 
-These should not begin merely because a DEP table exists.
+Current immediate work:
 
-Prerequisites:
+- inspect the full annotated 256-protein set;
+- compare top-FDR and top-effect-size proteins;
+- identify recurring protein families and plausible functional themes.
 
-1. runtime-valid primary pipeline;
-2. scientifically accepted result set(s);
-3. explicit foreground definition;
-4. defensible tested-protein background/universe;
-5. clear separation of abundance-derived and detection-derived candidate sets where appropriate.
+Before GO/Reactome/KEGG/STRING/PPI is executed, explicitly lock:
 
-Do not reuse enrichment universes or candidate-selection rules from a separate EV analysis without explicit justification.
+1. foreground definition;
+2. defensible tested-protein background/universe;
+3. identifier mapping;
+4. database(s) and versions where available;
+5. multiple-testing procedure;
+6. handling of overlapping/redundant terms;
+7. separation of abundance-derived and detection-derived candidate sets.
+
+The whole human proteome must not be silently used as the enrichment
+background when the scientific tested universe is narrower. Do not reuse
+enrichment universes or candidate-selection rules from the separate EV
+workstream without explicit justification.
 
 ---
 
@@ -929,14 +947,11 @@ Do not treat code/results from one workstream as evidence that an analogous task
 
 # 19. Items explicitly not to do now
 
-Until runtime and primary scientific validation are complete, do not expand the current plasma exposure pipeline into:
+At the current breakpoint, do not automatically expand into unrelated
+methodological branches:
 
 ```text
 Age/Sex modelling
-GO/KEGG
-STRING
-new pathway analysis
-pattern annotation
 platelet/hemolysis formal module
 technical-replicate redesign
 Spectronaut normalization redesign
@@ -946,6 +961,9 @@ new imputation strategy
 new primary covariates
 continuous 0/1/2 exposure trend
 ```
+
+GO/Reactome/KEGG/STRING/PPI are now eligible downstream tasks only after the
+foreground/background/database contract is explicitly locked.
 
 A runtime error may justify a minimal repair; it does not justify reopening unrelated scientific design.
 
@@ -1072,65 +1090,57 @@ DONE / FROZEN
 ## Phase 1 — Pipeline implementation and static maintenance
 
 ```text
-DONE at code/static level
+DONE
 ```
 
 ## Phase 1.5 — Detection scientific-definition correction
 
 ```text
-DONE at code/static level
-RUNTIME PENDING
+DONE
 ```
 
 ## Phase 2 — Controlled runtime validation
 
 ```text
-CURRENT
+DONE
 ```
 
 ## Phase 3 — Scientific validation
 
 ```text
-PENDING
+DONE for current core abundance/detection/integration pipeline
 ```
 
-Includes:
-
-- quantitative results;
-- detection results;
-- integration;
-- robustness;
-- PCA/UMAP;
-- clustering;
-- pattern-classification reassessment.
+Includes completed review of abundance, detection, integration, robustness,
+PCA/UMAP outputs, clustering, and exposure-pattern v2.
 
 ## Phase 4 — Methodological / QC expansion
 
 ```text
-PLANNED
+PLANNED / DEFERRED
 ```
 
-Includes:
-
-- platelet/hemolysis/preanalytical QC;
-- processing/holding-time analysis;
-- freeze–thaw if metadata exist;
-- QC/reference/technical-replicate assessment;
-- Spectronaut upstream normalization confirmation;
-- Age/Sex where justified.
+Includes platelet/hemolysis/preanalytical QC, processing/holding-time analysis,
+freeze-thaw if metadata exist, QC/reference/technical-replicate assessment,
+Spectronaut upstream normalization confirmation, and Age/Sex where justified.
 
 ## Phase 5 — Biological downstream analysis
 
 ```text
-PLANNED
+CURRENT
 ```
 
-Includes:
+Current order:
 
-- annotation;
-- STRING;
-- GO/KEGG/pathways;
-- manuscript-level biological synthesis.
+```text
+protein-level audit of annotated 256 DEP
+        ↓
+lock enrichment design
+        ↓
+GO / Reactome / KEGG / STRING/PPI as justified
+        ↓
+manuscript-level biological synthesis
+```
 
 ## EV workstream
 
@@ -1144,55 +1154,46 @@ Do not let its analyses redefine the plasma exposure-proteomics pipeline.
 
 # 22. Next exact breakpoint
 
-The next active operation is not another broad code audit.
-
-It is:
+The next active operation is:
 
 ```text
-RUN:
-descriptive/run_full_upstream.py
+READ / REVIEW:
+11_pattern_protein_annotation/
+    01_DEP_protein_annotation.csv
+    03_DEP_top30_FDR.csv
+    04_DEP_top30_effect_size.csv
 ```
 
-Then verify:
+Then establish:
 
 ```text
-515 exposure-defined samples
-50/60/70/80 quantitative sets
-historical/expected 1434 primary >=70% core
-actual detection-analysis-universe size
-mother-table completeness
-output contracts
-runtime warnings/errors
+what the 256 DEP represent biologically
+which proteins/families dominate top statistical evidence
+which proteins/families dominate effect magnitude
+the enrichment foreground/background/database contract
 ```
 
-If Python passes:
-
-```text
-prepare non-empty R output directories safely
-↓
-run descriptive/run_active_r.R
-↓
-fail-fast
-```
-
-Only after the runtime stage succeeds should the project move into full scientific-result validation.
+Do not run formal enrichment before the background/universe is explicitly
+defined.
 
 ---
 
 # 23. Core audit conclusion
 
-The main unresolved problem is no longer “how should the detection universe be defined?”
+The core pipeline has now run correctly on the real project data and the
+structural checkpoints have been validated. The detection universe, abundance
+universe, integration contract, DEP set, exposure-pattern v2, and protein
+annotation stage are no longer runtime blockers.
 
-That definition is now frozen and implemented.
+The immediate unresolved scientific task is:
 
-The immediate unresolved problem is:
+> What biological processes, protein families, and pathways are represented by
+> the validated 256 primary Long-vs-Short DEP, using an enrichment design with a
+> defensible tested-protein background?
 
-> Does the repaired pipeline run correctly on the real project data and reproduce the expected structural checkpoints?
-
-After that, the major scientific unresolved item is:
-
-> Do the resulting abundance, detection, integrated, clustering, and exposure-pattern outputs support a coherent and defensible biological interpretation?
-
-The methodological backlog — preanalytics, platelet/hemolysis signatures, technical/QC replicates, Spectronaut upstream normalization, Age/Sex — remains important, but should not interrupt the current runtime-validation sequence.
+The methodological backlog — preanalytics, platelet/hemolysis signatures,
+technical/QC replicates, Spectronaut upstream normalization, and Age/Sex —
+remains important but is deliberately deferred from the current biological
+interpretation breakpoint.
 
 The EV workstream remains related at the broader research-program level but operationally separate from this plasma exposure-proteomics pipeline.

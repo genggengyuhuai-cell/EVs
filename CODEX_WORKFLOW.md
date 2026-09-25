@@ -1,6 +1,6 @@
 # CODEX_WORKFLOW.md
 
-Last updated: 2026-09-23
+Last updated: 2026-09-24
 
 # Codex Workflow for the Plasma Proteomics Project
 

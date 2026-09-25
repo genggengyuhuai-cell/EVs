@@ -2,35 +2,34 @@
 
 Last updated: 2026-09-24
 
-# Current Task --- Core runtime validation complete / project close-out
+# Current Task --- Core pipeline locked / biological interpretation breakpoint
 
 ## Status
 
 ``` text
-PYTHON UPSTREAM RUNTIME            = PASS
-05_limma_dose_analysis.R           = RUNTIME PASS
-06a_limma_core_figures.R           = RUNTIME PASS
-06b_limma_robustness.R             = RUNTIME PASS
-06c_run_replication.R              = RUNTIME PASS
-04_covariate_QC.R                  = RUNTIME PASS
-08_detection_pattern_analysis.R    = FINAL RUNTIME PASS
-06d_integrated_results.R           = FINAL RUNTIME PASS
-09_DEP_characterization.R          = RUNTIME PASS
-DEP_effect_size_summary.R          = RUNTIME PASS
-10_protein_clustering.R            = RUNTIME PASS
-10_dose_pattern_classification.R   = RUNTIME PASS / SCIENTIFIC REVIEW
-FINAL CORE ANALYSIS CONTRACT       = PASS
+PYTHON UPSTREAM RUNTIME                 = PASS
+05_limma_dose_analysis.R                = RUNTIME PASS
+06a_limma_core_figures.R                = RUNTIME + VISUAL QC PASS
+06b_limma_robustness.R                  = RUNTIME + VISUAL QC PASS
+06c_run_replication.R                   = RUNTIME PASS
+04_covariate_QC.R                       = RUNTIME PASS
+08_detection_pattern_analysis.R         = FINAL RUNTIME PASS
+06d_integrated_results.R                = FINAL RUNTIME PASS
+09_DEP_characterization.R               = RUNTIME PASS
+DEP_effect_size_summary.R               = RUNTIME PASS
+10_protein_clustering.R                 = RUNTIME PASS
+10_dose_pattern_classification.R v2     = RUNTIME + SCIENTIFIC REVIEW PASS
+11_pattern_protein_annotation.R         = FINAL RUNTIME PASS
+FINAL CORE ANALYSIS CONTRACT            = PASS
 ```
 
-The active core code/runtime-validation phase is complete. Do not rerun
-completed modules merely to reconfirm them. Future work should begin
-from scientific interpretation, final figure/table selection,
-manuscript-oriented synthesis, or an explicitly reopened analysis
-question.
+The implementation/runtime audit is complete. Do not blanket-rerun completed
+modules. The current breakpoint is the transition from validated statistical
+results to protein-level biological interpretation.
 
 ## Locked scientific contracts
 
-### Samples and quantitative abundance
+### Samples / abundance
 
 ``` text
 Exposure-defined samples = 515
@@ -40,7 +39,7 @@ Quantitative sets:
 70% = 1434
 80% = 1214
 
-Primary quantitative universe = 1434
+Primary abundance universe = 1434
 Primary threshold = >=70% detection in EACH exposure group
 Primary model = abundance ~ exposure group + environment
 Primary contrasts = categorical
@@ -55,40 +54,37 @@ Long exposure vs Control:  FDR < 0.05 = 0
 Long vs Short exposure:    FDR < 0.05 = 256
 ```
 
-For Long vs Short exposure, all 256 significant proteins are higher in
-Short exposure / lower in Long exposure.
+All 256 Long-vs-Short DEP are higher in Short exposure / lower in Long
+exposure.
 
-### Detection branch
-
-Frozen detection-model universe:
+Effect-size layers:
 
 ``` text
-max(Control detection rate,
-    Short-exposure detection rate,
-    Long-exposure detection rate) >= 0.60
+FDR < 0.05                         = 256
+FDR < 0.05 and |log2FC| >= 0.5    = 3
+FDR < 0.05 and |log2FC| >= 1.0    = 0
 ```
 
-Confirmed:
+### Detection
 
 ``` text
 Detection mother table = 3817
-Detection universe = 1848
-Proteins outside detection universe remain in the mother table
-<20% is classification-only and never controls universe membership
-BH family = complete fixed 1848-protein detection universe for each contrast
+Detection-model universe = 1848
+Retention rule = >=60% detection in ANY exposure group
+<20% rule = classification-only
+BH family = fixed 1848-protein universe per contrast
 ```
 
-Primary detection model status, per contrast:
+Primary status per contrast:
 
 ``` text
-constant_detection                         = 481
-full_model_separation_no_finite_MLE       = 182
-ok                                         = 1185
-total                                      = 1848
-finite FDR                                 = 1185
+constant_detection                   = 481
+full_model_separation_no_finite_MLE = 182
+ok                                   = 1185
+finite FDR                           = 1185
 ```
 
-Primary detection BH FDR \< 0.05:
+Primary detection BH FDR < 0.05:
 
 ``` text
 Short exposure vs Control = 1
@@ -96,38 +92,10 @@ Long exposure vs Control  = 0
 Long vs Short exposure    = 0
 ```
 
-Acquisition-matched-primary status reproduces the primary estimability
-structure:
-
-``` text
-481 constant
-182 full-model separation
-1185 ok
-```
-
-Acquisition-adjusted model:
-
-``` text
-481 constant
-1367 full-model separation
-0 ok
-```
-
-Interpretation: adding categorical acquisition date causes full-model
-separation across all nonconstant proteins under the prespecified
-standard logistic-MLE framework. Exposure contrasts are therefore not
-reported for those fits. No Firth, penalized, pseudo-count, or other
-fallback estimator is substituted. The matched-primary diagnostic shows
-that this collapse is not caused merely by restriction to the
-acquisition-eligible sample set.
-
-Age/Sex sensitivity was not fitted because Age/Sex were absent or below
-the prespecified completeness requirement. Do not fabricate or force
-this branch.
+Standard binomial logistic MLE remains locked; no Firth, penalized,
+pseudo-count, or other fallback estimator is substituted.
 
 ### Integrated abundance + detection
-
-Final `06d_integrated_results.R` rerun after the final 08 output:
 
 ``` text
 N_abundance              = 1434
@@ -137,97 +105,117 @@ N_joint                  = 1434
 N_outside_core           = 414
 ```
 
-All three contrasts satisfy this same inclusion contract.
-
-``` text
-FINAL CORE ANALYSIS CONTRACT = PASS
-```
+All three categorical contrasts satisfy the same inclusion contract.
 
 ## Downstream abundance-derived modules
 
-These modules do not depend on the final 08/06d outputs and therefore
-did not require another rerun after the final detection repair.
-
-### 09_DEP_characterization.R
+### `10_protein_clustering.R`
 
 ``` text
-Long vs Short DEP = 256
-Higher in Long    = 0
-Higher in Short   = 256
-```
-
-### DEP_effect_size_summary.R
-
-``` text
-FDR < 0.05                         = 256
-FDR < 0.05 and |log2FC| >= 0.5    = 3
-FDR < 0.05 and |log2FC| >= 1.0    = 0
-```
-
-### 10_protein_clustering.R
-
-Runtime PASS on 256 DEP proteins.
-
-``` text
+RUNTIME PASS
 Cluster 1 = 131
 Cluster 2 = 108
 Cluster 3 = 5
 Cluster 4 = 12
 ```
 
-Clustering remains exploratory. Its clustering-only missing-value
-handling must not propagate to the primary limma analysis.
+Clustering remains exploratory. Clustering-only missing-value handling must
+not propagate into primary limma.
 
-### 10_dose_pattern_classification.R
-
-Runtime PASS under the rewritten mutually exclusive v2 classification:
+### `10_dose_pattern_classification.R` v2
 
 ``` text
-Short_peak       = 249
-Long_suppression = 7
-Total            = 256
+RUNTIME PASS
+SCIENTIFIC REVIEW PASS WITH DESCRIPTIVE QUALIFICATION
+Short_peak        = 249
+Long_suppression  = 7
+Total             = 256
 ```
 
-This module remains `REVIEW`, not fully scientifically locked. Runtime
-success does not by itself constitute final scientific acceptance.
+Scientific use is locked as descriptive/exploratory only. Pattern labels
+describe unadjusted observed three-group profiles; they are not independent
+inferential discoveries.
 
-`11_pattern_protein_annotation.R` remains HOLD.
-
-## Environment terminology --- locked
-
-Canonical scientific/display labels:
+Canonical current output:
 
 ``` text
-高海拔
-湿热
+limma_dose_analysis/results/10_dose_pattern_classification_v2
 ```
 
-Historical internal compatibility keys may remain where required:
+Historical `10_dose_pattern_classification/` contains the old Low/High schema
+and must not be used as the current source.
+
+### `11_pattern_protein_annotation.R`
 
 ``` text
-high_stress
-high_temperature
+FINAL RUNTIME PASS
+Input_DEP                    = 256
+UniProt_mapped               = 256
+UniProt_unmapped             = 0
+UniProt_mapping_rate_percent = 100
 ```
 
-They must not replace the canonical Chinese labels in final user-facing
-environment displays.
+All 256 primary Long-vs-Short DEP are retained. Pattern is metadata only; no
+protein is excluded by Pattern. Top effect-size ranking uses primary limma
+logFC.
 
-## Completed runtime notes retained
+Current outputs include:
 
--   `06a_limma_core_figures.R`: output contract and visual QC PASS.
--   `06b_limma_robustness.R`: all five approved sensitivity branches
-    PASS.
--   `06c_run_replication.R`: acquisition-date-stratified robustness
-    completed.
--   `04_covariate_QC.R`: executed successfully.
--   `08_detection_pattern_analysis.R`: final universe parsing,
-    model-status logic, BH family, and outputs verified.
--   `06d_integrated_results.R`: rerun against final 08 outputs and
-    inclusion contract verified.
--   Known package-build / locale / plotting warnings remain non-fatal
-    where already documented.
--   Five partial-NA coefficients in the upstream abundance fit remain
-    documented and were not repaired by changing the scientific model.
+``` text
+01_DEP_protein_annotation.csv
+02_DEP_pattern_summary.csv
+03_DEP_top30_FDR.csv
+04_DEP_top30_effect_size.csv
+05_UniProt_mapping_QC.csv
+06_UniProt_unmapped_proteins.csv
+```
+
+## Current breakpoint / next exact work
+
+``` text
+CORE CODE + RUNTIME + PATTERN/ANNOTATION REVIEW = COMPLETE
+
+NEXT:
+PROTEIN-LEVEL BIOLOGICAL AUDIT OF THE 256 PRIMARY LONG-vs-SHORT DEP
+```
+
+Open/read only:
+
+``` text
+11_pattern_protein_annotation/
+    01_DEP_protein_annotation.csv
+    03_DEP_top30_FDR.csv
+    04_DEP_top30_effect_size.csv
+```
+
+Next actions:
+
+1. Inspect the annotated 256-protein set itself.
+2. Compare top-FDR and top-effect-size proteins.
+3. Identify recurring protein families / functional themes without yet
+   treating pathway enrichment as established evidence.
+4. Define the formal enrichment contract before running GO/Reactome/KEGG/PPI:
+   foreground, tested-protein background, identifier mapping, database(s),
+   multiple-testing procedure, and separation from the detection branch.
+5. Only then implement/run the biological enrichment module.
+
+## Hold / later
+
+Do not automatically start:
+
+``` text
+Age/Sex expansion
+processing-time / freeze-thaw analyses
+platelet/hemolysis formal QC module
+technical-replicate redesign
+Spectronaut normalization redesign
+repository-wide internal terminology migration
+EV analyses
+new primary normalization
+new imputation
+new primary covariates
+continuous control=0 / low=1 / high=2 trend
+```
 
 ## Do not change without explicit reopening
 
@@ -245,25 +233,16 @@ primary missing-value policy
 standard logistic MLE / no penalized fallback policy
 ```
 
-Do not restore the deprecated continuous control=0 / low=1 / high=2
-trend route.
+## Resume instruction
 
-## Current breakpoint / next work
+A new session should read:
 
 ``` text
-CORE CODE + RUNTIME VALIDATION = COMPLETE
+CODEX_WORKFLOW.md
+PROJECT_CONTEXT.md
+FILE_STATUS.md
+TASK_CURRENT.md
 ```
 
-Next work should not be another blanket rerun. Proceed only with an
-explicit scientific task, such as:
-
--   final scientific interpretation and result synthesis;
--   selection/review of manuscript figures and tables;
--   final review of the exposure-pattern v2 branch before annotation;
--   a separately authorized biological annotation/enrichment phase;
--   a separately authorized covariate/preanalytical expansion.
-
-Do not automatically start Age/Sex expansion, platelet/hemolysis
-modules, processing-time/freeze-thaw work, enrichment, STRING, pattern
-annotation, new imputation, new normalization, new primary covariates,
-or EV analyses.
+Then begin from the protein-level biological audit above. Do not rescan or
+rerun completed statistical modules unless a concrete inconsistency is found.

@@ -217,25 +217,48 @@ propagate to primary limma.
 
 ### `10_dose_pattern_classification.R`
 
-**Status: REVIEW**
+**Status: ACTIVE-LOCKED**
 
 ``` text
 RUNTIME PASS
+SCIENTIFIC REVIEW PASS WITH DESCRIPTIVE QUALIFICATION
+canonical output directory = 10_dose_pattern_classification_v2
 Short_peak = 249
 Long_suppression = 7
 ```
 
-The rewritten v2 mutually exclusive classification executes
-successfully, but it is not yet fully scientifically locked. Do not
-delete it and do not treat runtime success as final scientific
-acceptance.
+Role: exploratory/descriptive three-group exposure-profile characterization
+of the 256 primary Long-vs-Short abundance DEP. The v2 classification is
+mutually exclusive and exhaustive. Pattern labels are descriptive metadata,
+not independent inferential discoveries and not significance tests.
+
+The historical output directory
+`10_dose_pattern_classification/` contains the old Low/High schema and must
+not be used as the current pattern source. Current downstream work must use
+`10_dose_pattern_classification_v2/`.
 
 ### `11_pattern_protein_annotation.R`
 
-**Status: HOLD**
+**Status: ACTIVE-LOCKED**
 
-Paused pending explicit scientific acceptance of the
-pattern-classification schema. Do not expand automatically.
+``` text
+FINAL RUNTIME PASS
+input primary DEP = 256
+UniProt mapped = 256
+UniProt unmapped = 0
+mapping rate = 100%
+```
+
+Role: annotate the complete 256-protein primary Long-vs-Short DEP universe.
+No protein is excluded based on descriptive Pattern. Pattern v2 is retained
+only as metadata. Top statistical ranking uses primary BH-adjusted P values;
+top effect-size ranking uses primary limma logFC.
+
+Current output directory:
+
+``` text
+limma_dose_analysis/results/11_pattern_protein_annotation
+```
 
 ## Shared helpers
 

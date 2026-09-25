@@ -1,1 +1,0 @@
-PG.ProteinGroups,PG.Genes,PG.ProteinDescriptions,PG.ProteinNames,PG.CV,PG.Qvalue,PG.MolecularWeight,Control_detected_n,Control_total_n,Control_detection_rate,Short_detected_n,Short_total_n,Short_detection_rate,Long_detected_n,Long_total_n,Long_detection_rate,In_detection_analysis_universe,Detection_pattern,Target_threshold,Other_threshold_exclusive
