@@ -8,6 +8,10 @@ import matplotlib
 matplotlib.use('Agg')
 from nature_plotting import new_figure, save as save_nature
 
+matplotlib.rcParams["font.sans-serif"] = [
+    "Microsoft YaHei", "SimHei", "Arial", "DejaVu Sans"
+]
+
 OUT = Path(__file__).resolve().parent
 ROOT = OUT.parent
 audit = json.loads((OUT/'audit.json').read_text(encoding='utf-8'))
@@ -52,9 +56,14 @@ wide=long.pivot(index=['level','category','samples'],columns='threshold_pct',val
 wide.to_csv(OUT/'detection_gradient_counts.csv',index=False,encoding='utf-8-sig')
 
 sample=pd.read_csv(OUT/'sample_statistics.csv')
-group_env=sample.groupby('group')['condition'].first().to_dict()
+condition_aliases={'高海拔':'high_stress','湿热':'high_temperature'}
+condition_internal=sample['condition'].replace(condition_aliases)
+unexpected_conditions=sorted(set(condition_internal)-{'high_stress','high_temperature'})
+if unexpected_conditions:
+    raise ValueError(f'Unexpected environment labels: {unexpected_conditions}')
+group_env=sample.assign(_condition_internal=condition_internal).groupby('group')['_condition_internal'].first().to_dict()
 colors={'high_stress':'#527D9E','high_temperature':'#C48C59'}
-names={'high_stress':'High stress','high_temperature':'High temperature'}
+names={'high_stress':'高海拔','high_temperature':'湿热'}
 markers=['o','s','^','D','v']
 styles=['-','--','-.',':','-']
 for j,env in enumerate(['high_stress','high_temperature']):
@@ -124,7 +133,7 @@ report='''# QC前描述性分析补充：检出率梯度
 优先补充样本构成交叉表、跨组共同覆盖及等样本量累积曲线，再考虑丰度和前处理信息。这些用于了解数据与设计；本轮不选择过滤阈值、不执行归一化、插补、批次校正或差异分析。
 
 ## 图注与核验
-Figure 03 为独立输出：高应激和高温环境内的地区检出率梯度、地区层面的重点阈值精确计数，以及按地区或环境汇总的共同覆盖曲线。线连接实测阈值计数，仅作视觉引导，不插值推断。n为矩阵样本列数；每点是固定数据的计数，无误差条或显著性检验。
+Figure 03 为独立输出：高海拔和湿热环境内的地区检出率梯度、地区层面的重点阈值精确计数，以及按地区或环境汇总的共同覆盖曲线。线连接实测阈值计数，仅作视觉引导，不插值推断。n为矩阵样本列数；每点是固定数据的计数，无误差条或显著性检验。
 每个组计数随阈值升高单调不增；50%、80%、100%结果与既有汇总逐项一致。完整长表包括实际所需样本数、实际离散阈值和蛋白比例；membership文件保留重点阈值下各蛋白组的布尔归属。
 '''
 (OUT/'QC前描述_检出率梯度.md').write_text(report,encoding='utf-8')

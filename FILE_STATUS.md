@@ -318,6 +318,46 @@ It should not become a second competing canonical upstream workflow.
 
 ---
 
+## run_full_upstream.py
+
+Status:
+
+```text
+ACTIVE
+```
+
+Role:
+
+Future full-upstream orchestration wrapper with the explicit sequence:
+
+```text
+run_all.py
+normalization_design_diagnostics.py
+dose_restricted_detection.py
+```
+
+It does not replace the canonical upstream role of `run_all.py`, does not
+discover scripts dynamically, and does not clean existing outputs.
+
+---
+
+## run_active_r.R
+
+Status:
+
+```text
+ACTIVE
+```
+
+Role:
+
+Future explicit-whitelist runner for the approved active R sequence.
+
+It excludes `11_pattern_protein_annotation.R`, archived scripts, and the
+deprecated continuous trend route. It does not delete or clean outputs.
+
+---
+
 ## test_run_all.py / test_run_all(1).py
 
 Status:
@@ -441,8 +481,9 @@ Current development focus:
 Implementation state:
 
 ```text
-implemented / modified in code
-not executed in the current maintenance round
+runtime validated 2026-09-24
+structural output contract PASS
+visual QC PASS
 ```
 
 ---
@@ -543,7 +584,8 @@ Current development focus:
 Implementation state:
 
 ```text
-implemented in code but not executed
+runtime validated 2026-09-24
+final figure / source-data QC remains pending
 ```
 
 ---
@@ -758,7 +800,8 @@ Not merely supplementary.
 Implementation state:
 
 ```text
-implemented in code but not executed
+runtime validated 2026-09-24
+Python upstream PASS
 ```
 
 ---
@@ -790,7 +833,8 @@ Current development focus:
 Implementation state:
 
 ```text
-implemented in code but not executed
+runtime validated 2026-09-24
+scientific result validation remains in progress
 ```
 
 ---
@@ -859,7 +903,8 @@ Important rules:
 Implementation state:
 
 ```text
-implemented in code but not executed
+executed without runtime error 2026-09-24
+output-contract / scientific QC remains pending
 ```
 
 ---

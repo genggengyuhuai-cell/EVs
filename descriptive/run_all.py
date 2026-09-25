@@ -20,6 +20,58 @@ SCRIPTS=[
     'dose_quantitative_filtering.py'
 ]
 
+# Explicit contracts from the active upstream plotting calls. Keep this list in
+# sync when an active script intentionally changes an output filename.
+FIGURE_OUTPUTS={
+    'Figure_01_descriptive_protein_coverage': True,
+    'Figure_01_descriptive_environment_coverage': True,
+    'Figure_01_descriptive_region_coverage': True,
+    'Figure_01_descriptive_sample_depth': True,
+    'Figure_02_descriptive_matrix_missingness': True,
+    'Figure_02_descriptive_protein_missingness': True,
+    'Figure_02_descriptive_abundance_missingness': True,
+    'Figure_03_detection_gradient_high_stress': True,
+    'Figure_03_detection_gradient_high_temperature': True,
+    'Figure_03_detection_gradient_group_threshold_counts': True,
+    'Figure_03_detection_gradient_shared_coverage_condition': True,
+    'Figure_03_detection_gradient_shared_coverage_group': True,
+    'Figure_04_design_composition_region_exposure_counts': True,
+    'Figure_04_design_composition_region_exposure_proportions': True,
+    'Figure_04_design_composition_acquisition_date_proxy_exposure_counts': True,
+    'Figure_04_design_composition_acquisition_date_proxy_exposure_proportions': True,
+    'Figure_04_design_composition_environment_exposure_counts': True,
+    'Figure_04_design_composition_environment_exposure_proportions': True,
+    'Figure_04_design_composition_region_by_acquisition_date_proxy': True,
+    'Figure6_coverage_other_levels': False,
+    'Figure6_coverage_exposure': False,
+    'Figure6_coverage_dates_2025': False,
+    'Figure6_coverage_dates_2026': False,
+    'Figure7_sample_depth_condition': False,
+    'Figure7_missingness_condition': False,
+    'Figure7_median_signal_condition': False,
+    'Figure7_total_signal_condition': False,
+    'Figure8_sample_depth_group': False,
+    'Figure8_missingness_group': False,
+    'Figure8_median_signal_group': False,
+    'Figure8_total_signal_group': False,
+    'Figure9_sample_depth_TREAT1_clean': False,
+    'Figure9_missingness_TREAT1_clean': False,
+    'Figure9_median_signal_TREAT1_clean': False,
+    'Figure9_total_signal_TREAT1_clean': False,
+    'Figure10_sample_depth_MS_batch_proxy': False,
+    'Figure10_missingness_MS_batch_proxy': False,
+    'Figure10_median_signal_MS_batch_proxy': False,
+    'Figure10_total_signal_MS_batch_proxy': False,
+    'Figure11_protein_detection_landscape': False,
+    'Figure11_detection_breadth': False,
+    'Figure11_core_definitions': False,
+    'Figure11_abundance_missingness': False,
+    'Figure11_detection_classes': False,
+    'Quantitative_filter_sample_counts': True,
+    'Quantitative_filter_proteins': True,
+    'Quantitative_filter_missingness': True,
+}
+
 PACKAGES=[
     'numpy',
     'pandas',
@@ -175,27 +227,15 @@ def main():
                     log
                 )
 
-        figure_names=[
-            'Figure1_protein_coverage',
-            'Figure2_missingness',
-            'Figure3_detection_gradient',
-            'Figure4_TREAT1_composition',
-            'Figure5_group_run_date',
-            'Figure6_coverage_other_levels',
-            'Figure7_sample_depth_condition',
-            'Figure8_sample_depth_group',
-            'Figure9_sample_depth_TREAT1_clean',
-            'Figure10_sample_depth_MS_batch_proxy',
-            'Figure11_protein_detection_landscape'
-        ]
+        figure_dir=HERE/'figures_nature_v2.2'
 
-        for name in figure_names:
+        for name, expects_source in FIGURE_OUTPUTS.items():
             for ext in [
                 'pdf',
                 'svg',
                 'png'
             ]:
-                path=HERE/'figures_nature_v2.2'/f'{name}.{ext}'
+                path=figure_dir/f'{name}.{ext}'
 
                 assert (
                     path.is_file()
@@ -203,6 +243,16 @@ def main():
                     path.stat().st_size>0
                 ), (
                     f'Missing output: {path}'
+                )
+
+            if expects_source:
+                source_path=figure_dir/f'{name}_source.csv'
+                assert (
+                    source_path.is_file()
+                    and
+                    source_path.stat().st_size>0
+                ), (
+                    f'Missing source-data output: {source_path}'
                 )
 
         dose_outputs=[
@@ -246,7 +296,7 @@ def main():
         run[
             'figure_count'
         ]=len(
-            figure_names
+            FIGURE_OUTPUTS
         )
 
         run[
@@ -312,7 +362,7 @@ def main():
 
     print(
         (
-            'PASS: standalone Nature-style figures rebuilt (11 anchor outputs verified), '
+            f'PASS: standalone Nature-style figures rebuilt ({len(FIGURE_OUTPUTS)} outputs verified), '
             'with source tables/reports, '
             'plus dose-wise quantitative filtering outputs.'
         ),

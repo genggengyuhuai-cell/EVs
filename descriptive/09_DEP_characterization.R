@@ -21,10 +21,17 @@ library(readr)
 
 
 
-ROOT_DIR <- normalizePath(
-    getwd(),
-    winslash="/"
-)
+get_script_dir <- function() {
+    args <- commandArgs(trailingOnly = FALSE)
+    file_arg <- grep("^--file=", args, value = TRUE)
+    if (length(file_arg) == 1L) {
+        return(dirname(normalizePath(sub("^--file=", "", file_arg),
+                                     winslash = "/", mustWork = TRUE)))
+    }
+    normalizePath(getwd(), winslash = "/", mustWork = TRUE)
+}
+
+ROOT_DIR <- get_script_dir()
 
 
 INPUT <- file.path(

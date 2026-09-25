@@ -1,0 +1,7 @@
+"Variable","N_samples","N_blank","N_numeric","Display"
+"Acquisition_date",515,0,0,"categorical; paginated, no categories dropped"
+"Environment",515,0,0,"categorical; paginated, no categories dropped"
+"Cohort_group",515,0,0,"categorical; paginated, no categories dropped"
+"Tube_Mixing",515,0,0,"categorical; paginated, no categories dropped"
+"WoleBlood_oldTime",515,0,130,"numeric plus raw-token counts"
+"Plasma_HoldTime_h",515,0,0,"categorical; paginated, no categories dropped"

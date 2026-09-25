@@ -1,0 +1,6 @@
+﻿criterion,protein_groups
+global_core_ge80pct,1305
+global_core_ge90pct,1030
+all_groups_ge50pct,1538
+all_groups_ge80pct,1040
+all_conditions_ge80pct,1212

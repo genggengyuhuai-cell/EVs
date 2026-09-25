@@ -39,10 +39,17 @@ suppressPackageStartupMessages({
 # ============================================================
 
 
-ROOT_DIR <- normalizePath(
-    getwd(),
-    winslash="/"
-)
+get_script_dir <- function() {
+    args <- commandArgs(trailingOnly = FALSE)
+    file_arg <- grep("^--file=", args, value = TRUE)
+    if (length(file_arg) == 1L) {
+        return(dirname(normalizePath(sub("^--file=", "", file_arg),
+                                     winslash = "/", mustWork = TRUE)))
+    }
+    normalizePath(getwd(), winslash = "/", mustWork = TRUE)
+}
+
+ROOT_DIR <- get_script_dir()
 
 
 source(file.path(ROOT_DIR, "v21_common.R"))
@@ -112,9 +119,20 @@ dep <- read.csv(
     stringsAsFactors=FALSE
 )
 
+if (!("PG.ProteinGroups" %in% colnames(dep))) {
+    stop("DEP table is missing the PG.ProteinGroups column.")
+}
 
 
 dep_ids <- dep$PG.ProteinGroups
+
+if (anyNA(dep_ids) || any(!nzchar(trimws(dep_ids)))) {
+    stop("DEP protein IDs must be non-empty and non-missing.")
+}
+
+if (anyDuplicated(dep_ids)) {
+    stop("DEP protein IDs must be unique.")
+}
 
 
 
@@ -137,6 +155,36 @@ expr_df <- read.csv(
     stringsAsFactors=FALSE
 )
 
+if (!("PG.ProteinGroups" %in% colnames(expr_df))) {
+    stop("Expression table is missing the PG.ProteinGroups column.")
+}
+
+expr_protein_ids <- expr_df$PG.ProteinGroups
+expr_sample_ids <- colnames(expr_df)[-1]
+
+if (anyNA(expr_protein_ids) || any(!nzchar(trimws(expr_protein_ids)))) {
+    stop("Expression protein IDs must be non-empty and non-missing.")
+}
+
+if (anyDuplicated(expr_protein_ids)) {
+    stop("Expression protein IDs must be unique.")
+}
+
+if (!length(expr_sample_ids) || anyNA(expr_sample_ids) ||
+    any(!nzchar(trimws(expr_sample_ids)))) {
+    stop("Expression sample IDs must be non-empty and non-missing.")
+}
+
+if (anyDuplicated(expr_sample_ids)) {
+    stop("Expression sample IDs must be unique.")
+}
+
+missing_dep_ids <- setdiff(dep_ids, expr_protein_ids)
+if (length(missing_dep_ids)) {
+    stop("Expression matrix is missing ", length(missing_dep_ids),
+         " DEP protein(s), including: ",
+         paste(utils::head(missing_dep_ids, 5L), collapse = ", "))
+}
 
 
 expr <- as.matrix(
@@ -162,10 +210,7 @@ storage.mode(expr) <- "numeric"
 # ============================================================
 
 
-common <- intersect(
-    dep_ids,
-    rownames(expr)
-)
+common <- dep_ids
 
 
 
@@ -281,14 +326,41 @@ meta <- read.csv(
     stringsAsFactors=FALSE
 )
 
+if (!("UniqueSampleID" %in% colnames(meta))) {
+    stop("Metadata is missing the UniqueSampleID column.")
+}
+
+if (anyNA(meta$UniqueSampleID) || any(!nzchar(trimws(meta$UniqueSampleID)))) {
+    stop("Metadata UniqueSampleID values must be non-empty and non-missing.")
+}
+
+if (anyDuplicated(meta$UniqueSampleID)) {
+    stop("Metadata UniqueSampleID values must be unique.")
+}
+
+if (!setequal(colnames(z_expr), meta$UniqueSampleID)) {
+    missing_metadata <- setdiff(colnames(z_expr), meta$UniqueSampleID)
+    extra_metadata <- setdiff(meta$UniqueSampleID, colnames(z_expr))
+    stop("Expression and metadata sample sets differ (missing metadata: ",
+         length(missing_metadata), "; extra metadata: ", length(extra_metadata), ").")
+}
+
+meta_index <- match(colnames(z_expr), meta$UniqueSampleID)
+
+if (anyNA(meta_index)) {
+    stop("Metadata alignment produced NA indices for expression samples.")
+}
 
 
 meta <- meta[
-    match(
-        colnames(z_expr),
-        meta$UniqueSampleID
-    ),
+    meta_index,
+    ,
+    drop = FALSE
 ]
+
+if (!identical(meta$UniqueSampleID, colnames(z_expr))) {
+    stop("Reordered metadata sample IDs are not identical to expression column order.")
+}
 
 
 

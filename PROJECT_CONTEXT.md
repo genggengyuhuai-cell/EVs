@@ -1,6 +1,6 @@
 # PROJECT_CONTEXT.md
 
-Last updated: 2026-09-23
+Last updated: 2026-09-24
 
 # Plasma Proteomics Project Context
 
@@ -144,10 +144,32 @@ Unknown exposure samples may remain in descriptive QC but are excluded from expo
 
 ### Environment
 
+Canonical scientific / display labels:
+
+```text
+高海拔
+湿热
+```
+
+Historical internal compatibility keys:
+
 ```text
 high_stress
 high_temperature
 ```
+
+Compatibility relationship:
+
+```text
+高海拔 <-> high_stress
+湿热   <-> high_temperature
+```
+
+The English keys are retained only for internal compatibility with existing
+code, saved objects, directories, or validation logic. They must not be used
+as final scientific or user-facing display labels in figures, legends, axes,
+facets, annotations, display tables, or reports. Source metadata remains
+unchanged as `高海拔` and `湿热`.
 
 ### Region / group
 
@@ -402,7 +424,40 @@ Sensitivity threshold:
 >=60%
 ```
 
+### Detection-analysis universe
+
+The frozen retention rule for detection logistic modelling is:
+
+```text
+max(Control detection rate,
+    Short-exposure detection rate,
+    Long-exposure detection rate) >= 60%
+```
+
+Equivalently, a protein is detection-evaluable when at least one exposure group
+has a detection rate of 60% or greater. The full all-protein detection-rate
+mother table remains complete; proteins outside this universe are retained in
+that table but are not modelled.
+
+The `<20%` rule is used only to classify specific/restricted detection patterns.
+It must never be used as a retention criterion for the detection-analysis
+universe.
+
+For each detection-model contrast, the BH correction family is the complete
+fixed `>=60% in any exposure group` detection-analysis universe. The 70% primary
+and 60% sensitivity pattern classifications remain separate classification
+thresholds and do not redefine this universe.
+
 The exact category logic must be defined by the active detection-analysis code.
+
+Current implementation / validation state:
+
+```text
+Detection-universe correction = IMPLEMENTED
+Analysis executed             = YES
+Runtime validation            = PASS
+Scientific result validation  = IN PROGRESS
+```
 
 Detection status and abundance status must remain separate.
 

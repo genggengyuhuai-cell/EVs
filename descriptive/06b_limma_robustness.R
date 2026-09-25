@@ -129,10 +129,8 @@ FIG_DIR <- file.path(
     "06b_robustness/figures_nature_v2.2"
 )
 
-dir.create(
-    FIG_DIR,
-    recursive = TRUE,
-    showWarnings = FALSE
+FIG_DIR <- v21_output(
+    FIG_DIR
 )
 
 

@@ -17,6 +17,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 VERSION = "2.1"
 TARGET_THRESHOLDS = (0.70, 0.60)
+ANALYSIS_UNIVERSE_THRESHOLD = 0.60
 OTHER_MAX_EXCLUSIVE = 0.20
 GROUPS = ("control", "low", "high")
 LABELS = ("Control", "Short", "Long")
@@ -140,6 +141,9 @@ def main():
         table[f"{label}_detection_rate"] = count / n
         rates.append(count / n)
     rate_matrix = np.column_stack(rates)
+    table["In_detection_analysis_universe"] = (
+        np.max(rate_matrix, axis=1) >= ANALYSIS_UNIVERSE_THRESHOLD
+    )
     membership = []
     out.mkdir(parents=True, exist_ok=True)
     table.to_csv(out / "protein_detection_rates_by_exposure.csv", index=False)
@@ -191,6 +195,9 @@ def main():
     parameters = {
         "script_version": VERSION, "analysis_time_UTC": datetime.now(timezone.utc).isoformat(),
         "detection_definition": "finite quantitative value > 0; binary phenotype only",
+        "analysis_universe_rule": "max(Control, Short, Long detection rate) >= 0.60",
+        "analysis_universe_threshold": ANALYSIS_UNIVERSE_THRESHOLD,
+        "analysis_universe_proteins": int(table["In_detection_analysis_universe"].sum()),
         "target_thresholds": list(TARGET_THRESHOLDS), "other_threshold_exclusive": OTHER_MAX_EXCLUSIVE,
         "specific_rule": "one group >= target, both other groups < other",
         "enriched_rule": "two groups >= target, remaining group < other",
@@ -206,6 +213,9 @@ def main():
         out / "detection_pattern_parameters.csv", index=False)
     (out / "METHODS.txt").write_text(
         "Parallel all-protein detection branch v2.1; not quantitative abundance.\n"
+        "The full all-protein detection-rate mother table is retained.\n"
+        "Detection-analysis universe: maximum Control/Short/Long detection rate >=60%.\n"
+        "The <20% rule is classification-only and never determines universe membership.\n"
         "No proteins dropped by the quantitative 70% filter. Specific is operational, not absolute uniqueness.\n"
         "Sparse means every group is below 20%; moderate/mixed rates are Other_unbalanced.\n"
         "Neither absence nor zero binary detection establishes biological absence.\n", encoding="utf-8")

@@ -32,6 +32,10 @@ MEDIAN_NORM_FILE = OUT / "SENSITIVITY_dose_log2_median_normalized_expression.csv
 
 DOSE_LEVELS = ["control", "low", "high"]
 CONDITION_LEVELS = ["high_stress", "high_temperature"]
+CONDITION_DISPLAY_LABELS = {
+    "high_stress": "高海拔",
+    "high_temperature": "湿热"
+}
 
 
 def safe_median(x):
@@ -101,10 +105,13 @@ if sample_columns != meta["UniqueSampleID"].tolist():
 if set(meta["TREAT1_clean"]) != set(DOSE_LEVELS):
     raise ValueError("Metadata must contain exactly control/low/high.")
 
+condition_aliases = {"高海拔": "high_stress", "湿热": "high_temperature"}
+meta = meta.copy()
+meta["condition"] = meta["condition"].replace(condition_aliases)
+
 if not set(meta["condition"]).issubset(set(CONDITION_LEVELS)):
     raise ValueError("Unexpected condition labels.")
 
-meta = meta.copy()
 meta["MS_batch_proxy"] = meta["进样时间"].astype(str)
 
 
@@ -171,7 +178,11 @@ sample_diag["median_norm_median"] = [
 ]
 sample_diag["median_shift_applied"] = global_median - sample_medians
 
-sample_diag.to_csv(
+sample_diag_output = sample_diag.copy()
+sample_diag_output["condition"] = sample_diag_output["condition"].map(
+    CONDITION_DISPLAY_LABELS
+)
+sample_diag_output.to_csv(
     OUT / "normalization_sample_diagnostics.csv",
     index=False,
     encoding="utf-8-sig"
@@ -207,7 +218,14 @@ for field in ["TREAT1_clean", "condition", "group", "MS_batch_proxy"]:
             })
 
 group_summary = pd.DataFrame(records)
-group_summary.to_csv(
+group_summary_output = group_summary.copy()
+condition_rows = group_summary_output["level"].eq("condition")
+group_summary_output.loc[condition_rows, "category"] = (
+    group_summary_output.loc[condition_rows, "category"].map(
+        CONDITION_DISPLAY_LABELS
+    )
+)
+group_summary_output.to_csv(
     OUT / "normalization_group_summaries.csv",
     index=False,
     encoding="utf-8-sig"
@@ -220,7 +238,7 @@ group_summary.to_csv(
 
 plt.rcParams.update({
     "font.family": "sans-serif",
-    "font.sans-serif": ["Arial", "DejaVu Sans"],
+    "font.sans-serif": ["Microsoft YaHei", "SimHei", "Arial", "DejaVu Sans"],
     "font.size": 7,
     "axes.titlesize": 8,
     "axes.labelsize": 7,
@@ -234,7 +252,9 @@ plt.rcParams.update({
 })
 
 
-def horizontal_boxplot(ax, frame, field, metric, xlabel, title, order=None):
+def horizontal_boxplot(
+    ax, frame, field, metric, xlabel, title, order=None, display_labels=None
+):
     if order is None:
         groups = list(frame.groupby(field, sort=True))
     else:
@@ -256,7 +276,10 @@ def horizontal_boxplot(ax, frame, field, metric, xlabel, title, order=None):
 
     ax.set_yticks(
         np.arange(1, len(groups) + 1),
-        [f"{name} (n={len(sub)})" for name, sub in groups]
+        [
+            f"{(display_labels or {}).get(name, name)} (n={len(sub)})"
+            for name, sub in groups
+        ]
     )
     ax.invert_yaxis()
     ax.set_xlabel(xlabel)
@@ -317,7 +340,8 @@ horizontal_boxplot(
     ax, sample_diag, "condition", "log2_median",
     "Sample median observed abundance (log2)",
     "Sample medians by environment",
-    order=CONDITION_LEVELS
+    order=CONDITION_LEVELS,
+    display_labels=CONDITION_DISPLAY_LABELS
 )
 
 save_series(normalization_figures, OUT, ['Figure12_normalization_diagnostics', 'Figure12_median_by_date',
@@ -394,7 +418,11 @@ if complete_case_n >= 2:
             validate="one_to_one"
         )
 
-        pca_scores.to_csv(
+        pca_scores_output = pca_scores.copy()
+        pca_scores_output["condition"] = pca_scores_output["condition"].map(
+            CONDITION_DISPLAY_LABELS
+        )
+        pca_scores_output.to_csv(
             OUT / "complete_case_PCA_scores.csv",
             index=False,
             encoding="utf-8-sig"
@@ -597,9 +625,13 @@ with pd.ExcelWriter(
     OUT / "design_confounding_tables.xlsx",
     engine="openpyxl"
 ) as writer:
-    dose_by_condition.to_excel(writer, sheet_name="condition_by_dose")
+    dose_by_condition.rename(index=CONDITION_DISPLAY_LABELS).to_excel(
+        writer, sheet_name="condition_by_dose"
+    )
     dose_by_batch.to_excel(writer, sheet_name="batch_by_dose")
-    condition_by_batch.to_excel(writer, sheet_name="batch_by_condition")
+    condition_by_batch.rename(columns=CONDITION_DISPLAY_LABELS).to_excel(
+        writer, sheet_name="batch_by_condition"
+    )
     group_by_batch.to_excel(writer, sheet_name="group_by_batch")
     group_by_dose.to_excel(writer, sheet_name="group_by_dose")
 
@@ -624,7 +656,7 @@ arr = condition_by_batch.to_numpy(dtype=int)
 im = ax.imshow(arr, aspect="auto", cmap="Blues", vmin=0, vmax=max(1, arr.max()))
 ax.set_xticks(
     range(len(condition_by_batch.columns)),
-    condition_by_batch.columns,
+    [CONDITION_DISPLAY_LABELS[x] for x in condition_by_batch.columns],
     rotation=20,
     ha="right"
 )

@@ -1,0 +1,16 @@
+"Comparison","Contrast","Metric","Value"
+"Median normalization","Low_vs_Control","FDR-set Jaccard",0
+"Median normalization","High_vs_Control","FDR-set Jaccard",0
+"Median normalization","High_vs_Low","FDR-set Jaccard",0.249027237354086
+"MS run-date proxy","Low_vs_Control","FDR-set Jaccard",0.123456790123457
+"MS run-date proxy","High_vs_Control","FDR-set Jaccard",0
+"MS run-date proxy","High_vs_Low","FDR-set Jaccard",0.622549019607843
+"Threshold 50%","Low_vs_Control","FDR-set Jaccard",0.857142857142857
+"Threshold 50%","High_vs_Control","FDR-set Jaccard",
+"Threshold 50%","High_vs_Low","FDR-set Jaccard",0.85546875
+"Threshold 80%","Low_vs_Control","FDR-set Jaccard",0.933333333333333
+"Threshold 80%","High_vs_Control","FDR-set Jaccard",
+"Threshold 80%","High_vs_Low","FDR-set Jaccard",0.914814814814815
+"Complete case","Low_vs_Control","FDR-set Jaccard",0.476190476190476
+"Complete case","High_vs_Control","FDR-set Jaccard",
+"Complete case","High_vs_Low","FDR-set Jaccard",0.782828282828283

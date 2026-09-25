@@ -9,6 +9,10 @@ matplotlib.use('Agg')
 from matplotlib.colors import ListedColormap
 from nature_plotting import new_figure, save_series
 
+matplotlib.rcParams["font.sans-serif"] = [
+    "Microsoft YaHei", "SimHei", "Arial", "DejaVu Sans"
+]
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(__file__).resolve().parent
 SOURCE = ROOT / 'rawdata' / 'processed.xlsx'
@@ -77,8 +81,10 @@ cross=pd.crosstab(sample['group'],sample['condition'])
 cross.to_csv(OUT/'region_environment_counts.csv',encoding='utf-8-sig')
 e1=ep.iloc[:,1].to_numpy()>0; e2=ep.iloc[:,2].to_numpy()>0
 overlap={'shared':int((e1&e2).sum()),str(ep.columns[1])+'_only':int((e1&~e2).sum()),str(ep.columns[2])+'_only':int((e2&~e1).sum())}
-COLORS={'high_stress':'#527D9E','high_temperature':'#C48C59'}
-LABELS={'high_stress':'High stress','high_temperature':'High temperature'}
+COLORS={'high_stress':'#527D9E','high_temperature':'#C48C59',
+        '高海拔':'#527D9E','湿热':'#C48C59'}
+LABELS={'high_stress':'高海拔','high_temperature':'湿热',
+        '高海拔':'高海拔','湿热':'湿热'}
 def label(ax,title):
     ax.set_title(title,loc='left',pad=9)
 

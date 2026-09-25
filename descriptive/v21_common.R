@@ -53,7 +53,7 @@ v21_provenance <- function(out, inputs, parameters, packages = character()) {
               file.path(out, "method_parameters.csv"))
 }
 v21_theme <- function(base_size = 8) {
-    ggplot2::theme_classic(base_size = base_size, base_family = "Arial") +
+    ggplot2::theme_classic(base_size = base_size, base_family = "sans") +
         ggplot2::theme(axis.line = ggplot2::element_line(linewidth = 0.35),
                        axis.ticks = ggplot2::element_line(linewidth = 0.35),
                        axis.text = ggplot2::element_text(size = 7, colour = "black"),
@@ -82,7 +82,7 @@ v21_save <- function(plot, out, name, source, width_mm = 183, height_mm = 120) {
         shape = ggplot2::guide_legend(nrow = 2, byrow = TRUE))
     # Editable vector PDF + 600 dpi PNG; no rendering occurs until explicitly run.
     grDevices::cairo_pdf(file.path(out, paste0(name, ".pdf")), width = width_mm / 25.4,
-                         height = height_mm / 25.4, family = "Arial")
+                         height = height_mm / 25.4, family = "sans")
     tryCatch(print(plot), finally = grDevices::dev.off())
     svglite::svglite(file.path(out, paste0(name, ".svg")), width = width_mm / 25.4,
                      height = height_mm / 25.4)
@@ -99,7 +99,7 @@ v22_draw <- function(draw, out, name, width_mm = 183, height_mm = 140) {
     v21_packages(c("svglite", "ragg"))
     dir.create(out, recursive = TRUE, showWarnings = FALSE)
     devices <- list(
-        pdf = function(path) grDevices::cairo_pdf(path, width = width_mm / 25.4, height = height_mm / 25.4, family = "Arial"),
+        pdf = function(path) grDevices::cairo_pdf(path, width = width_mm / 25.4, height = height_mm / 25.4, family = "sans"),
         svg = function(path) svglite::svglite(path, width = width_mm / 25.4, height = height_mm / 25.4),
         png = function(path) ragg::agg_png(path, width = width_mm, height = height_mm, units = "mm", res = 600))
     for (extension in names(devices)) {
@@ -113,7 +113,7 @@ v22_heatmap <- function(matrix, out, name, ..., width_mm = 183, height_mm = 150)
     v21_packages("pheatmap")
     dots <- list(...)
     defaults <- list(fontsize = 8, fontsize_row = 7, fontsize_col = 7,
-                     fontfamily = "Arial", border_color = NA, silent = TRUE)
+                     fontfamily = "sans", border_color = NA, silent = TRUE)
     for (key in names(defaults)) if (is.null(dots[[key]])) dots[[key]] <- defaults[[key]]
     heatmap <- do.call(pheatmap::pheatmap, c(list(mat = matrix), dots))
     v22_draw(function() { grid::grid.newpage(); grid::grid.draw(heatmap$gtable) },

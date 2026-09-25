@@ -1,0 +1,27 @@
+Parameter,Value
+script_version,2.1
+analysis_time_UTC,2026-09-24T16:28:20.021882+00:00
+detection_definition,finite quantitative value > 0; binary phenotype only
+analysis_universe_rule,"max(Control, Short, Long detection rate) >= 0.60"
+analysis_universe_threshold,0.6
+analysis_universe_proteins,1848
+target_thresholds,"[0.7, 0.6]"
+other_threshold_exclusive,0.2
+specific_rule,"one group >= target, both other groups < other"
+enriched_rule,"two groups >= target, remaining group < other"
+all_proteins_retained,3817
+included_samples,515
+excluded_samples,4
+source_file,F:\env\rawdata\processed.xlsx
+source_MD5,0d18a817503fedf032c6341163729952
+mapping_file,F:\env\rawdata\sample_mapping_FINAL.xlsx
+mapping_MD5,4fe4197c4a6e013ac8372f61dc18d0e1
+audit_file,F:\env\descriptive\audit.json
+audit_MD5,7abfa7ea63e20ca93e300ddd3f739806
+samples_file,F:\env\descriptive\sample_statistics.csv
+samples_MD5,fad1a0bb8010d02b9999bdd3a139719c
+defined_file,F:\env\descriptive\dose_defined_metadata.csv
+defined_MD5,e5cb7622a01094072b0481e70ed54dae
+package_numpy,2.4.6
+package_pandas,3.0.3
+package_openpyxl,3.1.5

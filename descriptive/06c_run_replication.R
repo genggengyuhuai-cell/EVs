@@ -147,17 +147,17 @@ FIG_DIR <- file.path(
     "06c_run_replication/figures_nature_v2.2"
 )
 
-for (directory in c(
-    RUN_DIR,
-    RUN_RESULT_DIR,
+RUN_DIR <- v21_output(
+    RUN_DIR
+)
+
+RUN_RESULT_DIR <- v21_output(
+    RUN_RESULT_DIR
+)
+
+FIG_DIR <- v21_output(
     FIG_DIR
-)) {
-    dir.create(
-        directory,
-        recursive = TRUE,
-        showWarnings = FALSE
-    )
-}
+)
 
 
 EXPR_FILE <- file.path(

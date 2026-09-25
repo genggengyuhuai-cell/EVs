@@ -217,8 +217,8 @@ DOSE_LEVELS <- c(
 )
 
 ENV_LEVELS <- c(
-    "high_stress",
-    "high_temperature"
+    "\u9AD8\u6D77\u62D4",
+    "\u6E7F\u70ED"
 )
 
 DOSE_LABELS <- c(
@@ -227,10 +227,7 @@ DOSE_LABELS <- c(
     high = "Long exposure"
 )
 
-ENV_LABELS <- c(
-    high_stress = "High stress",
-    high_temperature = "High temperature"
-)
+ENV_LABELS <- setNames(ENV_LEVELS, ENV_LEVELS)
 
 DOSE_COLORS <- c(
     control = "#4D4D4D",
@@ -238,10 +235,21 @@ DOSE_COLORS <- c(
     high = "#D97706"
 )
 
-ENV_COLORS <- c(
-    high_stress = "#7C3AED",
-    high_temperature = "#0F9D8A"
-)
+ENV_COLORS <- setNames(c("#7C3AED", "#0F9D8A"), ENV_LEVELS)
+
+as_environment_factor <- function(x, label) {
+    aliases <- setNames(
+        c(ENV_LEVELS, ENV_LEVELS),
+        c("high_stress", "high_temperature", ENV_LEVELS)
+    )
+    values <- as.character(x)
+    unexpected <- setdiff(unique(values[!is.na(values)]), names(aliases))
+    if (length(unexpected)) {
+        stop(label, " contains unexpected environment label(s): ",
+             paste(unexpected, collapse = ", "))
+    }
+    factor(unname(aliases[values]), levels = ENV_LEVELS)
+}
 
 STATUS_COLORS <- c(
     Higher = "#C0392B",
@@ -260,16 +268,75 @@ RUN_PALETTE <- c(
     "20260717" = "#9C755F"
 )
 
+ACQUISITION_DATE_LEVELS <- names(RUN_PALETTE)
+
+as_acquisition_date_factor <- function(x, label) {
+    values <- as.character(x)
+    unexpected <- setdiff(unique(values[!is.na(values)]), ACQUISITION_DATE_LEVELS)
+    if (length(unexpected)) {
+        stop(label, " contains acquisition date(s) missing from RUN_PALETTE: ",
+             paste(unexpected, collapse = ", "))
+    }
+    factor(values, levels = ACQUISITION_DATE_LEVELS)
+}
+
+if (!identical(names(RUN_PALETTE), ACQUISITION_DATE_LEVELS)) {
+    stop("RUN_PALETTE names must exactly match acquisition-date factor levels.")
+}
+
 
 # Nature figure contract: R backend, white quantitative panels, >=6 pt text.
 # Existing panel logic is retained; display settings come from the shared contract.
-theme_publication <- function(base_size = 7) v21_theme(base_size)
+FIGURE_FONT <- "Microsoft YaHei"
+
+theme_publication <- function(base_size = 7) {
+    v21_theme(base_size) +
+        theme(text = element_text(family = FIGURE_FONT))
+}
+
+write_csv_utf8 <- function(x, path) {
+    readr::write_csv(as.data.frame(x), path, na = "")
+}
 
 
 save_plot <- function(plot_object, filename, width = 7.2, height = 4.8) {
-    v21_save(plot_object, FIG_DIR, filename,
-             if (is.data.frame(plot_object$data)) plot_object$data else NULL,
-             width_mm = 183, height_mm = 125)
+    source_data <- if (is.data.frame(plot_object$data)) plot_object$data else NULL
+    plot_object <- plot_object +
+        v21_theme() +
+        theme(text = element_text(family = FIGURE_FONT)) +
+        guides(
+            colour = guide_legend(nrow = 2, byrow = TRUE),
+            shape = guide_legend(nrow = 2, byrow = TRUE)
+        )
+    cairo_pdf(
+        file.path(FIG_DIR, paste0(filename, ".pdf")),
+        width = 183 / 25.4,
+        height = 125 / 25.4,
+        family = FIGURE_FONT
+    )
+    tryCatch(print(plot_object), finally = dev.off())
+    svglite::svglite(
+        file.path(FIG_DIR, paste0(filename, ".svg")),
+        width = 183 / 25.4,
+        height = 125 / 25.4
+    )
+    tryCatch(print(plot_object), finally = dev.off())
+    ggsave(
+        file.path(FIG_DIR, paste0(filename, ".png")),
+        plot_object,
+        device = ragg::agg_png,
+        width = 183,
+        height = 125,
+        units = "mm",
+        dpi = 600,
+        bg = "white"
+    )
+    if (!is.null(source_data)) {
+        write_csv_utf8(
+            source_data,
+            file.path(FIG_DIR, paste0(filename, "_source.csv"))
+        )
+    }
 }
 
 
@@ -277,10 +344,12 @@ save_plot <- function(plot_object, filename, width = 7.2, height = 4.8) {
 # 4. Sample-structure data
 # ============================================================
 
-sample_diag <- read.csv(
+sample_diag <- readr::read_csv(
     SAMPLE_DIAG_FILE,
-    check.names = FALSE,
-    stringsAsFactors = FALSE
+    na = character(),
+    show_col_types = FALSE,
+    progress = FALSE,
+    name_repair = "minimal"
 )
 
 sample_diag$TREAT1_clean <- factor(
@@ -288,22 +357,14 @@ sample_diag$TREAT1_clean <- factor(
     levels = DOSE_LEVELS
 )
 
-sample_diag$condition <- factor(
+sample_diag$condition <- as_environment_factor(
     sample_diag$condition,
-    levels = ENV_LEVELS
+    "Sample diagnostics"
 )
 
-sample_diag$MS_batch_proxy <- factor(
-    as.character(
-        sample_diag$MS_batch_proxy
-    ),
-    levels = sort(
-        unique(
-            as.character(
-                sample_diag$MS_batch_proxy
-            )
-        )
-    )
+sample_diag$MS_batch_proxy <- as_acquisition_date_factor(
+    sample_diag$MS_batch_proxy,
+    "Sample diagnostics"
 )
 
 
@@ -527,10 +588,10 @@ embedding_n <- sum(embedding_complete)
 if (embedding_n < 2L) stop("Insufficient complete-case proteins for PCA/UMAP.")
 pca_subtitle <- paste("Complete-case PCA;", embedding_n, "proteins; no imputation")
 
-pca <- read.csv(
+pca <- readr::read_csv(
     PCA_FILE,
-    check.names = FALSE,
-    stringsAsFactors = FALSE
+    show_col_types = FALSE,
+    progress = FALSE
 )
 
 required_pca_columns <- c(
@@ -595,31 +656,27 @@ for (i in 1:2) {
     if (any(!is.finite(saved_pct)) || any(abs(saved_pct - pca_variance_current[i]) > 1e-6))
         stop("Cached PCA variance labels differ from current input.")
 }
-write.csv(data.frame(Protein = embedding_input$PG.ProteinGroups[embedding_complete]),
-          file.path(FIG_DIR, "Figure_A2_PCA_proteins.csv"), row.names = FALSE)
-write.csv(pca, file.path(FIG_DIR, "Figure_A2_PCA_source_data.csv"), row.names = FALSE)
+write_csv_utf8(data.frame(Protein = embedding_input$PG.ProteinGroups[embedding_complete]),
+               file.path(FIG_DIR, "Figure_A2_PCA_proteins.csv"))
 
 pca$TREAT1_clean <- factor(
     pca$TREAT1_clean,
     levels = DOSE_LEVELS
 )
 
-pca$condition <- factor(
+pca$condition <- as_environment_factor(
     pca$condition,
-    levels = ENV_LEVELS
+    "PCA metadata"
 )
 
-pca$MS_batch_proxy <- factor(
-    as.character(
-        pca$MS_batch_proxy
-    ),
-    levels = sort(
-        unique(
-            as.character(
-                pca$MS_batch_proxy
-            )
-        )
-    )
+pca$MS_batch_proxy <- as_acquisition_date_factor(
+    pca$MS_batch_proxy,
+    "PCA metadata"
+)
+
+write_csv_utf8(
+    pca,
+    file.path(FIG_DIR, "Figure_A2_PCA_source_data.csv")
 )
 
 pc1_pct <- unique(
@@ -725,10 +782,7 @@ p_b2 <- ggplot(
         labels = ENV_LABELS
     ) +
     scale_shape_manual(
-        values = c(
-            high_stress = 16,
-            high_temperature = 17
-        ),
+        values = setNames(c(16, 17), ENV_LEVELS),
         labels = ENV_LABELS
     ) +
     labs(
@@ -953,11 +1007,12 @@ expr_df <- read.csv(
     stringsAsFactors = FALSE
 )
 
-meta <- read.csv(
+meta <- readr::read_csv(
     META_FILE,
-    check.names = FALSE,
-    stringsAsFactors = FALSE,
-    na.strings = character(0)
+    na = character(),
+    show_col_types = FALSE,
+    progress = FALSE,
+    name_repair = "minimal"
 )
 
 if (!identical(
@@ -974,9 +1029,14 @@ meta$TREAT1_clean <- factor(
     levels = DOSE_LEVELS
 )
 
-meta$condition <- factor(
+meta$condition <- as_environment_factor(
     meta$condition,
-    levels = ENV_LEVELS
+    "Current metadata"
+)
+
+meta$MS_batch_proxy <- as_acquisition_date_factor(
+    meta[["\u8FDB\u6837\u65F6\u95F4"]],
+    "Current metadata"
 )
 
 
@@ -1011,7 +1071,7 @@ for (name in c("TREAT1_clean", "condition")) {
     if (!identical(as.character(aligned_pca[[name]]), as.character(meta[[name]])))
         stop("PCA/current metadata label conflict: ", name)
 }
-if (!identical(as.character(aligned_pca$MS_batch_proxy), as.character(meta[["进样时间"]])))
+if (!identical(as.character(aligned_pca$MS_batch_proxy), as.character(meta$MS_batch_proxy)))
     stop("PCA/current acquisition-date labels differ.")
 embedding_matrix <- scale(embedding_matrix, center = TRUE, scale = FALSE)
 umap_feature_variance <- apply(embedding_matrix, 2, var)
@@ -1038,15 +1098,18 @@ umap_coordinates_data <- data.frame(
 )
 umap_data <- umap_coordinates_data %>%
     left_join(
-        meta[, c("UniqueSampleID", "TREAT1_clean", "condition", "进样时间")],
+        meta[, c("UniqueSampleID", "TREAT1_clean", "condition", "MS_batch_proxy")],
         by = "UniqueSampleID"
-    ) %>%
-    rename(MS_batch_proxy = `进样时间`)
+    )
 if (nrow(umap_data) != nrow(embedding_matrix) ||
     anyNA(umap_data$TREAT1_clean) || anyNA(umap_data$condition) ||
     anyNA(umap_data$MS_batch_proxy)) {
     stop("UMAP coordinates could not be joined unambiguously to current metadata.")
 }
+umap_data$MS_batch_proxy <- as_acquisition_date_factor(
+    umap_data$MS_batch_proxy,
+    "UMAP metadata"
+)
 umap_subtitle <- paste(ncol(embedding_matrix), "complete-case, non-zero-variance proteins; exploratory")
 umap_base <- ggplot(umap_data, aes(UMAP1, UMAP2)) +
     labs(x = "UMAP 1", y = "UMAP 2", subtitle = umap_subtitle) + theme_publication()
@@ -1058,7 +1121,7 @@ umap_exposure <- umap_base +
 umap_environment <- umap_base +
     geom_point(aes(colour = condition, shape = condition), size = 1.6, alpha = 0.65) +
     scale_colour_manual(values = ENV_COLORS, labels = ENV_LABELS) +
-    scale_shape_manual(values = c(high_stress = 16, high_temperature = 17), labels = ENV_LABELS) +
+    scale_shape_manual(values = setNames(c(16, 17), ENV_LEVELS), labels = ENV_LABELS) +
     labs(title = "b  Environment", colour = "Environment", shape = "Environment")
 umap_date <- umap_base +
     geom_point(aes(colour = MS_batch_proxy), size = 1.6, alpha = 0.65) +
@@ -1070,8 +1133,8 @@ for (name in c("exposure", "environment", "acquisition_date")) {
 }
 # No PCA/UMAP assembly: each coordinate view is exported independently.
 
-write.csv(umap_data, file.path(FIG_DIR, "Figure_A2b_UMAP_source_data.csv"), row.names = FALSE)
-write.csv(data.frame(
+write_csv_utf8(umap_data, file.path(FIG_DIR, "Figure_A2b_UMAP_source_data.csv"))
+write_csv_utf8(data.frame(
     seed = umap_seed, n_neighbors = umap_neighbors, min_dist = 0.1,
     metric = "euclidean", init = "random", n_threads = 1L, n_sgd_threads = 1L,
     n_samples = nrow(embedding_matrix), n_proteins = ncol(embedding_matrix),
@@ -1082,9 +1145,9 @@ write.csv(data.frame(
     expression_md5 = unname(tools::md5sum(PRIMARY_EXPR_FILE)),
     metadata_md5 = unname(tools::md5sum(META_FILE)),
     pca_md5 = unname(tools::md5sum(PCA_FILE))
-), file.path(FIG_DIR, "Figure_A2b_UMAP_parameters.csv"), row.names = FALSE)
-write.csv(data.frame(Protein = expr_df[[1]][complete_rows][umap_keep_features]),
-          file.path(FIG_DIR, "Figure_A2b_UMAP_proteins.csv"), row.names = FALSE)
+), file.path(FIG_DIR, "Figure_A2b_UMAP_parameters.csv"))
+write_csv_utf8(data.frame(Protein = expr_df[[1]][complete_rows][umap_keep_features]),
+               file.path(FIG_DIR, "Figure_A2b_UMAP_proteins.csv"))
 
 # ============================================================
 # 10. Select top Long-vs-Short exposure proteins
@@ -1319,8 +1382,9 @@ annotation_col <- data.frame(
     ),
     MS_run_date = factor(
         as.character(
-            meta[["进样时间"]]
-        )
+            meta$MS_batch_proxy
+        ),
+        levels = ACQUISITION_DATE_LEVELS
     ),
     row.names = meta$UniqueSampleID,
     check.names = FALSE
@@ -1348,47 +1412,43 @@ v22_heatmap(heat_z, FIG_DIR, "Figure_A5_top30_heatmap",
              cluster_rows = TRUE, cluster_cols = TRUE, show_colnames = FALSE,
              annotation_col = annotation_col, annotation_colors = annotation_colors,
              na_col = "#D9D9D9", main = "Top primary Long-vs-Short exposure proteins",
-             height_mm = 170)
+             fontfamily = FIGURE_FONT, height_mm = 170)
 
 # 13. Export source data for figures
 # ============================================================
 
-write.csv(
+write_csv_utf8(
     sample_diag,
     file.path(
         FIG_DIR,
         "Figure_A1_source_data.csv"
-    ),
-    row.names = FALSE
+    )
 )
 
-write.csv(
+write_csv_utf8(
     pca,
     file.path(
         FIG_DIR,
         "Figure_A2_source_data.csv"
-    ),
-    row.names = FALSE
+    )
 )
 
-write.csv(
+write_csv_utf8(
     bind_rows(
         primary_results
     ),
     file.path(
         FIG_DIR,
         "Figure_A3_source_data.csv"
-    ),
-    row.names = FALSE
+    )
 )
 
-write.csv(
+write_csv_utf8(
     top12_long,
     file.path(
         FIG_DIR,
         "Figure_A4_source_data.csv"
-    ),
-    row.names = FALSE
+    )
 )
 
 
@@ -1396,8 +1456,8 @@ write.csv(
 # 14. Console
 # ============================================================
 
-write.csv(data.frame(Protein = rownames(heat_z), heat_z, check.names = FALSE),
-          file.path(FIG_DIR, "Figure_A5_heatmap_source_data.csv"), row.names = FALSE)
+write_csv_utf8(data.frame(Protein = rownames(heat_z), heat_z, check.names = FALSE),
+               file.path(FIG_DIR, "Figure_A5_heatmap_source_data.csv"))
 v21_provenance(FIG_DIR, c(required_files, file.path(ROOT_DIR, "06a_limma_core_figures.R")),
                c(UMAP_seed = umap_seed, UMAP_features = "complete-case, non-zero-variance; no DEP selection",
                  PCA = "cached scores verified against centered unscaled primary matrix",

@@ -29,10 +29,17 @@ library(readr)
 # ============================================================
 
 
-ROOT_DIR <- normalizePath(
-    getwd(),
-    winslash="/"
-)
+get_script_dir <- function() {
+    args <- commandArgs(trailingOnly = FALSE)
+    file_arg <- grep("^--file=", args, value = TRUE)
+    if (length(file_arg) == 1L) {
+        return(dirname(normalizePath(sub("^--file=", "", file_arg),
+                                     winslash = "/", mustWork = TRUE)))
+    }
+    normalizePath(getwd(), winslash = "/", mustWork = TRUE)
+}
+
+ROOT_DIR <- get_script_dir()
 
 
 RESULT_FILE <- file.path(
@@ -119,12 +126,18 @@ res <- res %>%
     mutate(
 
         FDR05 =
+            !is.na(adj.P.Val) &
+            is.finite(adj.P.Val) &
             adj.P.Val < 0.05,
 
         FC05 =
+            !is.na(logFC) &
+            is.finite(logFC) &
             abs(logFC) >= 0.5,
 
         FC10 =
+            !is.na(logFC) &
+            is.finite(logFC) &
             abs(logFC) >= 1,
 
 

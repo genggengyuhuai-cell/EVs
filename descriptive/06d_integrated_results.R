@@ -12,7 +12,75 @@ detect_file <- file.path(detection_dir, "detection_primary_results.csv")
 fit_file <- file.path(primary_dir, "PRIMARY_log2_dose_environment__fit.rds")
 expr_file <- file.path(ROOT_DIR, "PRIMARY_dose_log2_expression.csv.gz")
 meta_file <- file.path(ROOT_DIR, "dose_defined_metadata.csv")
-rates <- v21_read(rate_file, c("PG.ProteinGroups", paste0(c("Control", "Short", "Long"), "_detection_rate")), "PG.ProteinGroups")
+
+rate_columns <- paste0(c("Control", "Short", "Long"), "_detection_rate")
+
+rates <- v21_read(
+    rate_file,
+    c(
+        "PG.ProteinGroups",
+        rate_columns,
+        "In_detection_analysis_universe"
+    ),
+    "PG.ProteinGroups"
+)
+
+# Strictly parse the Python-exported detection-universe flag.
+# Upstream Python writes "True"/"False"; v21_read() imports
+# this column as character in the current runtime.
+# This is representation-only compatibility handling and
+# does not redefine the detection-analysis universe.
+universe_flag_raw <- trimws(
+    as.character(rates$In_detection_analysis_universe)
+)
+
+if (
+    anyNA(universe_flag_raw) ||
+    !all(universe_flag_raw %in% c("True", "False"))
+) {
+    bad_values <- unique(
+        universe_flag_raw[
+            is.na(universe_flag_raw) |
+                !universe_flag_raw %in% c("True", "False")
+        ]
+    )
+
+    stop(
+        paste0(
+            "In_detection_analysis_universe must contain only ",
+            "Python-exported True/False values. Invalid value(s): ",
+            paste(bad_values, collapse = ", ")
+        )
+    )
+}
+
+rates$In_detection_analysis_universe <-
+    universe_flag_raw == "True"
+
+# Independently reconstruct the frozen scientific universe.
+expected_universe <- apply(
+    rates[, rate_columns, drop = FALSE],
+    1,
+    max
+) >= 0.60
+
+if (
+    !is.logical(rates$In_detection_analysis_universe) ||
+    anyNA(rates$In_detection_analysis_universe) ||
+    length(rates$In_detection_analysis_universe) !=
+        length(expected_universe) ||
+    any(
+        rates$In_detection_analysis_universe !=
+            expected_universe
+    )
+) {
+    stop(
+        paste0(
+            "Detection-analysis universe must equal ",
+            "max(Control, Short, Long detection rate) >= 0.60."
+        )
+    )
+}
 detect <- v21_read(detect_file, c("PG.ProteinGroups", "Contrast", "FDR", "P", "logOR", "Model_status"))
 v21_ids(paste(detect$PG.ProteinGroups, detect$Contrast, sep = "\r"), "Detection protein-contrast keys")
 expr_df <- v21_read(expr_file, "PG.ProteinGroups", "PG.ProteinGroups")
@@ -33,7 +101,13 @@ needed <- c("coefficients", "stdev.unscaled", "s2.post", "df.total")
 if (!all(needed %in% names(fit))) stop("Saved fit lacks moderated uncertainty components.")
 v21_ids(rownames(fit$coefficients), "Saved fit protein IDs")
 if (!all(names(CONTRAST_LABELS) %in% colnames(fit$coefficients))) stop("Saved fit contrast mismatch.")
-if (!identical(dimnames(fit$coefficients), dimnames(fit$stdev.unscaled))) stop("Saved fit SE alignment mismatch.")
+if (
+    !identical(dim(fit$coefficients), dim(fit$stdev.unscaled)) ||
+    !identical(rownames(fit$coefficients), rownames(fit$stdev.unscaled)) ||
+    !identical(colnames(fit$coefficients), colnames(fit$stdev.unscaled))
+) {
+    stop("Saved fit SE alignment mismatch.")
+}
 n_fit <- nrow(fit$coefficients)
 if (!length(fit$s2.post) %in% c(1L, n_fit) || !length(fit$df.total) %in% c(1L, n_fit))
     stop("Unexpected moderated variance/df lengths.")
@@ -135,7 +209,8 @@ for (contrast in names(CONTRAST_LABELS)) {
         v21_write(profile, file.path(out, paste0(figure_stem, "_single_protein_profiles_samples.csv")))
     }
     det <- detect[detect$Contrast == contrast, , drop = FALSE]
-    if (!setequal(det$PG.ProteinGroups, rates$PG.ProteinGroups)) stop("Detection model/mother table protein mismatch.")
+    universe_ids <- rates$PG.ProteinGroups[rates$In_detection_analysis_universe]
+    if (!setequal(det$PG.ProteinGroups, universe_ids)) stop("Detection model/universe protein mismatch.")
     if (!all(abundance$PG.ProteinGroups %in% rates$PG.ProteinGroups)) stop("Abundance proteins absent from detection mother table.")
     integrated <- rates
     ai <- match(integrated$PG.ProteinGroups, abundance$PG.ProteinGroups)
@@ -146,6 +221,14 @@ for (contrast in names(CONTRAST_LABELS)) {
     integrated$Detection_logOR <- det$logOR[di]
     integrated$Detection_FDR <- det$FDR[di]
     integrated$Detection_model_status <- det$Model_status[di]
+    integrated$Detection_analysis_status <- ifelse(
+        integrated$In_detection_analysis_universe,
+        integrated$Detection_model_status,
+        "outside_detection_analysis_universe"
+    )
+    if (any(integrated$In_detection_analysis_universe & is.na(di))) {
+        stop("Detection-analysis universe contains a protein without a model result.")
+    }
     groups <- pair_groups[[contrast]]
     integrated$Detection_rate_difference <- integrated[[paste0(groups[1], "_detection_rate")]] -
         integrated[[paste0(groups[2], "_detection_rate")]]
@@ -156,7 +239,8 @@ for (contrast in names(CONTRAST_LABELS)) {
     evaluable <- !is.na(a) & !is.na(d)
     integrated$Evidence[evaluable] <- ifelse(a[evaluable] & d[evaluable], "Both",
         ifelse(a[evaluable], "Abundance-only", ifelse(d[evaluable], "Detection-only", "Neither")))
-    integrated$Plotted_jointly <- is.finite(integrated$Abundance_log2FC) & is.finite(integrated$Detection_rate_difference)
+    integrated$Plotted_jointly <- integrated$In_detection_analysis_universe &
+        is.finite(integrated$Abundance_log2FC) & is.finite(integrated$Detection_rate_difference)
     integrated$Abundance_status <- ifelse(is.na(ai), "outside_core_quantitative_set",
                                           ifelse(is.finite(integrated$Abundance_FDR), "tested", "not_estimable"))
     # All proteins remain in source. Outside-core proteins have no artificial x=0.
@@ -169,7 +253,8 @@ for (contrast in names(CONTRAST_LABELS)) {
              colour = "Evidence", title = title,
              subtitle = "Evidence: separate BH FDR < 0.05 in each branch; no fold-change cutoff")
     v21_save(p_joint, out, paste0(figure_stem, "_abundance_detection_evidence"), integrated, height_mm = 125)
-    outside <- integrated[integrated$Abundance_status == "outside_core_quantitative_set", ]
+    outside <- integrated[integrated$Abundance_status == "outside_core_quantitative_set" &
+                          integrated$In_detection_analysis_universe, ]
     if (nrow(outside)) {
         outside <- outside[order(outside$Detection_rate_difference, outside$PG.ProteinGroups), ]
         outside$Rank <- seq_len(nrow(outside))
@@ -182,7 +267,8 @@ for (contrast in names(CONTRAST_LABELS)) {
                  title = paste(title, "(outside core)"), subtitle = "Abundance evidence unavailable; these proteins are not classified as Neither")
         v21_save(p_outside, out, paste0(figure_stem, "_outside_core_detection_summary"), outside, height_mm = 105)
     }
-    evidence_counts[[contrast]] <- count(integrated, Contrast, Evidence, Abundance_status, name = "N_proteins")
+    evidence_counts[[contrast]] <- count(integrated, Contrast, Evidence, Abundance_status,
+                                         Detection_analysis_status, name = "N_proteins")
     evidence_plot_data <- count(integrated, Evidence, name = "N_proteins")
     p_counts <- ggplot(evidence_plot_data, aes(N_proteins, reorder(Evidence, N_proteins), fill = Evidence)) +
         geom_col(width = 0.65) + geom_text(aes(label = N_proteins), hjust = -0.15, size = 2.6) +
@@ -192,7 +278,9 @@ for (contrast in names(CONTRAST_LABELS)) {
     v21_save(p_counts, out, paste0(figure_stem, "_evidence_count_summary"), evidence_plot_data, height_mm = 120)
     audit[[contrast]] <- data.frame(Contrast = contrast, N_abundance = nrow(abundance), N_MA = nrow(ma_data),
                                     N_rank = nrow(rank_data), N_forest = nrow(selected), N_profiles = length(profile_ids),
-                                    N_detection = nrow(integrated), N_joint = nrow(shown), N_outside_core = nrow(outside))
+                                    N_detection_mother_table = nrow(integrated),
+                                    N_detection_universe = sum(integrated$In_detection_analysis_universe),
+                                    N_joint = nrow(shown), N_outside_core = nrow(outside))
     inputs <- c(inputs, path)
 }
 v21_write(bind_rows(audit), file.path(out, "figure_inclusion_audit.csv"))
@@ -209,6 +297,8 @@ writeLines(c("# Integrated results v2.1", "Existing primary contrasts and volcan
              "Profiles: top 6 by FDR, observed sample mean +/- SE, unadjusted and descriptive; sample n exported.",
              "Joint plot x=adjusted abundance log2FC; y=unadjusted detection-rate difference.",
              "Evidence classes require BOTH models to be evaluable: branch-specific BH FDR <0.05.",
+              "Detection models and BH families use the fixed universe: any exposure-group detection rate >=60%.",
+              "Proteins outside that universe remain in the mother-table source and are explicitly marked as not modelled.",
              "An unavailable/non-estimable branch is Not jointly evaluable, not evidence of a null effect.",
              "Outside-core proteins remain in all-protein source and separate detection panel; never assigned x=0.",
              "Separate FDR families are not a formal joint omnibus test. No causal or biological-absence claim.",

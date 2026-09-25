@@ -34,10 +34,11 @@
 #        50% and 80% dose-wise protein sets
 #   4) Complete-case sensitivity:
 #        proteins with no NA across all 515 samples
-#   5) Dose trend:
-#        control=0, low=1, high=2 + environment
-#   6) Dose x environment interaction:
+#   5) Dose x environment interaction:
 #        six group means + difference-in-differences contrasts
+#
+# The deprecated control=0, low=1, high=2 continuous exposure trend is not
+# part of this script. Exposure groups are categorical duration groups.
 #
 # IMPORTANT
 #   - No ComBat.
@@ -310,15 +311,26 @@ if (!setequal(
     )
 }
 
+environment_aliases <- c(
+    "高海拔" = "high_stress",
+    "湿热" = "high_temperature"
+)
+
+environment_labels <- as.character(meta$condition)
+known_aliases <- environment_labels %in% names(environment_aliases)
+environment_labels[known_aliases] <- unname(
+    environment_aliases[environment_labels[known_aliases]]
+)
+
 if (!all(
-    unique(meta$condition) %in% ENVIRONMENT_LEVELS
+    unique(environment_labels) %in% ENVIRONMENT_LEVELS
 )) {
     stop(
         paste0(
             "Unexpected environment labels: ",
             paste(
                 setdiff(
-                    unique(meta$condition),
+                    unique(environment_labels),
                     ENVIRONMENT_LEVELS
                 ),
                 collapse = ", "
@@ -333,7 +345,7 @@ meta$dose <- factor(
 )
 
 meta$environment <- factor(
-    meta$condition,
+    environment_labels,
     levels = ENVIRONMENT_LEVELS
 )
 
@@ -342,22 +354,6 @@ meta$MS_batch_proxy <- factor(
         meta[["进样时间"]]
     )
 )
-
-meta$dose_numeric <- c(
-    control = 0,
-    low = 1,
-    high = 2
-)[
-    as.character(
-        meta$dose
-    )
-]
-
-if (anyNA(meta$dose_numeric)) {
-    stop(
-        "Failed to create numeric dose coding."
-    )
-}
 
 
 # ============================================================
@@ -647,26 +643,6 @@ make_batch_design <- function() {
 }
 
 
-make_trend_design <- function() {
-
-    design <- model.matrix(
-        ~ dose_numeric + environment,
-        data = meta
-    )
-
-    colnames(design) <- make.names(
-        colnames(design)
-    )
-
-    assert_full_rank(
-        design,
-        "dose trend: numeric dose + environment"
-    )
-
-    design
-}
-
-
 make_interaction_design <- function() {
 
     meta$group6 <- factor(
@@ -703,7 +679,6 @@ make_interaction_design <- function() {
 
 primary_design <- make_primary_design()
 batch_design <- make_batch_design()
-trend_design <- make_trend_design()
 interaction_design <- make_interaction_design()
 
 
@@ -856,7 +831,7 @@ run_limma_contrasts <- function(
     )
 
     v22_draw(function() {
-        par(family = "Arial", ps = 9, cex.axis = 0.85, cex.lab = 0.9,
+        par(family = "sans", ps = 9, cex.axis = 0.85, cex.lab = 0.9,
             cex.main = 1, mar = c(4, 4, 4, 1))
         plotSA(fit, main = paste(strwrap(paste0(analysis_name, ": residual SD trend"), 55), collapse = "\n"))
     }, file.path(DIAGNOSTIC_DIR, "figures_nature_v2.2"), paste0(analysis_name, "__plotSA"))
@@ -1002,92 +977,7 @@ complete_case_fit <- run_limma_contrasts(
 
 
 # ============================================================
-# 18. SECONDARY: linear dose trend
-#
-# control=0, low=1, high=2
-# adjusted for environment
-# ============================================================
-
-trend_fit <- lmFit(
-    primary_expr,
-    trend_design
-)
-
-trend_fit <- eBayes(
-    trend_fit,
-    trend = EBAYES_TREND,
-    robust = EBAYES_ROBUST
-)
-
-if (!"dose_numeric" %in% colnames(
-    trend_design
-)) {
-    stop(
-        "dose_numeric coefficient not found in trend design."
-    )
-}
-
-trend_table <- topTable(
-    trend_fit,
-    coef = "dose_numeric",
-    number = Inf,
-    adjust.method = "BH",
-    sort.by = "P"
-)
-
-trend_table$PG.ProteinGroups <- rownames(
-    trend_table
-)
-
-trend_table$Contrast <- "Linear_Dose_Trend"
-
-trend_table$Significant_FDR_0.05 <- (
-    !is.na(
-        trend_table$adj.P.Val
-    )
-    &
-    trend_table$adj.P.Val < REPORT_FDR_CUTOFF
-)
-
-trend_table <- trend_table[
-    ,
-    c(
-        "PG.ProteinGroups",
-        "Contrast",
-        "logFC",
-        "AveExpr",
-        "t",
-        "P.Value",
-        "adj.P.Val",
-        "B",
-        "Significant_FDR_0.05"
-    ),
-    drop = FALSE
-]
-
-rownames(trend_table) <- NULL
-
-write.csv(
-    trend_table,
-    file.path(
-        RESULT_DIR,
-        "07_SECONDARY_linear_dose_trend.csv"
-    ),
-    row.names = FALSE,
-    na = ""
-)
-
-saveRDS(
-    trend_fit,
-    file.path(
-        RESULT_DIR,
-        "07_SECONDARY_linear_dose_trend_fit.rds"
-    )
-)
-
-
-# ============================================================
-# 19. SECONDARY: dose x environment interaction
+# 18. SECONDARY: dose x environment interaction
 #
 # Six group means:
 #   control__high_stress

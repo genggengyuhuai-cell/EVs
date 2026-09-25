@@ -1,534 +1,323 @@
 # TASK_CURRENT.md
 
-Last updated: 2026-09-23
+Last updated: 2026-09-24
 
-# Current Task — 06a PCA + UMAP Static Readiness Review
+# Current Task --- Final scientific / output audit
 
-This file describes ONLY the current task.
+## Status
 
-It is the authoritative source for CURRENT WORK PROGRESS and the next breakpoint.
-
-It is intended to support interrupted / resumed Codex work without forcing Codex to rescan the entire project.
-
-It may be replaced when the next task begins.
-
----
-
-# 1. Current objective
-
-Perform a final static readiness review of `06a_limma_core_figures.R` PCA and UMAP code so that the user may run it manually.
-
-This is a code-readiness task, not an analysis rerun or a new figure-maintenance round.
-
-Status: static review complete. The revised PCA/UMAP code is IMPLEMENTED / READY FOR USER EXECUTION, but has NOT been executed or runtime validated and no scientific result is confirmed.
-
----
-
-# 2. Hard restriction
+The controlled runtime-validation phase is substantially complete.
 
 ```text
-DO NOT RUN THE ANALYSIS.
+PYTHON UPSTREAM RUNTIME      = PASS
+ACTIVE R RUNTIME            = SUBSTANTIALLY COMPLETE
+PRIMARY LIMMA                = PASS
+DETECTION MODEL RUNTIME      = PASS
+INTEGRATED RESULTS RUNTIME   = PASS
+DOWNSTREAM DEP RUNTIME       = PASS
+FINAL SCIENTIFIC / OUTPUT QC = IN PROGRESS
 ```
 
-Only modify code and documentation.
+Do not rerun already validated modules merely to reconfirm them. The current
+breakpoint is final scientific, methodological, output-contract, and figure/source-data
+audit.
 
-Do NOT:
+## Locked scientific definitions --- DO NOT CHANGE
 
-- execute R analysis scripts
-- execute Python analysis scripts
-- fit statistical models
-- regenerate figures
-- regenerate statistical result tables
-- run the complete pipeline
-- rerun limma
-- rerun detection models
-- modify raw data
-- change the locked primary statistical model
-- change detection thresholds
-- delete additional scripts
-- archive additional scripts
+- exposure-defined samples = 515
+- primary quantitative rule = >=70% detection in EACH of Control / Short / Long
+- primary quantitative core = 1434 proteins
+- detection mother table = 3817 proteins
+- detection-analysis universe = 1848 proteins
+- detection-universe rule =
+  `max(Control, Short, Long detection rate) >= 0.60`
+- `<20%` is classification-only and is NOT a detection-universe retention rule
+- detection-model BH family = complete fixed 1848-protein universe per contrast
+- primary abundance model = exposure group + environment
+- primary abundance missing values remain NA; no primary imputation
+- primary limma uses categorical contrasts and BH-adjusted P values
+- formal DEP definition = BH FDR < 0.05
+- effect-size thresholds are characterization only and do not redefine DEP
+- canonical environment display labels = `高海拔` / `湿热`
+- historical English environment keys are internal compatibility identifiers only
+- deprecated continuous 0/1/2 exposure trend remains outside the active workflow
 
-The only currently approved deprecated / archived analysis scripts remain:
+## Verified Python upstream
+
+- `run_all.py` = PASS
+- `normalization_design_diagnostics.py` = PASS
+- `dose_restricted_detection.py` = PASS
+- exposure-defined samples = 515
+- quantitative sets:
+  - 50% = 1935
+  - 60% = 1670
+  - 70% = 1434
+  - 80% = 1214
+- detection mother table = 3817
+- detection-analysis universe = 1848
+- outside detection-analysis universe = 1969
+
+## Verified R runtime
+
+- `05_limma_dose_analysis.R` = PASS
+- `06a_limma_core_figures.R` = PASS
+  - structural output contract PASS
+  - visual QC PASS
+- `06b_limma_robustness.R` = PASS
+  - structural output contract PASS
+  - visual QC PASS
+- `06c_run_replication.R` = PASS
+- `04_covariate_QC.R` = executed without runtime error
+- `08_detection_pattern_analysis.R` = PASS
+- `06d_integrated_results.R` = PASS
+- `09_DEP_characterization.R` = PASS
+- `DEP_effect_size_summary.R` = PASS
+- `10_protein_clustering.R` = runtime PASS
+- `10_dose_pattern_classification.R` = runtime PASS
+
+Runtime PASS does not automatically mean final scientific acceptance.
+
+## Primary abundance checkpoints
+
+Primary quantitative universe:
 
 ```text
-06_limma_result_plots.R
-07_dose_trend_analysis.R
+1434 proteins
 ```
 
-Do not remove anything else.
-
----
-
-# 3. Progress snapshot
-
-## 3.1 Completed / established
-
-### Project-control system
-
-Completed:
-
-- `CODEX_WORKFLOW.md` defines Codex working behaviour.
-- `PROJECT_CONTEXT.md` defines current scientific / analytical truth.
-- `FILE_STATUS.md` defines file role / activity truth.
-- `TASK_CURRENT.md` defines the current work breakpoint.
-- historical README files remain change records and are not read by default.
-
-### Scientific / workflow decisions already established
-
-Completed / locked:
-
-- P1/P2/P3 mapping chain is frozen.
-- primary quantitative set remains 1434 proteins.
-- primary limma remains categorical exposure-group analysis with environment adjustment.
-- primary limma keeps NA and uses no imputation.
-- `06_limma_result_plots.R` remains outside the active workflow.
-- `07_dose_trend_analysis.R` remains outside the active interpretation workflow.
-- acquisition date is a proxy / sensitivity variable, not a confirmed technical batch.
-- detection-based analysis is now a main branch alongside quantitative abundance.
-- `run_all.py` is the canonical UPSTREAM descriptive/filtering entry point only.
-- `06d_integrated_results.R` is an active downstream integration / figure script.
-- display terminology should use Control / Short exposure / Long exposure while retaining historical compatibility keys where required.
-
-### v2.0 maintenance already completed in code
-
-- `06a_limma_core_figures.R` updated.
-- `06c_run_replication.R` terminology / naming revised.
-- `07_DEP_threshold_summary.R` reorganized / renamed as `DEP_effect_size_summary.R`.
-- `10_dose_pattern_classification.R` substantially rewritten.
-- unified upstream `run_all.py` established.
-- compatibility entry point retained.
-- `README_CODE_MAINTENANCE_v2.0.md` created.
-
-### v2.1 extension already completed in code
-
-- `04_covariate_QC.R` added / implemented.
-- `dose_restricted_detection.py` added / implemented.
-- `08_detection_pattern_analysis.R` added / implemented.
-- `06d_integrated_results.R` added / implemented.
-- `v21_common.R` added / implemented.
-- abundance + detection integrated interpretation layer added.
-- Nature-style plotting infrastructure expanded.
-- `README_CODE_MAINTENANCE_v2.1.md` created.
-
-IMPORTANT:
-
-These are implementation states only.
-
-They do NOT mean the new scientific analyses were executed or validated.
-
----
-
-# 4. File-by-file breakpoint table
-
-This table is the main resume map.
-
-Use it before reopening any code.
-
-| File | Current status | Last known state | Next action |
-|---|---|---|---|
-| `README_CODE_MAINTENANCE_v2.2.md` | DONE | final historical maintenance record created; records the completed Nature-style figure / naming / consistency cleanup without claiming unreviewed files complete | maintenance round closed; do not start a new task without explicit instruction |
-| `nature_plotting.py` | DONE | final consistency review confirmed shared single-figure theme, PDF/SVG/600 dpi PNG export, and matching source-data support for batch saves | complete; no data handling, filtering, or modelling is performed by the helper |
-| `v21_common.R` | DONE | final consistency review confirmed shared exposure terminology, restrained R theme, independent-figure export, and matching source-data naming defaults | complete; no analysis definitions or clustering decisions are set by the helper |
-| `describe_proteomics.py` | DONE | independent descriptive figures use standardized `Figure_01_` / `Figure_02_` names with explicit matching source-data exports; legacy panel labels were removed from generated descriptions | complete; descriptive definitions and input checks are unchanged |
-| `detection_gradient.py` | DONE | independent detection-gradient figures use standardized `Figure_03_` names with matching source-data exports and clear group/environment titles | complete; detection thresholds and calculations are unchanged |
-| `design_composition.py` | DONE | independent composition figures use standardized `Figure_04_` names; display text uses Control / Short exposure / Long exposure and acquisition-date proxy terminology | complete; sample-composition definitions and counts are unchanged |
-| `complete_four_layers.py` | DONE | static review confirmed independent coverage, sample-depth, and detection-landscape outputs; no code change required | complete; do not reopen unless a concrete dependency or output-consistency issue arises |
-| `06a_limma_core_figures.R` | IMPLEMENTED / READY FOR USER EXECUTION | final static PCA/UMAP review complete: PCA uses the complete-case primary matrix with cached-score/sign-aware consistency checks; UMAP uses complete-case, centered, non-zero-variance proteins with all samples retained and explicit sample-ID metadata joining | NOT EXECUTED and NOT runtime validated; user may run manually, and no scientific result is confirmed |
-| `06b_limma_robustness.R` | DONE | formal output naming is standardized; all metrics and sensitivity definitions are retained | a small number of legacy B1/B2/B3 section comments remain for final static cleanup only; they do not affect DONE status |
-| `06c_run_replication.R` | DONE | formal figure and source-data naming is standardized; acquisition-date-stratified robustness wording and the within-stratum sensitivity model are retained | a small number of legacy C1/C2 section comments remain for final static cleanup only; they do not affect DONE status |
-| `06d_integrated_results.R` | DONE | static review completed; independent MA, effect-rank, forest, single-protein profile, integrated abundance × detection, outside-core, and evidence-count outputs use standardized `Figure_06d_` display-name-based filenames and matching source-data naming | complete; no limma refit, no missing-abundance-to-0 conversion, and abundance/detection evidence remain separate |
-| `04_covariate_QC.R` | DONE | static review confirmed independent completeness, raw-token, blank-missingness, numeric-distribution, categorical-balance, and QC-association outputs; standardized `Figure_04_covariate_QC_` filenames pair with source-data exports | complete; raw 0 / Unknown / NA / missing distinctions, QC definitions, and descriptive statistics are unchanged |
-| `08_detection_pattern_analysis.R` | DONE | static review confirmed independent model-status, effect/CI, and acquisition-date sensitivity figures; standardized `Figure_08_detection_` filenames pair with source-data exports, and display labels retain all failed/non-estimable/separation states | complete; detection thresholds, logistic models, FDR, robustness definitions, and detection-versus-abundance interpretation are unchanged |
-| `DEP_effect_size_summary.R` | DONE | static review confirmed independent threshold-count and all-tested-protein log2FC-distribution figures; standardized `Figure_DEP_effect_size_summary_` filenames pair with source-data exports and display the locked nested FDR/effect-size layers | complete; DEP definition, contrast, FDR threshold, log2FC thresholds, and statistical logic are unchanged |
-| `09_DEP_characterization.R` | DONE | static review confirmed independent DEP-direction and top-30-by-FDR / top-30-by-absolute-moderated-t figures; standardized `Figure_09_DEP_characterization_` filenames pair with source-data exports and use Long vs Short exposure terminology | complete; existing figures sufficiently express the module, and DEP definition, ranking, direction, FDR, and contrast logic are unchanged |
-| `10_protein_clustering.R` | DONE | static review confirmed independent all-DEP/top-50 heatmaps, hierarchical cluster-size/effect-distribution, and exploratory K-means sensitivity outputs; standardized `Figure_10_protein_clustering_` filenames pair with source-data exports | complete; exploratory clustering, clustering-only NA->0, protein-wise z-score, hierarchical clustering, and K-means parameters are unchanged |
-| `10_dose_pattern_classification.R` | HOLD / REVIEW | v2.0 rewrite exists | do not expand during current plotting round unless explicitly requested |
-| `11_pattern_protein_annotation.R` | HOLD | depends on old / migrated pattern schema | no action |
-| `normalization_design_diagnostics.py` | FROZEN | established diagnostic step | no action |
-| `05_limma_dose_analysis.R` | ACTIVE-LOCKED | primary analysis locked | no action |
-
-IMPORTANT:
-
-A `PARTIAL` label means prior edits exist but the exact final visual state has not been confirmed in this project-control file.
-
-Codex must inspect the current file before deciding whether further edits are needed.
-
-Do NOT blindly rewrite files marked PARTIAL.
-
----
-
-# 5. Current In progress
-
-Static code work is complete. No further Codex code action is scheduled.
+Primary categorical FDR counts:
 
 ```text
-NEXT BREAKPOINT: user manual execution of 06a_limma_core_figures.R.
-This execution is outside the present static-review task. Return with the runtime log only if an error occurs.
+Short exposure vs Control = 14
+Long exposure vs Control  = 0
+Long vs Short exposure    = 256
 ```
 
-For each target:
+For Long vs Short exposure:
 
-1. inspect current code
-2. determine whether Nature-style / independent-output requirements are already satisfied
-3. change only what is still needed
-4. update this table immediately after the file is completed
-5. move to the next unfinished file
+- DEP = 256 by BH FDR < 0.05
+- Higher in Long = 0
+- Higher in Short = 256
+- median logFC approximately -0.295
+- mean logFC approximately -0.304
 
----
-
-# 6. Current To do
-
-The items below are retained as the historical v2.2 cleanup checklist and are not active for the present 06a readiness task. The v2.2 cleanup remains closed; no further 06a code changes are scheduled before user execution.
-
-After file-by-file plotting work is complete:
-
-### A. Final static review
-
-Review modified active plotting files for:
-
-- broken function references
-- duplicated plotting calls
-- inconsistent output names
-- inconsistent figure directories
-- malformed R indexing
-- malformed ggplot `+` placement
-- accidental model / threshold changes
-- accidental restoration of deprecated terminology
-
-Do NOT execute the scientific workflow.
-
-### B. Check output naming / directory consistency
-
-Check that:
-
-- figure filenames are informative
-- output directories are consistent
-- old and new naming does not create ambiguous duplicates
-- new plotting code does not overwrite unrelated historical results
-
-### C. Update project-control files only if needed
-
-Update `FILE_STATUS.md` only if file roles changed.
-
-Update `PROJECT_CONTEXT.md` only if scientific / analytical design changed.
-
-Do not update them for purely cosmetic edits.
-
-### D. Create the next README version
-
-Create a NEW README inside the existing `reademe` folder.
-
-Do not overwrite:
+Effect-size characterization:
 
 ```text
-README_CODE_MAINTENANCE_v2.0.md
-README_CODE_MAINTENANCE_v2.1.md
+FDR < 0.05                         = 256
+FDR < 0.05 and |log2FC| >= 0.5    = 3
+FDR < 0.05 and |log2FC| >= 1.0    = 0
 ```
 
-The new README should record:
+These effect-size layers do not redefine DEP.
 
-1. files modified
-2. files added
-3. files deprecated
-4. plotting changes
-5. whether statistical logic changed
-6. whether analysis was executed
-7. unfinished modules
-8. terminology changes
-9. dependencies added or removed
+## Detection-analysis runtime checkpoints
 
-The README should be concise and chronological.
-
-Do not duplicate the full content of `PROJECT_CONTEXT.md`.
-
----
-
-# 7. Hold / not part of the current task
-
-The following items are currently paused or outside this plotting-maintenance task:
+Primary detection model, per contrast:
 
 ```text
-old pattern-protein annotation
-GO / KEGG enrichment
-final biological acceptance of rewritten exposure-pattern classification
-linear trend analysis
-new biological interpretation work
-new statistical model design
-new threshold design
+detection universe          = 1848
+ok                          = 1185
+constant_detection          = 481
+separation_nonfinite_MLE    = 182
+finite P                    = 1185
+finite FDR                  = 1185
 ```
 
-Do not expand these modules during the current task unless explicitly instructed.
-
----
-
-# 8. Plotting requirements
-
-Use Nature-style scientific figure principles.
-
-Where a Nature figure skill is available, use it to guide figure-code design.
-
-Main requirements:
-
-- prefer one plot per output
-- multi-panel composites are not required
-- split unnecessarily crowded composite figures into independent figures
-- use clean scientific typography
-- use restrained and consistent colour palettes
-- avoid decorative styling
-- keep axis labels concise and readable
-- keep legends compact
-- avoid excessively small text
-- preserve useful whitespace
-- keep figure dimensions appropriate for publication
-- ensure vector-friendly outputs
-- prefer editable PDF/SVG where appropriate
-- keep high-resolution PNG preview output
-- retain source-data output when already part of the workflow
-
-Do not alter statistics to improve aesthetics.
-
----
-
-# 9. Plot rather than table when useful
-
-If an active analysis currently exports an important summary only as CSV/table and the result has a clear graphical representation, add plotting CODE where useful.
-
-Priority examples:
-
-- detection-pattern counts
-- model-estimation status
-- DEP effect-size distribution
-- significant-protein counts
-- cluster-size distribution
-- sensitivity / robustness summaries
-- covariate completeness
-- threshold summaries
-
-Do NOT create meaningless charts merely to reduce table use.
-
-Preferred pattern:
+Primary detection FDR < 0.05:
 
 ```text
-table for exact values
-+
-figure for interpretation
+Short exposure vs Control = 1
+Long exposure vs Control  = 0
+Long vs Short exposure    = 0
 ```
 
-when both are useful.
-
----
-
-# 10. Independent figures
-
-Current preference:
+Age/Sex sensitivity:
 
 ```text
-one figure = one output
+age_sex_absent_or_below_90pct_complete = 1848 per contrast
 ```
 
-Do not force several unrelated plots into one large composite.
-
-A multi-panel figure is acceptable only when the panels answer one tightly linked scientific question.
-
-Otherwise produce independent figure files.
-
----
-
-# 11. Statistical logic that must remain unchanged
-
-Do not modify the primary abundance model.
-
-Scientific interpretation:
+Acquisition-matched primary:
 
 ```text
-abundance ~ exposure group + environment
+ok                       = 1185
+constant_detection       = 481
+separation_nonfinite_MLE = 182
 ```
 
-Historical implementation may still use:
+Acquisition-adjusted detection sensitivity:
 
 ```text
-dose + environment
+constant_detection       = 481
+separation_nonfinite_MLE = 1367
+ok                       = 0
 ```
 
-Do not modify the primary quantitative threshold:
+This acquisition-adjusted branch remains a scientific/design audit item.
+Do not silently replace failed/non-finite MLEs with pseudo-counts, Firth,
+penalized logistic regression, or another estimator without a separate explicit
+methodological decision.
+
+## Integrated-results checkpoint
+
+`06d_integrated_results.R` runtime = PASS.
+
+For each of the three abundance contrasts:
 
 ```text
->=70% detection in each of Control / Short / Long exposure
+N_abundance               = 1434
+N_detection_mother_table  = 3817
+N_detection_universe      = 1848
+N_joint                   = 1434
+N_outside_core            = 414
 ```
 
-Do not modify formal limma sensitivity thresholds unless explicitly requested.
+The complete 3817-protein mother table remains retained. The detection universe
+is not collapsed to the 1185 estimable proteins. Abundance and detection
+universes remain distinct.
 
-Do not reintroduce linear trend analysis.
+## Downstream DEP checkpoints
 
-Do not change Long-vs-Short DEP definition:
+`09_DEP_characterization.R`:
 
 ```text
-BH FDR < 0.05
+DEP = 256
+Higher in Long = 0
+Higher in Short = 256
 ```
 
-Do not change missing-value rules of the primary limma analysis.
-
----
-
-# 12. Terminology rule
-
-Preferred display wording:
+`DEP_effect_size_summary.R`:
 
 ```text
-Control
-Short exposure
-Long exposure
-Short exposure vs Control
-Long exposure vs Control
-Long vs Short exposure
+input proteins = 1434
+FDR DEP = 256
+FDR + |log2FC| >= 0.5 = 3
+FDR + |log2FC| >= 1.0 = 0
 ```
 
-Historical internal keys may remain:
+`10_protein_clustering.R`:
 
 ```text
-control
-low
-high
-Low_vs_Control
-High_vs_Control
-High_vs_Low
+DEP proteins = 256
+expression proteins = 256
+missing values before replacement = 3017
+missing values after replacement = 0
+proteins after z-score = 256
+NA in z matrix = 0
+Inf in z matrix = 0
+
+Cluster 1 = 131
+Cluster 2 = 108
+Cluster 3 = 5
+Cluster 4 = 12
 ```
 
-For `06c_run_replication.R` and related plots:
+Clustering remains exploratory. The project permits `NA -> 0` only for explicitly
+defined clustering/visualisation use; this must never propagate into primary
+limma analysis.
 
-Preferred wording:
+`10_dose_pattern_classification.R`:
 
 ```text
-MS run date
-run-date stratum
-acquisition-date stratum
-MS run-date proxy
-acquisition-date-stratified robustness
+Short_peak       = 249
+Long_suppression = 7
+Total            = 256
 ```
 
-Avoid:
+Runtime PASS only. This module remains scientifically under REVIEW until the
+exact mutually exclusive classification formulas are audited and accepted.
+Pattern classes do not define statistical significance.
+
+`11_pattern_protein_annotation.R` remains HOLD.
+
+## Current final-audit priorities
+
+1. Audit `10_protein_clustering.R`.
+   - verify the exact missing-value replacement implementation;
+   - confirm replacement occurs only in the exploratory clustering/visualisation
+     working matrix;
+   - confirm it cannot propagate into primary limma or DEP definition;
+   - review clustering parameters and interpretation.
+
+2. Audit `10_dose_pattern_classification.R`.
+   - verify exact mathematical definitions of `Short_peak` and
+     `Long_suppression`;
+   - verify mutual exclusivity and complete intentional classification of all
+     256 DEP;
+   - keep this module exploratory unless explicitly accepted.
+
+3. Audit the acquisition-adjusted detection sensitivity.
+   - explain/document why all 1367 non-constant proteins are
+     `separation_nonfinite_MLE`;
+   - determine whether this is an estimability/design limitation;
+   - do not introduce a replacement estimator without a separate methodological
+     decision.
+
+4. Audit `04_covariate_QC.R`.
+   - runtime completed without error;
+   - output contract and scientific QC remain to be explicitly verified.
+
+5. Complete downstream figure/source-data QC where still pending.
+   - 06a = complete;
+   - 06b = complete;
+   - review applicable outputs from 06c, 08, 06d, clustering, and pattern
+     classification for structural contract, terminology, source-data integrity,
+     and visual quality.
+
+6. Non-blocking code hygiene after scientific audit.
+   - maintain `v21_output()` protection for reproducible output directories;
+   - clean deprecation/package/locale warnings only where doing so does not alter
+     scientific definitions.
+
+## Known non-blocking warnings / limitations
+
+- known R locale startup warnings;
+- package build-version warnings;
+- ggplot2 deprecation warnings in some figure modules;
+- five partial-NA coefficients in the primary fit;
+- Python Matplotlib deprecation warning;
+- Chinese-font handling must remain compatible with canonical display labels.
+
+Do not repair these by changing scientific definitions.
+
+## Explicitly not part of the current task
+
+Do not start:
+
+- Age/Sex expansion beyond currently available/completeness-qualified data
+- platelet/hemolysis formal module
+- processing-time/freeze-thaw expansion
+- QC/reference/technical-replicate redesign
+- Spectronaut normalization redesign
+- GO/KEGG/pathway enrichment
+- STRING
+- pattern annotation
+- repository-wide low/high/dose terminology migration
+- new primary imputation
+- new primary normalization
+- new primary covariates
+- deprecated continuous 0/1/2 exposure trend
+- EV-workstream analyses
+
+These belong in the master audit/backlog unless the project breakpoint explicitly
+moves to one of them.
+
+## Exact breakpoint for the next session
 
 ```text
-confirmed technical batch
-independent biological replication
+START HERE:
+
+Runtime validation is substantially complete.
+
+NEXT:
+Audit `10_protein_clustering.R` only.
+
+Then:
+Audit `10_dose_pattern_classification.R`.
+
+Do not rerun 05/06a/06b/06c/08/06d/09/DEP summary/10 modules merely to
+reconfirm successful execution.
+
+Do not alter 1434 / 1848 / 3817 / 70% / 60% / BH / DEP=FDR<0.05 definitions.
 ```
-
-unless new metadata proves otherwise.
-
----
-
-# 13. Detection branch rule
-
-Detection-based results and abundance-based results must remain separate.
-
-Do not classify proteins outside the primary abundance core as:
-
-```text
-not differentially expressed
-```
-
-Preferred interpretation:
-
-```text
-abundance not evaluated in the primary quantitative model
-```
-
-Detection modelling failure / separation / non-estimability must remain explicit.
-
-Do not silently substitute another estimation method.
-
----
-
-# 14. R syntax rule
-
-Before finalising any modified R file, visually verify:
-
-```text
-[[ ]]
-[ ]
-( )
-{ }
-```
-
-Never split valid double-bracket indexing.
-
-Examples that must remain valid:
-
-```r
-x[[name]] <- value
-results[[contrast_name]]
-folds_now[[fold_id]]
-```
-
-Also ensure ggplot continuation does not leave a standalone `+` expression.
-
----
-
-# 15. Continuous breakpoint update rule
-
-After completing ONE meaningful file / subtask:
-
-1. update the file-by-file breakpoint table
-2. change its status to `DONE` when truly complete
-3. record a concise last-known state
-4. identify the next file under `In progress`
-
-Do not wait until the whole plotting round is finished.
-
-The file must always answer:
-
-> If Codex stops now, what exact file should the next session open next?
-
----
-
-# 16. Resume rule for interrupted Codex sessions
-
-If a Codex session stops because of usage limits or context limits:
-
-1. start a new session
-2. read:
-   - `CODEX_WORKFLOW.md`
-   - `PROJECT_CONTEXT.md`
-   - `FILE_STATUS.md`
-   - `TASK_CURRENT.md`
-3. find the first unfinished item in the file-by-file breakpoint table / In progress section
-4. inspect only that target file and direct dependencies
-5. continue from there
-6. do not rescan files marked DONE unless there is a concrete dependency or consistency issue
-7. keep edits incremental
-8. update `TASK_CURRENT.md` after each completed subtask
-
-This rule is specifically intended to reduce Codex context consumption.
-
----
-
-# 17. Current execution status
-
-For this task:
-
-```text
-Analysis execution: NOT ALLOWED
-Figure generation: NOT ALLOWED
-Model fitting: NOT ALLOWED
-Pipeline execution: NOT ALLOWED
-Code modification: ALLOWED
-README update: ALLOWED
-```
-
----
-
-# 18. Completion condition
-
-The current task is complete when:
-
-- all relevant active plotting code has been reviewed
-- active plotting code follows the agreed Nature-style principles
-- unnecessarily crowded composite figures are split where scientifically appropriate
-- important table-only summaries have sensible plotting code where useful
-- `06d_integrated_results.R` has been included in the review
-- output naming and figure-directory logic are internally consistent
-- statistical definitions remain unchanged
-- no scientific analysis has been executed
-- no extra scripts have been deleted or archived
-- project-control files are updated only where their domain changed
-- a new README version documents the completed maintenance round

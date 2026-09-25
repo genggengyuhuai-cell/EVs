@@ -1,0 +1,7 @@
+"Exposure","Raw_value","N","Proportion","Variable"
+"Control","4h",28,0.183006535947712,"Plasma_HoldTime_h"
+"Control","Unknown",125,0.816993464052288,"Plasma_HoldTime_h"
+"Short exposure","4h",37,0.198924731182796,"Plasma_HoldTime_h"
+"Short exposure","Unknown",149,0.801075268817204,"Plasma_HoldTime_h"
+"Long exposure","4h",29,0.164772727272727,"Plasma_HoldTime_h"
+"Long exposure","Unknown",147,0.835227272727273,"Plasma_HoldTime_h"
