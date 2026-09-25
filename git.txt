@@ -1,0 +1,5 @@
+cd F:\env
+git status
+git add .
+git commit -m "feat: 更新 R、Python 和 md 文件"
+git push
