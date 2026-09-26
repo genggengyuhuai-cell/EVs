@@ -1,0 +1,12 @@
+"Metric","Value"
+"N_locked",85
+"N_estimable",85
+"N_direction_concordant",83
+"N_nominal_replication",29
+"N_FDR_supported",1
+"Direction_rate_all",0.976470588235294
+"Nominal_rate_all",0.341176470588235
+"FDR_rate_all",0.0117647058823529
+"Direction_rate_estimable",0.976470588235294
+"Nominal_rate_estimable",0.341176470588235
+"FDR_rate_estimable",0.0117647058823529
