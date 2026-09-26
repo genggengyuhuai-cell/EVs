@@ -1,0 +1,12 @@
+#!/usr/bin/env Rscript
+source(file.path(dirname(normalizePath(sub("^--file=", "", commandArgs(FALSE)[grep("^--file=", commandArgs(FALSE))]))), "dv_shared.R"))
+dv_require("digest"); stage <- "D03_candidate_lock"; outdir <- dv_stage_dir(stage)
+d02 <- file.path(dv_stage_dir("D02_discovery_primary"),"D02_Long_vs_Short_all_tested.csv")
+d01 <- file.path(dv_stage_dir("D01_discovery_eligibility"),"D01_discovery_eligible_proteins.csv")
+x <- dv_read_csv(d02,c("PG.ProteinGroups","Contrast","log2FC","CI_low","CI_high","P_value","BH_FDR")); dv_assert_keys(x,"PG.ProteinGroups","D02 primary")
+e <- dv_read_csv(d01,"PG.ProteinGroups"); lock <- x[is.finite(x$BH_FDR)&x$BH_FDR<0.05,,drop=FALSE]; lock$Direction <- ifelse(lock$log2FC>0,"Higher_in_Long",ifelse(lock$log2FC<0,"Higher_in_Short","No_difference")); lock <- merge(lock,e,by="PG.ProteinGroups",all.x=TRUE,sort=FALSE)
+paths <- file.path(outdir,c("D03_locked_candidates.csv","D03_candidate_lock_manifest.csv","D03_integrity_assertions.csv")); dv_no_overwrite(paths)
+dir.create(outdir,recursive=TRUE,showWarnings=FALSE); dv_write(lock,paths[1])
+manifest <- data.frame(Key=c("candidate_rule","candidate_count","candidate_list_sha256","D01_universe_sha256","D02_result_sha256","assignment_sha256","code_sha256","timestamp_utc"),Value=c("Discovery Long vs Short BH-FDR < 0.05",nrow(lock),dv_sha256(paths[1]),dv_sha256(d01),dv_sha256(d02),DV_ASSIGNMENT_SHA256,dv_sha256(normalizePath(sub("^--file=", "", commandArgs(FALSE)[grep("^--file=",commandArgs(FALSE))]))),format(Sys.time(),tz="UTC",usetz=TRUE)))
+checks <- data.frame(Assertion_ID=paste0("D03_A",sprintf("%02d",1:7)),Description=c("D02 unique keys","all rows primary contrast","rule exact","lock subset D01","no Validation input","hash recorded","no effect cutoff"),Status=c(ifelse(!anyDuplicated(x$PG.ProteinGroups),"PASS","FAIL"),ifelse(all(x$Contrast=="Long_vs_Short"),"PASS","FAIL"),ifelse(all(lock$BH_FDR<.05),"PASS","FAIL"),ifelse(all(lock$PG.ProteinGroups%in%e$PG.ProteinGroups),"PASS","FAIL"),"PASS","PASS","PASS"))
+dv_write(manifest,paths[2]); dv_write(checks,paths[3]); if(any(checks$Status!="PASS")) dv_stop("D03 assertion failure")

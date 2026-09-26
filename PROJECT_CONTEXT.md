@@ -291,3 +291,54 @@ Frozen split outputs are:
 Do not execute Steps 8-16 until the relevant step is separately authorized. The split
 must not be rerandomized or modified. The immediate next analytical step is Step 8,
 but it was not authorized by the split-execution task.
+
+## D01 Discovery-only eligibility implementation status
+
+The D01 read-only mapping audit is complete. The standalone implementation
+`descriptive/discovery_validation/D01_discovery_eligibility.py` has been created but
+has **not** been executed. It starts from all 3,817 raw protein groups and applies the
+frozen rule using only the 386 Discovery participants: detected means finite and
+greater than zero; detection must be at least 70% separately within Discovery
+`control`, `low`, and `high`; and all three groups must pass. The historical 1,434
+eligible proteins are a benchmark only and are not an eligibility input.
+
+## Prospective D01–D10 implementation handover (current authority)
+
+The complete prospective D01–D10 branch is now **IMPLEMENTED AND STATICALLY
+REVIEWED, NOT EXECUTED** under `descriptive/discovery_validation/`. This supersedes
+earlier handover statements that only D01 existed or that D01 static review remained
+the next task. No prospective biological stage was run, the Discovery eligible count
+and candidate count remain unknown, and Validation protein outcomes were not accessed.
+
+The branch reproduces the frozen primary method: log2(PG.Quantity), no additional
+primary normalization, no imputation, `abundance ~ dose + environment`, limma with
+`eBayes(trend=TRUE, robust=TRUE)`, and BH-FDR. D03 alone defines candidates from
+Discovery Long vs Short BH-FDR <0.05. D04–D07 are supportive and cannot change the
+lock. D08 requires both the hash-verified D03 list and an investigator-created
+`VALIDATION_UNLOCKED.txt`; no bypass exists. D09 separates abundance missingness,
+binary detection and peptide evidence. No valid unique-peptide source was found in the
+current project, so the implementation reports `SOURCE_NOT_AVAILABLE` rather than
+inventing peptide support. D10 only integrates finalized, source-backed tables.
+
+Design-only review confirms that all six Environment × Dose cells are populated in
+both splits, but multiple site × Dose cells are structurally absent or sparse. Site
+analyses therefore return `NON_ESTIMABLE` where needed. Exact multiplicity handling
+for Environment-specific and interaction analyses remains an explicit investigator
+approval item before those secondary stages execute; it was not resolved by examining
+outcomes.
+
+The immediate next action is separately authorized D01 execution followed by Gate 1
+review. Read `descriptive/discovery_validation/README.md` next, then its status, data
+contracts and workflow documents. Never use the historical 1,434 proteins for D01 or
+the historical 256 proteins for D03, never rerandomize the frozen assignment, and
+never access Validation protein outcomes before the D03 lock and explicit unlock.
+
+## Documentation classification
+
+- **CURRENT AUTHORITY:** this file; `descriptive/discovery_validation/README.md`,
+  `PIPELINE_STATUS.md`, `DATA_CONTRACTS.md`, `WORKFLOW.md`;
+  `DISCOVERY_VALIDATION_PROTOCOL.md`; `DISCOVERY_VALIDATION_SPLIT_SPEC.md`.
+- **HISTORICAL:** versioned READMEs under `reademe/` and frozen analysis-v1.0 / Stage
+  13A methods documents. They remain valid for the historical branch only.
+- **SUPERSEDED:** older handover or task text saying the split is undecided/unexecuted,
+  the seed is unselected, only D01 exists, or D01 static review is the next task.
