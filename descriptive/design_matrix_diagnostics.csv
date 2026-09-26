@@ -1,0 +1,4 @@
+﻿model,samples,columns,rank,full_rank,condition_number,minimum_singular_value
+A_dose_condition,515,4,4,True,4.638360458403986,6.197346581611031
+B_dose_condition_batch,515,11,11,True,31.939425482295224,0.9514528451457126
+C_dose_condition_interaction,515,6,6,True,11.205237550996179,2.6454003118929297

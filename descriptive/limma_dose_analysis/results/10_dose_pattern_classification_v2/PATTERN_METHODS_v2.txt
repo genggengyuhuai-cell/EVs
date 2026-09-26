@@ -1,0 +1,9 @@
+Pattern schema: 2.0; low=Short exposure; high=Long exposure.
+Input: primary Long vs Short (legacy High_vs_Low), BH FDR < 0.05.
+Classification: observed group means; no imputation; tolerance=0.05 log2.
+Missing group mean => Insufficient_data. Observed/total counts are exported.
+Adjacent_changes_within_tolerance does not imply total range <= tolerance.
+Heatmap only: NA -> 0 before protein-wise z-score, matching clustering script.
+Patterns are descriptive unadjusted means; no linear trend or causal claim.
+Legacy patterns and dependent annotations are invalid for final interpretation.
+Script 11 remains paused; its Low_peak/Low/High schema requires migration.

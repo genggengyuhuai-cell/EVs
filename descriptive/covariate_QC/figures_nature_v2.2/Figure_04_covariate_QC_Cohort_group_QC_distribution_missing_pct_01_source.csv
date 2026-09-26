@@ -1,0 +1,516 @@
+"UniqueSampleID","Exposure","Raw_value","Value","Missing","Metric","QC_value"
+"20250913_FJ_QZ_Q3","Short exposure","FJ_QZ",,FALSE,"missing_pct",44.1184176054493
+"20250913_FJ_QZ_Q4","Control","FJ_QZ",,FALSE,"missing_pct",37.5425727010741
+"20250913_FJ_QZ_Q12","Control","FJ_QZ",,FALSE,"missing_pct",47.0002619858528
+"20250913_FJ_QZ_Q13","Control","FJ_QZ",,FALSE,"missing_pct",50.4584752423369
+"20250913_FJ_QZ_Q14","Control","FJ_QZ",,FALSE,"missing_pct",36.4684307047419
+"20250913_FJ_QZ_Q15","Control","FJ_QZ",,FALSE,"missing_pct",40.450615666754
+"20250913_FJ_QZ_Q16","Control","FJ_QZ",,FALSE,"missing_pct",48.9651558815824
+"20250913_FJ_QZ_Q18","Control","FJ_QZ",,FALSE,"missing_pct",41.4985590778098
+"20250913_FJ_QZ_Q20","Control","FJ_QZ",,FALSE,"missing_pct",38.0141472360493
+"20250913_FJ_QZ_Q21","Control","FJ_QZ",,FALSE,"missing_pct",42.703694000524
+"20250913_FJ_QZ_Q22","Control","FJ_QZ",,FALSE,"missing_pct",39.586062352633
+"20250913_FJ_QZ_Q23","Control","FJ_QZ",,FALSE,"missing_pct",45.952318574797
+"20250913_FJ_QZ_Q25","Control","FJ_QZ",,FALSE,"missing_pct",38.0403458213257
+"20250913_FJ_QZ_Q26","Control","FJ_QZ",,FALSE,"missing_pct",40.8959916164527
+"20250913_FJ_QZ_Q27","Control","FJ_QZ",,FALSE,"missing_pct",37.6735656274561
+"20250913_FJ_QZ_Q28","Control","FJ_QZ",,FALSE,"missing_pct",42.5465024888656
+"20250913_FJ_QZ_Q29","Control","FJ_QZ",,FALSE,"missing_pct",41.8915378569557
+"20250913_FJ_QZ_Q31","Long exposure","FJ_QZ",,FALSE,"missing_pct",45.6117369662038
+"20250913_FJ_QZ_Q32","Long exposure","FJ_QZ",,FALSE,"missing_pct",43.4634529735394
+"20250913_FJ_QZ_Q33","Long exposure","FJ_QZ",,FALSE,"missing_pct",45.3759496987163
+"20250913_FJ_QZ_Q34","Long exposure","FJ_QZ",,FALSE,"missing_pct",44.69478648153
+"20250913_FJ_QZ_Q36","Short exposure","FJ_QZ",,FALSE,"missing_pct",39.8218496201205
+"20250913_FJ_QZ_Q37","Long exposure","FJ_QZ",,FALSE,"missing_pct",46.1095100864553
+"20250913_FJ_QZ_Q38","Short exposure","FJ_QZ",,FALSE,"missing_pct",47.078857741682
+"20250913_FJ_QZ_Q39","Long exposure","FJ_QZ",,FALSE,"missing_pct",42.9394812680115
+"20250913_FJ_QZ_Q41","Long exposure","FJ_QZ",,FALSE,"missing_pct",32.5386429132827
+"20250913_FJ_QZ_Q42","Long exposure","FJ_QZ",,FALSE,"missing_pct",45.2449567723343
+"20250913_FJ_QZ_Q44","Short exposure","FJ_QZ",,FALSE,"missing_pct",49.4367304165575
+"20250913_FJ_QZ_Q45","Short exposure","FJ_QZ",,FALSE,"missing_pct",46.5024888656013
+"20250913_FJ_QZ_Q48","Short exposure","FJ_QZ",,FALSE,"missing_pct",55.5933979565104
+"20250913_FJ_QZ_Q49","Short exposure","FJ_QZ",,FALSE,"missing_pct",37.3067854335866
+"20250913_FJ_QZ_Q50","Control","FJ_QZ",,FALSE,"missing_pct",41.0793817133875
+"20250913_FJ_QZ_Q52","Short exposure","FJ_QZ",,FALSE,"missing_pct",47.6552266177626
+"20250913_FJ_QZ_Q54","Control","FJ_QZ",,FALSE,"missing_pct",46.8954676447472
+"20250913_FJ_QZ_Q55","Control","FJ_QZ",,FALSE,"missing_pct",43.9350275085145
+"20250913_FJ_QZ_Q57","Control","FJ_QZ",,FALSE,"missing_pct",44.9305737490176
+"20250913_FJ_QZ_Q58","Short exposure","FJ_QZ",,FALSE,"missing_pct",46.1357086717317
+"20250913_FJ_QZ_Q59","Short exposure","FJ_QZ",,FALSE,"missing_pct",38.2499345035368
+"20250913_FJ_QZ_Q60","Short exposure","FJ_QZ",,FALSE,"missing_pct",47.3932407649987
+"20250913_FJ_QZ_Q61","Control","FJ_QZ",,FALSE,"missing_pct",47.4980351061043
+"20250913_FJ_QZ_Q62","Control","FJ_QZ",,FALSE,"missing_pct",28.2944720985067
+"20250913_FJ_QZ_Q63","Control","FJ_QZ",,FALSE,"missing_pct",42.0487293686141
+"20250913_FJ_QZ_Q65","Control","FJ_QZ",,FALSE,"missing_pct",45.559339795651
+"20250913_FJ_QZ_Q66","Short exposure","FJ_QZ",,FALSE,"missing_pct",37.5163741157977
+"20250913_FJ_QZ_Q67","Short exposure","FJ_QZ",,FALSE,"missing_pct",44.69478648153
+"20250913_FJ_QZ_Q68","Control","FJ_QZ",,FALSE,"missing_pct",47.2360492533403
+"20250913_FJ_QZ_Q69","Control","FJ_QZ",,FALSE,"missing_pct",56.2483625884202
+"20250913_FJ_QZ_Q70","Control","FJ_QZ",,FALSE,"missing_pct",38.3809274299188
+"20250913_FJ_QZ_Q71","Control","FJ_QZ",,FALSE,"missing_pct",39.8218496201205
+"20250913_FJ_QZ_Q72","Short exposure","FJ_QZ",,FALSE,"missing_pct",50.9038511920356
+"20250914_FJ_FQ_F47","Short exposure","FJ_FQ",,FALSE,"missing_pct",43.9088289232381
+"20250914_FJ_FQ_F51","Short exposure","FJ_FQ",,FALSE,"missing_pct",39.5336651820802
+"20250914_FJ_FQ_F53","Control","FJ_FQ",,FALSE,"missing_pct",41.4723604925334
+"20250914_FJ_FQ_F54","Short exposure","FJ_FQ",,FALSE,"missing_pct",38.3547288446424
+"20250914_FJ_FQ_F55","Long exposure","FJ_FQ",,FALSE,"missing_pct",35.5514802200681
+"20250914_FJ_FQ_F56","Control","FJ_FQ",,FALSE,"missing_pct",41.577154833639
+"20250914_FJ_FQ_F57","Short exposure","FJ_FQ",,FALSE,"missing_pct",27.5347131254912
+"20250914_FJ_FQ_F58","Long exposure","FJ_FQ",,FALSE,"missing_pct",44.7209850668064
+"20250914_FJ_FQ_F62","Long exposure","FJ_FQ",,FALSE,"missing_pct",45.1663610165051
+"20250914_FJ_FQ_F66","Control","FJ_FQ",,FALSE,"missing_pct",43.4110558029866
+"20250914_FJ_FQ_F69","Long exposure","FJ_FQ",,FALSE,"missing_pct",46.3452973539429
+"20250914_FJ_FQ_F70","Control","FJ_FQ",,FALSE,"missing_pct",41.315168980875
+"20250914_FJ_FQ_F71","Long exposure","FJ_FQ",,FALSE,"missing_pct",50.4584752423369
+"20250914_FJ_FQ_F72","Short exposure","FJ_FQ",,FALSE,"missing_pct",43.7516374115798
+"20250914_FJ_FQ_F74","Short exposure","FJ_FQ",,FALSE,"missing_pct",49.2009431490699
+"20250914_FJ_FQ_F75","Long exposure","FJ_FQ",,FALSE,"missing_pct",39.7956510348441
+"20250914_FJ_FQ_F77","Short exposure","FJ_FQ",,FALSE,"missing_pct",68.5878962536023
+"20250914_FJ_FQ_F79","Long exposure","FJ_FQ",,FALSE,"missing_pct",43.0704741943935
+"20250914_FJ_FQ_F81","Long exposure","FJ_FQ",,FALSE,"missing_pct",54.7550432276657
+"20250914_FJ_FQ_F83","Short exposure","FJ_FQ",,FALSE,"missing_pct",41.0007859575583
+"20250914_FJ_FQ_F84","Short exposure","FJ_FQ",,FALSE,"missing_pct",41.9701336127849
+"20250914_FJ_FQ_F85","Long exposure","FJ_FQ",,FALSE,"missing_pct",54.0214828399266
+"20250914_FJ_FQ_F88","Long exposure","FJ_FQ",,FALSE,"missing_pct",53.2093266963584
+"20250914_FJ_FQ_F89","Long exposure","FJ_FQ",,FALSE,"missing_pct",54.5192559601781
+"20250914_FJ_FQ_F93","Short exposure","FJ_FQ",,FALSE,"missing_pct",45.8999214042442
+"20250914_FJ_FQ_F94","Control","FJ_FQ",,FALSE,"missing_pct",58.1084621430443
+"20250914_FJ_FQ_F102","Long exposure","FJ_FQ",,FALSE,"missing_pct",43.1490699502227
+"20250914_FJ_FQ_F105","Long exposure","FJ_FQ",,FALSE,"missing_pct",43.7778359968562
+"20250914_FJ_FQ_F106","Long exposure","FJ_FQ",,FALSE,"missing_pct",41.6295520041918
+"20250914_FJ_FQ_F107","Short exposure","FJ_FQ",,FALSE,"missing_pct",36.33743777836
+"20250914_FJ_FQ_F110","Long exposure","FJ_FQ",,FALSE,"missing_pct",44.7471836520828
+"20250914_FJ_FQ_F111","Short exposure","FJ_FQ",,FALSE,"missing_pct",47.943411055803
+"20250914_FJ_FQ_F118","Short exposure","FJ_FQ",,FALSE,"missing_pct",48.3101912496725
+"20250914_FJ_FQ_F121","Long exposure","FJ_FQ",,FALSE,"missing_pct",48.8603615404768
+"20250914_FJ_FQ_F122","Long exposure","FJ_FQ",,FALSE,"missing_pct",54.1262771810322
+"20250914_FJ_FQ_F123","Long exposure","FJ_FQ",,FALSE,"missing_pct",44.5375949698716
+"20250914_FJ_FQ_F124","Long exposure","FJ_FQ",,FALSE,"missing_pct",49.5939219282159
+"20250914_FJ_FQ_F125","Long exposure","FJ_FQ",,FALSE,"missing_pct",51.1134398742468
+"20250914_FJ_FQ_F126","Long exposure","FJ_FQ",,FALSE,"missing_pct",65.8894419701336
+"20250914_FJ_FQ_F128","Short exposure","FJ_FQ",,FALSE,"missing_pct",47.2360492533403
+"20250914_FJ_FQ_F129","Long exposure","FJ_FQ",,FALSE,"missing_pct",56.3531569295258
+"20250914_FJ_FQ_F131","Control","FJ_FQ",,FALSE,"missing_pct",51.192035630076
+"20250914_FJ_FQ_F135","Long exposure","FJ_FQ",,FALSE,"missing_pct",51.5064186533927
+"20250914_FJ_FQ_F137","Control","FJ_FQ",,FALSE,"missing_pct",39.6908566937385
+"20250914_FJ_PT_P2","Control","FJ_PT",,FALSE,"missing_pct",28.8184438040346
+"20250914_FJ_PT_P3","Control","FJ_PT",,FALSE,"missing_pct",25.8580036678019
+"20250914_FJ_PT_P4","Short exposure","FJ_PT",,FALSE,"missing_pct",18.6271941315169
+"20250914_FJ_PT_P6","Long exposure","FJ_PT",,FALSE,"missing_pct",24.0764998690071
+"20250914_FJ_PT_P7","Control","FJ_PT",,FALSE,"missing_pct",19.8585276395075
+"20250914_FJ_PT_P8","Short exposure","FJ_PT",,FALSE,"missing_pct",27.0369400052397
+"20250914_FJ_PT_P9","Short exposure","FJ_PT",,FALSE,"missing_pct",24.9148545978517
+"20250914_FJ_PT_P10","Short exposure","FJ_PT",,FALSE,"missing_pct",28.6612522923762
+"20250914_FJ_PT_P11","Long exposure","FJ_PT",,FALSE,"missing_pct",23.0285564579513
+"20250914_FJ_PT_P13","Short exposure","FJ_PT",,FALSE,"missing_pct",33.8485721771024
+"20250914_FJ_PT_P15","Short exposure","FJ_PT",,FALSE,"missing_pct",30.3379617500655
+"20250914_FJ_PT_P17","Long exposure","FJ_PT",,FALSE,"missing_pct",27.9538904899135
+"20250914_FJ_PT_P18","Long exposure","FJ_PT",,FALSE,"missing_pct",34.6869269059471
+"20250914_FJ_PT_P19","Long exposure","FJ_PT",,FALSE,"missing_pct",33.7175792507205
+"20250914_FJ_PT_P20","Short exposure","FJ_PT",,FALSE,"missing_pct",35.944458999214
+"20250914_FJ_PT_P21","Long exposure","FJ_PT",,FALSE,"missing_pct",30.8095362850406
+"20250914_FJ_PT_P22","Short exposure","FJ_PT",,FALSE,"missing_pct",43.437254388263
+"20250914_FJ_PT_P23","Short exposure","FJ_PT",,FALSE,"missing_pct",32.957820277705
+"20250914_FJ_PT_P24","Long exposure","FJ_PT",,FALSE,"missing_pct",26.8011527377522
+"20250914_FJ_PT_P25","Short exposure","FJ_PT",,FALSE,"missing_pct",40.1100340581609
+"20250914_FJ_PT_P26","Long exposure","FJ_PT",,FALSE,"missing_pct",30.704741943935
+"20250914_FJ_PT_P27","Long exposure","FJ_PT",,FALSE,"missing_pct",34.3201467120775
+"20250914_FJ_PT_P29","Long exposure","FJ_PT",,FALSE,"missing_pct",37.0447995808226
+"20250914_FJ_PT_P30","Long exposure","FJ_PT",,FALSE,"missing_pct",32.6172386691119
+"20250914_FJ_PT_P33","Long exposure","FJ_PT",,FALSE,"missing_pct",27.1155357610689
+"20251001_FJ_FQ_F83","Short exposure","FJ_FQ",,FALSE,"missing_pct",49.3319360754519
+"20251001_FJ_FQ_F95","Long exposure","FJ_FQ",,FALSE,"missing_pct",60.0471574534975
+"20251001_FJ_FQ_F97","Long exposure","FJ_FQ",,FALSE,"missing_pct",48.8865601257532
+"20251001_FJ_FQ_F105","Long exposure","FJ_FQ",,FALSE,"missing_pct",61.671469740634
+"20251001_FJ_FQ_F120","Long exposure","FJ_FQ",,FALSE,"missing_pct",49.2009431490699
+"20251001_FJ_FQ_F136","Control","FJ_FQ",,FALSE,"missing_pct",48.1791983232905
+"20251001_FJ_FQ_F141","Control","FJ_FQ",,FALSE,"missing_pct",42.4155095624836
+"20251001_FJ_FQ_F147","Long exposure","FJ_FQ",,FALSE,"missing_pct",53.9952842546502
+"20251001_FJ_FQ_F150","Control","FJ_FQ",,FALSE,"missing_pct",44.3018077023841
+"20251001_FJ_FQ_F154","Long exposure","FJ_FQ",,FALSE,"missing_pct",42.44170814776
+"20251001_FJ_FQ_F158","Long exposure","FJ_FQ",,FALSE,"missing_pct",60.9641079381713
+"20251001_FJ_FQ_F163","Control","FJ_FQ",,FALSE,"missing_pct",53.7332984018863
+"20251001_FJ_FQ_F165","Control","FJ_FQ",,FALSE,"missing_pct",50.6942625098245
+"20251001_FJ_FQ_F168","Long exposure","FJ_FQ",,FALSE,"missing_pct",48.3101912496725
+"20251001_FJ_FQ_F170","Control","FJ_FQ",,FALSE,"missing_pct",43.2276657060519
+"20251001_FJ_FQ_F173","Short exposure","FJ_FQ",,FALSE,"missing_pct",41.9701336127849
+"20251001_FJ_FQ_F174","Short exposure","FJ_FQ",,FALSE,"missing_pct",50.1178936337438
+"20251001_FJ_FQ_F175","Short exposure","FJ_FQ",,FALSE,"missing_pct",51.2706313859052
+"20251001_FJ_FQ_F176","Short exposure","FJ_FQ",,FALSE,"missing_pct",45.5855383809274
+"20251001_FJ_FQ_F177","Short exposure","FJ_FQ",,FALSE,"missing_pct",42.2321194655489
+"20251001_FJ_FQ_F180","Short exposure","FJ_FQ",,FALSE,"missing_pct",47.3932407649987
+"20251001_FJ_FQ_F183","Short exposure","FJ_FQ",,FALSE,"missing_pct",32.2242598899659
+"20251001_FJ_FQ_F185","Short exposure","FJ_FQ",,FALSE,"missing_pct",40.8173958606235
+"20251001_XZ_YA_1","Short exposure","XZ_YA",,FALSE,"missing_pct",36.8352108986115
+"20251001_XZ_YA_2","Short exposure","XZ_YA",,FALSE,"missing_pct",42.7298925858004
+"20251001_XZ_YA_3","Short exposure","XZ_YA",,FALSE,"missing_pct",44.3018077023841
+"20251001_XZ_YA_4","Short exposure","XZ_YA",,FALSE,"missing_pct",55.5410007859576
+"20251001_XZ_YA_5","Short exposure","XZ_YA",,FALSE,"missing_pct",45.7165313073094
+"20251001_XZ_YA_6","Short exposure","XZ_YA",,FALSE,"missing_pct",29.4996070212209
+"20251001_XZ_YA_7","Short exposure","XZ_YA",,FALSE,"missing_pct",51.8470002619859
+"20251001_XZ_YA_8","Short exposure","XZ_YA",,FALSE,"missing_pct",45.1925596017815
+"20251001_XZ_YA_9","Short exposure","XZ_YA",,FALSE,"missing_pct",41.9439350275085
+"20251001_XZ_YA_10","Short exposure","XZ_YA",,FALSE,"missing_pct",30.1021744825779
+"20251001_XZ_YA_11","Short exposure","XZ_YA",,FALSE,"missing_pct",40.2672255698192
+"20251001_XZ_YA_12","Short exposure","XZ_YA",,FALSE,"missing_pct",20.4348965155882
+"20251001_XZ_YA_13","Short exposure","XZ_YA",,FALSE,"missing_pct",30.3379617500655
+"20251001_XZ_YA_14","Short exposure","XZ_YA",,FALSE,"missing_pct",32.3290542310715
+"20251001_XZ_YA_15","Short exposure","XZ_YA",,FALSE,"missing_pct",32.7482315954938
+"20251001_XZ_YA_16","Short exposure","XZ_YA",,FALSE,"missing_pct",22.6879748493581
+"20251001_XZ_YA_17","Short exposure","XZ_YA",,FALSE,"missing_pct",46.5810846214304
+"20251001_XZ_YA_18","Short exposure","XZ_YA",,FALSE,"missing_pct",30.3117631647891
+"20251001_XZ_YA_19","Short exposure","XZ_YA",,FALSE,"missing_pct",31.700288184438
+"20251001_XZ_YA_20","Control","XZ_YA",,FALSE,"missing_pct",42.44170814776
+"20251001_XZ_YA_21","Control","XZ_YA",,FALSE,"missing_pct",20.0681163217186
+"20251001_XZ_YA_22","Long exposure","XZ_YA",,FALSE,"missing_pct",57.6106890227928
+"20251001_XZ_YB_2","Control","XZ_YB",,FALSE,"missing_pct",34.4773382237359
+"20251001_XZ_YB_4","Control","XZ_YB",,FALSE,"missing_pct",26.5653654702646
+"20251001_XZ_YB_6","Control","XZ_YB",,FALSE,"missing_pct",37.8831543096673
+"20251001_XZ_YB_9","Control","XZ_YB",,FALSE,"missing_pct",32.9316216924286
+"20251001_XZ_YB_10","Control","XZ_YB",,FALSE,"missing_pct",32.0670683783076
+"20251001_XZ_YB_11","Control","XZ_YB",,FALSE,"missing_pct",34.7393240764999
+"20251001_XZ_YB_12","Control","XZ_YB",,FALSE,"missing_pct",40.8697930311763
+"20251001_XZ_YB_14","Control","XZ_YB",,FALSE,"missing_pct",39.1668849882106
+"20251001_XZ_YB_15","Control","XZ_YB",,FALSE,"missing_pct",39.7432538642913
+"20251001_XZ_YB_19","Control","XZ_YB",,FALSE,"missing_pct",29.4210112653917
+"20251001_XZ_YC_1","Control","XZ_YC",,FALSE,"missing_pct",26.0675923500131
+"20251001_XZ_YC_2","Control","XZ_YC",,FALSE,"missing_pct",38.6691118679591
+"20251001_XZ_YC_3","Long exposure","XZ_YC",,FALSE,"missing_pct",28.6350537070998
+"20251001_XZ_YC_4","Control","XZ_YC",,FALSE,"missing_pct",38.2499345035368
+"20251001_XZ_YC_5","Long exposure","XZ_YC",,FALSE,"missing_pct",35.9706575844904
+"20251001_XZ_YC_6","Short exposure","XZ_YC",,FALSE,"missing_pct",44.5899921404244
+"20251001_XZ_YC_7","Short exposure","XZ_YC",,FALSE,"missing_pct",43.8040345821326
+"20251001_XZ_YC_8","Control","XZ_YC",,FALSE,"missing_pct",41.0007859575583
+"20251001_XZ_YC_9","Short exposure","XZ_YC",,FALSE,"missing_pct",55.8553838092743
+"20251001_XZ_YC_10","Long exposure","XZ_YC",,FALSE,"missing_pct",36.0492533403196
+"20251001_XZ_YC_11","Long exposure","XZ_YC",,FALSE,"missing_pct",46.0047157453497
+"20251001_XZ_YC_12","Long exposure","XZ_YC",,FALSE,"missing_pct",27.7966989782552
+"20251001_XZ_YC_13","Long exposure","XZ_YC",,FALSE,"missing_pct",38.6167146974063
+"20251001_XZ_YC_14","Long exposure","XZ_YC",,FALSE,"missing_pct",46.2929001833901
+"20251001_XZ_YC_15","Long exposure","XZ_YC",,FALSE,"missing_pct",21.22085407388
+"20251001_XZ_YC_16","Long exposure","XZ_YC",,FALSE,"missing_pct",19.5441446161907
+"20251001_XZ_YC_17","Long exposure","XZ_YC",,FALSE,"missing_pct",39.2716793293162
+"20251001_XZ_YC_18","Short exposure","XZ_YC",,FALSE,"missing_pct",53.2879224521876
+"20251001_XZ_YC_19","Long exposure","XZ_YC",,FALSE,"missing_pct",42.5465024888656
+"20251001_XZ_YC_20","Short exposure","XZ_YC",,FALSE,"missing_pct",36.1016505108724
+"20251001_XZ_YC_21","Long exposure","XZ_YC",,FALSE,"missing_pct",29.2376211684569
+"20251001_XZ_YC_22","Long exposure","XZ_YC",,FALSE,"missing_pct",43.830233167409
+"20251001_XZ_YC_23","Short exposure","XZ_YC",,FALSE,"missing_pct",47.1836520827875
+"20251001_XZ_YC_24","Long exposure","XZ_YC",,FALSE,"missing_pct",45.3497511134399
+"20251001_XZ_YC_25","Long exposure","XZ_YC",,FALSE,"missing_pct",47.2884464238931
+"20251001_XZ_YC_26","Long exposure","XZ_YC",,FALSE,"missing_pct",40.6340057636888
+"20251001_XZ_YC_27","Long exposure","XZ_YC",,FALSE,"missing_pct",61.6190725700812
+"20251001_XZ_YC_28","Long exposure","XZ_YC",,FALSE,"missing_pct",42.2321194655489
+"20251001_XZ_YC_29","Long exposure","XZ_YC",,FALSE,"missing_pct",29.2114225831805
+"20251001_XZ_YC_30","Short exposure","XZ_YC",,FALSE,"missing_pct",35.1061042703694
+"20251001_XZ_YC_31","Control","XZ_YC",,FALSE,"missing_pct",27.1679329316217
+"20251001_XZ_YC_32","Long exposure","XZ_YC",,FALSE,"missing_pct",40.319622740372
+"20251001_XZ_YC_33","Long exposure","XZ_YC",,FALSE,"missing_pct",48.3887870055017
+"20251001_XZ_YC_34","Control","XZ_YC",,FALSE,"missing_pct",35.0013099292638
+"20251001_XZ_YD_1","Short exposure","XZ_YD",,FALSE,"missing_pct",34.7655226617763
+"20251001_XZ_YD_3","Control","XZ_YD",,FALSE,"missing_pct",45.8475242336914
+"20251001_XZ_YD_4","Control","XZ_YD",,FALSE,"missing_pct",48.3101912496725
+"20251001_XZ_YD_5","Short exposure","XZ_YD",,FALSE,"missing_pct",23.5001309929264
+"20251001_XZ_YD_6","Control","XZ_YD",,FALSE,"missing_pct",43.4896515588158
+"20251001_XZ_YD_7","Long exposure","XZ_YD",,FALSE,"missing_pct",15.1427822897564
+"20251001_XZ_YD_8","Long exposure","XZ_YD",,FALSE,"missing_pct",20.4348965155882
+"20251001_XZ_YD_9","Long exposure","XZ_YD",,FALSE,"missing_pct",55.3838092742992
+"20251001_XZ_YD_10","Long exposure","XZ_YD",,FALSE,"missing_pct",12.7849096148808
+"20251001_XZ_YD_11","Long exposure","XZ_YD",,FALSE,"missing_pct",9.87686664920094
+"20251001_XZ_YD_12","Control","XZ_YD",,FALSE,"missing_pct",9.5886822111606
+"20251001_XZ_YD_13","Control","XZ_YD",,FALSE,"missing_pct",10.5842284516636
+"20251001_XZ_YD_14","Control","XZ_YD",,FALSE,"missing_pct",42.6512968299712
+"20251001_XZ_YD_15","Short exposure","XZ_YD",,FALSE,"missing_pct",38.1189415771548
+"20251001_XZ_YD_16","Long exposure","XZ_YD",,FALSE,"missing_pct",27.0893371757925
+"20251001_XZ_YD_17","Short exposure","XZ_YD",,FALSE,"missing_pct",43.7254388263034
+"20251001_XZ_YD_18","Long exposure","XZ_YD",,FALSE,"missing_pct",34.8965155881582
+"20251001_XZ_YD_19","Control","XZ_YD",,FALSE,"missing_pct",37.3591826041394
+"20251001_XZ_YD_20","Control","XZ_YD",,FALSE,"missing_pct",41.4985590778098
+"20251001_XZ_YD_21","Control","XZ_YD",,FALSE,"missing_pct",51.2968299711816
+"20251001_XZ_YD_22","Control","XZ_YD",,FALSE,"missing_pct",39.9790411317789
+"20251001_XZ_YD_23","Short exposure","XZ_YD",,FALSE,"missing_pct",37.2281896777574
+"20251001_XZ_YD_24","Short exposure","XZ_YD",,FALSE,"missing_pct",53.183128111082
+"20251001_XZ_YD_25","Short exposure","XZ_YD",,FALSE,"missing_pct",52.9997380141472
+"20251001_XZ_YD_26","Short exposure","XZ_YD",,FALSE,"missing_pct",48.3363898349489
+"20251001_XZ_YD_27","Short exposure","XZ_YD",,FALSE,"missing_pct",39.2454807440398
+"20251001_XZ_YD_28","Short exposure","XZ_YD",,FALSE,"missing_pct",45.0091695048467
+"20251026_FJ_PT_P31","Control","FJ_PT",,FALSE,"missing_pct",37.070998166099
+"20251026_FJ_QZ_Q73","Control","FJ_QZ",,FALSE,"missing_pct",46.7644747183652
+"20251026_FJ_QZ_Q74","Short exposure","FJ_QZ",,FALSE,"missing_pct",53.2355252816348
+"20251026_FJ_QZ_Q75","Short exposure","FJ_QZ",,FALSE,"missing_pct",44.2756091171077
+"20251026_FJ_QZ_Q76","Long exposure","FJ_QZ",,FALSE,"missing_pct",50.4322766570605
+"20251026_FJ_QZ_Q77","Long exposure","FJ_QZ",,FALSE,"missing_pct",44.3804034582133
+"20251026_FJ_QZ_Q78","Long exposure","FJ_QZ",,FALSE,"missing_pct",43.0442756091171
+"20251026_FJ_QZ_Q79","Control","FJ_QZ",,FALSE,"missing_pct",53.0259365994236
+"20251026_FJ_QZ_Q80","Short exposure","FJ_QZ",,FALSE,"missing_pct",47.2884464238931
+"20251026_FJ_QZ_Q81","Short exposure","FJ_QZ",,FALSE,"missing_pct",43.3062614618811
+"20251026_FJ_QZ_Q82","Control","FJ_QZ",,FALSE,"missing_pct",41.0269845428347
+"20251026_FJ_QZ_Q83","Control","FJ_QZ",,FALSE,"missing_pct",43.4110558029866
+"20251104_FJ_FQ_F178","Short exposure","FJ_FQ",,FALSE,"missing_pct",23.6835210898611
+"20251104_FJ_FQ_F179","Long exposure","FJ_FQ",,FALSE,"missing_pct",31.83128111082
+"20251107_XZ_YD_2","Short exposure","XZ_YD",,FALSE,"missing_pct",9.27429918784386
+"20260527_XZ_GG_1","Short exposure","XZ_GG",,FALSE,"missing_pct",27.3251244432801
+"20260527_XZ_GG_2","Short exposure","XZ_GG",,FALSE,"missing_pct",44.69478648153
+"20260527_XZ_GG_3","Short exposure","XZ_GG",,FALSE,"missing_pct",41.7867435158501
+"20260527_XZ_GG_4","Short exposure","XZ_GG",,FALSE,"missing_pct",22.1640031438302
+"20260527_XZ_GG_5","Short exposure","XZ_GG",,FALSE,"missing_pct",51.5326172386691
+"20260527_XZ_GG_6","Short exposure","XZ_GG",,FALSE,"missing_pct",46.5024888656013
+"20260527_XZ_GG_7","Short exposure","XZ_GG",,FALSE,"missing_pct",17.7364422321195
+"20260527_XZ_GG_8","Short exposure","XZ_GG",,FALSE,"missing_pct",42.0225307833377
+"20260527_XZ_GG_9","Short exposure","XZ_GG",,FALSE,"missing_pct",48.938957296306
+"20260527_XZ_GG_10","Short exposure","XZ_GG",,FALSE,"missing_pct",42.3631123919308
+"20260527_XZ_GG_11","Short exposure","XZ_GG",,FALSE,"missing_pct",48.4673827613309
+"20260527_XZ_GG_12","Short exposure","XZ_GG",,FALSE,"missing_pct",45.5855383809274
+"20260527_XZ_GG_13","Short exposure","XZ_GG",,FALSE,"missing_pct",25.0458475242337
+"20260527_XZ_GG_14","Short exposure","XZ_GG",,FALSE,"missing_pct",54.9384333246005
+"20260527_XZ_GG_15","Short exposure","XZ_GG",,FALSE,"missing_pct",21.351847000262
+"20260527_XZ_GG_16","Short exposure","XZ_GG",,FALSE,"missing_pct",29.1852239979041
+"20260527_XZ_GG_17","Short exposure","XZ_GG",,FALSE,"missing_pct",45.8999214042442
+"20260527_XZ_GG_18","Short exposure","XZ_GG",,FALSE,"missing_pct",52.4495677233429
+"20260527_XZ_GG_19","Short exposure","XZ_GG",,FALSE,"missing_pct",51.8208016767095
+"20260527_XZ_GG_20","Short exposure","XZ_GG",,FALSE,"missing_pct",49.8559077809798
+"20260527_XZ_GG_21","Short exposure","XZ_GG",,FALSE,"missing_pct",49.4367304165575
+"20260527_XZ_GG_22","Short exposure","XZ_GG",,FALSE,"missing_pct",40.319622740372
+"20260527_XZ_GG_23","Short exposure","XZ_GG",,FALSE,"missing_pct",50.9562483625884
+"20260527_XZ_GG_24","Short exposure","XZ_GG",,FALSE,"missing_pct",50.6680639245481
+"20260527_XZ_GG_25","Short exposure","XZ_GG",,FALSE,"missing_pct",17.8674351585014
+"20260527_XZ_GG_26","Short exposure","XZ_GG",,FALSE,"missing_pct",41.1055802986639
+"20260527_XZ_GG_27","Short exposure","XZ_GG",,FALSE,"missing_pct",42.5465024888656
+"20260527_XZ_GG_28","Short exposure","XZ_GG",,FALSE,"missing_pct",31.5430966727797
+"20260527_XZ_GG_29","Short exposure","XZ_GG",,FALSE,"missing_pct",44.3018077023841
+"20260527_XZ_GG_30","Short exposure","XZ_GG",,FALSE,"missing_pct",52.7901493319361
+"20260527_XZ_GG_31","Long exposure","XZ_GG",,FALSE,"missing_pct",50.6156667539953
+"20260527_XZ_GG_32","Long exposure","XZ_GG",,FALSE,"missing_pct",43.0704741943935
+"20260527_XZ_GG_33","Long exposure","XZ_GG",,FALSE,"missing_pct",48.1791983232905
+"20260527_XZ_GG_34","Long exposure","XZ_GG",,FALSE,"missing_pct",45.5331412103746
+"20260527_XZ_GG_35","Long exposure","XZ_GG",,FALSE,"missing_pct",56.8247314645009
+"20260527_XZ_GG_36","Long exposure","XZ_GG",,FALSE,"missing_pct",47.3408435944459
+"20260527_XZ_GG_37","Long exposure","XZ_GG",,FALSE,"missing_pct",46.5286874508777
+"20260527_XZ_GG_38","Long exposure","XZ_GG",,FALSE,"missing_pct",32.4862457427299
+"20260527_XZ_GG_39","Long exposure","XZ_GG",,FALSE,"missing_pct",51.7422059208803
+"20260527_XZ_GG_40","Long exposure","XZ_GG",,FALSE,"missing_pct",56.7461357086717
+"20260527_XZ_GG_41","Long exposure","XZ_GG",,FALSE,"missing_pct",46.3190987686665
+"20260527_XZ_GG_42","Long exposure","XZ_GG",,FALSE,"missing_pct",43.5420487293686
+"20260527_XZ_GG_43","Long exposure","XZ_GG",,FALSE,"missing_pct",54.7026460571129
+"20260527_XZ_GG_44","Long exposure","XZ_GG",,FALSE,"missing_pct",53.6547026460571
+"20260527_XZ_GG_46","Long exposure","XZ_GG",,FALSE,"missing_pct",54.3620644485198
+"20260527_XZ_GG_47","Long exposure","XZ_GG",,FALSE,"missing_pct",53.4713125491224
+"20260527_XZ_GG_50","Long exposure","XZ_GG",,FALSE,"missing_pct",50.6680639245481
+"20260527_XZ_GG_51","Long exposure","XZ_GG",,FALSE,"missing_pct",36.1802462667016
+"20260527_XZ_GG_52","Long exposure","XZ_GG",,FALSE,"missing_pct",41.8653392716793
+"20260527_XZ_GG_53","Long exposure","XZ_GG",,FALSE,"missing_pct",54.309667277967
+"20260527_XZ_GG_55","Long exposure","XZ_GG",,FALSE,"missing_pct",29.6567985328792
+"20260527_XZ_GG_56","Long exposure","XZ_GG",,FALSE,"missing_pct",42.8870840974587
+"20260527_XZ_GG_59","Long exposure","XZ_GG",,FALSE,"missing_pct",52.6853549908305
+"20260527_XZ_GG_60","Control","XZ_GG",,FALSE,"missing_pct",50.4846738276133
+"20260527_XZ_GG_62","Control","XZ_GG",,FALSE,"missing_pct",36.5208278752947
+"20260527_XZ_GG_64","Control","XZ_GG",,FALSE,"missing_pct",50.9562483625884
+"20260527_XZ_GG_65","Control","XZ_GG",,FALSE,"missing_pct",45.4807440398219
+"20260527_XZ_GG_66","Control","XZ_GG",,FALSE,"missing_pct",48.4411841760545
+"20260527_XZ_GG_68","Control","XZ_GG",,FALSE,"missing_pct",42.310715221378
+"20260527_XZ_GG_69","Control","XZ_GG",,FALSE,"missing_pct",41.4199633219806
+"20260527_XZ_GG_71","Control","XZ_GG",,FALSE,"missing_pct",58.5276395074666
+"20260527_XZ_GG_72","Control","XZ_GG",,FALSE,"missing_pct",42.44170814776
+"20260527_XZ_GG_73","Control","XZ_GG",,FALSE,"missing_pct",54.7812418129421
+"20260527_XZ_GG_74","Control","XZ_GG",,FALSE,"missing_pct",49.4891275871103
+"20260527_XZ_GG_75","Control","XZ_GG",,FALSE,"missing_pct",57.9512706313859
+"20260527_XZ_GG_76","Control","XZ_GG",,FALSE,"missing_pct",49.0437516374116
+"20260527_XZ_GG_77","Control","XZ_GG",,FALSE,"missing_pct",36.33743777836
+"20260527_XZ_GG_78","Control","XZ_GG",,FALSE,"missing_pct",22.3997904113178
+"20260527_XZ_GG_79","Control","XZ_GG",,FALSE,"missing_pct",45.3497511134399
+"20260527_XZ_GG_80","Control","XZ_GG",,FALSE,"missing_pct",53.0783337699764
+"20260527_XZ_GG_81","Short exposure","XZ_GG",,FALSE,"missing_pct",56.6151427822898
+"20260527_XZ_GG_82","Short exposure","XZ_GG",,FALSE,"missing_pct",44.9829709195703
+"20260527_XZ_GG_83","Short exposure","XZ_GG",,FALSE,"missing_pct",42.4941053183128
+"20260527_XZ_GG_84","Short exposure","XZ_GG",,FALSE,"missing_pct",50.0392978779146
+"20260527_XZ_GG_85","Short exposure","XZ_GG",,FALSE,"missing_pct",44.5375949698716
+"20260527_XZ_GG_86","Short exposure","XZ_GG",,FALSE,"missing_pct",50.3274823159549
+"20260527_XZ_GG_87","Short exposure","XZ_GG",,FALSE,"missing_pct",48.8603615404768
+"20260527_XZ_GG_88","Short exposure","XZ_GG",,FALSE,"missing_pct",54.8336389834949
+"20260527_XZ_GG_89","Short exposure","XZ_GG",,FALSE,"missing_pct",51.2182342153524
+"20260527_XZ_GG_92","Short exposure","XZ_GG",,FALSE,"missing_pct",50.065496463191
+"20260527_XZ_GG_93","Short exposure","XZ_GG",,FALSE,"missing_pct",54.3620644485198
+"20260527_XZ_GG_94","Short exposure","XZ_GG",,FALSE,"missing_pct",54.047681425203
+"20260527_XZ_GG_95","Short exposure","XZ_GG",,FALSE,"missing_pct",52.6853549908305
+"20260527_XZ_GG_96","Short exposure","XZ_GG",,FALSE,"missing_pct",60.9641079381713
+"20260527_XZ_GG_97","Short exposure","XZ_GG",,FALSE,"missing_pct",46.1619072570081
+"20260527_XZ_GG_98","Short exposure","XZ_GG",,FALSE,"missing_pct",33.1412103746398
+"20260527_XZ_GG_99","Short exposure","XZ_GG",,FALSE,"missing_pct",45.2973539428871
+"20260527_XZ_GG_100","Short exposure","XZ_GG",,FALSE,"missing_pct",56.9033272203301
+"20260527_XZ_GG_101","Short exposure","XZ_GG",,FALSE,"missing_pct",52.4233691380665
+"20260527_XZ_GG_102","Short exposure","XZ_GG",,FALSE,"missing_pct",42.9132826827351
+"20260527_XZ_GG_103","Short exposure","XZ_GG",,FALSE,"missing_pct",56.0911710767619
+"20260527_XZ_GG_104","Short exposure","XZ_GG",,FALSE,"missing_pct",59.2873984804821
+"20260527_XZ_GG_105","Short exposure","XZ_GG",,FALSE,"missing_pct",57.2439088289232
+"20260527_XZ_GG_106","Short exposure","XZ_GG",,FALSE,"missing_pct",54.309667277967
+"20260527_XZ_GG_121","Control","XZ_GG",,FALSE,"missing_pct",58.3442494105318
+"20260527_XZ_GG_122","Control","XZ_GG",,FALSE,"missing_pct",56.4055541000786
+"20260527_XZ_GG_123","Long exposure","XZ_GG",,FALSE,"missing_pct",35.6824731464501
+"20260527_XZ_GG_124","Long exposure","XZ_GG",,FALSE,"missing_pct",59.2611998952057
+"20260527_XZ_GG_125","Control","XZ_GG",,FALSE,"missing_pct",60.2043489651559
+"20260527_XZ_GG_126","Control","XZ_GG",,FALSE,"missing_pct",50.9824469478648
+"20260527_XZ_GG_128","Control","XZ_GG",,FALSE,"missing_pct",52.6853549908305
+"20260527_XZ_GG_129","Control","XZ_GG",,FALSE,"missing_pct",48.0220068116322
+"20260527_XZ_GG_130","Control","XZ_GG",,FALSE,"missing_pct",63.3743777835997
+"20260527_XZ_GG_131","Control","XZ_GG",,FALSE,"missing_pct",44.4589992140424
+"20260527_XZ_GG_132","Control","XZ_GG",,FALSE,"missing_pct",53.7594969871627
+"20260527_XZ_GG_135","Control","XZ_GG",,FALSE,"missing_pct",55.3838092742992
+"20260527_XZ_GG_136","Control","XZ_GG",,FALSE,"missing_pct",64.9724914854598
+"20260527_XZ_GG_137","Control","XZ_GG",,FALSE,"missing_pct",51.8731988472622
+"20260527_XZ_GG_138","Short exposure","XZ_GG",,FALSE,"missing_pct",55.7505894681687
+"20260527_XZ_GG_139","Short exposure","XZ_GG",,FALSE,"missing_pct",48.1791983232905
+"20260527_XZ_GG_140","Long exposure","XZ_GG",,FALSE,"missing_pct",45.4545454545455
+"20260527_XZ_GG_141","Long exposure","XZ_GG",,FALSE,"missing_pct",59.3135970657585
+"20260527_XZ_GG_142","Long exposure","XZ_GG",,FALSE,"missing_pct",58.1346607283207
+"20260527_XZ_GG_143","Short exposure","XZ_GG",,FALSE,"missing_pct",55.9863767356563
+"20260527_XZ_GG_144","Long exposure","XZ_GG",,FALSE,"missing_pct",50.6942625098245
+"20260527_XZ_GG_145","Long exposure","XZ_GG",,FALSE,"missing_pct",50.5894681687189
+"20260527_XZ_GG_146","Short exposure","XZ_GG",,FALSE,"missing_pct",39.9004453759497
+"20260527_XZ_GG_147","Long exposure","XZ_GG",,FALSE,"missing_pct",63.924548074404
+"20260527_XZ_GG_148","Long exposure","XZ_GG",,FALSE,"missing_pct",41.1317788839403
+"20260527_XZ_GG_149","Long exposure","XZ_GG",,FALSE,"missing_pct",67.042179722295
+"20260527_XZ_GG_150","Long exposure","XZ_GG",,FALSE,"missing_pct",61.9072570081216
+"20260527_XZ_GG_151","Short exposure","XZ_GG",,FALSE,"missing_pct",59.418391406864
+"20260527_XZ_GG_152","Control","XZ_GG",,FALSE,"missing_pct",57.0867173172649
+"20260527_XZ_GG_153","Long exposure","XZ_GG",,FALSE,"missing_pct",57.6630861933456
+"20260527_XZ_GG_154","Short exposure","XZ_GG",,FALSE,"missing_pct",54.6764474718365
+"20260527_XZ_GG_155","Long exposure","XZ_GG",,FALSE,"missing_pct",62.1954414461619
+"20260527_XZ_GG_156","Long exposure","XZ_GG",,FALSE,"missing_pct",61.6190725700812
+"20260527_XZ_GG_157","Long exposure","XZ_GG",,FALSE,"missing_pct",61.1474980351061
+"20260527_XZ_GG_158","Short exposure","XZ_GG",,FALSE,"missing_pct",64.7629028032486
+"20260527_XZ_GG_159","Long exposure","XZ_GG",,FALSE,"missing_pct",28.6612522923762
+"20260527_XZ_GG_160","Long exposure","XZ_GG",,FALSE,"missing_pct",56.9033272203301
+"20260527_XZ_GG_161","Short exposure","XZ_GG",,FALSE,"missing_pct",46.7120775478124
+"20260527_XZ_GG_162","Long exposure","XZ_GG",,FALSE,"missing_pct",57.7678805344511
+"20260527_XZ_GG_163","Short exposure","XZ_GG",,FALSE,"missing_pct",38.4857217710244
+"20260527_XZ_GG_164","Short exposure","XZ_GG",,FALSE,"missing_pct",41.9701336127849
+"20260527_XZ_GG_165","Long exposure","XZ_GG",,FALSE,"missing_pct",59.6017815037988
+"20260527_XZ_GG_166","Short exposure","XZ_GG",,FALSE,"missing_pct",57.1915116583705
+"20260527_XZ_GG_167","Long exposure","XZ_GG",,FALSE,"missing_pct",26.5653654702646
+"20260527_XZ_GG_168","Long exposure","XZ_GG",,FALSE,"missing_pct",58.6586324338486
+"20260527_XZ_GG_169","Long exposure","XZ_GG",,FALSE,"missing_pct",51.925596017815
+"20260527_XZ_GG_170","Short exposure","XZ_GG",,FALSE,"missing_pct",22.609379093529
+"20260527_XZ_GG_171","Long exposure","XZ_GG",,FALSE,"missing_pct",47.078857741682
+"20260717_GZ_TH_1","Control","GZ_TH",,FALSE,"missing_pct",47.0264605711292
+"20260717_GZ_TH_2","Control","GZ_TH",,FALSE,"missing_pct",50.1440922190202
+"20260717_GZ_TH_3","Control","GZ_TH",,FALSE,"missing_pct",32.5648414985591
+"20260717_GZ_TH_4","Control","GZ_TH",,FALSE,"missing_pct",22.347393240765
+"20260717_GZ_TH_6","Long exposure","GZ_TH",,FALSE,"missing_pct",43.0442756091171
+"20260717_GZ_TH_7","Long exposure","GZ_TH",,FALSE,"missing_pct",44.69478648153
+"20260717_GZ_TH_8","Long exposure","GZ_TH",,FALSE,"missing_pct",43.8564317526854
+"20260717_GZ_TH_9","Long exposure","GZ_TH",,FALSE,"missing_pct",48.1006025674614
+"20260717_GZ_TH_10","Long exposure","GZ_TH",,FALSE,"missing_pct",46.0833115011789
+"20260717_GZ_TH_11","Long exposure","GZ_TH",,FALSE,"missing_pct",46.9478648153
+"20260717_GZ_TH_12","Short exposure","GZ_TH",,FALSE,"missing_pct",66.0990306523448
+"20260717_GZ_TH_13","Short exposure","GZ_TH",,FALSE,"missing_pct",56.9557243908829
+"20260717_GZ_TH_14","Long exposure","GZ_TH",,FALSE,"missing_pct",58.8420225307833
+"20260717_GZ_TH_15","Short exposure","GZ_TH",,FALSE,"missing_pct",49.5677233429395
+"20260717_GZ_TH_16","Short exposure","GZ_TH",,FALSE,"missing_pct",52.0827875294734
+"20260717_GZ_TH_17","Short exposure","GZ_TH",,FALSE,"missing_pct",59.9685616976683
+"20260717_GZ_TH_18","Short exposure","GZ_TH",,FALSE,"missing_pct",47.8386167146974
+"20260717_GZ_TH_19","Short exposure","GZ_TH",,FALSE,"missing_pct",54.8598375687713
+"20260717_GZ_TH_20","Short exposure","GZ_TH",,FALSE,"missing_pct",35.8134660728321
+"20260717_GZ_TH_21","Long exposure","GZ_TH",,FALSE,"missing_pct",57.6630861933456
+"20260717_GZ_TH_22","Short exposure","GZ_TH",,FALSE,"missing_pct",46.7644747183652
+"20260717_GZ_TH_23","Control","GZ_TH",,FALSE,"missing_pct",58.3442494105318
+"20260717_GZ_TH_24","Control","GZ_TH",,FALSE,"missing_pct",15.0903851192036
+"20260717_GZ_TH_25","Long exposure","GZ_TH",,FALSE,"missing_pct",48.2053969085669
+"20260717_GZ_TH_26","Long exposure","GZ_TH",,FALSE,"missing_pct",13.7542572701074
+"20260717_GZ_TH_27","Long exposure","GZ_TH",,FALSE,"missing_pct",50.4060780717841
+"20260717_GZ_TH_28","Long exposure","GZ_TH",,FALSE,"missing_pct",21.7972229499607
+"20260717_GZ_TH_29","Long exposure","GZ_TH",,FALSE,"missing_pct",15.0379879486508
+"20260717_GZ_TH_30","Long exposure","GZ_TH",,FALSE,"missing_pct",49.3843332460047
+"20260717_GZ_TH_31","Long exposure","GZ_TH",,FALSE,"missing_pct",44.4851977993188
+"20260717_GZ_TH_32","Long exposure","GZ_TH",,FALSE,"missing_pct",48.1791983232905
+"20260717_GZ_TH_33","Long exposure","GZ_TH",,FALSE,"missing_pct",40.3720199109248
+"20260717_GZ_TH_35","Long exposure","GZ_TH",,FALSE,"missing_pct",43.0704741943935
+"20260717_GZ_TH_36","Control","GZ_TH",,FALSE,"missing_pct",65.2868745087765
+"20260717_GZ_TH_37","Control","GZ_TH",,FALSE,"missing_pct",49.3319360754519
+"20260717_GZ_TH_38","Long exposure","GZ_TH",,FALSE,"missing_pct",61.1212994498297
+"20260717_GZ_TH_39","Long exposure","GZ_TH",,FALSE,"missing_pct",32.8530259365994
+"20260717_GZ_TH_40","Long exposure","GZ_TH",,FALSE,"missing_pct",47.6290280324862
+"20260717_GZ_TH_41","Long exposure","GZ_TH",,FALSE,"missing_pct",49.6987162693215
+"20260717_GZ_TH_42","Control","GZ_TH",,FALSE,"missing_pct",43.3062614618811
+"20260717_GZ_TH_43","Control","GZ_TH",,FALSE,"missing_pct",55.9601781503799
+"20260717_GZ_TH_44","Control","GZ_TH",,FALSE,"missing_pct",53.314121037464
+"20260717_GZ_TH_45","Control","GZ_TH",,FALSE,"missing_pct",65.5226617762641
+"20260717_GZ_TH_46","Short exposure","GZ_TH",,FALSE,"missing_pct",45.4021482839927
+"20260717_GZ_TH_47","Short exposure","GZ_TH",,FALSE,"missing_pct",41.2103746397695
+"20260717_GZ_TH_48","Long exposure","GZ_TH",,FALSE,"missing_pct",45.7165313073094
+"20260717_GZ_TH_49","Control","GZ_TH",,FALSE,"missing_pct",43.0442756091171
+"20260717_GZ_TH_50","Control","GZ_TH",,FALSE,"missing_pct",61.4356824731464
+"20260717_GZ_TH_51","Control","GZ_TH",,FALSE,"missing_pct",34.6345297353943
+"20260717_GZ_TH_53","Control","GZ_TH",,FALSE,"missing_pct",48.2839926643961
+"20260717_GZ_TH_54","Control","GZ_TH",,FALSE,"missing_pct",19.1249672517684
+"20260717_GZ_TH_55","Control","GZ_TH",,FALSE,"missing_pct",49.4891275871103
+"20260717_GZ_TH_57","Control","GZ_TH",,FALSE,"missing_pct",50.6156667539953
+"20260717_GZ_TH_58","Control","GZ_TH",,FALSE,"missing_pct",52.0827875294734
+"20260717_GZ_TH_59","Control","GZ_TH",,FALSE,"missing_pct",59.4969871626932
+"20260717_GZ_TH_61","Control","GZ_TH",,FALSE,"missing_pct",55.174220592088
+"20260717_GZ_TH_62","Short exposure","GZ_TH",,FALSE,"missing_pct",54.9384333246005
+"20260717_GZ_TH_63","Control","GZ_TH",,FALSE,"missing_pct",49.8559077809798
+"20260717_GZ_TH_64","Control","GZ_TH",,FALSE,"missing_pct",54.9122347393241
+"20260717_GZ_TH_65","Control","GZ_TH",,FALSE,"missing_pct",55.4100078595756
+"20260717_GZ_TH_66","Control","GZ_TH",,FALSE,"missing_pct",52.4757663086193
+"20260717_GZ_TH_67","Control","GZ_TH",,FALSE,"missing_pct",53.183128111082
+"20260717_GZ_TH_68","Control","GZ_TH",,FALSE,"missing_pct",51.8993974325386
+"20260717_GZ_TH_69","Control","GZ_TH",,FALSE,"missing_pct",58.3966465810846
+"20260717_GZ_TH_70","Control","GZ_TH",,FALSE,"missing_pct",57.55829185224
+"20260717_GZ_TH_71","Control","GZ_TH",,FALSE,"missing_pct",53.9428870840975
+"20260717_GZ_TH_72","Control","GZ_TH",,FALSE,"missing_pct",51.6898087503275
+"20260717_GZ_TH_73","Control","GZ_TH",,FALSE,"missing_pct",52.3971705527902
+"20260717_GZ_TH_74","Control","GZ_TH",,FALSE,"missing_pct",59.2611998952057
+"20260717_GZ_TH_75","Control","GZ_TH",,FALSE,"missing_pct",47.9172124705266
+"20260717_GZ_TH_76","Control","GZ_TH",,FALSE,"missing_pct",48.2053969085669
+"20260717_GZ_TH_77","Control","GZ_TH",,FALSE,"missing_pct",55.174220592088
+"20260717_GZ_TH_78","Control","GZ_TH",,FALSE,"missing_pct",50.1178936337438
+"20260717_GZ_TH_79","Control","GZ_TH",,FALSE,"missing_pct",53.2617238669112
+"20260717_GZ_TH_80","Control","GZ_TH",,FALSE,"missing_pct",38.0403458213257
+"20260717_GZ_TH_87","Short exposure","GZ_TH",,FALSE,"missing_pct",54.5716531307309
+"20260717_GZ_TH_88","Control","GZ_TH",,FALSE,"missing_pct",57.4796960964108
+"20260717_GZ_TH_89","Short exposure","GZ_TH",,FALSE,"missing_pct",50.0130992926382
+"20260717_GZ_TH_90","Long exposure","GZ_TH",,FALSE,"missing_pct",57.427298925858
+"20260717_GZ_TH_93","Short exposure","GZ_TH",,FALSE,"missing_pct",55.30521351847
+"20260717_GZ_TH_94","Short exposure","GZ_TH",,FALSE,"missing_pct",50.7466596803773
+"20260717_GZ_TH_95","Short exposure","GZ_TH",,FALSE,"missing_pct",53.9428870840975
+"20260717_GZ_TH_96","Short exposure","GZ_TH",,FALSE,"missing_pct",45.4283468692691
+"20260717_GZ_TH_98","Short exposure","GZ_TH",,FALSE,"missing_pct",62.9028032486246
+"20260717_GZ_TH_99","Short exposure","GZ_TH",,FALSE,"missing_pct",51.2444328006288
+"20260717_GZ_TH_100","Short exposure","GZ_TH",,FALSE,"missing_pct",53.4189153785696
+"20260717_GZ_TH_101","Short exposure","GZ_TH",,FALSE,"missing_pct",49.3843332460047
+"20260717_GZ_TH_102","Short exposure","GZ_TH",,FALSE,"missing_pct",52.5543620644485
+"20260717_GZ_TH_103","Short exposure","GZ_TH",,FALSE,"missing_pct",48.8865601257532
+"20260717_GZ_TH_104","Short exposure","GZ_TH",,FALSE,"missing_pct",57.7416819491747
+"20260717_GZ_TH_106","Short exposure","GZ_TH",,FALSE,"missing_pct",56.2745611736966
+"20260717_GZ_TH_107","Long exposure","GZ_TH",,FALSE,"missing_pct",53.5499083049515
+"20260717_GZ_TH_108","Long exposure","GZ_TH",,FALSE,"missing_pct",57.689284778622
+"20260717_GZ_TH_109","Long exposure","GZ_TH",,FALSE,"missing_pct",58.684831019125
+"20260717_GZ_TH_110","Control","GZ_TH",,FALSE,"missing_pct",58.684831019125
+"20260717_GZ_TH_111","Long exposure","GZ_TH",,FALSE,"missing_pct",55.6981922976159
+"20260717_GZ_TH_112","Long exposure","GZ_TH",,FALSE,"missing_pct",45.6379355514802
+"20260717_GZ_TH_114","Long exposure","GZ_TH",,FALSE,"missing_pct",57.689284778622
+"20260717_GZ_TH_115","Long exposure","GZ_TH",,FALSE,"missing_pct",39.4026722556982
+"20260717_GZ_TH_117","Control","GZ_TH",,FALSE,"missing_pct",53.7070998166099
+"20260717_GZ_TH_118","Control","GZ_TH",,FALSE,"missing_pct",60.0471574534975
+"20260717_GZ_TH_119","Long exposure","GZ_TH",,FALSE,"missing_pct",28.4516636101651
+"20260717_GZ_TH_120","Long exposure","GZ_TH",,FALSE,"missing_pct",58.8158239455069
+"20260717_GZ_TH_121","Control","GZ_TH",,FALSE,"missing_pct",47.2360492533403
+"20260717_GZ_TH_122","Long exposure","GZ_TH",,FALSE,"missing_pct",58.2132564841499
+"20260717_GZ_TH_123","Long exposure","GZ_TH",,FALSE,"missing_pct",56.2221640031438
+"20260717_GZ_TH_124","Long exposure","GZ_TH",,FALSE,"missing_pct",53.9166884988211
+"20260717_GZ_TH_125","Long exposure","GZ_TH",,FALSE,"missing_pct",57.1915116583705
+"20260717_GZ_TH_126","Long exposure","GZ_TH",,FALSE,"missing_pct",55.043227665706
+"20260717_GZ_TH_128","Long exposure","GZ_TH",,FALSE,"missing_pct",47.7862195441446
+"20260717_GZ_TH_129","Long exposure","GZ_TH",,FALSE,"missing_pct",51.0872412889704
+"20260717_GZ_TH_131","Long exposure","GZ_TH",,FALSE,"missing_pct",56.0125753209327
+"20260717_GZ_TH_132","Long exposure","GZ_TH",,FALSE,"missing_pct",63.1647891013885
+"20260717_GZ_TH_133","Long exposure","GZ_TH",,FALSE,"missing_pct",58.9206182866125
+"20260717_GZ_TH_134","Long exposure","GZ_TH",,FALSE,"missing_pct",72.412889703956
+"20260717_GZ_TH_137","Long exposure","GZ_TH",,FALSE,"missing_pct",67.8805344511396
+"20260717_GZ_TH_138","Long exposure","GZ_TH",,FALSE,"missing_pct",58.422845166361
+"20260717_GZ_TH_143","Short exposure","GZ_TH",,FALSE,"missing_pct",51.6112129944983
+"20260717_GZ_TH_144","Control","GZ_TH",,FALSE,"missing_pct",48.7293686140948
+"20260717_GZ_TH_147","Short exposure","GZ_TH",,FALSE,"missing_pct",57.689284778622
+"20260717_GZ_TH_148","Short exposure","GZ_TH",,FALSE,"missing_pct",46.8692690594708
+"20260717_GZ_TH_149","Short exposure","GZ_TH",,FALSE,"missing_pct",46.3452973539429
+"20260717_GZ_TH_150","Short exposure","GZ_TH",,FALSE,"missing_pct",55.567199371234

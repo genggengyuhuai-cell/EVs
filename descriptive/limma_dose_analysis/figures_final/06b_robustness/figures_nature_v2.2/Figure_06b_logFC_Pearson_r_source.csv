@@ -1,0 +1,16 @@
+"Comparison","Contrast","Metric","Value"
+"Median normalization","Low_vs_Control","logFC Pearson r",0.993302474338154
+"Median normalization","High_vs_Control","logFC Pearson r",0.995032672986557
+"Median normalization","High_vs_Low","logFC Pearson r",0.995514692010196
+"MS run-date proxy","Low_vs_Control","logFC Pearson r",0.920587028286118
+"MS run-date proxy","High_vs_Control","logFC Pearson r",0.959128380469315
+"MS run-date proxy","High_vs_Low","logFC Pearson r",0.953903259322298
+"Threshold 50%","Low_vs_Control","logFC Pearson r",1
+"Threshold 50%","High_vs_Control","logFC Pearson r",1
+"Threshold 50%","High_vs_Low","logFC Pearson r",1
+"Threshold 80%","Low_vs_Control","logFC Pearson r",1
+"Threshold 80%","High_vs_Control","logFC Pearson r",1
+"Threshold 80%","High_vs_Low","logFC Pearson r",1
+"Complete case","Low_vs_Control","logFC Pearson r",1
+"Complete case","High_vs_Control","logFC Pearson r",1
+"Complete case","High_vs_Low","logFC Pearson r",1

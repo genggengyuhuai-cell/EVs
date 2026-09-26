@@ -1,0 +1,16 @@
+"Contrast","Reference","Comparison","Shared_proteins","Pearson_logFC","Spearman_logFC","Direction_concordance","Significant_ref_FDR_0.05","Significant_cmp_FDR_0.05","Significant_overlap","Jaccard_FDR_0.05"
+"Low_vs_Control","PRIMARY_log2_dose_environment","Median_normalization",1434,0.993302474338154,0.991515580199189,0.732914923291492,14,0,0,0
+"High_vs_Control","PRIMARY_log2_dose_environment","Median_normalization",1434,0.995032672986557,0.993062953970155,0.96931659693166,0,18,0,0
+"High_vs_Low","PRIMARY_log2_dose_environment","Median_normalization",1434,0.995514692010196,0.995589234145656,0.779637377963738,256,65,64,0.249027237354086
+"Low_vs_Control","PRIMARY_log2_dose_environment","MS_batch_proxy",1434,0.920587028286118,0.916188168550135,0.810320781032078,14,77,10,0.123456790123457
+"High_vs_Control","PRIMARY_log2_dose_environment","MS_batch_proxy",1434,0.959128380469315,0.946508918586691,0.875871687587169,0,121,0,0
+"High_vs_Low","PRIMARY_log2_dose_environment","MS_batch_proxy",1434,0.953903259322298,0.958212704205086,0.935146443514644,256,406,254,0.622549019607843
+"Low_vs_Control","PRIMARY_log2_dose_environment","Threshold_50pct",1434,1,1,1,14,12,12,0.857142857142857
+"High_vs_Control","PRIMARY_log2_dose_environment","Threshold_50pct",1434,1,1,1,0,0,0,
+"High_vs_Low","PRIMARY_log2_dose_environment","Threshold_50pct",1434,1,1,1,256,219,219,0.85546875
+"Low_vs_Control","PRIMARY_log2_dose_environment","Threshold_80pct",1214,1,1,1,14,15,14,0.933333333333333
+"High_vs_Control","PRIMARY_log2_dose_environment","Threshold_80pct",1214,1,1,1,0,0,0,
+"High_vs_Low","PRIMARY_log2_dose_environment","Threshold_80pct",1214,1,1,1,247,270,247,0.914814814814815
+"Low_vs_Control","PRIMARY_log2_dose_environment","Complete_case",481,1,1,1,10,21,10,0.476190476190476
+"High_vs_Control","PRIMARY_log2_dose_environment","Complete_case",481,1,1,1,0,0,0,
+"High_vs_Low","PRIMARY_log2_dose_environment","Complete_case",481,1,1,1,155,198,155,0.782828282828283

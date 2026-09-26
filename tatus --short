@@ -1,0 +1,53 @@
+ FILE_STATUS.md                                     |   10 [32m+[m
+ MASTER_PROJECT_AUDIT_BACKLOG.md                    |   24 [32m+[m
+ PROJECT_CONTEXT.md                                 |   47 [32m+[m
+ TASK_CURRENT.md                                    |   29 [32m+[m
+ descriptive/RUN_ORDER.md                           |    7 [32m+[m
+ .../missingness_robustness/README_METHODS.md       |   69 [32m+[m
+ .../code/missingness_robustness.R                  |  329 [32m++[m
+ .../diagnostics/D0_canonical_comparison.csv        | 1435 [32m+++++++[m
+ .../diagnostics/D0_gate_summary.csv                |    2 [32m+[m
+ .../diagnostics/D0_numerical_summary.csv           |    7 [32m+[m
+ .../diagnostics/D0_stage11a_pattern_counts.csv     |    3 [32m+[m
+ .../diagnostics/D3_missingness_constraints.csv     |    3 [32m+[m
+ .../diagnostics/preflight_assertions.csv           |   15 [32m+[m
+ .../01_sample_missing_fraction_by_exposure.pdf     |  Bin [31m0[m -> [32m39993[m bytes
+ .../01_sample_missing_fraction_by_exposure.png     |  Bin [31m0[m -> [32m207036[m bytes
+ ...2_protein_missing_fraction_vs_observed_mean.pdf |  Bin [31m0[m -> [32m67726[m bytes
+ ...2_protein_missing_fraction_vs_observed_mean.png |  Bin [31m0[m -> [32m415921[m bytes
+ .../figures/03_group_detection_rate_comparison.pdf |  Bin [31m0[m -> [32m35790[m bytes
+ .../figures/03_group_detection_rate_comparison.png |  Bin [31m0[m -> [32m104135[m bytes
+ .../figures/04_D0_vs_D1_logFC.pdf                  |  Bin [31m0[m -> [32m69229[m bytes
+ .../figures/04_D0_vs_D1_logFC.png                  |  Bin [31m0[m -> [32m284869[m bytes
+ .../figures/05_D0_vs_D2_logFC.pdf                  |  Bin [31m0[m -> [32m69589[m bytes
+ .../figures/05_D0_vs_D2_logFC.png                  |  Bin [31m0[m -> [32m275163[m bytes
+ .../figures/06_D0_vs_D3_logFC.pdf                  |  Bin [31m0[m -> [32m69847[m bytes
+ .../figures/06_D0_vs_D3_logFC.png                  |  Bin [31m0[m -> [32m238451[m bytes
+ .../figures/07_canonical_256_delta_logFC.pdf       |  Bin [31m0[m -> [32m33959[m bytes
+ .../figures/07_canonical_256_delta_logFC.png       |  Bin [31m0[m -> [32m73663[m bytes
+ .../figures/08_DEP_retention_gain_loss.pdf         |  Bin [31m0[m -> [32m18665[m bytes
+ .../figures/08_DEP_retention_gain_loss.png         |  Bin [31m0[m -> [32m48216[m bytes
+ .../figures/09_stage11a_pattern_transitions.pdf    |  Bin [31m0[m -> [32m21778[m bytes
+ .../figures/09_stage11a_pattern_transitions.png    |  Bin [31m0[m -> [32m131932[m bytes
+ .../results/D0_PRIMARY_FROZEN_ANALYSIS.csv         | 1435 [32m+++++++[m
+ .../results/D1_ZERO_REPLACEMENT_STRESS_TEST.csv    | 1435 [32m+++++++[m
+ .../D2_LEFT_CENSORED_DOWNSHIFT_GAUSSIAN.csv        | 1435 [32m+++++++[m
+ .../results/D2_sample_imputation_diagnostics.csv   |  516 [32m+++[m
+ .../results/D3_KNN_IMPUTATION.csv                  | 1435 [32m+++++++[m
+ .../results/abundance_missingness_spearman.csv     |    9 [32m+[m
+ .../results/canonical_256_sensitivity_flags.csv    |  257 [32m++[m
+ .../results/canonical_256_stability_summary.csv    |    4 [32m+[m
+ .../results/execution_summary.txt                  |   62 [32m+[m
+ .../results/group_abundance_missingness.csv        | 4303 [32m++++++++++++++++++++[m
+ .../results/group_detection_imbalance_summary.csv  |    4 [32m+[m
+ .../largest_group_detection_imbalances_top50.csv   |   51 [32m+[m
+ .../results/master_comparison.csv                  | 1435 [32m+++++++[m
+ .../results/protein_abundance_missingness.csv      | 1435 [32m+++++++[m
+ .../results/protein_missingness.csv                | 1435 [32m+++++++[m
+ .../results/robustness_summary.csv                 |    4 [32m+[m
+ .../results/sample_missingness.csv                 |  516 [32m+++[m
+ .../stage11a_canonical_seven_long_suppression.csv  |    8 [32m+[m
+ .../results/stage11a_changed_proteins.csv          |   19 [32m+[m
+ .../results/stage11a_pattern_stability_summary.csv |    4 [32m+[m
+ .../results/stage11a_pattern_transition_matrix.csv |   12 [32m+[m
+ 52 files changed, 17794 insertions(+)

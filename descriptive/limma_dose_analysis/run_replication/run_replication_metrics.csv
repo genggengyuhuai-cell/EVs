@@ -1,0 +1,4 @@
+"Contrast","Proteins_estimable_both_runs","Pearson_all","Spearman_all","Direction_all","Primary_FDR_significant_estimable_both_runs","Direction_primary_FDR_significant"
+"Low_vs_Control",1434,-0.0897073273238195,-0.100558571520439,0.523012552301255,14,1
+"High_vs_Control",1434,0.134199210377883,0.184377007661595,0.524407252440725,0,NA
+"High_vs_Low",1434,0.0452847547871698,0.0407407248774844,0.521617852161785,256,0.9453125

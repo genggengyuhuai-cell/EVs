@@ -1,0 +1,516 @@
+"UniqueSampleID","Exposure","Raw_value","Value","Missing"
+"20250913_FJ_QZ_Q3","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q4","Control","0",0,FALSE
+"20250913_FJ_QZ_Q12","Control","0",0,FALSE
+"20250913_FJ_QZ_Q13","Control","0",0,FALSE
+"20250913_FJ_QZ_Q14","Control","0",0,FALSE
+"20250913_FJ_QZ_Q15","Control","0",0,FALSE
+"20250913_FJ_QZ_Q16","Control","0",0,FALSE
+"20250913_FJ_QZ_Q18","Control","0",0,FALSE
+"20250913_FJ_QZ_Q20","Control","0",0,FALSE
+"20250913_FJ_QZ_Q21","Control","0",0,FALSE
+"20250913_FJ_QZ_Q22","Control","0",0,FALSE
+"20250913_FJ_QZ_Q23","Control","0",0,FALSE
+"20250913_FJ_QZ_Q25","Control","0",0,FALSE
+"20250913_FJ_QZ_Q26","Control","0",0,FALSE
+"20250913_FJ_QZ_Q27","Control","0",0,FALSE
+"20250913_FJ_QZ_Q28","Control","0",0,FALSE
+"20250913_FJ_QZ_Q29","Control","0",0,FALSE
+"20250913_FJ_QZ_Q31","Long exposure","0",0,FALSE
+"20250913_FJ_QZ_Q32","Long exposure","0",0,FALSE
+"20250913_FJ_QZ_Q33","Long exposure","0",0,FALSE
+"20250913_FJ_QZ_Q34","Long exposure","0",0,FALSE
+"20250913_FJ_QZ_Q36","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q37","Long exposure","0",0,FALSE
+"20250913_FJ_QZ_Q38","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q39","Long exposure","0",0,FALSE
+"20250913_FJ_QZ_Q41","Long exposure","0",0,FALSE
+"20250913_FJ_QZ_Q42","Long exposure","0",0,FALSE
+"20250913_FJ_QZ_Q44","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q45","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q48","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q49","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q50","Control","0",0,FALSE
+"20250913_FJ_QZ_Q52","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q54","Control","0",0,FALSE
+"20250913_FJ_QZ_Q55","Control","0",0,FALSE
+"20250913_FJ_QZ_Q57","Control","0",0,FALSE
+"20250913_FJ_QZ_Q58","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q59","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q60","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q61","Control","0",0,FALSE
+"20250913_FJ_QZ_Q62","Control","0",0,FALSE
+"20250913_FJ_QZ_Q63","Control","0",0,FALSE
+"20250913_FJ_QZ_Q65","Control","0",0,FALSE
+"20250913_FJ_QZ_Q66","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q67","Short exposure","0",0,FALSE
+"20250913_FJ_QZ_Q68","Control","0",0,FALSE
+"20250913_FJ_QZ_Q69","Control","0",0,FALSE
+"20250913_FJ_QZ_Q70","Control","0",0,FALSE
+"20250913_FJ_QZ_Q71","Control","0",0,FALSE
+"20250913_FJ_QZ_Q72","Short exposure","0",0,FALSE
+"20250914_FJ_FQ_F47","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F51","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F53","Control","2",2,FALSE
+"20250914_FJ_FQ_F54","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F55","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F56","Control","2",2,FALSE
+"20250914_FJ_FQ_F57","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F58","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F62","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F66","Control","2",2,FALSE
+"20250914_FJ_FQ_F69","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F70","Control","2",2,FALSE
+"20250914_FJ_FQ_F71","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F72","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F74","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F75","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F77","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F79","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F81","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F83","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F84","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F85","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F88","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F89","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F93","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F94","Control","2",2,FALSE
+"20250914_FJ_FQ_F102","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F105","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F106","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F107","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F110","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F111","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F118","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F121","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F122","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F123","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F124","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F125","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F126","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F128","Short exposure","2",2,FALSE
+"20250914_FJ_FQ_F129","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F131","Control","2",2,FALSE
+"20250914_FJ_FQ_F135","Long exposure","2",2,FALSE
+"20250914_FJ_FQ_F137","Control","2",2,FALSE
+"20250914_FJ_PT_P2","Control",">6",,FALSE
+"20250914_FJ_PT_P3","Control",">6",,FALSE
+"20250914_FJ_PT_P4","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P6","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P7","Control",">6",,FALSE
+"20250914_FJ_PT_P8","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P9","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P10","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P11","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P13","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P15","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P17","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P18","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P19","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P20","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P21","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P22","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P23","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P24","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P25","Short exposure",">6",,FALSE
+"20250914_FJ_PT_P26","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P27","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P29","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P30","Long exposure",">6",,FALSE
+"20250914_FJ_PT_P33","Long exposure",">6",,FALSE
+"20251001_FJ_FQ_F83","Short exposure","2",2,FALSE
+"20251001_FJ_FQ_F95","Long exposure","2",2,FALSE
+"20251001_FJ_FQ_F97","Long exposure","2",2,FALSE
+"20251001_FJ_FQ_F105","Long exposure","2",2,FALSE
+"20251001_FJ_FQ_F120","Long exposure","2",2,FALSE
+"20251001_FJ_FQ_F136","Control","2",2,FALSE
+"20251001_FJ_FQ_F141","Control","2",2,FALSE
+"20251001_FJ_FQ_F147","Long exposure","2",2,FALSE
+"20251001_FJ_FQ_F150","Control","2",2,FALSE
+"20251001_FJ_FQ_F154","Long exposure","2",2,FALSE
+"20251001_FJ_FQ_F158","Long exposure","2",2,FALSE
+"20251001_FJ_FQ_F163","Control","2",2,FALSE
+"20251001_FJ_FQ_F165","Control","2",2,FALSE
+"20251001_FJ_FQ_F168","Long exposure","2",2,FALSE
+"20251001_FJ_FQ_F170","Control","2",2,FALSE
+"20251001_FJ_FQ_F173","Short exposure","2",2,FALSE
+"20251001_FJ_FQ_F174","Short exposure","2",2,FALSE
+"20251001_FJ_FQ_F175","Short exposure","2",2,FALSE
+"20251001_FJ_FQ_F176","Short exposure","2",2,FALSE
+"20251001_FJ_FQ_F177","Short exposure","2",2,FALSE
+"20251001_FJ_FQ_F180","Short exposure","2",2,FALSE
+"20251001_FJ_FQ_F183","Short exposure","2",2,FALSE
+"20251001_FJ_FQ_F185","Short exposure","2",2,FALSE
+"20251001_XZ_YA_1","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_2","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_3","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_4","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_5","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_6","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_7","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_8","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_9","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_10","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_11","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_12","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_13","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_14","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_15","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_16","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_17","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_18","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_19","Short exposure","Unknown",,FALSE
+"20251001_XZ_YA_20","Control","Unknown",,FALSE
+"20251001_XZ_YA_21","Control","Unknown",,FALSE
+"20251001_XZ_YA_22","Long exposure","Unknown",,FALSE
+"20251001_XZ_YB_2","Control","Unknown",,FALSE
+"20251001_XZ_YB_4","Control","Unknown",,FALSE
+"20251001_XZ_YB_6","Control","Unknown",,FALSE
+"20251001_XZ_YB_9","Control","Unknown",,FALSE
+"20251001_XZ_YB_10","Control","Unknown",,FALSE
+"20251001_XZ_YB_11","Control","Unknown",,FALSE
+"20251001_XZ_YB_12","Control","Unknown",,FALSE
+"20251001_XZ_YB_14","Control","Unknown",,FALSE
+"20251001_XZ_YB_15","Control","Unknown",,FALSE
+"20251001_XZ_YB_19","Control","Unknown",,FALSE
+"20251001_XZ_YC_1","Control","Unknown",,FALSE
+"20251001_XZ_YC_2","Control","Unknown",,FALSE
+"20251001_XZ_YC_3","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_4","Control","Unknown",,FALSE
+"20251001_XZ_YC_5","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_6","Short exposure","Unknown",,FALSE
+"20251001_XZ_YC_7","Short exposure","Unknown",,FALSE
+"20251001_XZ_YC_8","Control","Unknown",,FALSE
+"20251001_XZ_YC_9","Short exposure","Unknown",,FALSE
+"20251001_XZ_YC_10","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_11","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_12","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_13","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_14","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_15","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_16","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_17","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_18","Short exposure","Unknown",,FALSE
+"20251001_XZ_YC_19","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_20","Short exposure","Unknown",,FALSE
+"20251001_XZ_YC_21","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_22","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_23","Short exposure","Unknown",,FALSE
+"20251001_XZ_YC_24","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_25","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_26","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_27","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_28","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_29","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_30","Short exposure","Unknown",,FALSE
+"20251001_XZ_YC_31","Control","Unknown",,FALSE
+"20251001_XZ_YC_32","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_33","Long exposure","Unknown",,FALSE
+"20251001_XZ_YC_34","Control","Unknown",,FALSE
+"20251001_XZ_YD_1","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_3","Control","Unknown",,FALSE
+"20251001_XZ_YD_4","Control","Unknown",,FALSE
+"20251001_XZ_YD_5","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_6","Control","Unknown",,FALSE
+"20251001_XZ_YD_7","Long exposure","Unknown",,FALSE
+"20251001_XZ_YD_8","Long exposure","Unknown",,FALSE
+"20251001_XZ_YD_9","Long exposure","Unknown",,FALSE
+"20251001_XZ_YD_10","Long exposure","Unknown",,FALSE
+"20251001_XZ_YD_11","Long exposure","Unknown",,FALSE
+"20251001_XZ_YD_12","Control","Unknown",,FALSE
+"20251001_XZ_YD_13","Control","Unknown",,FALSE
+"20251001_XZ_YD_14","Control","Unknown",,FALSE
+"20251001_XZ_YD_15","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_16","Long exposure","Unknown",,FALSE
+"20251001_XZ_YD_17","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_18","Long exposure","Unknown",,FALSE
+"20251001_XZ_YD_19","Control","Unknown",,FALSE
+"20251001_XZ_YD_20","Control","Unknown",,FALSE
+"20251001_XZ_YD_21","Control","Unknown",,FALSE
+"20251001_XZ_YD_22","Control","Unknown",,FALSE
+"20251001_XZ_YD_23","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_24","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_25","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_26","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_27","Short exposure","Unknown",,FALSE
+"20251001_XZ_YD_28","Short exposure","Unknown",,FALSE
+"20251026_FJ_PT_P31","Control",">6",,FALSE
+"20251026_FJ_QZ_Q73","Control","0",0,FALSE
+"20251026_FJ_QZ_Q74","Short exposure","0",0,FALSE
+"20251026_FJ_QZ_Q75","Short exposure","0",0,FALSE
+"20251026_FJ_QZ_Q76","Long exposure","0",0,FALSE
+"20251026_FJ_QZ_Q77","Long exposure","0",0,FALSE
+"20251026_FJ_QZ_Q78","Long exposure","0",0,FALSE
+"20251026_FJ_QZ_Q79","Control","0",0,FALSE
+"20251026_FJ_QZ_Q80","Short exposure","0",0,FALSE
+"20251026_FJ_QZ_Q81","Short exposure","0",0,FALSE
+"20251026_FJ_QZ_Q82","Control","0",0,FALSE
+"20251026_FJ_QZ_Q83","Control","0",0,FALSE
+"20251104_FJ_FQ_F178","Short exposure","2",2,FALSE
+"20251104_FJ_FQ_F179","Long exposure","2",2,FALSE
+"20251107_XZ_YD_2","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_1","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_2","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_3","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_4","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_5","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_6","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_7","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_8","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_9","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_10","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_11","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_12","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_13","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_14","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_15","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_16","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_17","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_18","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_19","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_20","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_21","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_22","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_23","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_24","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_25","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_26","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_27","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_28","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_29","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_30","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_31","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_32","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_33","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_34","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_35","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_36","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_37","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_38","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_39","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_40","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_41","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_42","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_43","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_44","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_46","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_47","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_50","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_51","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_52","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_53","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_55","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_56","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_59","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_60","Control","Unknown",,FALSE
+"20260527_XZ_GG_62","Control","Unknown",,FALSE
+"20260527_XZ_GG_64","Control","Unknown",,FALSE
+"20260527_XZ_GG_65","Control","Unknown",,FALSE
+"20260527_XZ_GG_66","Control","Unknown",,FALSE
+"20260527_XZ_GG_68","Control","Unknown",,FALSE
+"20260527_XZ_GG_69","Control","Unknown",,FALSE
+"20260527_XZ_GG_71","Control","Unknown",,FALSE
+"20260527_XZ_GG_72","Control","Unknown",,FALSE
+"20260527_XZ_GG_73","Control","Unknown",,FALSE
+"20260527_XZ_GG_74","Control","Unknown",,FALSE
+"20260527_XZ_GG_75","Control","Unknown",,FALSE
+"20260527_XZ_GG_76","Control","Unknown",,FALSE
+"20260527_XZ_GG_77","Control","Unknown",,FALSE
+"20260527_XZ_GG_78","Control","Unknown",,FALSE
+"20260527_XZ_GG_79","Control","Unknown",,FALSE
+"20260527_XZ_GG_80","Control","Unknown",,FALSE
+"20260527_XZ_GG_81","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_82","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_83","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_84","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_85","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_86","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_87","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_88","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_89","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_92","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_93","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_94","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_95","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_96","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_97","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_98","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_99","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_100","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_101","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_102","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_103","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_104","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_105","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_106","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_121","Control","Unknown",,FALSE
+"20260527_XZ_GG_122","Control","Unknown",,FALSE
+"20260527_XZ_GG_123","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_124","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_125","Control","Unknown",,FALSE
+"20260527_XZ_GG_126","Control","Unknown",,FALSE
+"20260527_XZ_GG_128","Control","Unknown",,FALSE
+"20260527_XZ_GG_129","Control","Unknown",,FALSE
+"20260527_XZ_GG_130","Control","Unknown",,FALSE
+"20260527_XZ_GG_131","Control","Unknown",,FALSE
+"20260527_XZ_GG_132","Control","Unknown",,FALSE
+"20260527_XZ_GG_135","Control","Unknown",,FALSE
+"20260527_XZ_GG_136","Control","Unknown",,FALSE
+"20260527_XZ_GG_137","Control","Unknown",,FALSE
+"20260527_XZ_GG_138","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_139","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_140","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_141","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_142","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_143","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_144","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_145","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_146","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_147","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_148","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_149","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_150","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_151","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_152","Control","Unknown",,FALSE
+"20260527_XZ_GG_153","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_154","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_155","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_156","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_157","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_158","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_159","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_160","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_161","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_162","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_163","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_164","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_165","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_166","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_167","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_168","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_169","Long exposure","Unknown",,FALSE
+"20260527_XZ_GG_170","Short exposure","Unknown",,FALSE
+"20260527_XZ_GG_171","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_1","Control","Unknown",,FALSE
+"20260717_GZ_TH_2","Control","Unknown",,FALSE
+"20260717_GZ_TH_3","Control","Unknown",,FALSE
+"20260717_GZ_TH_4","Control","Unknown",,FALSE
+"20260717_GZ_TH_6","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_7","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_8","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_9","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_10","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_11","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_12","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_13","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_14","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_15","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_16","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_17","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_18","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_19","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_20","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_21","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_22","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_23","Control","Unknown",,FALSE
+"20260717_GZ_TH_24","Control","Unknown",,FALSE
+"20260717_GZ_TH_25","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_26","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_27","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_28","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_29","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_30","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_31","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_32","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_33","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_35","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_36","Control","Unknown",,FALSE
+"20260717_GZ_TH_37","Control","Unknown",,FALSE
+"20260717_GZ_TH_38","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_39","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_40","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_41","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_42","Control","Unknown",,FALSE
+"20260717_GZ_TH_43","Control","Unknown",,FALSE
+"20260717_GZ_TH_44","Control","Unknown",,FALSE
+"20260717_GZ_TH_45","Control","Unknown",,FALSE
+"20260717_GZ_TH_46","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_47","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_48","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_49","Control","Unknown",,FALSE
+"20260717_GZ_TH_50","Control","Unknown",,FALSE
+"20260717_GZ_TH_51","Control","Unknown",,FALSE
+"20260717_GZ_TH_53","Control","Unknown",,FALSE
+"20260717_GZ_TH_54","Control","Unknown",,FALSE
+"20260717_GZ_TH_55","Control","Unknown",,FALSE
+"20260717_GZ_TH_57","Control","Unknown",,FALSE
+"20260717_GZ_TH_58","Control","Unknown",,FALSE
+"20260717_GZ_TH_59","Control","Unknown",,FALSE
+"20260717_GZ_TH_61","Control","Unknown",,FALSE
+"20260717_GZ_TH_62","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_63","Control","Unknown",,FALSE
+"20260717_GZ_TH_64","Control","Unknown",,FALSE
+"20260717_GZ_TH_65","Control","Unknown",,FALSE
+"20260717_GZ_TH_66","Control","Unknown",,FALSE
+"20260717_GZ_TH_67","Control","Unknown",,FALSE
+"20260717_GZ_TH_68","Control","Unknown",,FALSE
+"20260717_GZ_TH_69","Control","Unknown",,FALSE
+"20260717_GZ_TH_70","Control","Unknown",,FALSE
+"20260717_GZ_TH_71","Control","Unknown",,FALSE
+"20260717_GZ_TH_72","Control","Unknown",,FALSE
+"20260717_GZ_TH_73","Control","Unknown",,FALSE
+"20260717_GZ_TH_74","Control","Unknown",,FALSE
+"20260717_GZ_TH_75","Control","Unknown",,FALSE
+"20260717_GZ_TH_76","Control","Unknown",,FALSE
+"20260717_GZ_TH_77","Control","Unknown",,FALSE
+"20260717_GZ_TH_78","Control","Unknown",,FALSE
+"20260717_GZ_TH_79","Control","Unknown",,FALSE
+"20260717_GZ_TH_80","Control","Unknown",,FALSE
+"20260717_GZ_TH_87","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_88","Control","Unknown",,FALSE
+"20260717_GZ_TH_89","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_90","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_93","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_94","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_95","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_96","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_98","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_99","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_100","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_101","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_102","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_103","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_104","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_106","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_107","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_108","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_109","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_110","Control","Unknown",,FALSE
+"20260717_GZ_TH_111","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_112","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_114","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_115","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_117","Control","Unknown",,FALSE
+"20260717_GZ_TH_118","Control","Unknown",,FALSE
+"20260717_GZ_TH_119","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_120","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_121","Control","Unknown",,FALSE
+"20260717_GZ_TH_122","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_123","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_124","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_125","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_126","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_128","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_129","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_131","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_132","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_133","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_134","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_137","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_138","Long exposure","Unknown",,FALSE
+"20260717_GZ_TH_143","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_144","Control","Unknown",,FALSE
+"20260717_GZ_TH_147","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_148","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_149","Short exposure","Unknown",,FALSE
+"20260717_GZ_TH_150","Short exposure","Unknown",,FALSE

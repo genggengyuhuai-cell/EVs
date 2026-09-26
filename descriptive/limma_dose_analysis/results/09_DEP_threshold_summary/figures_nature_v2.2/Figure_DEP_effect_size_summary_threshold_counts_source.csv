@@ -1,0 +1,7 @@
+"Threshold","Total","Direction","N"
+"FDR < 0.05",256,"Higher in Long",0
+"FDR < 0.05",256,"Higher in Short",256
+"FDR < 0.05 and |log2FC| ≥ 0.5",3,"Higher in Long",0
+"FDR < 0.05 and |log2FC| ≥ 0.5",3,"Higher in Short",3
+"FDR < 0.05 and |log2FC| ≥ 1",0,"Higher in Long",0
+"FDR < 0.05 and |log2FC| ≥ 1",0,"Higher in Short",0

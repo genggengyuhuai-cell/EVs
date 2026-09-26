@@ -1,0 +1,7 @@
+Parallel all-protein detection branch v2.1; not quantitative abundance.
+The full all-protein detection-rate mother table is retained.
+Detection-analysis universe: maximum Control/Short/Long detection rate >=60%.
+The <20% rule is classification-only and never determines universe membership.
+No proteins dropped by the quantitative 70% filter. Specific is operational, not absolute uniqueness.
+Sparse means every group is below 20%; moderate/mixed rates are Other_unbalanced.
+Neither absence nor zero binary detection establishes biological absence.

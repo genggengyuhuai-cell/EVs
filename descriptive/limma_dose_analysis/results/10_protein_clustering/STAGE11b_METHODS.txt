@@ -1,0 +1,6 @@
+Stage 11b is a supplementary exploratory unsupervised analysis of the 256 primary Long-vs-Short DEPs.
+Stage 11a remains the canonical rule-based dose-pattern classification.
+Input profiles are observed Control, Short and Long means calculated from available values only; no sample-level imputation is used.
+Profiles are protein-wise z-scored across the three observed group means.
+Primary clustering uses Pearson correlation distance and complete-linkage hierarchical clustering; the existing K=4 cut is retained for display and concordance.
+K-means K=2:6 is retained only as an exploratory sensitivity analysis; no optimal biological K is selected.

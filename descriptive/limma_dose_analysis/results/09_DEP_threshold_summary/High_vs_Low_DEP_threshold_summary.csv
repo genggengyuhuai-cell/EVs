@@ -1,0 +1,4 @@
+"Threshold","Total","Higher_in_High","Higher_in_Low"
+"DEP_FDR",256,0,256
+"DEP_FDR_FC05",3,0,3
+"DEP_FDR_FC10",0,0,0
