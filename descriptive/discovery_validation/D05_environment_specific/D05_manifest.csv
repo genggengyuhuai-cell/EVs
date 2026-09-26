@@ -1,0 +1,7 @@
+"kind","path","sha256"
+"input","F:/env/descriptive/discovery_validation/D01_discovery_eligibility/D01_discovery_eligible_expression.csv.gz","9cc425700702129c758ceff1e559ddac8fa1336c03ca460682f5a47b664d91e1"
+"input","F:/env/descriptive/discovery_validation/D03_candidate_lock/D03_locked_candidates.csv","14759ed673be0291df2d6d5aa54f6bdb2e3264f9f5bb550dbbd316829aeb5fe2"
+"output","F:/env/descriptive/discovery_validation/D05_environment_specific/D05_candidate_environment_results.csv","53f9d194a57e9495465e4f6fe866b834d8dd06cc9d064dd1f4f7f47364c31f8a"
+"output","F:/env/descriptive/discovery_validation/D05_environment_specific/D05_environment_dose_counts.csv","b77ae38fc70f29ee67c036041348961eac7a75c76106fd018e5d8256b836f57a"
+"parameter","candidate_hash","14759ed673be0291df2d6d5aa54f6bdb2e3264f9f5bb550dbbd316829aeb5fe2"
+"parameter","multiplicity","BH separately per Environment x contrast; investigator approval required before execution"
