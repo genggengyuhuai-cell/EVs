@@ -1,0 +1,29 @@
+﻿assertion_id,description,status,detail
+D01_A01,assignment SHA-256 matches the frozen hash,PASS,observed_sha256=062e51026b7420dca2077d5807bfdaa760ac08ac5f19a9af98cf89da2b7b6791
+D01_A02,assignment contains 515 unique participants,PASS,rows=515; unique=515; duplicates=0
+D01_A03,Discovery n equals 386,PASS,Discovery_n=386
+D01_A04,Validation n equals 129,PASS,"Validation_n=129; split_values=['Discovery', 'Validation']"
+D01_A05,exactly 386 abundance columns are selected,PASS,selected_rows=386; mapped_positions=386
+D01_A06,zero Validation abundance columns are selected,PASS,Validation_position_overlap=0
+D01_A07,every Discovery ID maps uniquely to metadata,PASS,unmatched=0
+D01_A08,every Discovery ID maps uniquely to a matrix position,PASS,unmapped=0
+D01_A09,selected matrix positions are unique,PASS,duplicate_positions=0
+D01_A10,no Discovery ID is missing from dose metadata,PASS,missing_dose=0
+D01_A11,"selected cohort contains only control, low, and high and each group is nonempty",PASS,"doses=['control', 'high', 'low']; counts={'control': 115, 'low': 139, 'high': 132}"
+D01_A12,"raw protein universe is 3,817 unique nonmissing PG.ProteinGroups",PASS,rows=3817; missing=0; duplicates=0
+D01_A13,detection definition is exactly finite AND greater than zero,PASS,implemented as np.isfinite(values) & (values > 0)
+D01_A14,primary threshold is exactly 70 percent,PASS,threshold=70
+D01_A15,threshold is evaluated separately within each Discovery dose group,PASS,"evaluated_groups=['control', 'low', 'high']"
+D01_A16,eligibility requires passing all three dose groups,PASS,combined with np.logical_and.reduce across control/low/high
+D01_A17,integer comparison is detected_count * 100 >= 70 * n,PASS,no floating-point threshold comparison used
+D01_A18,Environment and site do not enter eligibility,PASS,only TREAT1_clean dose masks index the detection matrix
+D01_A19,no normalization or imputation occurs before eligibility,PASS,eligibility is computed directly from selected raw numeric values
+D01_A20,"historical 1,434 protein list is not an eligibility input",PASS,"analytical_inputs=['audit.json', 'canonical_protein_annotation.csv', 'discovery_validation_assignment.csv', 'processed.xlsx', 'sample_mapping_FINAL.xlsx', 'sample_statistics.csv']"
+D01_A21,historical full-cohort detection and membership summaries are not inputs,PASS,"analytical_inputs=['audit.json', 'canonical_protein_annotation.csv', 'discovery_validation_assignment.csv', 'processed.xlsx', 'sample_mapping_FINAL.xlsx', 'sample_statistics.csv']"
+D01_A22,"no Stage 07, Stage 13A, or canonical 256 DEP input is used",PASS,"analytical_inputs=['audit.json', 'canonical_protein_annotation.csv', 'discovery_validation_assignment.csv', 'processed.xlsx', 'sample_mapping_FINAL.xlsx', 'sample_statistics.csv']"
+D01_A23,output PG.ProteinGroups is nonmissing and unique,PASS,eligible_rows=1445
+D01_A24,every eligible protein independently satisfies all three Discovery thresholds,PASS,independent post-selection threshold verification
+D01_A25,every output abundance column belongs to Discovery,PASS,output_sample_columns=386
+D01_A26,output missing positions and observed values match the selected raw matrix exactly,PASS,non-detected cells remain NA; detected raw values are unchanged
+D01_A27,generated statistics derive solely from Discovery columns,PASS,"statistics_matrix_shape=(3817, 386)"
+D01_A28,"execution stops before transformation, normalization, modelling, contrasts, FDR, or DEP",PASS,terminal analytical operation is construction of the untransformed eligible matrix
