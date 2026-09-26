@@ -1,0 +1,8 @@
+"kind","path","sha256"
+"input","F:/env/descriptive/discovery_validation/D01_discovery_eligibility/D01_discovery_eligible_expression.csv.gz","9cc425700702129c758ceff1e559ddac8fa1336c03ca460682f5a47b664d91e1"
+"input","F:/env/descriptive/discovery_validation/D03_candidate_lock/D03_locked_candidates.csv","14759ed673be0291df2d6d5aa54f6bdb2e3264f9f5bb550dbbd316829aeb5fe2"
+"output","F:/env/descriptive/discovery_validation/D04_dose_trajectory/D04_candidate_contrasts.csv","5e0f3b0e5ad215e5c20906335fedd5717902d2c04fc9d136fed971265caa12b1"
+"output","F:/env/descriptive/discovery_validation/D04_dose_trajectory/D04_modeled_abundance_by_dose.csv","f2e7d84ed4556fdacaf948b317ba557785187cac4105562388778cb4db66648d"
+"output","F:/env/descriptive/discovery_validation/D04_dose_trajectory/D04_trajectory_classification.csv","76c3b3da5127bc7b4e7aba360278d486796d56cb9591c610c90f7e8edb89f927"
+"parameter","candidate_hash","14759ed673be0291df2d6d5aa54f6bdb2e3264f9f5bb550dbbd316829aeb5fe2"
+"parameter","tolerance_log2","0.05"
