@@ -1,0 +1,30 @@
+VALIDATION UNLOCK AUTHORIZATION
+
+Candidate family:
+D03 locked candidates only (N = 85)
+
+Primary validation contrast:
+Long vs Short
+
+Primary denominator:
+All 85 locked candidates
+
+Replication evidence:
+1. Direction concordance
+2. Nominal replication = direction concordant AND P < 0.05
+3. FDR-supported replication = direction concordant AND candidate-family BH-FDR < 0.05
+
+Multiplicity:
+BH across the 85 locked candidates for the primary Validation contrast
+
+Non-estimable candidates:
+Remain in N_locked primary denominator; estimable-only rates are companion summaries.
+
+Environment-specific Validation:
+Secondary characterization only.
+
+Candidate membership:
+Must not be changed using Validation results.
+
+Authorization:
+Validation may now be accessed because D03 candidate locking and D04-D07 Discovery characterization are complete and the Validation replication rules have been fixed before inspection of Validation outcomes.
