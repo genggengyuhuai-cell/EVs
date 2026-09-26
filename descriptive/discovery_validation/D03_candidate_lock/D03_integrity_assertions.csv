@@ -1,0 +1,8 @@
+"Assertion_ID","Description","Status"
+"D03_A01","D02 unique keys","PASS"
+"D03_A02","all rows primary contrast","PASS"
+"D03_A03","rule exact","PASS"
+"D03_A04","lock subset D01","PASS"
+"D03_A05","no Validation input","PASS"
+"D03_A06","hash recorded","PASS"
+"D03_A07","no effect cutoff","PASS"
