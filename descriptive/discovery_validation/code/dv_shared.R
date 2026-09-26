@@ -42,7 +42,12 @@ dv_assignment <- function(split=NULL) {
   dv_assert_hash(DV_ASSIGNMENT, DV_ASSIGNMENT_SHA256, "Frozen assignment")
   a <- dv_read_csv(DV_ASSIGNMENT, c("UniqueSampleID","TREAT1_clean","group","Split","Protocol_version"))
   dv_assert_keys(a, "UniqueSampleID", "assignment")
-  if (!identical(sort(table(a$Split)), sort(c(Discovery=386L, Validation=129L)))) dv_stop("Frozen split counts changed")
+  split_counts <- table(a$Split)
+  if (
+    !identical(as.integer(split_counts["Discovery"]), 386L) ||
+    !identical(as.integer(split_counts["Validation"]), 129L) ||
+    sum(split_counts) != 515L
+  ) dv_stop("Frozen split counts changed")
   if (!all(a$Protocol_version == DV_PROTOCOL)) dv_stop("Protocol version mismatch")
   if (!all(a$TREAT1_clean %in% DV_DOSE) || !all(a$group %in% DV_SITES)) dv_stop("Unexpected dose/site token")
   a$Environment <- unname(DV_SITE_ENV[a$group])
