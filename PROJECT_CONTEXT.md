@@ -189,8 +189,9 @@ Ratio   Discovery   Validation   Smallest Environment x Dose Validation cell
 ```
 
 Following investigator review, the 75/25 target was selected prospectively:
-Discovery n = 386 and Validation n = 129. No Discovery/Validation participant
-assignment has yet been created or locked.
+Discovery n = 386 and Validation n = 129. The deterministic participant assignment
+was subsequently generated exactly once, audited, Git-frozen, and must not be
+rerandomized or modified.
 
 ## Validation Success Criteria Design Audit and investigator decisions
 
@@ -234,9 +235,9 @@ descriptive/supportive quantities without numerical cutoffs or binary replicatio
 
 Overall Validation is primary. Environment-specific Validation is secondary. Dose ×
 Environment interaction is a secondary inferential heterogeneity question. Site-level
-analyses are robustness analyses. Exact multiplicity handling for the Environment-
-specific and interaction analyses remains pending before those secondary inferential
-analyses are executed.
+analyses are robustness analyses. Before execution, secondary multiplicity handling was
+fixed as separate BH families by Environment/contrast for D05 and by interaction contrast
+for D06. These secondary analyses cannot redefine the D03 candidate family.
 
 ## Prospective Discovery-Validation protocol status
 
@@ -266,72 +267,251 @@ Frozen split outputs are:
 - `descriptive/discovery_validation_split/split_integrity_assertions.csv`
 - `descriptive/discovery_validation_split/split_manifest.txt`
 
-## Next project sequence
+## Discovery–Validation execution completion
 
-1. Complete Split Feasibility Analysis. **COMPLETED**
-2. Complete Validation Success Criteria Design Audit. **COMPLETED**
-3. Complete investigator statistical-design decisions. **COMPLETED**
-4. Complete and approve the prospective Discovery-Validation protocol. **COMPLETED**
-5. Complete Split Specification: lock the random seed, deterministic assignment
-   algorithm, split-file schema, integrity assertions, and checksum/hash and Git freeze
-   procedure. **COMPLETED**
+The prospective Discovery–Validation analytical branch is now **EXECUTED AND AUDITED
+THROUGH D10**. The previous prospective handover state (“implemented/static review only”)
+is superseded.
+
+The completed sequence is:
+
+1. Split feasibility analysis. **COMPLETED**
+2. Validation success-criteria design audit. **COMPLETED**
+3. Investigator statistical-design decisions. **COMPLETED**
+4. Prospective Discovery–Validation protocol. **COMPLETED / FROZEN**
+5. Deterministic split specification and integrity checks. **COMPLETED / FROZEN**
 6. Generate the split exactly once. **COMPLETED**
 7. Freeze participant assignments. **COMPLETED**
-8. Rebuild protein eligibility using Discovery participants only.
-9. Run Discovery-only overall dose analysis.
-10. Run Discovery-only Environment-specific analyses.
-11. Test Dose × Environment interaction under a prospectively fixed secondary model
-    and multiplicity plan.
-12. Lock Discovery candidates.
-13. Evaluate locked candidates in Validation only.
-14. Perform site heterogeneity/robustness analyses.
-15. Integrate missingness, detection, and unique-peptide evidence.
-16. Perform biological interpretation last.
+8. D01 Discovery-only eligibility. **EXECUTED / AUDITED / PASS**
+9. D02 Discovery primary Long-vs-Short analysis. **EXECUTED / AUDITED / PASS**
+10. D03 Discovery candidate lock. **EXECUTED / AUDITED / FROZEN**
+11. D04 dose trajectory characterization. **EXECUTED / AUDITED / PASS**
+12. D05 Environment-specific Discovery analysis. **EXECUTED / AUDITED / PASS**
+13. D06 Dose × Environment interaction analysis. **EXECUTED / AUDITED / PASS**
+14. D07 site robustness / leave-one-major-site-out. **EXECUTED / AUDITED / PASS**
+15. Validation protocol authorization before outcome inspection. **COMPLETED / FROZEN**
+16. D08 locked-candidate Validation. **EXECUTED / AUDITED / PASS**
+17. D09 missingness, detection and peptide evidence. **EXECUTED / AUDITED / PASS**
+18. D10 integrated candidate evidence. **EXECUTED / AUDITED / PASS**
 
-Do not execute Steps 8-16 until the relevant step is separately authorized. The split
-must not be rerandomized or modified. The immediate next analytical step is Step 8,
-but it was not authorized by the split-execution task.
+No D11 analytical stage is defined by the prospective workflow. The next downstream
+task is static audit of `descriptive/discovery_validation/code/figures_prospective.R`
+against the finalized D01–D10 schemas before first figure generation.
 
-## D01 Discovery-only eligibility implementation status
+## D01–D03 Discovery results
 
-The D01 read-only mapping audit is complete. The standalone implementation
-`descriptive/discovery_validation/D01_discovery_eligibility.py` has been created but
-has **not** been executed. It starts from all 3,817 raw protein groups and applies the
-frozen rule using only the 386 Discovery participants: detected means finite and
-greater than zero; detection must be at least 70% separately within Discovery
-`control`, `low`, and `high`; and all three groups must pass. The historical 1,434
-eligible proteins are a benchmark only and are not an eligibility input.
+D01 re-executed the frozen eligibility algorithm using only the 386 Discovery
+participants, starting from all 3,817 raw protein groups. Detection was finite abundance
+greater than zero and each Discovery dose group independently had to reach 70%.
+No imputation was used. The resulting Discovery-only eligible universe contained
+**1,445 proteins**.
 
-## Prospective D01–D10 implementation handover (current authority)
+D02 used `log2(PG.Quantity)`, no additional primary normalization, no imputation,
+`abundance ~ dose + environment`, and Long vs Short as the primary contrast. All
+1,445 eligible proteins were estimable; 365 had raw P < 0.05 and **85 had
+BH-FDR < 0.05**.
 
-The complete prospective D01–D10 branch is now **IMPLEMENTED AND STATICALLY
-REVIEWED, NOT EXECUTED** under `descriptive/discovery_validation/`. This supersedes
-earlier handover statements that only D01 existed or that D01 static review remained
-the next task. No prospective biological stage was run, the Discovery eligible count
-and candidate count remain unknown, and Validation protein outcomes were not accessed.
+D03 locked exactly those 85 Discovery Long-vs-Short BH-FDR < 0.05 candidates. All 85
+were `Higher_in_Short`. Candidate membership is frozen and cannot be changed by
+trajectory, Environment, interaction, site, Validation, detection, peptide or pathway
+evidence.
 
-The branch reproduces the frozen primary method: log2(PG.Quantity), no additional
-primary normalization, no imputation, `abundance ~ dose + environment`, limma with
-`eBayes(trend=TRUE, robust=TRUE)`, and BH-FDR. D03 alone defines candidates from
-Discovery Long vs Short BH-FDR <0.05. D04–D07 are supportive and cannot change the
-lock. D08 requires both the hash-verified D03 list and an investigator-created
-`VALIDATION_UNLOCKED.txt`; no bypass exists. D09 separates abundance missingness,
-binary detection and peptide evidence. No valid unique-peptide source was found in the
-current project, so the implementation reports `SOURCE_NOT_AVAILABLE` rather than
-inventing peptide support. D10 only integrates finalized, source-backed tables.
+```text
+D03 candidate N = 85
+Candidate-list SHA-256 =
+14759ed673be0291df2d6d5aa54f6bdb2e3264f9f5bb550dbbd316829aeb5fe2
+```
 
-Design-only review confirms that all six Environment × Dose cells are populated in
-both splits, but multiple site × Dose cells are structurally absent or sparse. Site
-analyses therefore return `NON_ESTIMABLE` where needed. Exact multiplicity handling
-for Environment-specific and interaction analyses remains an explicit investigator
-approval item before those secondary stages execute; it was not resolved by examining
-outcomes.
+## D04–D07 supportive Discovery characterization
 
-The immediate next action is separately authorized D01 execution followed by Gate 1
-review. Read `descriptive/discovery_validation/README.md` next, then its status, data
-contracts and workflow documents. Never use the historical 1,434 proteins for D01 or
-the historical 256 proteins for D03, never rerandomize the frozen assignment, and
-never access Validation protein outcomes before the D03 lock and explicit unlock.
+D04 classified the 85 locked candidates without changing membership:
+
+```text
+Reversal_after_short_increase = 75
+Transient_short_peak = 6
+Delayed_decrease = 4
+```
+
+D05 performed Environment-stratified Discovery analyses. For the locked family,
+secondary BH-FDR < 0.05 counts were:
+
+```text
+Humid-hot:
+  Short vs Control = 2/85
+  Long vs Control  = 0/85
+  Long vs Short    = 78/85
+
+High-pressure/high-altitude:
+  Short vs Control = 1/85
+  Long vs Control  = 25/85
+  Long vs Short    = 44/85
+```
+
+These differing Environment-specific counts do not by themselves establish formal
+heterogeneity.
+
+D06 formally tested Dose × Environment interaction. Raw P < 0.05 counts were 2, 19,
+and 5 for the Long-vs-Short, Short-vs-Control, and Long-vs-Control interaction contrasts,
+respectively, but **0/85 reached secondary BH-FDR < 0.05 for every interaction
+contrast**. D05 therefore must not be interpreted as proof of formal Environment
+interaction.
+
+D07 evaluated five major Discovery sites by leave-one-major-site-out analysis:
+XZ_GG, GZ_TH, FJ_FQ, FJ_QZ, and XZ_YC. There were 425 candidate-scenario estimates
+(85 × 5). All 85 candidates were direction stable in all five LOO scenarios. This
+supports site/influence robustness but does not establish absence of site heterogeneity.
+
+## Validation authorization and D08 results
+
+Validation access was authorized only after D03 candidate locking and D04–D07 Discovery
+characterization were complete. The authorization was committed before Validation
+outcome inspection as:
+
+```text
+eb3de2f protocol: authorize locked-candidate validation
+```
+
+The frozen primary Validation contrast is Long vs Short over all 85 locked candidates.
+Direction concordance requires the same Discovery/Validation log2FC direction. Nominal
+replication requires direction concordance and Validation P < 0.05. FDR-supported
+replication requires direction concordance and candidate-family BH-FDR < 0.05, with BH
+across all 85 locked candidates. Non-estimable candidates remain in `N_locked`; the
+estimable-only rate is a companion summary. Environment-specific Validation is
+secondary characterization only.
+
+D08 used the independent Validation split (n = 129) and preserved the exact D03 family:
+
+```text
+N_locked = 85
+N_estimable = 85
+Direction concordant = 83/85 (97.65%)
+Nominal replication = 29/85 (34.12%)
+FDR-supported replication = 1/85 (1.18%)
+```
+
+The single FDR-supported candidate was Q08378 / GOLGA3. The two direction-discordant
+candidates were Q92752 / TNR and Q9Y624 / F11R; their Validation effects were close to
+zero rather than strong opposite effects.
+
+Discovery-to-Validation effect behavior was characterized descriptively:
+
+```text
+Mean |log2FC|: Discovery = 0.34435; Validation = 0.26224
+Median absolute Validation/Discovery effect ratio = 0.78357
+Ratio >= 0.50 = 70/85
+Ratio >= 0.75 = 48/85
+Ratio >= 1.00 = 21/85
+Median (Validation - Discovery) = +0.06630
+Pearson effect correlation = 0.1114
+Spearman effect correlation = 0.0541
+```
+
+Because all Discovery effects were negative, the positive median signed difference
+indicates overall attenuation toward zero in Validation. The supported interpretation is
+**strong family-level directional concordance, but weak protein-specific effect-size/rank
+concordance and limited multiplicity-controlled single-protein replication**. Do not
+state that all 85 proteins were validated.
+
+Environment-specific D08 characterization remained secondary:
+
+```text
+Humid-hot:
+  85/85 estimable
+  negative log2FC = 83
+  positive log2FC = 2
+  raw P < 0.05 = 14
+  BH-FDR < 0.05 = 0
+
+High-pressure/high-altitude:
+  85/85 estimable
+  negative log2FC = 78
+  positive log2FC = 7
+  raw P < 0.05 = 11
+  BH-FDR < 0.05 = 0
+```
+
+## D09 evidence layers
+
+D09 retained missingness/detection evidence separately from quantitative abundance
+inference and did not impute the primary analysis. Across the six Discovery/Validation
+Dose strata:
+
+```text
+All-dose detection >=50% = 85/85
+All-dose detection >=60% = 85/85
+All-dose detection >=70% = 85/85
+All-dose detection >=80% = 81/85
+```
+
+No approved unique-peptide source was found in the traced project sources.
+`Peptide_support_status = SOURCE_NOT_AVAILABLE` for all 85 candidates. Peptide support
+must not be invented or inferred from unavailable data.
+
+## D10 integrated evidence completion
+
+D10 was revised before first execution so that the integrated master safely summarizes
+multi-row D05, D06, D07 and D09 evidence rather than silently keeping the first duplicated
+protein row. The executed D10 master contains exactly:
+
+```text
+Rows = 85
+Unique PG.ProteinGroups = 85
+Columns = 67
+D07 LOO scenarios per candidate = 5
+D07 all-direction-stable = 85/85
+D08 direction concordant = 83/85
+D08 nominal replication = 29/85
+D08 FDR-supported replication = 1/85
+D09 all-dose >=70% detection = 85/85
+D09 all-dose >=80% detection = 81/85
+D09 peptide status SOURCE_NOT_AVAILABLE = 85/85
+```
+
+D10 is supportive evidence integration only. It performs no candidate filtering,
+ranking, promotion or redefinition. Pathway analysis remains
+`NOT_RUN_NO_APPROVED_MAPPING` for all 85 candidates because no investigator-approved
+pathway mapping/universe has been supplied.
+
+The D10 code revision and first audited outputs were committed together:
+
+```text
+d46aee3 analysis: integrate and audit D10 candidate evidence
+```
+
+The immediately preceding prospective checkpoints include:
+
+```text
+44847df analysis: execute and audit D09 evidence layers
+4135364 analysis: execute and audit D08 locked-candidate validation
+eb3de2f protocol: authorize locked-candidate validation
+59599da analysis: execute and audit D07 site robustness
+db72e65 analysis: execute and audit D06 environment interaction
+```
+
+At the last confirmed D10 checkpoint, `git status --short` was clean.
+
+## Current Discovery–Validation authority
+
+```text
+Discovery participants = 386
+Validation participants = 129
+D01 eligible proteins = 1,445
+D03 locked candidates = 85
+D01–D10 execution = COMPLETED
+D01–D10 staged audit = COMPLETED / PASS
+Validation protocol = FROZEN BEFORE OUTCOME INSPECTION
+Unique-peptide support = SOURCE_NOT_AVAILABLE
+Pathway analysis = NOT RUN — NO APPROVED MAPPING/UNIVERSE
+D10 integrated master = 85 rows × 67 columns
+Current analytical checkpoint = d46aee3
+```
+
+The Discovery–Validation analytical stage sequence ends at D10.
+`figures_prospective.R` is a downstream visualization module, not D11. It must be
+statically audited against the finalized executed schemas before first use. Figure
+generation may summarize finalized evidence but must not refit models, recalculate FDR,
+change the candidate universe, add post-hoc effect cutoffs, or select proteins based on
+visual appearance.
 
 ## Documentation classification
 
