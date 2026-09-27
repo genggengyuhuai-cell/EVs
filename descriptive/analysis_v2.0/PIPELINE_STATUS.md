@@ -6,39 +6,26 @@
 
 | Component | Status |
 |---|---|
-| Freeze 3 (Technical Contaminant Registry) | **FROZEN** — investigator approved 2026-09-26 |
-| V2-02 Canonical Universe | **FROZEN** — V2-02B rebuild passed all QA gates |
-| V2-03 ML Specification | **LOCKED** |
-| V2-04 ML Implementation + Discovery Fold Freeze | **READY** — folds frozen, code architecture implemented |
-| V2 inferential abundance | NOT STARTED |
-| ML model execution (nested CV) | NOT STARTED |
-| Final Discovery model lock | NOT LOCKED |
-| 129 hold-out evaluation | NOT STARTED |
+| Freeze 3 (Technical Contaminant Registry) | **FROZEN** |
+| V2-02 Canonical Universe | **FROZEN** |
+| V2-03 ML Specification v2.0 | **LOCKED** |
+| V2-03 Addendum 01 (Panel Refit) | **FROZEN** |
+| V2-04 ML Implementation + Fold Freeze | **READY** |
+| V2-05 Primary Strategy B Result | **NOT CURRENTLY VALID** |
+| Primary Discovery Model | **NOT LOCKED** |
+| 129 Hold-out | **CLOSED** |
+| Full-cohort v2 abundance inference | NOT STARTED |
 
-## Canonical universe counts
+## Canonical universes
 
-| Universe | N |
-|---|---:|
-| U0 | 3,817 |
-| Utech_primary | 3,809 |
-| Q515 | 1,430 |
-| D515 | 3,054 |
+U0=3,817 | Utech=3,809 | Q515=1,430 | D515=3,054
 
-## ML status
+## Panel-refit addendum
 
-| Item | Status |
-|---|---|
-| Fold assignments (outer + inner) | FROZEN |
-| Fold manifest | Written (SHA-256 recorded) |
-| Common helpers + leakage guards | Implemented |
-| Data prep functions | Implemented |
-| Nested CV function architecture | Implemented (not executed) |
-| Final model lock guard | Implemented (not executed) |
-| Hold-out evaluation guard | Implemented (not executed) |
-| Synthetic unit tests | 10/10 verified |
-| PRROC package | NOT INSTALLED (dependency gap) |
+Addendum 01 freezes the top-k panel coefficient estimation rule:
+- k3/k5/k10/k20: penalized Elastic Net refit on selected features, same alpha + lambda_fraction
+- untruncated: native glmnet model
+- intercept-only: training prevalence
+- No unpenalized glm refit
 
-## Next authorized step
-
-Execute nested CV on Discovery 386 per `ml/ML_ANALYSIS_SPEC_v2.0.md`.
-This requires installing PRROC or implementing project-local AUPRC.
+Synthetic tests 20-31: 12 PASS, 0 FAIL.

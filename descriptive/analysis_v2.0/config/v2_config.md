@@ -1,8 +1,7 @@
-# v2_config.R — Canonical V2 Project Configuration (SPECIFICATION)
+# v2_config.md — Canonical V2 Project Configuration Specification
 
-This file is a **specification only**. It has not been executed.
-When v2 implementation begins, this R helper will be sourced by every v2 script
-to avoid hard-coded paths, labels, and seeds.
+This file is documentation only and is not executable R. Future executable helpers
+must be implemented as separate, syntax-valid `.R` files.
 
 ## What it must define
 
@@ -120,7 +119,8 @@ registry/    contracts/    config/
 
 ## Implementation notes
 
-- This helper must be sourced via `source("descriptive/analysis_v2.0/config/v2_config.R")` at the top of every v2 script.
+- Implementations must follow this specification; this Markdown file must not be
+  passed to `source()`.
 - No v2 script may hard-code paths, labels, seeds, or weights that are defined here.
 - Frozen historical files are read-only; v2 never writes to them.
 - The `DV_ASSIGNMENT_SHA256` must be verified before any v2 script reads the assignment CSV.

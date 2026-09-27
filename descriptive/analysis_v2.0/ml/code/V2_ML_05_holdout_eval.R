@@ -4,8 +4,7 @@
 source("descriptive/analysis_v2.0/ml/code/V2_ML_00_common.R")
 source("descriptive/analysis_v2.0/ml/code/V2_ML_01_prepare.R")
 
-HOLDOUT_LOCK_MARKER <- "descriptive/analysis_v2.0/ml/models/HOLDOUT_EVALUATION_LOCK"
-MODEL_LOCK_DIR <- "descriptive/analysis_v2.0/ml/models"
+HOLDOUT_LOCK_MARKER <- V2_ML_HOLDOUT_LOCK_PATH
 
 #' Guard: check that hold-out evaluation can run
 assert_holdout_eval_authorized <- function() {
@@ -16,19 +15,8 @@ assert_holdout_eval_authorized <- function() {
          "\nAny re-evaluation requires explicit investigator override.")
   }
 
-  # 2. Locked model must exist
-  locked_model_path <- file.path(MODEL_LOCK_DIR, "locked_model.rds")
-  if (!file.exists(locked_model_path)) {
-    stop("No locked model found at: ", locked_model_path,
-         "\nFinal Discovery model must be locked before hold-out evaluation.")
-  }
-  if (!file.exists(paste0(locked_model_path, ".sha256"))) {
-    stop("Locked model SHA-256 missing.")
-  }
-
-  # 3. Model lock manifest must exist
-  manifest_path <- file.path(MODEL_LOCK_DIR, "model_lock_manifest.csv")
-  if (!file.exists(manifest_path)) stop("Model lock manifest missing.")
+  # 2. Active model, manifest and lock marker must exist and agree by SHA.
+  assert_valid_primary_lock()
 
   invisible(TRUE)
 }
@@ -45,8 +33,8 @@ assert_holdout_eval_authorized <- function() {
 #' - Write HOLDOUT_EVALUATION_LOCK marker
 run_holdout_evaluation <- function() {
   assert_holdout_eval_authorized()
-  stop("run_holdout_evaluation: not executed in V2-04. ",
-       "Requires locked model from V2_ML_04.")
+  stop("HOLD-OUT EVALUATION REQUIRES SEPARATE INVESTIGATOR AUTHORIZATION.",
+       call.=FALSE)
 }
 
 #' Write the immutable hold-out evaluation lock marker

@@ -126,7 +126,8 @@ When V2-02 is implemented, it will produce:
 | `registry/universe_flow.md` | Text summary: U0 → Utech → Q515 / D515 flow with counts |
 | `registry/universe_flow.png` | Visual flow diagram (future) |
 
-Each output will carry a provenance manifest (see `config/v2_provenance.R`).
+Each output will carry a provenance manifest (see the documentation specification
+`config/v2_provenance.md`).
 
 ---
 

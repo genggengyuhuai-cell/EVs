@@ -1,5 +1,4 @@
-# V2_ML_04_lock_model.R — Final Discovery model lock guard (NOT executed)
-# When nested CV is complete, this locks the final model.
+# V2_ML_04_lock_model.R — Final Discovery model lock contract (NOT executed)
 
 source("descriptive/analysis_v2.0/ml/code/V2_ML_00_common.R")
 source("descriptive/analysis_v2.0/ml/code/V2_ML_01_prepare.R")
@@ -43,11 +42,15 @@ assert_lock_prerequisites <- function(fold_manifest_path, nested_cv_manifest_pat
 #'         panel size, imputer parameters, scaler parameters
 #' - Write immutable model SHA-256
 final_lock_model <- function() {
-  stop("final_lock_model: not executed in V2-04. Requires completed nested CV.")
+  assert_panel_refit_policy_resolved()
+  stop("Final lock is not implemented or authorized in V2-05R.", call.=FALSE)
 }
 
 #' Save locked model artifact
 save_locked_model <- function(model_obj, path) {
+  if (!identical(path, V2_ML_MODEL_PATH)) {
+    stop("Model path violates active artifact contract: ", path)
+  }
   # Guard: don't overwrite
   if (file.exists(path)) stop("Locked model already exists: ", path)
   saveRDS(model_obj, path)

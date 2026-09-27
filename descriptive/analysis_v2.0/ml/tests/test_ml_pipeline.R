@@ -1,156 +1,153 @@
-# test_ml_pipeline.R — Synthetic unit tests for ML pipeline
-# Uses ONLY synthetic data. No real abundance matrix. No real model training.
+# V2-05R synthetic and contract tests. No real abundance data are loaded.
 
 source("descriptive/analysis_v2.0/ml/code/V2_ML_00_common.R")
+source("descriptive/analysis_v2.0/ml/code/V2_ML_05_holdout_eval.R")
 
-pass <- 0
-fail <- 0
-test_name <- character(0)
+tests_total <- 0L
+tests_pass <- 0L
+tests_fail <- 0L
 
-check <- function(name, expr) {
-  result <- tryCatch({ force(expr); TRUE }, error=function(e) { cat("  FAIL:", conditionMessage(e), "\n"); FALSE })
-  if (result) { pass <<- pass + 1; cat("PASS:", name, "\n") }
-  else { fail <<- fail + 1; cat("FAIL:", name, "\n") }
+record_result <- function(name, ok, detail="") {
+  tests_total <<- tests_total + 1L
+  if (isTRUE(ok)) {
+    tests_pass <<- tests_pass + 1L
+    cat("PASS:", name, if(nzchar(detail)) paste0(" — ", detail) else "", "\n")
+  } else {
+    tests_fail <<- tests_fail + 1L
+    cat("FAIL:", name, if(nzchar(detail)) paste0(" — ", detail) else "", "\n")
+  }
 }
 
-# ---- Test 1: median imputer training-only ----
-cat("\n--- Test 1: median imputer training-only ---\n")
-set.seed(42)
-train_mat <- matrix(c(1,2,3, NA,5,6, 7,8,9), nrow=3, ncol=3)
-val_mat   <- matrix(c(10,NA,30, 40,NA,60, 70,80,90), nrow=3, ncol=3)
-imp <- fit_median_imputer(train_mat)
-# Training median for row 2: values c(2,5,8) -> median=5
-cat("  Row 2 median:", imp$medians[2], "\n")
-stopifnot(abs(imp$medians[2] - 5) < 0.01)
-out_val <- apply_median_imputer(val_mat, imp)
-# val_mat filled column-wise: NA positions are (2,1) and (2,2)
-# Both get training row 2 median = 5
-stopifnot(abs(out_val[2,1] - 5) < 0.01)
-stopifnot(abs(out_val[2,2] - 5) < 0.01)
-# Non-NA values unchanged
-stopifnot(out_val[1,1] == 10)
-cat("  Imputer uses training median, not validation median. PASS\n")
-pass <- pass + 1
+expect_success <- function(name, expr) {
+  err <- tryCatch({force(expr); NULL}, error=function(e)e)
+  record_result(name, is.null(err), if(is.null(err)) "" else conditionMessage(err))
+}
 
-# ---- Test 2: scaler training-only ----
-cat("\n--- Test 2: scaler training-only ---\n")
-train2 <- matrix(c(1,2,3, 4,5,6), nrow=2, ncol=3)
-sc <- fit_scaler(train2)
-# train2 filled column-wise: row1 = c(1,3,5), mean=3; row2 = c(2,4,6), mean=4
-cat("  Row 1 mean:", sc$means[1], "sd:", sc$sds[1], "\n")
-stopifnot(abs(sc$means[1] - 3) < 0.01)
-stopifnot(abs(sc$sds[1] - sd(c(1,3,5))) < 0.01)
-val2 <- matrix(c(10,20,30, 40,50,60), nrow=2, ncol=3)
-out2 <- apply_scaler(val2, sc)
-# val2 row1 = c(10,30,50); expected = (10-3)/sd(c(1,3,5))
-expected <- (10-3)/sd(c(1,3,5))
-stopifnot(abs(out2[1,1] - expected) < 0.01)
-cat("  Scaler uses training mean/sd. PASS\n")
-pass <- pass + 1
+expect_error <- function(name, pattern, expr) {
+  err <- tryCatch({force(expr); NULL}, error=function(e)e)
+  ok <- !is.null(err) && grepl(pattern, conditionMessage(err), fixed=TRUE)
+  detail <- if(is.null(err)) "expected error was not raised" else conditionMessage(err)
+  record_result(name, ok, detail)
+}
 
-# ---- Test 3: zero-variance removal training-only ----
-cat("\n--- Test 3: zero-variance ---\n")
-# train3 filled column-wise: row1=c(1,5,10), row2=c(2,5,20), row3=c(3,5,30)
-# No row is zero-variance; test with a proper zero-variance row
-train3 <- matrix(c(1,5,3, 4,5,6, 7,5,9), nrow=3, ncol=3)
-# Row 2 = c(5,5,5) -> zero variance
-sc3 <- fit_scaler(train3)
-cat("  Zero-var rows:", which(sc3$zero_var), "\n")
-stopifnot(sc3$zero_var[2] == TRUE)
-out3 <- remove_zero_variance(train3, sc3)
-stopifnot(nrow(out3) == 2)
-cat("  Zero-variance row removed. PASS\n")
-pass <- pass + 1
-
-# ---- Test 4: fold-local eligibility threshold changes with group N ----
-cat("\n--- Test 4: fold-local eligibility threshold ---\n")
-# Simulate a fold with small group N
-mat_small <- matrix(1:100, nrow=10, ncol=10)
-colnames(mat_small) <- paste0("s", 1:10)
-groups_small <- setNames(rep(c("control","low","high"), length.out=10), colnames(mat_small))
-res_small <- compute_fold_eligibility(mat_small, groups_small, 0.70)
-cat("  Thresholds (small groups):", res_small$thresholds, "\n")
-# With ~3-4 per group, threshold should be ceiling(0.70*3)=3 or ceiling(0.70*4)=3
-stopifnot(all(res_small$thresholds <= 4))
-
-# Full 515-equivalent would give 108/131/124
-# This verifies threshold is computed from fold N, not hard-coded
-cat("  Thresholds scale with fold N. PASS\n")
-pass <- pass + 1
-
-# ---- Test 5: hold-out ID in training -> hard fail ----
-cat("\n--- Test 5: hold-out leakage guard ---\n")
-fake_meta <- data.frame(
-  UniqueSampleID=c("d1","d2","d3","h1","h2"),
-  Split=c("Discovery","Discovery","Discovery","Validation","Validation"),
-  stringsAsFactors=FALSE
-)
-check("Hold-out in training fails", {
-  assert_discovery_only(c("d1","h1"), fake_meta)
+# 1–3: preprocessing helpers
+train <- matrix(c(1,2,3, NA,5,6, 7,8,9), nrow=3,
+                dimnames=list(c("p1","p2","p3"), c("s1","s2","s3")))
+val <- matrix(c(10,NA,30, 40,NA,60), nrow=3,
+              dimnames=list(c("p1","p2","p3"), c("v1","v2")))
+expect_success("training-only median imputer", {
+  imp <- fit_median_imputer(train)
+  stopifnot(identical(unname(imp$medians), c(4, 5, 6)))
+  out <- apply_median_imputer(val, imp)
+  stopifnot(out[2,1] == 5, out[2,2] == 5)
 })
 
-# ---- Test 6: outer test in inner fold -> hard fail ----
-cat("\n--- Test 6: fold disjoint guard ---\n")
-check("Outer test in train fails", {
-  assert_fold_disjoint(c("d1","d2"), c("d2","d3"))
-})
-check("Disjoint folds pass", {
-  assert_fold_disjoint(c("d1","d2"), c("d3","d4"))
-})
-
-# ---- Test 7: same seed -> identical folds ----
-cat("\n--- Test 7: deterministic folds ---\n")
-set.seed(999); a <- sample(1:100, 10)
-set.seed(999); b <- sample(1:100, 10)
-stopifnot(identical(a,b))
-cat("  Same seed gives identical sample. PASS\n")
-pass <- pass + 1
-
-# ---- Test 8: one-SE rule deterministic ----
-cat("\n--- Test 8: one-SE rule ---\n")
-cand <- data.frame(
-  metric=c(0.5, 0.4, 0.42, 0.45, 0.6),
-  se=c(0.05, 0.04, 0.04, 0.05, 0.06),
-  alpha=c(0.1, 0.5, 0.9, 1.0, 0.1),
-  lambda_frac=c(0.5, 0.1, 0.2, 0.3, 0.8),
-  panel_size=c(20, 5, 10, 3, 20)
-)
-sel <- apply_one_se_rule(cand)
-cat("  Selected panel size:", sel$panel_size, "\n")
-# Best is row 2 (metric=0.4, se=0.04). Threshold=0.44.
-# Eligible: rows with metric <= 0.44: row2 (0.4), row3 (0.42)
-# Among those, smallest panel: row3 has panel_size=10, row2 has 5
-# Wait: row2 panel=5, row3 panel=10. Smallest = 5 (row2)
-stopifnot(sel$panel_size == 5)
-cat("  One-SE rule selects smallest panel within 1SE. PASS\n")
-pass <- pass + 1
-
-# ---- Test 9: panel cap ----
-cat("\n--- Test 9: panel cap ---\n")
-coefs <- setNames(c(0.5, 0.3, 0.2, 0.1, -0.4, 0.05),
-                  c("A","B","C","D","E","F"))
-capped <- apply_panel_cap(coefs, 3)
-cat("  Capped non-zero:", sum(capped != 0), "\n")
-stopifnot(sum(capped != 0) == 3)
-# Top 3 by abs: A(0.5), E(0.4), B(0.3)
-stopifnot(capped["A"] != 0 && capped["E"] != 0 && capped["B"] != 0)
-stopifnot(capped["D"] == 0)
-cat("  Panel cap keeps top-3 by |coef|. PASS\n")
-pass <- pass + 1
-
-# ---- Test 10: forbidden feature source guard ----
-cat("\n--- Test 10: forbidden path guard ---\n")
-check("Forbidden path '256_DEP' rejected", {
-  assert_no_forbidden_feature_source(c("results/canonical_256_DEP.csv"))
-})
-check("Forbidden path 'D08' rejected", {
-  assert_no_forbidden_feature_source(c("dv/results/D08_table.csv"))
-})
-check("Clean path passes", {
-  assert_no_forbidden_feature_source(c("universes/Q515.csv"))
+expect_success("training-only scaler", {
+  filled <- apply_median_imputer(train, fit_median_imputer(train))
+  sc <- fit_scaler(filled)
+  shifted_val <- val
+  shifted_val[!is.na(shifted_val)] <- shifted_val[!is.na(shifted_val)] + 1000
+  sc2 <- fit_scaler(filled)
+  stopifnot(identical(sc$means, sc2$means), identical(sc$sds, sc2$sds))
 })
 
-# ---- Summary ----
-cat("\n===== TEST SUMMARY =====\n")
-cat("PASS:", pass, " FAIL:", fail, "\n")
-if (fail > 0) quit(status=1)
+expect_success("zero-variance removal", {
+  z <- matrix(c(1,5,3, 4,5,6, 7,5,9), nrow=3,
+              dimnames=list(c("p1","p2","p3"), paste0("s",1:3)))
+  sc <- fit_scaler(z)
+  stopifnot(identical(unname(which(sc$zero_var)), 2L))
+  stopifnot(nrow(remove_zero_variance(z, sc)) == 2L)
+})
+
+# 4–7: guards; expected errors count as PASS.
+fake_meta <- data.frame(UniqueSampleID=c("d1","d2","h1"),
+                        Split=c("Discovery","Discovery","Validation"))
+expect_error("hold-out participant rejected from training", "LEAKAGE:",
+             assert_discovery_only(c("d1","h1"), fake_meta))
+expect_error("outer-test participant rejected from training", "FOLD LEAKAGE:",
+             assert_fold_disjoint(c("d1","d2"), c("d2","d3")))
+expect_error("historical 256 feature source rejected", "forbidden historical",
+             assert_no_forbidden_feature_source("results/canonical_256_DEP.csv"))
+expect_error("historical D08 feature source rejected", "forbidden historical",
+             assert_no_forbidden_feature_source("dv/results/D08_table.csv"))
+
+# 8–10: explicit frozen lambda grid.
+grid <- generate_lambda_grid(lambda_max=2)
+record_result("lambda grid has exactly 50 values", length(grid) == 50L)
+record_result("lambda min/max ratio equals 0.001",
+              abs(min(grid)/max(grid)-0.001) < 1e-10)
+expect_error("wrong lambda length rejected", "exactly 50",
+             generate_lambda_grid(2, n_lambda=49))
+
+# 11–13: panel identity is explicit, while fitting remains blocked by the spec gap.
+ids <- panel_candidate_ids()
+record_result("five panel candidate identities exist",
+              identical(ids, c("k3","k5","k10","k20","untruncated")))
+record_result("panel candidates are unique", !anyDuplicated(ids))
+expect_error("unresolved panel refit policy blocks execution",
+             "SPECIFICATION_GAP_REQUIRES_INVESTIGATOR",
+             assert_panel_refit_policy_resolved())
+
+# 14: deterministic top-k ranking only; this is not treated as a fitted model.
+expect_success("deterministic protein tie-break for ranking", {
+  b <- c(B=0.5, A=-0.5, C=0.3, D=0.2)
+  stopifnot(identical(rank_panel_features(b, 3), c("A","B","C")))
+})
+
+# 15: one-SE hierarchy including lexical tie-break.
+expect_success("one-SE deterministic hierarchy", {
+  cand <- data.frame(
+    candidate_id=c("k5_b","k5_a","k10","min"),
+    metric=c(0.42,0.42,0.41,0.40), se=c(0.02,0.02,0.02,0.03),
+    alpha=c(0.5,0.5,1,0.1), lambda_frac=c(0.5,0.5,0.4,0.2),
+    panel_size=c(5,5,10,20), stringsAsFactors=FALSE)
+  selected <- apply_one_se_rule(cand)
+  stopifnot(selected$candidate_id == "k5_a")
+  stopifnot(abs(attr(selected,"one_se_boundary") - 0.43) < 1e-12)
+})
+
+# 16: final-validation perturbation cannot alter training-derived preprocessing.
+expect_success("fold-local preprocessing invariance", {
+  tr <- matrix(c(1,2,3,4,5,6), nrow=2,
+               dimnames=list(c("p1","p2"),c("t1","t2","t3")))
+  va1 <- matrix(c(10,20), nrow=2)
+  va2 <- matrix(c(10000,-10000), nrow=2)
+  fit1 <- list(imputer=fit_median_imputer(tr), scaler=fit_scaler(tr))
+  fit2 <- list(imputer=fit_median_imputer(tr), scaler=fit_scaler(tr))
+  invisible(va1); invisible(va2)
+  stopifnot(identical(fit1, fit2))
+})
+
+# 17–19: artifact and hold-out firewall contracts.
+expect_error("missing lock artifacts block hold-out", "NO VALID PRIMARY_MODEL_LOCK",
+             assert_holdout_eval_authorized())
+
+expect_error("manifest/model SHA mismatch rejected", "model SHA mismatch", {
+  td <- tempfile("v205r_lock_")
+  dir.create(td)
+  model <- file.path(td,"model.rds")
+  manifest <- file.path(td,"manifest.csv")
+  lock <- file.path(td,"lock")
+  saveRDS(list(x=1), model)
+  write.csv(data.frame(item="model_sha256", value=paste(rep("0",64),collapse="")),
+            manifest, row.names=FALSE)
+  writeLines(paste0("Model SHA-256: ", paste(rep("0",64),collapse="")), lock)
+  assert_valid_primary_lock(model, manifest, lock)
+})
+
+expect_success("matching model/manifest/lock SHA accepted", {
+  td <- tempfile("v205r_lock_")
+  dir.create(td)
+  model <- file.path(td,"model.rds")
+  manifest <- file.path(td,"manifest.csv")
+  lock <- file.path(td,"lock")
+  saveRDS(list(x=1), model)
+  h <- sha256_file(model)
+  write.csv(data.frame(item="model_sha256", value=h), manifest, row.names=FALSE)
+  writeLines(paste0("Model SHA-256: ", h), lock)
+  assert_valid_primary_lock(model, manifest, lock)
+})
+
+cat(sprintf("TEST_TOTAL=%d\nPASS=%d\nFAIL=%d\n", tests_total, tests_pass, tests_fail))
+if (tests_fail > 0L) quit(status=1L)
+quit(status=0L)

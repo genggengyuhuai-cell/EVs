@@ -1,0 +1,4 @@
+"Original_file","Classification","Action_taken","Current_file"
+"config/v2_config.R","documentation","Renamed; source instruction removed","config/v2_config.md"
+"config/v2_no_overwrite.R","documentation","Renamed; executable sketch remains fenced documentation","config/v2_no_overwrite.md"
+"config/v2_provenance.R","documentation","Renamed; references updated","config/v2_provenance.md"

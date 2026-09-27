@@ -1,6 +1,6 @@
-# v2_provenance.R — Provenance Manifest Helper Specification
+# v2_provenance.md — Provenance Manifest Helper Specification
 
-This file is a **specification only**. It has not been executed.
+This file is documentation only and is not executable R.
 It describes the structure and behavior of the v2 provenance manifest that
 every v2 output must carry.
 

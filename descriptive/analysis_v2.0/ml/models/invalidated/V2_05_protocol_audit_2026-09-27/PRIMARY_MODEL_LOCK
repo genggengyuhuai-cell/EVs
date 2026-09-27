@@ -1,0 +1,11 @@
+PRIMARY MODEL LOCKED
+Timestamp: 2026-09-27 04:43:53 -08
+Model SHA-256: a787bbf71429b496e1c6bafe5d90e1bce7e1c54ef45a279a8e7cc6c0b65eb586
+Git: c543c2ce4f9ef73b86230e72b84d8cb5344e76bc
+N: 386
+Alpha: 0.1
+Panel: 0
+Rule: native glmnet predict + top-k truncation (no post-hoc refit)
+Baseline p: 0.7021
+Prevalence: 0.7021
+

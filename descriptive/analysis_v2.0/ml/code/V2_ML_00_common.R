@@ -10,8 +10,17 @@ V2_ML_N_INNER <- 5
 V2_ML_N_REPEATS <- 3
 V2_ML_ALPHAS <- c(0.1, 0.5, 0.9, 1.0)
 V2_ML_N_LAMBDA <- 50
+V2_ML_LAMBDA_MIN_RATIO <- 0.001
 V2_ML_PANEL_CAPS <- c(3, 5, 10, 20)
 V2_ML_BOOTSTRAP_N <- 2000
+V2_ML_PANEL_REFIT_POLICY <- NA_character_
+
+# ---- Active artifact contract ----
+V2_ML_MODEL_DIR <- "descriptive/analysis_v2.0/ml/models"
+V2_ML_MODEL_PATH <- file.path(V2_ML_MODEL_DIR, "strategyB_primary_model.rds")
+V2_ML_MANIFEST_PATH <- file.path(V2_ML_MODEL_DIR, "strategyB_model_manifest.csv")
+V2_ML_LOCK_PATH <- file.path(V2_ML_MODEL_DIR, "PRIMARY_MODEL_LOCK")
+V2_ML_HOLDOUT_LOCK_PATH <- file.path(V2_ML_MODEL_DIR, "HOLDOUT_EVALUATION_LOCK")
 
 # Forbidden feature-source paths (historical outcome-dependent results)
 V2_ML_FORBIDDEN_PATHS <- c(
@@ -207,28 +216,85 @@ remove_zero_variance <- function(mat, scaler) {
 
 # ---- Elastic Net lambda grid ----
 
-#' Generate 50 log-spaced lambda fractions
-generate_lambda_fractions <- function(n_lambda=50) {
-  # fractions from 1.0 down to 0.001 on log scale
-  exp(seq(0, log(0.001), length.out=n_lambda))
+#' Generate the frozen explicit lambda grid for one training split.
+#' lambda_max must be computed from that split only.
+generate_lambda_grid <- function(lambda_max,
+                                 n_lambda=V2_ML_N_LAMBDA,
+                                 min_ratio=V2_ML_LAMBDA_MIN_RATIO) {
+  if (length(lambda_max) != 1L || !is.finite(lambda_max) || lambda_max <= 0) {
+    stop("lambda_max must be one finite positive training-split value.")
+  }
+  if (n_lambda != 50L) stop("Frozen lambda grid requires exactly 50 values.")
+  if (!isTRUE(all.equal(min_ratio, 0.001, tolerance=1e-12))) {
+    stop("Frozen lambda minimum ratio must equal 0.001.")
+  }
+  grid <- exp(seq(log(lambda_max), log(lambda_max * min_ratio),
+                  length.out=n_lambda))
+  assert_lambda_grid(grid)
+  grid
 }
 
-# ---- Panel cap helpers ----
+assert_lambda_grid <- function(lambda_grid, tolerance=1e-10) {
+  if (length(lambda_grid) != 50L) stop("Lambda grid must contain exactly 50 values.")
+  if (any(!is.finite(lambda_grid)) || any(lambda_grid <= 0)) {
+    stop("Lambda grid contains non-finite or non-positive values.")
+  }
+  if (any(diff(lambda_grid) >= 0)) stop("Lambda grid must be strictly decreasing.")
+  ratio <- min(lambda_grid) / max(lambda_grid)
+  if (abs(ratio - 0.001) > tolerance) {
+    stop(sprintf("Lambda min/max ratio is %.12g, expected 0.001.", ratio))
+  }
+  invisible(TRUE)
+}
 
-#' Apply panel cap: rank by |coef|, retain up to k, refit
-#' (This is a placeholder signature; actual refit happens in nested CV)
-apply_panel_cap <- function(coef_vector, k) {
-  if (length(coef_vector) <= k) return(coef_vector)
-  ord <- order(abs(coef_vector), decreasing=TRUE)
-  keep <- ord[seq_len(k)]
-  coef_vector[setdiff(seq_along(coef_vector), keep)] <- 0
-  coef_vector
+# Backward-compatible name for specification and synthetic QA only.
+generate_lambda_fractions <- function(n_lambda=V2_ML_N_LAMBDA) {
+  generate_lambda_grid(1, n_lambda=n_lambda)
+}
+
+# ---- Panel candidate contract ----
+
+panel_candidate_ids <- function() {
+  c(paste0("k", V2_ML_PANEL_CAPS), "untruncated")
+}
+
+assert_panel_refit_policy_resolved <- function() {
+  if (is.na(V2_ML_PANEL_REFIT_POLICY) || !nzchar(V2_ML_PANEL_REFIT_POLICY)) {
+    stop(
+      paste(
+        "SPECIFICATION_GAP_REQUIRES_INVESTIGATOR:",
+        "the frozen specification does not define how coefficients are",
+        "estimated after top-k feature selection. Freeze one rule before",
+        "implementing or running capped panel candidates."
+      ),
+      call.=FALSE
+    )
+  }
+  invisible(TRUE)
+}
+
+#' Deterministically identify top-k feature IDs without defining a refit model.
+#' This helper is ranking only and must never be treated as a fitted candidate.
+rank_panel_features <- function(coef_vector, k) {
+  if (!k %in% V2_ML_PANEL_CAPS) stop("Unknown frozen panel cap: ", k)
+  nz <- coef_vector[is.finite(coef_vector) & coef_vector != 0]
+  if (!length(nz)) return(character(0))
+  feature_id <- names(nz)
+  if (is.null(feature_id) || any(!nzchar(feature_id))) {
+    stop("Named coefficients are required for deterministic protein tie-breaking.")
+  }
+  ord <- order(-abs(nz), feature_id)
+  feature_id[ord][seq_len(min(k, length(ord)))]
 }
 
 #' One-SE rule selection
 #' candidates: data.frame with metric, se, alpha, lambda_frac, panel_size
 #' Selects candidates within 1 SE of min metric, then smallest median panel size
 apply_one_se_rule <- function(candidates) {
+  required <- c("candidate_id", "metric", "se", "alpha", "lambda_frac",
+                "panel_size")
+  missing <- setdiff(required, names(candidates))
+  if (length(missing)) stop("Candidate table missing: ", paste(missing, collapse=", "))
   best_idx <- which.min(candidates$metric)
   best_metric <- candidates$metric[best_idx]
   best_se <- candidates$se[best_idx]
@@ -237,7 +303,50 @@ apply_one_se_rule <- function(candidates) {
   # Among eligible, prefer smallest median panel size
   sub <- candidates[eligible, ]
   sub <- sub[order(sub$panel_size,
-                   -sub$lambda_frac,   # stronger regularization = larger lambda fraction is smaller lambda; use -frac for stronger reg
-                   -sub$alpha), ]
-  sub[1, ]
+                   -sub$lambda_frac,
+                   -sub$alpha,
+                   sub$candidate_id), ]
+  selected <- sub[1, , drop=FALSE]
+  attr(selected, "minimum_candidate") <- candidates[best_idx, , drop=FALSE]
+  attr(selected, "one_se_boundary") <- threshold
+  attr(selected, "eligible_candidates") <- sub
+  selected
+}
+
+# ---- Model-lock artifact verification ----
+
+sha256_file <- function(path) {
+  if (!file.exists(path)) stop("Required artifact missing: ", path)
+  if (!requireNamespace("digest", quietly=TRUE)) stop("Package 'digest' is required.")
+  digest::digest(file=path, algo="sha256")
+}
+
+read_manifest_value <- function(manifest, item) {
+  hit <- manifest$value[manifest$item == item]
+  if (length(hit) != 1L || is.na(hit) || !nzchar(hit)) {
+    stop("Manifest must contain exactly one non-empty value for: ", item)
+  }
+  hit
+}
+
+assert_valid_primary_lock <- function(model_path=V2_ML_MODEL_PATH,
+                                      manifest_path=V2_ML_MANIFEST_PATH,
+                                      lock_path=V2_ML_LOCK_PATH) {
+  required <- c(model_path, manifest_path, lock_path)
+  missing <- required[!file.exists(required)]
+  if (length(missing)) {
+    stop("NO VALID PRIMARY_MODEL_LOCK: missing ", paste(missing, collapse=", "),
+         call.=FALSE)
+  }
+  manifest <- read.csv(manifest_path, stringsAsFactors=FALSE)
+  actual <- sha256_file(model_path)
+  manifest_sha <- read_manifest_value(manifest, "model_sha256")
+  lock_lines <- readLines(lock_path, warn=FALSE)
+  lock_hit <- grep("^Model SHA-256:", lock_lines, value=TRUE)
+  if (length(lock_hit) != 1L) stop("NO VALID PRIMARY_MODEL_LOCK: lock SHA missing.")
+  lock_sha <- trimws(sub("^Model SHA-256:", "", lock_hit))
+  if (!identical(actual, manifest_sha) || !identical(actual, lock_sha)) {
+    stop("NO VALID PRIMARY_MODEL_LOCK: model SHA mismatch.", call.=FALSE)
+  }
+  invisible(TRUE)
 }

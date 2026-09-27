@@ -1,6 +1,6 @@
-# v2_no_overwrite.R — No-Overwrite / Frozen-Output Protection Specification
+# v2_no_overwrite.md — No-Overwrite / Frozen-Output Protection Specification
 
-This file is a **specification only**. It has not been executed.
+This file is documentation only and is not executable R.
 
 ## Purpose
 
@@ -89,4 +89,4 @@ v2_check_write_root <- function(path) {
 | Frozen assignment hash check | `dv_shared.R::dv_assignment()` | Same pattern; v2 also checks Utech registry hash |
 
 **Note:** `dv_shared.R` is **not modified**. v2 implements its own guard functions
-in `config/v2_no_overwrite.R` when implementation begins.
+in a separate syntax-valid R helper when implementation begins.

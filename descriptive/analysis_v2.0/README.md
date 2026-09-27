@@ -1,45 +1,37 @@
 # analysis_v2.0 — V2 Analysis Workspace
 
-This directory contains all v2.0 analysis outputs and infrastructure.
-It does **not** modify or copy frozen v1.0 / Discovery-Validation / missingness code.
+This directory contains the v2.0 analysis specification, implementation and
+versioned outputs. It does not modify frozen v1.0 results.
 
-## Directory layout
+## Current status
 
-```
-analysis_v2.0/
-├── config/              # Canonical configuration, provenance, no-overwrite helpers
-├── registry/            # Contaminant registry, universe registries
-├── contracts/           # Data contracts (U0/Utech/Q515/D515, input/output schemas)
-├── metadata/            # V2-01 output: participant description (future)
-├── qc/                  # V2-03 output: proteome landscape, PCA (future)
-├── abundance/           # V2-05–07 output: E/omnibus/ordered/pairwise (future)
-├── detection/            # V2-08 output: Firth detection, unique proteins (future)
-├── environment/         # V2-09 output: environment-specific + interaction (future)
-├── site/                # V2-10 output: site robustness, LOO (future)
-├── pathway/             # V2-11 output: cameraPR/ORA (future)
-├── ml/                  # V2-14 output: nested CV, locked model (future)
-├── tables/              # V2-16 output: manuscript tables (future)
-└── figures/             # V2-16 output: manuscript figures (future)
-```
+Do not infer execution status from this README. The only authoritative current-status
+source is [`PIPELINE_STATUS.md`](PIPELINE_STATUS.md).
 
-## What exists now (Phase 1: V2-00 + V2-01 design only)
+The frozen statistical specification is
+[`ml/ML_ANALYSIS_SPEC_v2.0.md`](ml/ML_ANALYSIS_SPEC_v2.0.md). It describes what must
+be implemented and is not an execution log.
 
-- `config/v2_config.R` — canonical project configuration (R helper spec)
-- `config/v2_provenance.R` — provenance manifest helper specification
-- `config/v2_no_overwrite.R` — no-overwrite / frozen-output protection spec
-- `registry/contaminant_registry_spec.md` — Category A/B/C registry schema
-- `registry/DATA_SOURCE_AUDIT.md` — static audit of contaminant data sources
-- `contracts/universe_contract.md` — U0/Utech/Q515/D515 data contract
+## Directory guide
 
-## What does NOT exist yet
+- `config/*.md`: configuration and provenance specifications; documentation, not R code.
+- `registry/`: frozen contaminant registry and supporting audit.
+- `contracts/`: input, universe and output contracts.
+- `universes/`: frozen Utech, Q515 and D515 artifacts.
+- `ml/code/V2_ML_RUN_STRATEGY_B.R`: the only future primary Strategy B runner.
+- `ml/code/archive_invalidated/`: historical nonconforming runners retained for audit.
+- `ml/folds/`: frozen Discovery CV assignments.
+- `ml/qc/`: current recovery QA and crosswalk.
+- `ml/qc/invalidated/`: superseded ML QA claims.
+- `ml/models/invalidated/`: invalidated historical model artifacts.
+- `ml/results/invalidated/`: exploratory protocol-nonconforming historical results.
 
-No abundance, detection, environment, site, pathway, ML, figure, or table results have been generated.
-No Q515 or D515 protein lists have been computed.
-No inferential model has been fitted.
+## Authority hierarchy
 
-## Authority
+1. `docs/protocol/ANALYSIS_PLAN_v2.0.md`
+2. `ml/ML_ANALYSIS_SPEC_v2.0.md`
+3. `PIPELINE_STATUS.md` for current execution state
+4. Current implementation and QA artifacts
 
-- **Protocol**: `docs/protocol/ANALYSIS_PLAN_v2.0.md` (frozen)
-- **Design audit**: `docs/protocol/STUDY_DESIGN_AUDIT.md`
-- **Implementation gap audit**: `docs/protocol/V2_IMPLEMENTATION_GAP_AUDIT.md`
-- **This workspace**: infrastructure design only; no biological results yet.
+The 129-person reused within-cohort hold-out remains closed until a valid primary
+model lock exists and evaluation is separately authorized.
