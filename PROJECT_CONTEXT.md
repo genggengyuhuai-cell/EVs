@@ -517,8 +517,17 @@ visual appearance.
 
 - **CURRENT AUTHORITY:** this file; `descriptive/discovery_validation/README.md`,
   `PIPELINE_STATUS.md`, `DATA_CONTRACTS.md`, `WORKFLOW.md`;
-  `DISCOVERY_VALIDATION_PROTOCOL.md`; `DISCOVERY_VALIDATION_SPLIT_SPEC.md`.
-- **HISTORICAL:** versioned READMEs under `reademe/` and frozen analysis-v1.0 / Stage
+  `docs/protocol/ANALYSIS_PLAN_v2.0.md`;
+  `docs/protocol/STUDY_DESIGN_AUDIT.md`;
+  `docs/protocol/DISCOVERY_VALIDATION_PROTOCOL.md`;
+  `docs/protocol/DISCOVERY_VALIDATION_SPLIT_SPEC.md`.
+-
+- **WORKFLOW & STATUS:** `docs/workflow/CODEX_WORKFLOW.md`,
+  `docs/workflow/FILE_STATUS.md`,
+  `docs/workflow/MASTER_PROJECT_AUDIT_BACKLOG.md`,
+  `docs/task/TASK_CURRENT.md`.
+
+**HISTORICAL:** versioned READMEs under `docs/archive/` (legacy_framework_v2.0/, maintenance_logs/, early_plans/) and frozen analysis-v1.0 / Stage
   13A methods documents. They remain valid for the historical branch only.
 - **SUPERSEDED:** older handover or task text saying the split is undecided/unexecuted,
   the seed is unselected, only D01 exists, or D01 static review is the next task.

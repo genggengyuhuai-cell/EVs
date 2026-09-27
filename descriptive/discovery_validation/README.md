@@ -1,4 +1,4 @@
-# Discovery--Validation EV proteomics pipeline
+﻿# Discovery--Validation EV proteomics pipeline
 
 ## Current authority and objective
 
@@ -143,8 +143,8 @@ cutoffs, or selecting display proteins from visual appearance.
 3.  `F:/env/descriptive/discovery_validation/PIPELINE_STATUS.md`
 4.  `F:/env/descriptive/discovery_validation/DATA_CONTRACTS.md`
 5.  `F:/env/descriptive/discovery_validation/WORKFLOW.md`
-6.  `F:/env/DISCOVERY_VALIDATION_PROTOCOL.md`
-7.  `F:/env/DISCOVERY_VALIDATION_SPLIT_SPEC.md`
+6.  `F:/env/docs/protocol/DISCOVERY_VALIDATION_PROTOCOL.md`
+7.  `F:/env/docs/protocol/DISCOVERY_VALIDATION_SPLIT_SPEC.md`
 
 ## CURRENT STATE
 
