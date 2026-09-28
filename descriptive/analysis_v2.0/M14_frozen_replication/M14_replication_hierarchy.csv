@@ -1,0 +1,6 @@
+"stage","n","status","terminology_note"
+"Locked D03",85,"FROZEN","reused within-cohort hold-out; NOT external validation"
+"Estimable in hold-out",85,"FROZEN","reused within-cohort hold-out"
+"Same direction",83,"FROZEN","reused within-cohort hold-out"
+"Nominal P<0.05",29,"FROZEN","reused within-cohort hold-out"
+"Candidate-family BH-FDR<0.05",1,"FROZEN","reused within-cohort hold-out; 1 FDR-supported protein"

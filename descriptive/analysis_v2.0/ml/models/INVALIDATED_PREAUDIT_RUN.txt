@@ -1,0 +1,1 @@
+Old M15 run preserved as provenance only. Reason: Strategy A missing, wrong inner loss (Brier not log loss), one-SE rule absent, incomplete stability/manifest. Do not load downstream. Date: 2026-09-28

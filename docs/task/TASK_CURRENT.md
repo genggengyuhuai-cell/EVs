@@ -60,3 +60,21 @@ Build the canonical 256-DEP master biological characterization table integrating
 primary statistics, Control/Short/Long profiles, Stage 11a pattern, Stage 11b cluster,
 and missingness-robustness flags. Do not begin this analysis until separately
 authorized.
+
+---
+
+## 2026-09-28 update
+
+Active status file is now `docs/workflow/MASTER_PROJECT_STATUS_2026-09-28.md`.
+
+Archived this phase:
+- figures_prospective_v1/v2.3/v2.4/v2.5 -> descriptive/archive/figures_render_history/
+- root scratch logs (t*.txt, tb.txt, v2_05u_FINAL.log, git.txt, "tatus --short") -> descriptive/archive/diagnostics/
+- code/P1-P3.py RETAINED (frozen sample-mapping provenance, "REUSE AS-IS").
+
+Next: v2 implementation M05 (Overall Exposure vs Control). M16 not authorized.
+
+## M06 complete (2026-09-28)
+
+M06 ordered/omnibus/architecture = CODE_COMPLETE / EXECUTION_COMPLETE / AUDIT_PASS.
+Next: M07 pairwise LC/HC/HL contrasts (NOT STARTED, awaiting go-ahead).

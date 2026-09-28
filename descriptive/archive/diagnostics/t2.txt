@@ -1,0 +1,35 @@
+﻿Rscript : 载入需要的程辑包：Matrix
+At line:3 char:1
++ Rscript descriptive/analysis_v2.0/ml/tests/test_panel_refit.R > F:\en ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (载入需要的程辑包：Matrix:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loaded glmnet 5.0
+Warning message:
+程辑包'Matrix'是用R版本4.3.3 来建造的 
+Type 'citation("pROC")' for a citation.
+
+载入程辑包：'pROC'
+
+The following objects are masked from 'package:stats':
+
+    cov, smooth, var
+
+Loading...
+Warning message:
+程辑包'digest'是用R版本4.3.3 来建造的 
+PASS: Test 20: ranking deterministic 
+PASS: Test 21: k3 <=3 
+PASS: Test 22: k5 <=5 
+PASS: Test 23: k10 <=10 
+PASS: Test 24: k20 <=20 
+PASS: Test 25: untruncated n_features > k20 
+PASS: Test 26: refit alpha inherited 
+PASS: Test 27: refit lambda_fraction inherited 
+PASS: Test 28: lambda_refit recorded 
+PASS: Test 29: panel selection independent of validation 
+PASS: Test 30: refit independent of validation 
+PASS: Test 31: intercept-only returns prevalence 
+
+=== RESULTS: PASS=12 FAIL=0 ===

@@ -52,3 +52,13 @@ D0–D3, and were independently assigned to Stage 11b C3.
 Build the canonical 256-DEP master biological characterization table integrating
 primary statistics, Control/Short/Long profiles, Stage 11a pattern, Stage 11b cluster,
 and missingness-robustness flags. This work has not begun.
+
+## Future manuscript reporting layer — do not modify frozen v1.0
+
+For a later read-only manuscript/source-data reporting layer, add the following from
+the frozen v1 model objects without changing the v1 analysis or inferential decisions:
+
+- 95% confidence intervals;
+- actual observed sample count per protein and contrast;
+- residual degrees of freedom;
+- explicit multiplicity-family identifiers.

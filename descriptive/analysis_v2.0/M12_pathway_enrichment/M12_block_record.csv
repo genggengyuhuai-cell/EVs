@@ -1,0 +1,7 @@
+"item","value"
+"module","M12_pathway"
+"status","BLOCKED"
+"reason","No approved v2 gene-set mapping contract (GO BP/Reactome/KEGG) installed; protocol requires explicit mapping criterion before cameraPR/ORA. Frozen D10 status: NOT_RUN_NO_APPROVED_MAPPING. Not fabricating results."
+"database","GO BP / Reactome / KEGG (pending mapping)"
+"method","cameraPR primary, ORA secondary (not run)"
+"timestamp","2026-09-28 05:30:30 -0800"

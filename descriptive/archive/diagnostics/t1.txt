@@ -1,0 +1,22 @@
+﻿PASS: training-only median imputer  
+PASS: training-only scaler  
+PASS: zero-variance removal  
+PASS: hold-out participant rejected from training  — LEAKAGE: hold-out/non-Discovery samples in training: h1 
+PASS: outer-test participant rejected from training  — FOLD LEAKAGE: outer test IDs in outer train: d2 
+PASS: historical 256 feature source rejected  — LEAKAGE: forbidden historical feature source used: results/canonical_256_DEP.csv (matched pattern: 256_DEP) 
+PASS: historical D08 feature source rejected  — LEAKAGE: forbidden historical feature source used: dv/results/D08_table.csv (matched pattern: D08) 
+PASS: lambda grid has exactly 50 values  
+PASS: lambda min/max ratio equals 0.001  
+PASS: wrong lambda length rejected  — Frozen lambda grid requires exactly 50 values. 
+PASS: five panel candidate identities exist  
+PASS: panel candidates are unique  
+PASS: unresolved panel refit policy blocks execution  — SPECIFICATION_GAP_REQUIRES_INVESTIGATOR: the frozen specification does not define how coefficients are estimated after top-k feature selection. Freeze one rule before implementing or running capped panel candidates. 
+PASS: deterministic protein tie-break for ranking  
+PASS: one-SE deterministic hierarchy  
+PASS: fold-local preprocessing invariance  
+PASS: missing lock artifacts block hold-out  — NO VALID PRIMARY_MODEL_LOCK: missing descriptive/analysis_v2.0/ml/models/strategyB_primary_model.rds, descriptive/analysis_v2.0/ml/models/strategyB_model_manifest.csv, descriptive/analysis_v2.0/ml/models/PRIMARY_MODEL_LOCK 
+PASS: manifest/model SHA mismatch rejected  — NO VALID PRIMARY_MODEL_LOCK: model SHA mismatch. 
+PASS: matching model/manifest/lock SHA accepted  
+TEST_TOTAL=19
+PASS=19
+FAIL=0

@@ -1,0 +1,31 @@
+﻿Rscript : 载入需要的程辑包：Matrix
+At line:4 char:1
++ Rscript descriptive/analysis_v2.0/ml/tests/test_integration_dryrun.R  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (载入需要的程辑包：Matrix:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loaded glmnet 5.0
+Warning message:
+程辑包'Matrix'是用R版本4.3.3 来建造的 
+Type 'citation("pROC")' for a citation.
+
+载入程辑包：'pROC'
+
+The following objects are masked from 'package:stats':
+
+    cov, smooth, var
+
+Loading...
+Warning message:
+程辑包'digest'是用R版本4.3.3 来建造的 
+PASS: integration: k3 finite [0,1] 
+PASS: integration: k5 finite [0,1] 
+PASS: integration: k10 finite [0,1] 
+PASS: integration: k20 finite [0,1] 
+PASS: integration: untruncated finite [0,1] 
+PASS: integration: k3 n<=3 
+PASS: integration: deterministic 
+PASS: integration: all gates done 
+
+=== INTEGRATION: PASS=8 FAIL=0 ===

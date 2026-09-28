@@ -1,0 +1,9 @@
+figure,source_stage,chart,claim_role,width_mm,height_mm,formats
+FIG1,D01 + frozen split,Grouped bars + lollipop,Context and analysis scope,183,120,SVG|PDF|TIFF
+FIG2,D02 + D03,FDR volcano,Discovery signal,183,120,SVG|PDF|TIFF
+FIG3,D04,Faceted paired trajectories,Dose-response characterization,183,120,SVG|PDF|TIFF
+FIG4,D05 + D06,Environment scatter + interaction volcano,Environment evidence and formal heterogeneity,183,120,SVG|PDF|TIFF
+FIG5,D08,Effect-agreement scatter + evidence bars,Primary Validation evidence,183,120,SVG|PDF|TIFF
+FIG6,D10,Evidence tile matrix,Integrated candidate evidence,183,120,SVG|PDF|TIFF
+FIG7,D07,Delta heatmap + boxplots,Site influence robustness,183,120,SVG|PDF|TIFF
+FIG8,D09,Detection boxplots + threshold curves,Detection and missingness evidence,183,120,SVG|PDF|TIFF
