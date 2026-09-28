@@ -50,41 +50,8 @@ aply <- function(mat,p){
 ll_fn <- function(y,p){p<-pmax(pmin(p,1e-10),1-1e-10);-mean(y*log(p)+(1-y)*log(1-p))}
 br_fn <- function(y,p) mean((p-y)^2)
 
-# Single-candidate evaluator used by unit tests
-eval_candidate <- function(xt,yt,xv,yv,alpha,lambda_frac,panel_type){
-  if(ncol(xt)<2){p_tr<-mean(yt);pr<-rep(p_tr,nrow(xv))
-    return(list(feats=character(0),n_features=0,lambda_refit=NA,pred=pr))}
-  fit<-glmnet(xt,yt,family="binomial",alpha=alpha,nlambda=N_LF,standardize=FALSE)
-  li<-which.min(abs(fit$lambda-lambda_frac*fit$lambda[1]))
-  beta<-as.numeric(fit$beta[,li]);names(beta)<-colnames(xt)
-  nz<-abs(beta)>0;nnz<-sum(nz)
-  if(nnz==0){p_tr<-mean(yt);pr<-rep(p_tr,nrow(xv))
-    return(list(feats=character(0),n_features=0,lambda_refit=NA,pred=pr))}
-  if(panel_type=="untruncated"){
-    pr<-as.numeric(predict(fit,newx=xv,s=fit$lambda[li],type="response"))
-    return(list(feats=names(beta)[nz],n_features=nnz,lambda_refit=fit$lambda[li],pred=pr))}
-  k<-K_MAP[panel_type];ak<-min(k,nnz)
-  nzn<-names(beta)[nz];nza<-abs(beta[nz])
-  ord<-order(-nza,nzn,method='radix');keep<-nzn[ord[1:ak]]
-  xtk<-xt[,keep,drop=FALSE]
-  if(ncol(xtk)<2){p_tr<-mean(yt);pr<-rep(p_tr,nrow(xv))
-    return(list(feats=keep,n_features=length(keep),lambda_refit=NA,pred=pr))}
-  fit2<-glmnet(xtk,yt,family="binomial",alpha=alpha,nlambda=N_LF,standardize=FALSE)
-  li2<-which.min(abs(fit2$lambda-lambda_frac*fit2$lambda[1]))
-  pr<-as.numeric(predict(fit2,newx=xv[,keep,drop=FALSE],s=fit2$lambda[li2],type="response"))
-  list(feats=keep,n_features=ak,lambda_refit=fit2$lambda[li2],pred=pr)
-}
-# Global instrumentation counters
-.counters <- new.env(parent=emptyenv())
-.counters$full_path_fit_count <- 0
-.counters$panel_refit_requests <- 0
-.counters$unique_panel_refit_count <- 0
-.counters$cache_hits <- 0
-
 # Efficient: given preprocessed xt,yt,xv,yv, evaluate all candidates for one alpha
-# With per-(keep) cache for capped-panel refits.
 eval_alpha <- function(xt,yt,xv,yv,alpha){
-  .counters$full_path_fit_count <- .counters$full_path_fit_count + 1
   if(ncol(xt)<2){
     p_tr<-mean(yt);pr<-rep(p_tr,nrow(xv))
     return(data.frame(a=alpha,lf=LF,pt=rep(PANEL_TYPES,each=N_LF),
@@ -92,8 +59,8 @@ eval_alpha <- function(xt,yt,xv,yv,alpha){
   }
   fit<-glmnet(xt,yt,family="binomial",alpha=alpha,nlambda=N_LF,standardize=FALSE)
   lams<-fit$lambda;lam_max<-lams[1]
+  # Map each target lf to closest lambda index
   li_sapply<-sapply(LF,function(f) which.min(abs(lams-f*lam_max)))
-  refit_cache <- new.env(hash=TRUE, parent=emptyenv())
   rows<-list()
   for(pt in PANEL_TYPES){
     for(i in seq_along(li_sapply)){
@@ -108,20 +75,10 @@ eval_alpha <- function(xt,yt,xv,yv,alpha){
       k<-K_MAP[pt];ak<-min(k,nnz)
       nzn<-names(beta)[nz];nza<-abs(beta[nz])
       ord<-order(-nza,nzn,method='radix');keep<-nzn[ord[1:ak]]
-      if(ncol(xt[,keep,drop=FALSE])<2){p_tr<-mean(yt);pr<-rep(p_tr,nrow(xv))
-        rows[[length(rows)+1]]<-data.frame(a=alpha,lf=lf,pt=pt,ll=ll_fn(yv,pr),nf=length(keep),stringsAsFactors=FALSE);next}
-      .counters$panel_refit_requests <- .counters$panel_refit_requests + 1
-      ck <- paste(keep, collapse="|")
-      if(exists(ck, envir=refit_cache, inherits=FALSE)){
-        .counters$cache_hits <- .counters$cache_hits + 1
-        cached <- get(ck, envir=refit_cache)
-        fit2 <- cached$fit2; xvk <- cached$xvk
-      } else {
-        .counters$unique_panel_refit_count <- .counters$unique_panel_refit_count + 1
-        xtk<-xt[,keep,drop=FALSE];xvk<-xv[,keep,drop=FALSE]
-        fit2<-glmnet(xtk,yt,family="binomial",alpha=alpha,nlambda=N_LF,standardize=FALSE)
-        assign(ck, list(fit2=fit2, xvk=xvk), envir=refit_cache)
-      }
+      xtk<-xt[,keep,drop=FALSE];xvk<-xv[,keep,drop=FALSE]
+      if(ncol(xtk)<2){p_tr<-mean(yt);pr<-rep(p_tr,nrow(xv))
+        rows[[length(rows)+1]]<-data.frame(a=alpha,lf=lf,pt=pt,ll=ll_fn(yv,pr),nf=ncol(xtk),stringsAsFactors=FALSE);next}
+      fit2<-glmnet(xtk,yt,family="binomial",alpha=alpha,nlambda=N_LF,standardize=FALSE)
       li2<-which.min(abs(fit2$lambda-lf*fit2$lambda[1]))
       pr<-as.numeric(predict(fit2,newx=xvk,s=fit2$lambda[li2],type="response"))
       rows[[length(rows)+1]]<-data.frame(a=alpha,lf=lf,pt=pt,ll=ll_fn(yv,pr),nf=ak,stringsAsFactors=FALSE)
@@ -189,7 +146,6 @@ outer_pred <- function(rep,oo,ba,blf,bpt){
   list(pred=pr,nf=ak,feats=keep)
 }
 
-if (sys.nframe() == 0) {
 cat("NESTED CV...\n")
 allp<-list();alls<-list()
 for(rep in 1:3){
@@ -281,12 +237,4 @@ write.csv(man,file.path(MOD_DIR,"strategyB_model_manifest.csv"),row.names=FALSE)
 lock<-data.frame(item=c("status","timestamp","model_sha","manifest_sha"),
   value=c("LOCKED",as.character(Sys.time()),digest(file.path(MOD_DIR,"strategyB_primary_model.rds"),algo="sha256"),digest(file.path(MOD_DIR,"strategyB_model_manifest.csv"),algo="sha256")),stringsAsFactors=FALSE)
 write.csv(lock,file.path(MOD_DIR,"PRIMARY_MODEL_LOCK"),row.names=FALSE)
-cat(sprintf("\n=== COUNTERS ===\n"))
-cat(sprintf("full_path_fit_count:    %d\n", .counters$full_path_fit_count))
-cat(sprintf("panel_refit_requests:   %d\n", .counters$panel_refit_requests))
-cat(sprintf("unique_panel_refit_count:%d\n", .counters$unique_panel_refit_count))
-cat(sprintf("cache_hits:             %d\n", .counters$cache_hits))
-cat(sprintf("estimated reduction:    %.1f%%\n",
-  100*(1-.counters$unique_panel_refit_count/.counters$panel_refit_requests)))
 cat("DONE.\n")
-}

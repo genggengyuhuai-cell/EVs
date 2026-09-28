@@ -1,0 +1,24 @@
+﻿Rscript : 载入需要的程辑包：Matrix
+At line:1 char:22
++ ... ion F:\env; Rscript descriptive/analysis_v2.0/ml/code/V2_ML_RUN_STRAT ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (载入需要的程辑包：Matrix:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loaded glmnet 5.0
+Warning message:
+程辑包'Matrix'是用R版本4.3.3 来建造的 
+Warning message:
+程辑包'digest'是用R版本4.3.3 来建造的 
+Type 'citation("pROC")' for a citation.
+
+载入程辑包：'pROC'
+
+The following objects are masked from 'package:stats':
+
+    cov, smooth, var
+
+Loading...
+NESTED CV...
+Repeat 1 
+ O 1 O 2 O 3 O 4
