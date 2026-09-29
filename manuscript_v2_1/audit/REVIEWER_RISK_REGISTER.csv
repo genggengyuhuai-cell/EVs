@@ -1,0 +1,31 @@
+Issue_ID,Domain,Issue,Evidence,Severity,Current_status,Can_fix_by_wording,Requires_analysis,Requires_experiment,Manuscript_action,Repository_action
+R01,EV terminology,Claim that measured proteins are EV-derived,No EV purity / marker / proteolipid / NTA / cryoEM controls,High,Currently uses "EV-enriched",Yes,No,No,Use "EV-enriched plasma proteomics"; explicitly state no EV-purity validation,Keep enrichment method description in Methods
+R02,Plasma contamination,Co-isolated abundant plasma / platelet / RBC / coagulation proteins expected,M12B annotation lists common plasma proteins,Medium,Not explicitly discussed,Yes,No,No,Acknowledge in Discussion as limitation,No file change
+R03,Preanalytical variables,Processing time / freeze-thaw / storage / batch / run order not controlled,Not recorded in frozen outputs,Medium,Not discussed,Partial (report what exists),No,No,Acknowledge limitations; report available controls,No file change
+R04,Reused hold-out,129 hold-out subjects from same cohort / sites / batches,M14 hierarchy 85/83/29/1,High,Already labelled "reused hold-out",Yes,No,No,Never call it external / independent / prospective validation,Keep terminology fix
+R05,Replication strength,Only 1/85 survives candidate-family BH-FDR,M14 hierarchy,High,Reported honestly,No,No,No,Present 1/85 as the upper bound of formal replication, not as a success,No file change
+R06,Nominal 29 vs FDR 1,29 nominal P<0.05 may be oversold,M14 hierarchy,High,Reported as nominal,Yes,No,No,Label 29 as nominal only; do not call "replicated",No file change
+R07,Dose terminology,Control/Low/High treated as dose,Overall exposure family null (0/1430),Medium,Some figures use "exposure",Yes,No,No,Use "exposure category"; avoid "dose response",No file change
+R08,Site-environment coupling,High land / Hot-humid coupled to site,Fig4a / M10 stratified,High,Not explicitly coupled,Yes,No,No,State sites are not independent replication arms; LOO = robustness,No file change
+R09,Interaction underpowered,0/1430 interaction at BH-FDR<0.05,M10 pure interaction,Medium,Null result reported,Yes,No,No,"No interaction survived prespecified threshold" wording, never "no interaction",No file change
+R10,Fixed-85 selection bias,ML conditional on same-cohort 85 lock,outer_cv_metrics,High,Already labelled conditional,Yes,No,No,State conditional on frozen 85; not unbiased generalization,No file change
+R11,Strict nested instability,8-618 fold-local DEP range,strict_nested_outer_metrics,High,Reported as sensitivity,Yes,No,No,Frame as selection instability; not biological heterogeneity,No file change
+R12,Boruta implementation,Hand-rolled ranger + shadow, not CRAN Boruta,run_v2_1_ml.R,Medium,Already hand-rolled,Yes,No,No,Use "Boruta-style ranger importance",No file change
+R13,XGBoost overinterpretation,Importance is post-selection descriptive,integrated_table_85,Medium,Descriptive,Yes,No,No,Do not call importance causal / biomarker,No file change
+R14,Pathway count inflation,195 cameraPR pathways is large and Reactome-redundant,M12 ranked combined FDR,Medium,Reported per method,Partial (pick representative themes),No,No,Show representative GO-BP + core Reactome clusters; list full 195 in Supplement,No file change
+R15,Pathway method mixing,Do not sum 195+23+39,M12 outputs,Medium,Already separated,Yes,No,No,Report per method; label FDR family,No file change
+R16,KEGG not run,KEGG placeholder but not analyzed,M12 KEGG files are 2 rows,Low,NOT_RUN recorded,Yes,No,No,State GO + Reactome only; KEGG not run,No file change
+R17,Mapping universe,1434 tested vs 1414 mapped,Mapping summary,Low,Documented,Yes,No,No,State 1414 is ORA background; 1434 is discovery universe,No file change
+R18,M12B overinterpretation,Pairwise Spearman mistaken for co-expression network,M12B outputs,Medium,Already descriptive,Yes,No,No,Call pairwise Spearman; not WGCNA / regulatory network,No file change
+R19,No external cohort,Generalizability claim,No external data,High,Acknowledged,Yes,No,No,State no external validation; do not generalize,No file change
+R20,No mechanism,No functional / perturbation / cell-of-origin data,None,Medium,Already descriptive,Yes,No,No,No causal / mechanistic language,No file change
+R21,Overall exposure null,0/1430 at BH-FDR<0.05 may confuse,M05,Medium,Reported,Yes,No,No,Present as context; explains why High-vs-Low is the discovery contrast,No file change
+R22,Detection vs abundance,Mixing detection (Firth) with abundance, M08 / M05,Low,Separated in figures,Yes,No,No,Keep separate families in captions,No file change
+R23,Site LOO overclaim,LOO read as replication,M11_loo,Medium,Labelled robustness,Yes,No,No,LOO = robustness, not replication,No file change
+R24,Environment stratified overclaim,Stratified concordance read as interaction,M10 stratified,Medium,Labelled descriptive,Yes,No,No,Stratified = descriptive; interaction = M10,No file change
+R25,EV-specific experiment,No targeted EV characterization,None,High,Not done,No,No,WOULD_STRENGTHEN,NTA / cryoEM / EV markers / depletion controls would strengthen but not block submission,Future supplementary if resources allow
+R26,Independent cohort,No external replication,None,High,Not done,No,No,FUTURE_WORK_ONLY,External cohort is future work; not required for this framing,Do not promise
+R27,Targeted validation,No PRM/SRM / Western on top proteins,None,Medium,Not done,No,No,WOULD_STRENGTHEN,Targeted assay on the 1 FDR-supported + top concordant proteins would strengthen,Future work
+R28,Cell-of-origin,No platelet / RBC / liver / endothelial deconvolution,None,Low,Not done,No,No,FUTURE_WORK_ONLY,Cell-of-origin deconvolution is future work,Do not claim
+R29,Longitudinal,No pre/post exposure samples,None,Medium,Not done,No,No,FUTURE_WORK_ONLY,Longitudinal sampling is future work,Do not claim
+R30,Preanalytical batch,MS run order / batch not recorded,None,Medium,Not done,No,No,WOULD_STRENGTHEN,Document run order / batch in Methods if available,No new experiment required
