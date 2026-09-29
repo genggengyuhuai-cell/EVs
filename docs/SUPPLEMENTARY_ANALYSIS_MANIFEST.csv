@@ -22,5 +22,5 @@ fgsea_full,M12_pathway_v2.1/ranked_gsea/*.csv,39 fgsea pathways sensitivity,R6 c
 M12B_correlation,M12B_biological_context_v2.1/correlation/*.csv,Pairwise Spearman not network,R6 context,M12B_biological_context_v2.1/correlation/,Supplementary
 M12B_network,M12B_biological_context_v2.1/network/*.csv,Bipartite pathway-candidate edges,R6 context,M12B_biological_context_v2.1/network/,Supplementary
 M12B_annotation,M12B_biological_context_v2.1/annotation/*.csv,Protein annotation provenance,Methods/context,M12B_biological_context_v2.1/annotation/,Supplementary
-Upstream_QC_descriptive,descriptive/figures_nature_v2.2/*.{pdf,png,svg,csv},Earlier QC descriptive figures,Methods/QC,descriptive/figures_nature_v2.2/,Supplementary QC
+Upstream_QC_descriptive,11 figures_nature_v2.2/ dirs (649 files; producers 06-11 + nature_plotting.py),Upstream descriptive/QC layer (coverage, missingness, detection gradient, design composition, MS batch proxy, normalization, PCA, clustering). M17 does not consume these. Provenance audited 2026-09-29.,R1/R2 Methods+QC context,descriptive/figures_nature_v2.2/ + 10 nested dirs,Supplementary QC / Methods figures
 D_figures_v2.7,descriptive/discovery_validation/figures_prospective_v2.7/,Discovery figures bundle,Supplementary figures,descriptive/discovery_validation/figures_prospective_v2.7/,Supplementary figures
