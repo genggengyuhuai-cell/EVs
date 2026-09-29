@@ -476,3 +476,18 @@ Use one coherent categorical Group model on all 515 participants for a prespecif
 10. **Prediction module.** Primary Control/Exposure Elastic Net; Discovery-only nested preprocessing/selection; Strategy B primary, A secondary if prespecified; at most one nonlinear comparator; complete pipeline/panel/threshold lock.
 11. **Evaluation and claim limits.** AUROC primary with calibration/AUPRC/Brier and locked-threshold metrics; CIs and site/environment diagnostics; reused 129 explicitly identified; external cohort required for new independent/clinical claims.
 12. **Authorization boundary.** Resolve the factual gaps, approve exact v2 specifications, then authorize implementation separately. This audit changes no frozen protocol and stops before implementation.
+
+## ACTIVE V2.1 AMENDMENT — 2026-09-28
+Forward-looking analysis and manuscript work are now governed by `docs/protocol/ANALYSIS_PLAN_v2.1.md`.
+Key changes:
+- Unique-peptide evidence is removed from active project scope. Historical frozen D09/D10 fields may remain physically present but are ignored downstream.
+- The main biomarker-development target is High exposure vs Low exposure.
+- The main biomarker candidate space is the 85 Discovery-only locked High-vs-Low DEPs.
+- The 29 same-direction + nominal-P replicated proteins are replication evidence only and are not ML inputs.
+- DEP-driven ML uses Elastic Net as the primary sparse model, Boruta as feature-relevance robustness, and XGBoost as nonlinear robustness.
+- A strict fold-local differential-screening + ML nested sensitivity is required to assess the complete discovery-to-model pipeline.
+- Existing completed all-proteome M15/M16 results remain frozen historical/supplementary evidence and must not be retuned or re-evaluated on the same 129 as though it were a new independent test.
+- Site/heterogeneity/LOO remain required robustness analyses.
+- Pathway/enrichment remains required and blocked pending an approved reproducible mapping/resource contract.
+- Manuscript integrated reporting combines abundance, detection, missingness robustness, Environment/Site robustness, replication, ML and pathway evidence; no Unique-peptide axis and no composite evidence score.
+
