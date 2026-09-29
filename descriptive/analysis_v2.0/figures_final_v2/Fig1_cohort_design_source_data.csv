@@ -1,0 +1,50 @@
+"x","y","label","kind","panel","category","n","Group"
+1,3,"Raw cohort
+n = 519","cohort","a_flow",,,
+2,3,"Exposure-defined
+n = 515","cohort","a_flow",,,
+3,3.45,"Discovery
+n = 386","discovery","a_flow",,,
+3,2.55,"Reused hold-out
+n = 129","holdout","a_flow",,,
+4.25,3.45,"Discovery screen
+1,445 proteins","discovery","a_flow",,,
+5.45,3.45,"Locked family
+85 proteins","locked","a_flow",,,
+6.65,3.45,"Replication / ML
+predefined analyses","analysis","a_flow",,,
+,,,,"b_group","Control",153,
+,,,,"b_group","Low",186,
+,,,,"b_group","High",176,
+,,,,"c_site","FJ_FQ",13,"Control"
+,,,,"c_site","FJ_FQ",24,"Low"
+,,,,"c_site","FJ_FQ",32,"High"
+,,,,"c_site","FJ_PT",4,"Control"
+,,,,"c_site","FJ_PT",10,"Low"
+,,,,"c_site","FJ_PT",12,"High"
+,,,,"c_site","FJ_QZ",32,"Control"
+,,,,"c_site","FJ_QZ",18,"Low"
+,,,,"c_site","FJ_QZ",11,"High"
+,,,,"c_site","GZ_TH",46,"Control"
+,,,,"c_site","GZ_TH",31,"Low"
+,,,,"c_site","GZ_TH",46,"High"
+,,,,"c_site","XZ_GG",30,"Control"
+,,,,"c_site","XZ_GG",66,"Low"
+,,,,"c_site","XZ_GG",46,"High"
+,,,,"c_site","XZ_YA",2,"Control"
+,,,,"c_site","XZ_YA",19,"Low"
+,,,,"c_site","XZ_YA",1,"High"
+,,,,"c_site","XZ_YB",10,"Control"
+,,,,"c_site","XZ_YB",0,"Low"
+,,,,"c_site","XZ_YB",0,"High"
+,,,,"c_site","XZ_YC",6,"Control"
+,,,,"c_site","XZ_YC",7,"Low"
+,,,,"c_site","XZ_YC",21,"High"
+,,,,"c_site","XZ_YD",10,"Control"
+,,,,"c_site","XZ_YD",11,"Low"
+,,,,"c_site","XZ_YD",7,"High"
+,,,,"d_universe","Raw protein groups",3817,
+,,,,"d_universe","Detection universe",3054,
+,,,,"d_universe","Quantitative universe",1430,
+,,,,"d_universe","Discovery eligible",1445,
+,,,,"d_universe","Locked candidates",85,

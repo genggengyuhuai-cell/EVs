@@ -1,0 +1,29 @@
+Path,Module,Type,Classification,Used_by_active_pipeline,Required_for_reproducibility,Required_for_manuscript,Recommended_action,Reason
+descriptive/analysis_v2.0/code/V2_M17_figures_v2.R,M17,Script,ACTIVE_FINAL,Yes (sole entry),Yes,Yes,KEEP_ACTIVE,Authoritative manuscript figure assembly script. Reads only frozen result tables (M05/M06/M07/M08/M09/M10/M11/M14, ml_v2.1, M12/M12B). No model refit, no threshold change, no re-selection. Uses repo-relative paths, no seed, no hard-coded absolute path.
+descriptive/analysis_v2.0/M17_probe.R,M17,Script,DEBUG_ONLY,No,No,No,DO_NOT_TRACK,One-off package availability probe (ggplot2/svglite/gridExtra). Not sourced by V2_M17_figures_v2.R. No output artifact.
+descriptive/analysis_v2.0/figures_final_v2/Fig1_cohort_design.pdf,M17,Figure,MAIN_FIGURE,Yes (produced by V2_M17_figures_v2.R),Yes,Yes,KEEP_ACTIVE,Figure 1 editable vector (183 mm). Cohort/workflow/proteome landscape.
+descriptive/analysis_v2.0/figures_final_v2/Fig1_cohort_design.svg,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 1 editable SVG.
+descriptive/analysis_v2.0/figures_final_v2/Fig1_cohort_design_source_data.csv,M17,Data,SOURCE_DATA,Yes,Yes,Yes,KEEP_ACTIVE,Figure 1 source data (50 lines incl header). Panels a/b/c/d traceable to M11_site + hard-coded cohort gates.
+descriptive/analysis_v2.0/figures_final_v2/Fig1_cohort_design_preview.png,M17,Figure,QA_PREVIEW,No,No,No,DO_NOT_TRACK,300 dpi QA preview only; not a submission raster per VISUAL_QC.md.
+descriptive/analysis_v2.0/figures_final_v2/Fig2_proteome_associations.pdf,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 2 editable vector. Proteome-wide exposure associations.
+descriptive/analysis_v2.0/figures_final_v2/Fig2_proteome_associations.svg,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 2 editable SVG.
+descriptive/analysis_v2.0/figures_final_v2/Fig2_proteome_associations_source_data.csv,M17,Data,SOURCE_DATA,Yes,Yes,Yes,KEEP_ACTIVE,Figure 2 source data (6462 rows). Panels a/b/c/d traceable to M05/M07/M08/M06_arch.
+descriptive/analysis_v2.0/figures_final_v2/Fig2_proteome_associations_preview.png,M17,Figure,QA_PREVIEW,No,No,No,DO_NOT_TRACK,QA preview only.
+descriptive/analysis_v2.0/figures_final_v2/Fig3_candidate_biology.pdf,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 3 editable vector. Locked 85 candidate biology.
+descriptive/analysis_v2.0/figures_final_v2/Fig3_candidate_biology.svg,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 3 editable SVG.
+descriptive/analysis_v2.0/figures_final_v2/Fig3_candidate_biology_source_data.csv,M17,Data,SOURCE_DATA,Yes,Yes,Yes,KEEP_ACTIVE,Figure 3 source data (428 rows). 85 unique candidates confirmed.
+descriptive/analysis_v2.0/figures_final_v2/Fig3_candidate_biology_preview.png,M17,Figure,QA_PREVIEW,No,No,No,DO_NOT_TRACK,QA preview only.
+descriptive/analysis_v2.0/figures_final_v2/Fig4_environment_site.pdf,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 4 editable vector. Environment/site/LOO robustness.
+descriptive/analysis_v2.0/figures_final_v2/Fig4_environment_site.svg,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 4 editable SVG.
+descriptive/analysis_v2.0/figures_final_v2/Fig4_environment_site_source_data.csv,M17,Data,SOURCE_DATA,Yes,Yes,Yes,KEEP_ACTIVE,Figure 4 source data (2891 rows).
+descriptive/analysis_v2.0/figures_final_v2/Fig4_environment_site_preview.png,M17,Figure,QA_PREVIEW,No,No,No,DO_NOT_TRACK,QA preview only.
+descriptive/analysis_v2.0/figures_final_v2/Fig5_replication_ml.pdf,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 5 editable vector. Replication + fixed-85 conditional + strict nested ML.
+descriptive/analysis_v2.0/figures_final_v2/Fig5_replication_ml.svg,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 5 editable SVG.
+descriptive/analysis_v2.0/figures_final_v2/Fig5_replication_ml_source_data.csv,M17,Data,SOURCE_DATA,Yes,Yes,Yes,KEEP_ACTIVE,Figure 5 source data (409 rows). Replication hierarchy = 85/85/83/29/1 confirmed.
+descriptive/analysis_v2.0/figures_final_v2/Fig5_replication_ml_preview.png,M17,Figure,QA_PREVIEW,No,No,No,DO_NOT_TRACK,QA preview only.
+descriptive/analysis_v2.0/figures_final_v2/Fig6_pathway_integration.pdf,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 6 editable vector. Pathway integration.
+descriptive/analysis_v2.0/figures_final_v2/Fig6_pathway_integration.svg,M17,Figure,MAIN_FIGURE,Yes,Yes,Yes,KEEP_ACTIVE,Figure 6 editable SVG.
+descriptive/analysis_v2.0/figures_final_v2/Fig6_pathway_integration_source_data.csv,M17,Data,SOURCE_DATA,Yes,Yes,Yes,KEEP_ACTIVE,Figure 6 source data (909 rows). 8 top GO-BP cameraPR + 3 ORA GO-BP + network edges.
+descriptive/analysis_v2.0/figures_final_v2/Fig6_pathway_integration_preview.png,M17,Figure,QA_PREVIEW,No,No,No,DO_NOT_TRACK,QA preview only.
+descriptive/analysis_v2.0/figures_final_v2/FIGURE_MANIFEST.md,M17,Doc,METHOD_REPORTING,Yes,Yes,Yes,KEEP_SUPPORTING,Export contract + per-figure panel definitions and reading order.
+descriptive/analysis_v2.0/figures_final_v2/VISUAL_QC.md,M17,Doc,METHOD_REPORTING,Yes,Yes,Yes,KEEP_SUPPORTING,Visual QA record + source-data assertions + preflight results.
