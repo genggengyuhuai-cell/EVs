@@ -10,7 +10,7 @@
 #   - Typography: Arial, base 7.5 pt; panel tags 8.5 pt bold; no bold strips/titles.
 #   - Colorblind-safe Okabe-Ito-derived semantic palette (see `pal` below).
 #   - Fixed semantic mappings across all 15 figures; no color redefinition.
-#   - 183 mm x 120 mm double-column output, 600 dpi LZW TIFF.
+#   - 183 mm x 120 mm double-column output, PDF plus ragg PNG/TIFF previews.
 
 suppressPackageStartupMessages({
   library(ggplot2)
@@ -31,6 +31,7 @@ root <- normalizePath(
   mustWork = FALSE
 )
 base <- file.path(root, "descriptive", "discovery_validation")
+source(file.path(root, "descriptive", "figure_display_labels.R"), local = TRUE)
 
 read_result <- function(stage, file, cols) {
   p <- file.path(base, stage, file)
@@ -145,10 +146,10 @@ pal <- c(
   "Control"        = "#6E6E6E",
   "Low exposure"   = "#4C9BB8",
   "High exposure"  = "#C4573B",
-  "Humid-hot"      = "#A64D6A",
-  "High-altitude"  = "#3D8B7A",
+  "Hot-humid"      = "#A64D6A",
+  "High land"      = "#3D8B7A",
   "Discovery"      = "#2E6FA8",
-  "Validation"     = "#C49A3D"
+  "Reused hold-out" = "#C49A3D"
 )
 
 evidence_pal <- c(
@@ -187,16 +188,18 @@ fig1 <- function() {
 
   x$Dose <- factor(x$TREAT1_clean, c("control", "low", "high"),
                    c("Control", "Low exposure", "High exposure"))
-  x$Environment <- ifelse(grepl("^Humid-hot", x$Stratum), "Humid-hot", "High-altitude")
+  x$Environment <- ifelse(grepl("^Humid-hot", x$Stratum), "Humid-hot", "High-pressure/high-altitude")
   counts <- as.data.frame(table(x$Split, x$Environment, x$Dose))
   names(counts) <- c("Split", "Environment", "Dose", "N")
+  counts$Split_display <- display_split(counts$Split)
+  counts$Environment_display <- display_environment(counts$Environment)
 
-  p1 <- ggplot(counts, aes(Dose, N, fill = Split)) +
+  p1 <- ggplot(counts, aes(Dose, N, fill = Split_display)) +
     geom_col(position = position_dodge(width = .72), width = .62, color = NA) +
     geom_text(aes(label = N), position = position_dodge(width = .72),
               vjust = -.3, size = 2.4, color = "#222222") +
-    facet_wrap(~Environment) +
-    scale_fill_manual(values = pal[c("Discovery", "Validation")]) +
+    facet_wrap(~Environment_display) +
+    scale_fill_manual(values = pal[c("Discovery", "Reused hold-out")]) +
     scale_y_continuous(expand = expansion(mult = c(0, .14))) +
     labs(x = NULL, y = "Participants", fill = NULL) +
     theme(
@@ -215,7 +218,7 @@ fig1 <- function() {
                      "Direction concordant", "Nominal replication", "FDR-supported replication"))
     ),
     N = c(3817L, 1445L, 85L, 83L, 29L, 1L),
-    Phase = c(rep("Discovery", 3), rep("Validation evidence", 3))
+    Phase = c(rep("Discovery", 3), rep("Reused hold-out evidence", 3))
   )
   p2 <- ggplot(scope, aes(N, Step, color = Phase)) +
     geom_segment(aes(x = 0, xend = N, yend = Step), linewidth = .7) +
@@ -223,14 +226,14 @@ fig1 <- function() {
     geom_text(aes(label = N), hjust = -.28, size = 2.4, color = "#222222") +
     scale_x_continuous(expand = expansion(mult = c(0, .16)), limits = c(0, 4300)) +
     scale_color_manual(values = c("Discovery" = unname(pal["Discovery"]),
-                                  "Validation evidence" = "#2F7D5E")) +
+                                  "Reused hold-out evidence" = "#2F7D5E")) +
     labs(x = "Proteins", y = NULL, color = NULL) +
     theme(legend.position = "top", legend.direction = "horizontal")
 
   source_counts <- counts
   source_counts$panel <- "a_cohort_counts"
   source_counts$analysis_universe <- "Frozen participant split (n=515)"
-  source_counts$contrast <- "Discovery and Validation composition"
+  source_counts$contrast <- "Discovery and reused hold-out composition"
   source_counts$effect_estimate <- source_counts$N
   source_counts$Model_status <- "Not applicable: descriptive count"
   source_counts$display_selection_rule <- paste(
@@ -239,7 +242,7 @@ fig1 <- function() {
 
   source_scope <- data.frame(
     panel = "b_analysis_scope",
-    analysis_universe = "Prospective Discovery-Validation workflow",
+    analysis_universe = "Prospective Discovery and reused hold-out workflow",
     contrast = "Analysis scope",
     effect_estimate = scope$N,
     Model_status = "Finalized workflow count",
@@ -370,8 +373,8 @@ fig4 <- function() {
   wide <- merge(humid, high, by = "PG.ProteinGroups", sort = FALSE)
   wide$Support <- ifelse(
     wide$Humid_FDR < .05 & wide$High_FDR < .05, "FDR < 0.05 in both",
-    ifelse(wide$Humid_FDR < .05, "Humid-hot only",
-           ifelse(wide$High_FDR < .05, "High-altitude only", "Neither")))
+    ifelse(wide$Humid_FDR < .05, "Hot-humid only",
+           ifelse(wide$High_FDR < .05, "High land only", "Neither")))
 
   p1 <- ggplot(wide, aes(High_log2FC, Humid_log2FC, color = Support)) +
     geom_hline(yintercept = 0, color = "#C8C8C8", linewidth = .35) +
@@ -380,11 +383,11 @@ fig4 <- function() {
     geom_point(size = 1.4, alpha = .9) +
     scale_color_manual(values = c(
       "FDR < 0.05 in both" = "#2F7D5E",
-      "Humid-hot only"     = unname(pal["Humid-hot"]),
-      "High-altitude only" = unname(pal["High-altitude"]),
+      "Hot-humid only" = unname(pal["Hot-humid"]),
+      "High land only" = unname(pal["High land"]),
       "Neither"             = "#B8B8B8"), drop = FALSE) +
     coord_equal() +
-    labs(x = "High-altitude log2 fold change", y = "Humid-hot log2 fold change", color = NULL) +
+    labs(x = "High land log2 fold change", y = "Hot-humid log2 fold change", color = NULL) +
     guides(color = guide_legend(nrow = 2, byrow = TRUE, override.aes = list(size = 2))) +
     theme(legend.position = "bottom", legend.box.margin = margin(t = 2, b = 0))
 
@@ -408,7 +411,7 @@ fig4 <- function() {
   support_idx <- match(x$PG.ProteinGroups, wide$PG.ProteinGroups)
   source_d05 <- x
   source_d05$panel <- "a_environment_specific"
-  source_d05$Environment_display <- ifelse(source_d05$Environment == "Humid-hot", "Humid-hot", "High-altitude")
+  source_d05$Environment_display <- display_environment(source_d05$Environment)
   source_d05$Support <- wide$Support[support_idx]
   source_d05$analysis_universe <- "Frozen D03 locked candidate family (n=85)"
   source_d05$source_contrast_key <- source_d05$Contrast; source_d05$Contrast <- NULL
@@ -469,7 +472,7 @@ fig5 <- function() {
     geom_point(size = 1.4, alpha = .9) +
     coord_equal() +
     scale_color_manual(values = evidence_pal) +
-    labs(x = "Discovery log2 fold change", y = "Validation log2 fold change", color = NULL) +
+    labs(x = "Discovery log2 fold change", y = "Reused hold-out log2 fold change", color = NULL) +
     guides(color = guide_legend(nrow = 2, byrow = TRUE, override.aes = list(size = 2))) +
     theme(legend.position = "bottom", legend.box.margin = margin(t = 2, b = 0))
 
@@ -492,14 +495,14 @@ fig5 <- function() {
   source_scatter$BH_FDR <- source_scatter$Candidate_family_BH_FDR
   source_scatter$display_selection_rule <- paste(
     "All 85 locked candidates displayed without protein labels; no display",
-    "protein is selected using Validation P values, BH-FDR or effect direction.")
+    "protein is selected using reused hold-out P values, BH-FDR or effect direction.")
   source_summary <- data.frame(
     panel = "b_replication_summary",
     analysis_universe = "Frozen D03 locked candidate family (n=85)",
     contrast = "High exposure vs Low exposure",
     effect_estimate = summary$N,
     Model_status = "Finalized D08 evidence count",
-    display_selection_rule = "All three prespecified nested Validation evidence levels displayed.",
+    display_selection_rule = "All three prespecified nested reused hold-out evidence levels displayed.",
     Evidence = as.character(summary$Evidence), N = summary$N, stringsAsFactors = FALSE)
   set_figure_source(bind_rows_fill(source_scatter, source_summary))
   p1 + p2 + plot_layout(widths = c(1.6, 1)) + plot_annotation(tag_levels = "a")
@@ -547,7 +550,7 @@ fig6 <- function() {
     data.frame(PG.ProteinGroups = x$PG.ProteinGroups, Evidence = "D07 site robustness",
                Status = ifelse(site_stable, "Direction stable", "Not direction stable"),
                stringsAsFactors = FALSE),
-    data.frame(PG.ProteinGroups = x$PG.ProteinGroups, Evidence = "D08 validation",
+    data.frame(PG.ProteinGroups = x$PG.ProteinGroups, Evidence = "D08 reused hold-out",
                Status = ifelse(fdr, "FDR-supported replication",
                        ifelse(nominal, "Nominal replication only",
                        ifelse(direction, "Direction concordant only", "Direction discordant"))),
@@ -558,7 +561,7 @@ fig6 <- function() {
   evidence$PG.ProteinGroups <- factor(evidence$PG.ProteinGroups, levels = protein_levels)
   evidence$Evidence <- factor(evidence$Evidence,
     levels = c("D04 trajectory", "D06 formal interaction", "D07 site robustness",
-               "D08 validation", "D09 detection"))
+               "D08 reused hold-out", "D09 detection"))
 
   status_values <- c(
     "Reversal_after_short_increase" = unname(pal["Discovery"]),
@@ -567,13 +570,13 @@ fig6 <- function() {
     "FDR-supported"                = "#2F7D5E",
     "Not FDR-supported"            = "#E4E4E4",
     "Direction stable"             = "#2F7D5E",
-    "Not direction stable"          = unname(pal["Humid-hot"]),
-    "Direction discordant"          = unname(pal["Humid-hot"]),
+    "Not direction stable"          = unname(pal["Hot-humid"]),
+    "Direction discordant"          = unname(pal["Hot-humid"]),
     "Direction concordant only"    = "#8A8A8A",
     "Nominal replication only"    = unname(pal["Low exposure"]),
     "FDR-supported replication"    = "#2F7D5E",
     "All-dose >=80%"               = "#2F7D5E",
-    "Below 80% in >=1 dose stratum" = unname(pal["Validation"]))
+    "Below 80% in >=1 dose stratum" = unname(pal["Reused hold-out"]))
   status_labels <- c(
     "Reversal_after_short_increase" = "Reversal after low-exposure increase",
     "Transient_short_peak" = "Transient low-exposure peak",
@@ -598,22 +601,22 @@ fig6 <- function() {
     "D04 trajectory" = "Control, Low exposure and High exposure trajectory",
     "D06 formal interaction" = "High exposure vs Low exposure x Environment interaction",
     "D07 site robustness" = "High exposure vs Low exposure leave-one-major-site-out robustness",
-    "D08 validation" = "High exposure vs Low exposure",
+    "D08 reused hold-out" = "High exposure vs Low exposure",
     "D09 detection" = "Control, Low exposure and High exposure detection")[as.character(evidence$Evidence)]
   evidence$effect_estimate <- NA_real_
   evidence$effect_estimate[evidence$Evidence == "D06 formal interaction"] <-
     x$D06_Interaction_Long_vs_Short_log2FC[e_idx[evidence$Evidence == "D06 formal interaction"]]
   evidence$effect_estimate[evidence$Evidence == "D07 site robustness"] <-
     x$D07_Max_abs_Delta_log2FC[e_idx[evidence$Evidence == "D07 site robustness"]]
-  evidence$effect_estimate[evidence$Evidence == "D08 validation"] <-
-    x$D08_log2FC[e_idx[evidence$Evidence == "D08 validation"]]
+  evidence$effect_estimate[evidence$Evidence == "D08 reused hold-out"] <-
+    x$D08_log2FC[e_idx[evidence$Evidence == "D08 reused hold-out"]]
   evidence$effect_estimate[evidence$Evidence == "D09 detection"] <-
     x$D09_Min_Dose_detection_rate[e_idx[evidence$Evidence == "D09 detection"]]
   evidence$BH_FDR <- NA_real_
   evidence$BH_FDR[evidence$Evidence == "D06 formal interaction"] <-
     x$D06_Interaction_Long_vs_Short_Secondary_BH_FDR[e_idx[evidence$Evidence == "D06 formal interaction"]]
-  evidence$BH_FDR[evidence$Evidence == "D08 validation"] <-
-    x$D08_Candidate_family_BH_FDR[e_idx[evidence$Evidence == "D08 validation"]]
+  evidence$BH_FDR[evidence$Evidence == "D08 reused hold-out"] <-
+    x$D08_Candidate_family_BH_FDR[e_idx[evidence$Evidence == "D08 reused hold-out"]]
   evidence$Model_status <- paste("Finalized", as.character(evidence$Evidence), "state")
   evidence$display_selection_rule <- paste(
     "All 85 frozen candidates shown in original D10/D03 order across every",
@@ -650,7 +653,7 @@ fig7 <- function() {
   p1 <- ggplot(x, aes(Site_removed, PG.ProteinGroups, fill = Delta_log2FC)) +
     geom_tile(color = "white", linewidth = .1) +
     scale_fill_gradient2(low = unname(pal["Discovery"]), mid = "white",
-                         high = unname(pal["Humid-hot"]), midpoint = 0,
+                         high = unname(pal["Hot-humid"]), midpoint = 0,
                          limits = c(-lim, lim)) +
     labs(x = "Major site removed", y = NULL, fill = expression(Delta*" log2FC")) +
     theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(),
@@ -691,15 +694,16 @@ fig8 <- function() {
   if (nrow(x) != 510L) stop("FIG8 expected 85 candidates x 6 split-dose strata")
   x$Dose <- factor(x$Level, c("control", "low", "high"),
                    c("Control", "Low exposure", "High exposure"))
-  x$Stratum <- interaction(x$Split, x$Dose, sep = " / ", lex.order = TRUE)
+  x$Split_display <- display_split(x$Split)
+  x$Stratum <- interaction(x$Split_display, x$Dose, sep = " / ", lex.order = TRUE)
 
-  p1 <- ggplot(x, aes(Stratum, Detection_rate, fill = Split)) +
+  p1 <- ggplot(x, aes(Stratum, Detection_rate, fill = Split_display)) +
     geom_hline(yintercept = .8, color = "#9A9A9A", linetype = "22", linewidth = .4) +
-    annotate("text", x = .6, y = .815, label = "80% threshold",
+    annotate("text", x = "Discovery / Control", y = .815, label = "80% threshold",
              size = 2.2, color = "#666666", hjust = 0) +
     geom_boxplot(width = .55, outlier.shape = NA, linewidth = .4, color = "#555555") +
     geom_jitter(width = .12, size = .35, alpha = .3, color = "#444444") +
-    scale_fill_manual(values = pal[c("Discovery", "Validation")]) +
+    scale_fill_manual(values = pal[c("Discovery", "Reused hold-out")]) +
     scale_y_continuous(limits = c(.65, 1.01), breaks = seq(.7, 1, .1),
                        labels = scales::percent_format(accuracy = 1)) +
     labs(x = NULL, y = "Detection rate", fill = NULL) +
@@ -713,10 +717,10 @@ fig8 <- function() {
   gsum <- aggregate(Reached ~ Split + Level + Threshold, grad, sum)
   gsum$Dose <- factor(gsum$Level, c("control", "low", "high"),
                       c("Control", "Low exposure", "High exposure"))
-  gsum$Split <- factor(gsum$Split, c("Discovery", "Validation"))
+  gsum$Split_display <- factor(display_split(gsum$Split), c("Discovery", "Reused hold-out"))
 
-  p2 <- ggplot(gsum, aes(Threshold, Reached, color = Dose, linetype = Split,
-                         group = interaction(Dose, Split))) +
+  p2 <- ggplot(gsum, aes(Threshold, Reached, color = Dose, linetype = Split_display,
+                         group = interaction(Dose, Split_display))) +
     geom_line(linewidth = .8) +
     geom_point(size = 1.4) +
     scale_color_manual(values = pal[c("Control", "Low exposure", "High exposure")]) +
@@ -731,7 +735,7 @@ fig8 <- function() {
   source_detection <- x
   source_detection$panel <- "a_detection_by_split_and_exposure"
   source_detection$analysis_universe <- "Frozen D03 locked candidate family (n=85)"
-  source_detection$contrast <- paste(source_detection$Split, as.character(source_detection$Dose), "detection")
+  source_detection$contrast <- paste(source_detection$Split_display, as.character(source_detection$Dose), "detection")
   source_detection$effect_estimate <- source_detection$Detection_rate
   source_detection$Model_status <- "Not applicable: finalized descriptive detection rate"
   source_detection$display_selection_rule <- paste(
@@ -740,7 +744,7 @@ fig8 <- function() {
   source_gradient <- gsum
   source_gradient$panel <- "b_detection_threshold_counts"
   source_gradient$analysis_universe <- "Frozen D03 locked candidate family (n=85)"
-  source_gradient$contrast <- paste(source_gradient$Split, as.character(source_gradient$Dose), "detection")
+  source_gradient$contrast <- paste(source_gradient$Split_display, as.character(source_gradient$Dose), "detection")
   source_gradient$effect_estimate <- source_gradient$Reached
   source_gradient$Model_status <- "Not applicable: count of finalized threshold flags"
   source_gradient$display_selection_rule <- paste(
@@ -872,7 +876,7 @@ fig9 <- function() {
   source_common$Display_label <- source_common$Display_label_discovery
   source_common$display_selection_rule <- paste(
     "All 1,426 shared eligible proteins displayed; no protein labels or",
-    "Validation-driven selection.")
+    "reused hold-out-driven selection.")
   set_figure_source(bind_rows_fill(source_flow, source_overlap, source_common))
   (p1 | p2 | p3) + plot_layout(widths = c(1, .8, 1.25)) +
     plot_annotation(tag_levels = "a")
@@ -888,7 +892,7 @@ fig10 <- function() {
                   "P_value", "Candidate_family_BH_FDR", "Model_status",
                   "Direction_concordant", "Nominal_replication", "FDR_supported_replication",
                   "Effect_difference_signed", "Effect_difference_absolute")),
-    "D08 validation")
+    "D08 reused hold-out")
   assert_exact_candidate_universe(x, "FIG10 D08")
   locked <- nrow(x)
   estimable <- sum(x$Model_status == "ESTIMABLE")
@@ -904,7 +908,7 @@ fig10 <- function() {
   p1 <- ggplot(hierarchy, aes(N, Level)) +
     geom_col(width = .58, fill = unname(pal["Discovery"]), color = NA) +
     geom_text(aes(label = paste0(N, "/85")), hjust = -.2, size = 2.4, color = "#222222") +
-    scale_x_continuous(limits = c(0, 100), breaks = c(0, 20, 40, 60, 80)) +
+    scale_x_continuous(limits = c(0, 110), breaks = c(0, 20, 40, 60, 80, 100)) +
     labs(x = "Frozen candidates", y = NULL)
 
   x$Candidate_index <- seq_len(nrow(x))
@@ -920,14 +924,14 @@ fig10 <- function() {
     geom_point(data = pair, aes(Effect, Candidate_index, color = Branch), size = 1.0) +
     geom_vline(xintercept = 0, color = "#9A9A9A", linetype = "22", linewidth = .4) +
     scale_color_manual(values = c("Frozen Discovery" = unname(pal["Discovery"]),
-                                  "Reused 129 hold-out" = unname(pal["Validation"]))) +
+                                  "Reused 129 hold-out" = unname(pal["Reused hold-out"]))) +
     labs(x = "High exposure vs Low exposure log2 fold change", y = "D03 frozen order", color = NULL) +
     theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), legend.position = "top")
 
   p3 <- ggplot(x, aes(Effect_difference_signed)) +
     geom_vline(xintercept = 0, color = "#9A9A9A", linetype = "22", linewidth = .4) +
     geom_histogram(binwidth = .05, boundary = 0, fill = "#7FA8C4", color = "white", linewidth = .2) +
-    labs(x = "Validation minus Discovery log2 fold change", y = "Candidates")
+    labs(x = "Reused hold-out minus Discovery\nlog2 fold change", y = "Candidates")
 
   source_h <- hierarchy
   source_h$panel <- "a_replication_hierarchy"
@@ -947,7 +951,7 @@ fig10 <- function() {
   source_x$BH_FDR <- source_x$Candidate_family_BH_FDR
   source_x$display_selection_rule <- paste(
     "All 85 candidates displayed in frozen D03 order; no protein labels and no",
-    "Validation P-value, FDR, direction or effect-based display selection.")
+    "reused hold-out P-value, FDR, direction or effect-based display selection.")
   set_figure_source(bind_rows_fill(source_h, source_x))
   (p1 | p2 | p3) + plot_layout(widths = c(.9, 1.35, 1)) +
     plot_annotation(tag_levels = "a")
@@ -1024,7 +1028,7 @@ fig11 <- function() {
   source_rep$Model_status <- "Finalized D04 modeled mean"
   source_rep$display_selection_rule <- paste(
     "First protein in frozen D03 order within each finalized trajectory class;",
-    "no Validation information or effect-size ranking used.")
+    "no reused hold-out information or effect-size ranking used.")
   source_all <- add_identity(x)
   source_all$panel <- "b_all85_trajectory_heatmap"
   source_all$analysis_branch <- "Frozen Discovery D04"
@@ -1061,16 +1065,16 @@ fig12 <- function() {
     read_result("D03_candidate_lock", "D03_locked_candidates.csv", c("PG.ProteinGroups")),
     "D03 locked candidates")
   x$Candidate_index <- match(x$PG.ProteinGroups, locked$PG.ProteinGroups)
-  x$Environment_display <- ifelse(x$Environment == "Humid-hot", "Humid-hot", "High-altitude")
+  x$Environment_display <- display_environment(x$Environment)
   # v2.7: shared x-axis across both environments so the two forests are
   # directly comparable. Limits derived from frozen CI ranges:
-  # Humid-hot CI_low min = -1.51; High-altitude CI_high max = +0.09.
+  # Hot-humid CI_low min = -1.51; High land CI_high max = +0.09.
   p <- ggplot(x, aes(log2FC, Candidate_index, color = Environment_display)) +
     geom_vline(xintercept = 0, color = "#9A9A9A", linetype = "22", linewidth = .4) +
     geom_segment(aes(x = CI_low, xend = CI_high, yend = Candidate_index), linewidth = .35) +
     geom_point(size = .9) +
     facet_wrap(~Environment_display, nrow = 1) +
-    scale_color_manual(values = pal[c("Humid-hot", "High-altitude")]) +
+    scale_color_manual(values = pal[c("Hot-humid", "High land")]) +
     scale_x_continuous(limits = c(-1.6, 0.2), breaks = c(-1.5, -1.0, -0.5, 0)) +
     labs(x = "High exposure vs Low exposure log2 fold change (95% CI)",
          y = "D03 frozen order", color = NULL) +
@@ -1161,7 +1165,7 @@ fig13 <- function() {
   source_rep$Model_status <- "Finalized descriptive site median"
   source_rep$display_selection_rule <- paste(
     "Same first-in-D03-order representative per D04 trajectory class as FIG11;",
-    "no Validation information or site effect ranking used.")
+    "no reused hold-out information or site effect ranking used.")
   source_loo <- add_identity(loo)
   source_loo$panel <- "c_leave_one_site_out_effect_forest"
   source_loo$analysis_branch <- "Frozen Discovery D07"
@@ -1194,7 +1198,8 @@ fig14 <- function() {
   x$Protein_order <- factor(x$PG.ProteinGroups, levels = rev(locked$PG.ProteinGroups))
   x$Dose_display <- factor(x$Level, c("control", "low", "high"),
                           c("Control", "Low exposure", "High exposure"))
-  x$Stratum <- interaction(x$Split, x$Dose_display, sep = " / ", lex.order = TRUE)
+  x$Split_display <- display_split(x$Split)
+  x$Stratum <- interaction(x$Split_display, x$Dose_display, sep = " / ", lex.order = TRUE)
   # v2.7: detection rates span 0.71-1.0; a 0-1 scale wastes contrast.
   # Use a focused scale c(0.7, 1.0) so the sub-80% rows are visible.
   p1 <- ggplot(x, aes(Stratum, Protein_order, fill = Detection_rate)) +
@@ -1204,7 +1209,8 @@ fig14 <- function() {
     labs(x = NULL, y = NULL, fill = "Detection") +
     theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(),
           axis.text.x = element_text(angle = 25, hjust = 1),
-          legend.key.size = unit(3.2, "mm"))
+          legend.key.size = unit(3.2, "mm"),
+          plot.margin = margin(6, 8, 24, 28))
 
   pep <- nonempty(
     read_result("D09_missingness_detection_peptides", "D09_unique_peptide_support.csv",
@@ -1230,7 +1236,7 @@ fig14 <- function() {
   source_det$panel <- "a_detection_missingness_heatmap"
   source_det$analysis_branch <- "Frozen Discovery and reused 129 hold-out D09"
   source_det$analysis_universe <- "Frozen D03 locked candidate family (n=85)"
-  source_det$contrast <- paste(source_det$Split, as.character(source_det$Dose_display), "detection")
+  source_det$contrast <- paste(source_det$Split_display, as.character(source_det$Dose_display), "detection")
   source_det$effect_estimate <- source_det$Detection_rate
   source_det$Model_status <- "Not applicable: finalized descriptive detection rate"
   source_det$display_selection_rule <- "All 85 candidates in all six split by exposure strata displayed."
@@ -1315,7 +1321,7 @@ if (length(missing_source_cols)) {
   stop("Figure source export missing required columns: ", paste(missing_source_cols, collapse = ", "))
 }
 
-outputs <- c(paste0(stem, c(".svg", ".pdf", ".tiff")),
+outputs <- c(paste0(stem, c(".svg", ".pdf", ".png", ".tiff")),
              paste0(stem, "_source_data.csv"))
 existing <- outputs[file.exists(outputs)]
 if (length(existing)) {
@@ -1332,8 +1338,12 @@ print(p); dev.off()
 grDevices::cairo_pdf(outputs[2], width = pdf_width_in, height = height_in, family = "Arial")
 print(p); dev.off()
 
-ragg::agg_tiff(outputs[3], width = width_in, height = height_in, units = "in",
+ragg::agg_png(outputs[3], width = width_in, height = height_in, units = "in",
+              res = 300, background = "white")
+print(p); dev.off()
+
+ragg::agg_tiff(outputs[4], width = width_in, height = height_in, units = "in",
                res = 600, compression = "lzw")
 print(p); dev.off()
 
-write.csv(figure_source, outputs[4], row.names = FALSE, na = "")
+write.csv(figure_source, outputs[5], row.names = FALSE, na = "")

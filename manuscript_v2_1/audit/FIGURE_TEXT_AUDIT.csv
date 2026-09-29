@@ -1,0 +1,44 @@
+File,Line,Current_text,Issue_type,Active_or_historical,Proposed_text,Action
+descriptive/analysis_v2.0/code/V2_M17_figures_v2.R,78,Dose-defined,Deprecated exposure terminology,ACTIVE / MANUSCRIPT,Exposure-defined,REPLACE_DISPLAY_ONLY
+descriptive/analysis_v2.0/code/V2_M17_figures_v2.R,147,Descriptive dose architecture,Deprecated exposure terminology,ACTIVE / MANUSCRIPT,Descriptive exposure architecture,REPLACE_DISPLAY_ONLY
+descriptive/analysis_v2.0/code/V2_M17_figures_v2.R,196,Overall exposure effect: humid-hot,Old environment display term,ACTIVE / MANUSCRIPT,Overall exposure effect: Hot-humid,REPLACE_DISPLAY_ONLY
+descriptive/analysis_v2.0/code/V2_M17_figures_v2.R,196,Overall exposure effect: high-altitude,Old environment display term,ACTIVE / MANUSCRIPT,Overall exposure effect: High land,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,184,Validation,Internal split value,ACTIVE / MANUSCRIPT,Validation,INTERNAL_VALUE_NO_CHANGE
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,190,Humid-hot / High-altitude,Old environment display terms,ACTIVE / MANUSCRIPT,Hot-humid / High land,MAP_AT_DISPLAY_LAYER
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,194-199,Discovery / Validation,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Discovery / Reused hold-out,MAP_AT_DISPLAY_LAYER
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,218,Validation evidence,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Reused hold-out evidence,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,233,Discovery and Validation composition,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Discovery and reused hold-out composition,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,242,Prospective Discovery-Validation workflow,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Prospective Discovery and reused hold-out workflow,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,327-328,Short_vs_Control / Long_vs_Control,Internal contrast keys,ACTIVE / MANUSCRIPT,Short_vs_Control / Long_vs_Control,INTERNAL_VALUE_NO_CHANGE
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,363,Long_vs_Short,Internal contrast key,ACTIVE / MANUSCRIPT,Long_vs_Short,INTERNAL_VALUE_NO_CHANGE
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,365,Humid-hot,Internal environment value,ACTIVE / MANUSCRIPT,Humid-hot,INTERNAL_VALUE_NO_CHANGE
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,366,High-pressure/high-altitude,Internal environment value used for filtering,ACTIVE / MANUSCRIPT,High-pressure/high-altitude,INTERNAL_VALUE_NO_CHANGE
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,373-387,Humid-hot only / High-altitude only / High-altitude log2 fold change / Humid-hot log2 fold change,Old environment display terms,ACTIVE / MANUSCRIPT,Hot-humid only / High land only / High land log2 fold change / Hot-humid log2 fold change,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,411,Humid-hot / High-altitude,Old environment display terms in source export,ACTIVE / MANUSCRIPT,Hot-humid / High land,MAP_AT_DISPLAY_LAYER
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,472,Validation log2 fold change,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Reused hold-out log2 fold change,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,495;502,Validation evidence wording,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Reused hold-out evidence wording,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,690-743,Discovery / Validation,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Discovery / Reused hold-out,MAP_AT_DISPLAY_LAYER
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,875,Validation-driven selection,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Reused hold-out-driven selection,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,930,Validation minus Discovery log2 fold change,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Reused hold-out minus Discovery log2 fold change,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,950;1027;1164,no Validation information,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,no reused hold-out information,REPLACE_DISPLAY_ONLY
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,1064-1083,Humid-hot / High-altitude,Old environment display terms,ACTIVE / MANUSCRIPT,Hot-humid / High land,MAP_AT_DISPLAY_LAYER
+descriptive/discovery_validation/code/figures_prospective_v2.7.R,1197-1233,Discovery / Validation split labels,Reused hold-out mislabeled as Validation,ACTIVE / MANUSCRIPT,Discovery / Reused hold-out,MAP_AT_DISPLAY_LAYER
+execute_discovery_validation_split.R,43-45;216-218,High-pressure/high-altitude,Internal environment values and frozen split checks,HISTORICAL / FROZEN,High-pressure/high-altitude,NO_ACTION_ARCHIVE
+descriptive/discovery_validation/code/dv_shared.R,12;15-17,High-pressure/high-altitude,Internal environment value used by frozen analysis,HISTORICAL / FROZEN,High-pressure/high-altitude,NO_ACTION_ARCHIVE
+descriptive/discovery_validation/code/figures_prospective.R,414,High-pressure/high-altitude,Internal environment value in superseded figure script,HISTORICAL / SMOKE_TEST,High-pressure/high-altitude,NO_ACTION_ARCHIVE
+descriptive/discovery_validation/code/D06_environment_interaction.R,8,High-pressure/high-altitude,Internal contrast metadata,HISTORICAL / FROZEN,High-pressure/high-altitude,NO_ACTION_ARCHIVE
+descriptive/analysis_v2.0/M12_pathway_v2.1/M12_03_integration.R,152,High-pressure/high-altitude,Internal environment value in frozen pathway integration,HISTORICAL / FROZEN,High-pressure/high-altitude,NO_ACTION_ARCHIVE
+code/P3.py,3 lines / 12 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+code/P1.py,5 lines / 20 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/09_detection_pattern_analysis.R,3 lines / 8 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/08c_run_replication.R,1 line / 4 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/07_limma_dose_analysis.R,4 lines / 13 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/06_covariate_QC.R,5 lines / 18 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/05_dose_quantitative_filtering.py,2 lines / 8 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/04_complete_four_layers.py,44 lines / 1116 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/03_design_composition.py,21 lines / 751 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/02_detection_gradient.py,27 lines / 926 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/01_describe_proteomics.py,31 lines / 774 Han characters,Chinese text in non-mainline code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/stage05_normalization_helper.py,5 lines / 18 Han characters,Chinese text in non-mainline helper,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/archive/06_limma_result_plots.R,1 line / 4 Han characters,Chinese text in archived code,ARCHIVE,English display text if reactivated,NO_ACTION_ARCHIVE
+descriptive/missingness_robustness/code/missingness_robustness.R,1 line / 5 Han characters,Chinese text in non-mainline robustness code,HISTORICAL,English display text if reactivated,NO_ACTION_ARCHIVE
