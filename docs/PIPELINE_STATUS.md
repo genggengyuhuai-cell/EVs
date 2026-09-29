@@ -1,0 +1,46 @@
+# PIPELINE_STATUS.md — analysis-v2.1
+
+Per-module status as of 2026-09-29. Status vocabulary:
+`FROZEN_COMPLETE | PASS | PASS_WITH_LIMITATIONS | SUPPLEMENTARY | HISTORICAL | ARCHIVED`.
+
+| Module | Canonical entry | Output | Role | Status | Notes |
+|---|---|---|---|---|---|
+| P1 raw-data mapping audit | `code/P1.py` | `rawdata/sample_mapping_audit.xlsx` | Upstream raw-data processing | FROZEN_COMPLETE | Relative paths; reproducibility-required |
+| P2 ambiguous context | `code/P2.py` | `rawdata/sample_mapping_ambiguous_context.xlsx` | Upstream raw-data processing | FROZEN_COMPLETE |  |
+| P3 final sample mapping | `code/P3.py` | `rawdata/sample_mapping_FINAL.xlsx` | Upstream raw-data processing | FROZEN_COMPLETE | Consumed by downstream proteomics pipeline |
+| D01 discovery eligibility | `descriptive/discovery_validation/code/D01*.py` | `D01_discovery_eligibility/` | Primary discovery universe | FROZEN_COMPLETE | 1,445 Discovery-eligible proteins |
+| D02 discovery primary | `D02*.py` | `D02_discovery_primary/` | High-vs-Low discovery | FROZEN_COMPLETE | 85 at BH-FDR<0.05 |
+| D03 candidate lock | `D03_locked_candidates.csv` | `D03_candidate_lock/` | Candidate lock | FROZEN_COMPLETE | Exactly 85 rows; SHA-256 in protocol |
+| D04 dose trajectory | `D04*.py` | `D04_dose_trajectory/` | Descriptive | SUPPLEMENTARY | Overall-exposure family null |
+| D05 environment-specific | `D05*.py` | `D05_environment_specific/` | Descriptive concordance | SUPPLEMENTARY | Stratified, not interaction |
+| D06 environment interaction | `D06*.py` | `D06_environment_interaction/` | Formal interaction | SUPPLEMENTARY | Reconciled into M10 |
+| D07 site robustness | `D07*.py` | `D07_site_robustness/` | Robustness (not replication) | SUPPLEMENTARY | Reconciled with M11 |
+| D08 reused hold-out | `D08*.py` | `D08_validation/` | Replication hierarchy | FROZEN_COMPLETE | 85/83/29/1 |
+| D09 missingness / peptides | `D09*.py` | `D09_missingness_detection_peptides/` | Detection sensitivity | SUPPLEMENTARY | Unique-peptide axis out of scope |
+| D10 integrated context | `D10*.py` | `D10_integrated_biology/` | Integration | SUPPLEMENTARY | 85 rows x 67 cols |
+| M05 overall exposure | `code/V2_M05_overall_exposure.R` | `M05_overall_exposure/` | R2 landscape | FROZEN_COMPLETE | 0/1,430 at BH-FDR<0.05 |
+| M06 ordered / omnibus | `code/V2_M06_ordered_omnibus_architecture.R` | `M06_ordered_omnibus_architecture/` | R2 architecture | FROZEN_COMPLETE |  |
+| M07 pairwise | `code/V2_M07_pairwise_contrasts.R` | `M07_pairwise_contrasts/` | R2 contrasts | FROZEN_COMPLETE | LC 13 / HC 0 / HL 257 |
+| M08 detection (Firth) | `code/V2_M08_firth_detection.R` | `M08_detection/Firth_primary/` | Detection robustness | SUPPLEMENTARY | 2/3,054 at BH-FDR<0.05 |
+| M09 missingness KNN | `code/V2_M09_knn_sensitivity.R` | `M09_missingness_sensitivity/KNN_sensitivity/` | Missingness sensitivity | SUPPLEMENTARY | corr=0.931 vs primary |
+| M10 pure interaction | `code/V2_M10_corrected_interaction.R` | `M10_environment_interaction/corrected_pure_interaction/` | Interaction null | FROZEN_COMPLETE | 0/1,430 at BH-FDR<0.05 |
+| M11 site LOO | `code/V2_M11_site_robustness.R` | `M11_site_robustness/` | Site robustness | PASS_WITH_LIMITATIONS | LOO not replication |
+| M12 pathway v2.1 | `M12_01_mapping.R -> M12_02_ranked_ora.R -> M12_02b_kegg_fix.R -> M12_03_integration.R` | `M12_pathway_v2.1/` | R6 representative themes | FROZEN_COMPLETE | cameraPR 195 / ORA 23 / fgsea 39 / KEGG NOT_RUN |
+| M12B biological context v2.1 | `M12B_all.R` | `M12B_biological_context_v2.1/` | Biological interpretation layer | SUPPLEMENTARY | Not mechanistic validation |
+| M13 historical reconciliation | read-only | `M13_historical_reconciliation/` | Historical | HISTORICAL |  |
+| M14 frozen replication | `code/V2_M13_M14_reconciliation.R` | `M14_frozen_replication/` | R4 hierarchy | FROZEN_COMPLETE | 85/83/29/1 preserved |
+| M15 ML fixed-85 conditional | `ml_v2.1/run_v2_1_ml.R` | `ml_v2.1/results/` | Secondary predictive / prioritization | PASS_WITH_LIMITATIONS | Conditional on frozen 85; not unbiased generalization |
+| M15 strict nested sensitivity | `ml_v2.1/strict_nested_sensitivity.R` | `ml_v2.1/strict_nested/` | Sensitivity | SUPPLEMENTARY | Fold-local DEP range 8–618 |
+| M17 figures | `code/V2_M17_figures_v2.R` | `figures_final_v2/` | Manuscript Fig 1–6 | FROZEN_COMPLETE | 6 PDF + 6 SVG + 6 source_data CSVs |
+| Upstream descriptive figures | `descriptive/06..11*.R`, `nature_plotting.py` | `descriptive/figures_nature_v2.2/` (+10 nested dirs) | Methods/QC | SUPPLEMENTARY | 649 files; provenance audited 2026-09-29 |
+
+## Archive layer (do not run, do not edit)
+
+- `archive/debug/`, `archive/installers/`, `archive/logs/` — Batch-1 clutter.
+- `archive/superseded_code/` — 11 superseded scripts (Batch-1) + `V2_M12_pathway.R` (Batch-2).
+- `archive/historical_frozen/figures_final_v1/` — superseded M17 v1.
+- `archive/historical_frozen/figures_prospective_v2.6/` — frozen visual baseline, superseded by v2.7.
+- `archive/historical_frozen/M12_pathway_enrichment_v1/` — M12 v1.
+- `archive/historical_frozen/ml_legacy/` — legacy ML tree.
+
+See `archive/ARCHIVE_MANIFEST.csv` and `archive/HISTORICAL_MANIFEST.csv` for full provenance.

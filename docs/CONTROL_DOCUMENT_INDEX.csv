@@ -1,0 +1,37 @@
+Document,Classification,Canonical,Purpose,Current_status,Superseded_by,Needs_update,Notes
+PROJECT_CONTEXT.md,AUTHORITATIVE_CURRENT,YES,Top-level project identity / frozen numbers / canonical entrypoints,ACTIVE,none,No,Rewritten 2026-09-29 to analysis-v2.1 state.
+docs/PIPELINE_STATUS.md,AUTHORITATIVE_CURRENT,YES,Per-module status table,ACTIVE,none,No,Created 2026-09-29.
+docs/ACTIVE_MAINLINE_MANIFEST.csv,AUTHORITATIVE_CURRENT,YES,Canonical mainline module registry,ACTIVE,none,No,Includes P1/P2/P3.
+docs/SUPPLEMENTARY_ANALYSIS_MANIFEST.csv,AUTHORITATIVE_CURRENT,YES,Supplementary module registry,ACTIVE,none,No,Includes figures_nature_v2.2.
+docs/REPOSITORY_RISK_REGISTER.csv,AUTHORITATIVE_CURRENT,YES,Risk register,ACTIVE,none,No,R34 resolved (P1/P2/P3); R37 resolved (figures_nature_v2.2).
+docs/FINAL_REPOSITORY_RECONSTRUCTION_AUDIT.md,AUTHORITATIVE_CURRENT,YES,Repository reconstruction audit + Batch-1/2 log,ACTIVE,none,No.
+docs/FIGURES_NATURE_V2_2_PROVENANCE_AUDIT.md,AUTHORITATIVE_CURRENT,YES,Provenance audit of upstream QC figures,ACTIVE,none,No.
+docs/FIGURES_NATURE_V2_2_FILE_MAP.csv,AUTHORITATIVE_CURRENT,YES,Directory-level file map,ACTIVE,none,No.
+docs/CONTROL_DOCUMENT_INDEX.csv,AUTHORITATIVE_CURRENT,YES,This index,ACTIVE,none,No.
+docs/CONTROL_DOCUMENT_CONSOLIDATION_REPORT.md,AUTHORITATIVE_CURRENT,YES,Consolidation report,ACTIVE,none,No.
+archive/PROPOSED_ARCHIVE_MOVES.csv,AUTHORITATIVE_CURRENT,YES,Proposed move plan (with DONE_BATCH2 / NO flags),ACTIVE,none,No.
+archive/ARCHIVE_MANIFEST.csv,AUTHORITATIVE_CURRENT,YES,Archive provenance log,ACTIVE,none,No.
+archive/HISTORICAL_MANIFEST.csv,AUTHORITATIVE_CURRENT,YES,Historical frozen registry,ACTIVE,none,No.
+manuscript_v2_1/audit/STATISTICAL_REPORTING_AUDIT.md,AUTHORITATIVE_CURRENT,YES,Statistical reporting audit,ACTIVE,none,No.
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv,AUTHORITATIVE_CURRENT,YES,Claim map,ACTIVE,none,No.
+manuscript_v2_1/audit/WHOLE_PROJECT_SCIENTIFIC_REVIEW.md,AUTHORITATIVE_CURRENT,YES,Scientific review,ACTIVE,none,No.
+manuscript_v2_1/audit/EXPERIMENTAL_DESIGN_REVIEW.md,AUTHORITATIVE_CURRENT,YES,Design review,ACTIVE,none,No.
+manuscript_v2_1/audit/PROJECT_RECONSTRUCTION_PLAN.md,AUTHORITATIVE_CURRENT,YES,Narrative architecture plan,ACTIVE,none,No.
+manuscript_v2_1/audit/REVIEWER_RISK_REGISTER.csv,AUTHORITATIVE_CURRENT,YES,Reviewer risk register,ACTIVE,none,No.
+manuscript_v2_1/audit/MANUSCRIPT_MODULE_MAP.csv,AUTHORITATIVE_CURRENT,YES,Module -> paper section map,ACTIVE,none,No.
+docs/protocol/ANALYSIS_PLAN_v2.1.md,AUTHORITATIVE_CURRENT,YES,Current v2.1 analysis plan,ACTIVE,none,No.
+docs/protocol/DISCOVERY_VALIDATION_PROTOCOL.md,AUTHORITATIVE_CURRENT,YES,Frozen D01-D10 protocol,ACTIVE,none,No.
+docs/protocol/DISCOVERY_VALIDATION_SPLIT_SPEC.md,AUTHORITATIVE_CURRENT,YES,Frozen split spec,ACTIVE,none,No.
+docs/protocol/STUDY_DESIGN_AUDIT.md,SUPPORTING_CURRENT,NO,Historical design audit (v1.0/v2.0 era),SUPPORT,PROJECT_CONTEXT.md,No,Retained for design provenance; environment wording internal-key.
+docs/protocol/ANALYSIS_PLAN_v2.0.md,SUPERSEDED,NO,Old v2.0 plan,archive/,ANALYSIS_PLAN_v2.1.md,No,Keep as historical; do not update.
+docs/protocol/V2_IMPLEMENTATION_GAP_AUDIT.md,HISTORICAL,NO,Implementation gap audit,archive/,PROJECT_CONTEXT.md,No.
+docs/workflow/MASTER_PROJECT_STATUS_2026-09-28.md,HISTORICAL,NO,Snapshot as of 2026-09-28,PIPELINE_STATUS.md,No,Predates M12 v2.1 / M17 / ml_v2.1 finalization; keep as dated snapshot.
+docs/workflow/PROJECT_LOGIC_AUDIT_2026-09-28.md,HISTORICAL,NO,Project logic audit snapshot,archive/,FINAL_REPOSITORY_RECONSTRUCTION_AUDIT.md,No.
+docs/workflow/CODEX_WORKFLOW.md,HISTORICAL,NO,Workflow notes,archive/,PIPELINE_STATUS.md,No.
+docs/workflow/FILE_STATUS.md,HISTORICAL,NO,File status snapshot,archive/,CONTROL_DOCUMENT_INDEX.csv,No.
+docs/workflow/MASTER_PROJECT_AUDIT_BACKLOG.md,HISTORICAL,NO,Backlog snapshot,archive/,Remaining tasks in PROJECT_CONTEXT.md,No.
+docs/task/TASK_CURRENT.md,SUPERSEDED,NO,Stale v1.0 task state (says next M07),archive/,PROJECT_CONTEXT.md,No,Predates M05-M17 completion.
+docs/README.md,SUPPORTING_CURRENT,NO,Brief docs README,SUPPORT,none,No.
+docs/archive/early_plans/README_*.md,HISTORICAL,NO,v1.0 early plans,archive/,none,No,Already archived.
+docs/archive/legacy_framework_v2.0/README_*.md,HISTORICAL,NO,v2.0 legacy framework,archive/,none,No.
+docs/archive/maintenance_logs/README_CODE_MAINTENANCE_v2.*.md,HISTORICAL,NO,Maintenance logs,archive/,none,No.
