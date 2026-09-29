@@ -158,3 +158,55 @@ Do not stage archive candidates themselves. Do not move files.
 ## 17. Blocking issues
 
 None that require reopening analysis. The reconstruction can proceed without any statistical re-run. The only open human-review items are the three top-level exploratory scripts and the three large historical bundles (§13).
+
+---
+
+## 18. Archive Execution Batch 2 (2026-09-29)
+
+### 18.1 P1 / P2 / P3 reclassification (user-confirmed)
+
+- `code/P1.py` — ACTIVE_MAINLINE / REPRODUCIBILITY_REQUIRED / RAW_DATA_PROCESSING.
+  Input `../rawdata/processed.xlsx` → output `../rawdata/sample_mapping_audit.xlsx`.
+  Maps Sheet1 Excel headers to Sheet2 metadata; classifies CONFIRMED_UNIQUE / AMBIGUOUS / UNMATCHED / CONFLICT.
+- `code/P2.py` — ACTIVE_MAINLINE. Reads `sample_mapping_audit.xlsx` → `sample_mapping_ambiguous_context.xlsx`.
+- `code/P3.py` — ACTIVE_MAINLINE. Reads `processed.xlsx` + `sample_mapping_audit.xlsx` → `sample_mapping_FINAL.xlsx`.
+- All three use relative paths only; no hard-coded absolute paths.
+- Added to `docs/ACTIVE_MAINLINE_MANIFEST.csv`; rows in `archive/PROPOSED_ARCHIVE_MOVES.csv` marked `Safe_to_move_now=NO`.
+
+### 18.2 Historical bundles actually moved
+
+| Bundle | Destination | Files | Decision |
+|---|---|---|---|
+| `descriptive/analysis_v2.0/figures_final_v1/` | `archive/historical_frozen/figures_final_v1/` | 8 | HISTORICAL_FROZEN (superseded by v2) |
+| `descriptive/discovery_validation/figures_prospective_v2.6/` | `archive/historical_frozen/figures_prospective_v2.6/` | 72 | HISTORICAL_FROZEN (frozen visual baseline, superseded by v2.7) |
+| `descriptive/analysis_v2.0/M12_pathway_enrichment/` | `archive/historical_frozen/M12_pathway_enrichment_v1/` | 1 | HISTORICAL_FROZEN (superseded by v2.1) |
+| `descriptive/analysis_v2.0/ml/` | `archive/historical_frozen/ml_legacy/` | 91 | HISTORICAL_FROZEN (self-contained legacy ML) |
+| `descriptive/analysis_v2.0/code/V2_M12_pathway.R` | `archive/superseded_code/V2_M12_pathway.R` | 1 | SUPERSEDED (producer of M12 v1; not sourced by active code) |
+
+All moves via `git mv` (history preserved).
+
+### 18.3 Bundle held for REVIEW
+
+- `descriptive/figures_nature_v2.2/` — **NOT MOVED in Batch 2**.
+  Dependency grep shows it is actively WRITTEN by upstream descriptive scripts:
+  `06_covariate_QC.R:75`, `07_limma_dose_analysis.R:831`, `08b_limma_robustness.R:125`,
+  `08c_run_replication.R:144`, `09_detection_pattern_analysis.R:246`, `10a_DEP_characterization.R:259`,
+  `10b_DEP_effect_size_summary.R:267`, `11a_dose_pattern_classification.R:22`,
+  `11b_protein_clustering.R:48`, `nature_plotting.py:34`.
+  It is an active upstream QC output directory, not a pure historical bundle.
+  Marked REVIEW; revisit after upstream descriptive pipeline is itself frozen.
+
+### 18.4 Post-move dependency scan
+
+- Active `.R` / `.py` under `descriptive/` (excluding `archive/`, `ml_legacy/`) contains **0 references** to
+  `figures_final_v1`, `figures_prospective_v2.6`, `M12_pathway_enrichment` (v1), or `analysis_v2.0/ml/` (legacy).
+- The only remaining references are markdown provenance notes in `docs/workflow/*.md` (historical).
+- `figures_nature_v2.2/` retains its active producers (expected; not a Batch-2 move).
+
+### 18.5 Manifest updates
+
+- `docs/ACTIVE_MAINLINE_MANIFEST.csv`: +3 rows (P1/P2/P3).
+- `archive/PROPOSED_ARCHIVE_MOVES.csv`: P1/P2/P3 → `NO`; 4 bundles → `DONE_BATCH2`.
+- `archive/HISTORICAL_MANIFEST.csv`: +5 rows (4 bundles + V2_M12_pathway.R).
+- `archive/ARCHIVE_MANIFEST.csv`: +5 rows (Batch_2).
+- `docs/REPOSITORY_RISK_REGISTER.csv`: R34 resolved to ACTIVE; R37 marked REVIEW.

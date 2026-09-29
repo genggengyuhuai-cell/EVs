@@ -28,3 +28,6 @@ figures_prospective_v2.7,discovery_validation/figures_prospective_v2.7/,discover
 ml_legacy,analysis_v2.0/ml/,analysis_v2.0/ml/,Superseded ML pipeline,n/a,Optional,HISTORICAL_FROZEN,Invalidated runners preserved for audit.
 M12_pathway_enrichment_v1,analysis_v2.0/M12_pathway_enrichment/,analysis_v2.0/M12_pathway_enrichment/,Superseded M12 v1,n/a,Optional,HISTORICAL_FROZEN,Only M12_block_record.csv remains.
 M13_historical_reconciliation,analysis_v2.0/M13_historical_reconciliation/,analysis_v2.0/M13_historical_reconciliation/,Historical reconciliation,Optional,Optional,HISTORICAL_FROZEN,
+P1_sample_mapping_audit,code/P1.py,rawdata/sample_mapping_audit.xlsx,Upstream raw-data processing,Methods/QC,REQUIRED,ACTIVE_MAINLINE,Reads rawdata/processed.xlsx; maps Sheet1 Excel headers to Sheet2 metadata; classifies CONFIRMED_UNIQUE/AMBIGUOUS/UNMATCHED/CONFLICT. Relative paths only.
+P2_ambiguous_context,code/P2.py,rawdata/sample_mapping_ambiguous_context.xlsx,Upstream raw-data processing,Methods/QC,REQUIRED,ACTIVE_MAINLINE,Reads sample_mapping_audit.xlsx (01_All_Mapping); expands AMBIGUOUS rows for manual review.
+P3_sample_mapping_FINAL,code/P3.py,rawdata/sample_mapping_FINAL.xlsx,Upstream raw-data processing,Methods/QC,REQUIRED,ACTIVE_MAINLINE,Reads processed.xlsx + sample_mapping_audit.xlsx; emits final sample mapping consumed downstream by proteomics pipeline.

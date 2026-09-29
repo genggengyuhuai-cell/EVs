@@ -25,13 +25,13 @@ descriptive/analysis_v2.0/code/V2_M15_audit.R,archive/superseded_code/V2_M15_aud
 descriptive/analysis_v2.0/code/V2_M15_ml_discovery.R,archive/superseded_code/V2_M15_ml_discovery.R,SUPERSEDED,Legacy ML discovery,ml_v2.1/run_v2_1_ml.R,No,YES,None,
 descriptive/analysis_v2.0/code/V2_M16_holdout.R,archive/superseded_code/V2_M16_holdout.R,SUPERSEDED,Reconciled into M14,M14_frozen_replication/,No,YES,None,
 descriptive/analysis_v2.0/code/V2_M17_figures.R,archive/superseded_code/V2_M17_figures.R,SUPERSEDED,M17 v1 script,V2_M17_figures_v2.R,No,YES,None,
-descriptive/analysis_v2.0/figures_final_v1/,archive/historical_frozen/figures_final_v1/,HISTORICAL_FROZEN,Superseded figure bundle,figures_final_v2/,No,REVIEW,Verify no active figure references v1,
-descriptive/discovery_validation/figures_prospective_v2.6/,archive/historical_frozen/figures_prospective_v2.6/,HISTORICAL_FROZEN,Superseded by v2.7,figures_prospective_v2.7/,No,REVIEW,Verify no manuscript references v2.6,
-descriptive/analysis_v2.0/M12_pathway_enrichment/,archive/historical_frozen/M12_pathway_enrichment_v1/,HISTORICAL_FROZEN,Superseded by v2.1,M12_pathway_v2.1/,No,YES,Only M12_block_record.csv remains,
-descriptive/analysis_v2.0/ml/,archive/historical_frozen/ml_legacy/,HISTORICAL_FROZEN,Old ML pipeline,ml_v2.1/,No,REVIEW,Large tree; verify no active result references old ml/,
-code/P1.py,archive/exploratory/P1.py,UNKNOWN_REVIEW,Top-level exploratory script,No,No,REVIEW,Confirm purpose before move,
-code/P2.py,archive/exploratory/P2.py,UNKNOWN_REVIEW,Top-level exploratory script,No,No,REVIEW,Confirm purpose before move,
-code/P3.py,archive/exploratory/P3.py,UNKNOWN_REVIEW,Top-level exploratory script,No,No,REVIEW,Confirm purpose before move,
+descriptive/analysis_v2.0/figures_final_v1/,archive/historical_frozen/figures_final_v1/,HISTORICAL_FROZEN,Superseded figure bundle,figures_final_v2/,No,DONE_BATCH2,Moved 2026-09-29; no active code references v1,
+descriptive/discovery_validation/figures_prospective_v2.6/,archive/historical_frozen/figures_prospective_v2.6/,HISTORICAL_FROZEN,Frozen visual baseline; superseded by v2.7,figures_prospective_v2.7/,No,DONE_BATCH2,Moved 2026-09-29; no active code references v2.6,
+descriptive/analysis_v2.0/M12_pathway_enrichment/,archive/historical_frozen/M12_pathway_enrichment_v1/,HISTORICAL_FROZEN,Superseded by v2.1,M12_pathway_v2.1/,No,DONE_BATCH2,Moved 2026-09-29; producer V2_M12_pathway.R also moved to archive/superseded_code/,
+descriptive/analysis_v2.0/ml/,archive/historical_frozen/ml_legacy/,HISTORICAL_FROZEN,Old ML pipeline; self-contained,ml_v2.1/,No,DONE_BATCH2,Moved 2026-09-29; all source() calls internal to ml_legacy,
+code/P1.py,KEEP ACTIVE_MAINLINE,ACTIVE_MAINLINE,Canonical raw-data sample-mapping audit code,No,No,NO,User-confirmed 2026-09-29,Do NOT archive. Input rawdata/processed.xlsx -> rawdata/sample_mapping_audit.xlsx.
+code/P2.py,KEEP ACTIVE_MAINLINE,ACTIVE_MAINLINE,Canonical raw-data ambiguous-context code,No,No,NO,User-confirmed 2026-09-29,Do NOT archive. Reads sample_mapping_audit.xlsx -> sample_mapping_ambiguous_context.xlsx.
+code/P3.py,KEEP ACTIVE_MAINLINE,ACTIVE_MAINLINE,Canonical raw-data final mapping code,No,No,NO,User-confirmed 2026-09-29,Do NOT archive. Reads processed.xlsx + sample_mapping_audit.xlsx -> sample_mapping_FINAL.xlsx.
 execute_discovery_validation_split.R,archive/historical_frozen/execute_discovery_validation_split.R,ONE_OFF,Already consumed split,descovery_validation_split/,No,YES,Keep for provenance,
 tmp/,add to .gitignore,TEMPORARY,Scratch,No,No,YES,Do not track,
 descriptive/__pycache__/,add to .gitignore,TEMPORARY,Python bytecode,No,No,YES,Do not track,

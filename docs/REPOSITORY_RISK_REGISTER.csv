@@ -32,10 +32,10 @@ R30,descriptive/analysis_v2.0/M13_historical_reconciliation/,HISTORICAL_FROZEN,L
 R31,descriptive/analysis_v2.0/qc/invalidated/,INVALIDATED,Medium,Invalidated QA bundles preserved,No,HISTORICAL_FROZEN,No
 R32,descriptive/analysis_v2.0/ml/code/archive_invalidated/,INVALIDATED,Medium,Invalidated ML runners,No,HISTORICAL_FROZEN,No
 R33,descriptive/analysis_v2.0/figures_final_v2/Fig5_replication_ml_source_data.csv,TERMINOLOGY_NOTE,Low,Contains "NOT external validation" disclaimer; not plotted,No,Keep; wording already correct,No
-R34,code/P1.py,code/P2.py,code/P3.py,UNKNOWN_REVIEW,Medium,Top-level exploratory scripts; purpose unclear,No,Review before archive,Yes
+R34,code/P1.py,code/P2.py,code/P3.py,RESOLVED_ACTIVE,Low,User-confirmed 2026-09-29: canonical upstream raw-data sample-mapping code (processed.xlsx -> sample_mapping_FINAL.xlsx). Relative paths only. KEEP_ACTIVE,No,No archive; added to ACTIVE_MAINLINE_MANIFEST,No
 R35,execute_discovery_validation_split.r,ONE_OFF,Low,Root-level split script; already consumed,No,Archive,HISTORICAL,No
 R36,tmp/,TEMPORARY,Low,Scratch directory,No,Add to .gitignore; do not track,No
-R37,descriptive/figures_nature_v2.2/,LEGACY_FIGURE_BUNDLE,Medium,Earlier descriptive QC figure bundle,No,SUPPLEMENTARY or HISTORICAL_FROZEN; review,No
+R37,descriptive/figures_nature_v2.2/,REVIEW_ACTIVE_PRODUCER,Medium,Actively WRITTEN by upstream descriptive scripts (06_covariate_QC.R, 07_limma_dose_analysis.R, 08b/08c/09/10a/10b/11a/11b, nature_plotting.py). Not a pure historical bundle; do NOT bulk-move in Batch_2,Yes,Keep in place as SUPPLEMENTARY upstream QC output; revisit after upstream pipeline freeze,No
 R38,descriptive/__pycache__/,TEMPORARY,Low,Python bytecode cache,No,Add to .gitignore,No
 R39,docs/archive/,EXISTING_ARCHIVE,None,Already-archived legacy docs,No,Keep,No
 R40,descriptive/analysis_v2.0/config/v2_config.md,ACTIVE_DOC,None,Current config,Yes,Keep,No

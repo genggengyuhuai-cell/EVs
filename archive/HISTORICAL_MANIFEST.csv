@@ -21,3 +21,8 @@ docs/archive/maintenance_logs/,HISTORICAL_FROZEN,Maintenance logs v2.0-v2.3,n/a,
 descriptive/archive/,HISTORICAL_FROZEN,Existing archive root,n/a,Keep; new archive will live alongside
 descriptive/analysis_v2.0/M12_pathway_v2.1/ora/M12_ORA_KEGG.csv,HISTORICAL_FROZEN,KEGG placeholder (NOT_RUN),n/a,2-row placeholder
 descriptive/analysis_v2.0/M12_pathway_v2.1/ranked/M12_ranked_KEGG.csv,HISTORICAL_FROZEN,KEGG placeholder (NOT_RUN),n/a,2-row placeholder
+archive/historical_frozen/figures_final_v1/,HISTORICAL_FROZEN,M17 figure bundle v1 superseded by figures_final_v2/,figures_final_v2/,Moved Batch_2 2026-09-29 (git mv, 8 files). No active code references v1.
+archive/historical_frozen/figures_prospective_v2.6/,HISTORICAL_FROZEN,Frozen visual baseline superseded by v2.7,figures_prospective_v2.7/,Moved Batch_2 2026-09-29 (git mv, 72 files). No active code references v2.6.
+archive/historical_frozen/M12_pathway_enrichment_v1/,HISTORICAL_FROZEN,M12 pathway v1 superseded by M12_pathway_v2.1/,M12_pathway_v2.1/,Moved Batch_2 2026-09-29 (git mv, 1 file).
+archive/historical_frozen/ml_legacy/,HISTORICAL_FROZEN,Legacy ML pipeline superseded by ml_v2.1/,ml_v2.1/,Moved Batch_2 2026-09-29 (git mv, 91 files). Self-contained; all source() calls internal.
+archive/superseded_code/V2_M12_pathway.R,SUPERSEDED,Producer of M12 v1; not sourced by any active script,M12_pathway_v2.1/M12_01_mapping.R,Moved Batch_2 2026-09-29.
