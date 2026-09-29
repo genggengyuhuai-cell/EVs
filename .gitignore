@@ -1,2 +1,13 @@
-rawdata/ 
+﻿rawdata/
 descriptive/discovery_validation/figures_prospective_v1/
+
+# Temporary/runtime files
+tmp/
+**/__pycache__/
+*.pyc
+
+# QA-only manuscript previews (not submission raster)
+*_preview.png
+
+# Runtime console logs (provenance preserved in archive/ARCHIVE_MANIFEST.csv)
+*.log
