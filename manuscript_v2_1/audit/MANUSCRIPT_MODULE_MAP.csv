@@ -1,0 +1,33 @@
+Module,Analysis,Scientific_role,Paper_location,Figure,Table,Result_section,Reason
+D01_discovery_eligibility,Discovery eligibility gates,Primary,MAIN_TEXT,Fig1,Table1,R1 cohort/universe,Defines 515 analytical cohort
+D02_discovery_primary,High-vs-Low discovery,Primary,MAIN_TEXT,Fig3,Table2,R3 85 DEPs,Produces 85 candidate pool
+D03_candidate_lock,85-protein lock,Primary,MAIN_TEXT,Fig1,Table2,R3,R4,Lock before hold-out use
+D04_dose_trajectory,Dose trajectory,Descriptive,SUPPLEMENT,Fig3 supp,SuppTab,SENS,Overall family null; trajectory descriptive
+D05_environment_specific,Environment-stratified,Descriptive,SUPPLEMENT,Fig4 supp,SuppTab,R5 robustness,Coupled to site
+D06_environment_interaction,Legacy interaction,Superseded,ARCHIVE_ONLY,n/a,n/a,n/a,Reconciled into M10
+D07_site_robustness,Legacy site robustness,Superseded,SUPPLEMENT,Fig4 supp,SuppTab,R5 robustness,Reconciled with M11
+D08_validation,Reused hold-out replication,Primary,MAIN_TEXT,Fig5a,Table3,R4 hierarchy,85/83/29/1
+D09_missingness_detection_peptides,Unique peptide sensitivity,Sensitivity,SUPPLEMENT,n/a,SuppTab,Methods,Sensitivity
+D10_integrated_biology,Integrated candidate context,Interpretation,SUPPLEMENT,n/a,SuppTab,R6 context,Supports M12B
+M05_overall_exposure,Overall exposure landscape,Primary,MAIN_TEXT,Fig2a,Table2,R2 landscape,0/1430 null context
+M06_ordered_omnibus_architecture,Adjusted means + architecture,Supporting,MAIN_TEXT,Fig2d,Table2,R2,Descriptive architecture
+M07_pairwise_contrasts,Pairwise contrasts,Primary,MAIN_TEXT,Fig2b,Table2,R2,13/0/257 per contrast
+M08_detection,Firth detection,Sensitivity,SUPPLEMENT,Fig2c (small),SuppTab,R5 robustness,2/3054
+M09_missingness_sensitivity,KNN on 85,Sensitivity,SUPPLEMENT,Fig3c,SuppTab,R5 robustness,
+M10_environment_interaction,Pure interaction,Primary (null statement),MAIN_TEXT,Fig4b,SuppTab,R5,0/1430 null
+M11_site_robustness,Site LOO,Sensitivity,MAIN_TEXT (summary),Fig4c,d,SuppTab,R5 robustness,
+M12_pathway_v2.1_cameraPR,Ranked competitive pathway,Primary pathway,MAIN_TEXT,Fig6a,c,d,Table4,R6 representative themes,
+M12_pathway_v2.1_ORA,Complementary ORA,Complementary,SUPPLEMENT,n/a,SuppTab,R6,23 pathways
+M12_pathway_v2.1_fgsea,Ranked sensitivity,Sensitivity,SUPPLEMENT,Fig6b,SuppTab,R6,39 pathways
+M12B_biological_context_v2.1,Biological context,Interpretation,SUPPLEMENT,n/a,SuppTab,R6,Not mechanism
+M14_frozen_replication,Replication hierarchy,Primary,MAIN_TEXT,Fig5a,Table3,R4,85/83/29/1
+M15_fixed85_conditional,Conditional ML,Secondary/Sensitivity,MAIN_TEXT (summary) + SUPPLEMENT,Fig5b,c,d (to supplement),SuppTab,R5,Conditional on 85
+M15_strict_nested,Strict nested sensitivity,Sensitivity,SUPPLEMENT,n/a,SuppTab,R5,8-618 fold-local DEP
+M15_boruta_xgb,Importance,Exploratory,SUPPLEMENT,n/a,SuppTab,n/a,Post-selection descriptive
+M17_figures,Figures 1-6,Primary,MAIN_TEXT,Fig1-6,n/a,n/a,Rendering layer
+Upstream_QC_descriptive,QC descriptive figures,Context,SUPPLEMENT,n/a,SuppTab,Methods,QC narrative
+figures_nature_v2.2,Earlier QC bundle,Context,SUPPLEMENT,n/a,n/a,Methods,
+figures_prospective_v2.7,Discovery figures bundle,Context,SUPPLEMENT,n/a,n/a,n/a,
+figures_final_v1,Legacy figures,Not used,ARCHIVE_ONLY,n/a,n/a,n/a,Superseded by v2
+M12_pathway_enrichment_v1,Legacy M12,Not used,ARCHIVE_ONLY,n/a,n/a,n/a,Superseded by v2.1
+ml_legacy,Legacy ML,Not used,ARCHIVE_ONLY,n/a,n/a,n/a,Superseded by ml_v2.1

@@ -1,0 +1,23 @@
+Path,Classification,Reason,Canonical_replacement,Notes
+descriptive/analysis_v2.0/figures_final_v1/,HISTORICAL_FROZEN,Figure bundle v1 superseded by v2,figures_final_v2/,Preserve for audit
+descriptive/analysis_v2.0/M12_pathway_enrichment/,HISTORICAL_FROZEN,M12 v1 superseded by v2.1,M12_pathway_v2.1/,Only block record remains
+descriptive/analysis_v2.0/ml/,HISTORICAL_FROZEN,Old ML pipeline with invalidated runners,ml_v2.1/,Large tree; preserve
+descriptive/analysis_v2.0/ml/code/archive_invalidated/,HISTORICAL_FROZEN,Invalidated ML runners,n/a,Already inside legacy ml tree
+descriptive/analysis_v2.0/ml/models/invalidated/,HISTORICAL_FROZEN,Invalidated models,n/a,Already inside legacy ml tree
+descriptive/analysis_v2.0/ml/results/invalidated/,HISTORICAL_FROZEN,Invalidated results,n/a,Already inside legacy ml tree
+descriptive/analysis_v2.0/ml/qc/invalidated/,HISTORICAL_FROZEN,Invalidated QC,n/a,Already inside legacy ml tree
+descriptive/analysis_v2.0/qc/invalidated/,HISTORICAL_FROZEN,Invalidated QC bundles,n/a,
+descriptive/analysis_v2.0/M13_historical_reconciliation/,HISTORICAL_FROZEN,Historical reconciliation table,n/a,
+descriptive/discovery_validation/figures_prospective_v2.6/,HISTORICAL_FROZEN,Discovery figures v2.6 superseded by v2.7,figures_prospective_v2.7/,
+descriptive/analysis_v2.0/code/V2_M17_figures.R,SUPERSEDED,M17 v1 script,V2_M17_figures_v2.R,
+descriptive/analysis_v2.0/code/V2_M08_detection.R,SUPERSEDED,Non-Firth detection,V2_M08_firth_detection.R,
+descriptive/analysis_v2.0/code/V2_M09_missingness_sensitivity.R,SUPERSEDED,Non-KNN sensitivity,V2_M09_knn_sensitivity.R,
+descriptive/analysis_v2.0/code/V2_M10_environment_interaction.R,SUPERSEDED,Non-corrected interaction,V2_M10_corrected_interaction.R,
+descriptive/analysis_v2.0/code/V2_M15v2_*.R,SUPERSEDED,Legacy M15 lock/repair/audit,ml_v2.1/,
+descriptive/analysis_v2.0/code/V2_M16_holdout.R,SUPERSEDED,Reconciled into M14,M14_frozen_replication/,
+docs/archive/legacy_framework_v2.0/,HISTORICAL_FROZEN,Legacy framework v2.0,n/a,Already archived
+docs/archive/early_plans/,HISTORICAL_FROZEN,Early plans v1.0,n/a,Already archived
+docs/archive/maintenance_logs/,HISTORICAL_FROZEN,Maintenance logs v2.0-v2.3,n/a,Already archived
+descriptive/archive/,HISTORICAL_FROZEN,Existing archive root,n/a,Keep; new archive will live alongside
+descriptive/analysis_v2.0/M12_pathway_v2.1/ora/M12_ORA_KEGG.csv,HISTORICAL_FROZEN,KEGG placeholder (NOT_RUN),n/a,2-row placeholder
+descriptive/analysis_v2.0/M12_pathway_v2.1/ranked/M12_ranked_KEGG.csv,HISTORICAL_FROZEN,KEGG placeholder (NOT_RUN),n/a,2-row placeholder

@@ -1,0 +1,51 @@
+Risk_ID,Path,Risk_type,Severity,Description,Active_dependency,Recommended_action,Blocking
+R01,descriptive/analysis_v2.0/M17_probe.R,DEBUG_ONLY,Low,4-line package probe; not sourced by V2_M17_figures_v2.R,No,Do not track; archive later,No
+R02,descriptive/analysis_v2.0/ml_v2.1/00_inspect_env.R,DEBUG_ONLY,Low,Env probe; not sourced by active pipeline,No,Archive,No
+R03,descriptive/analysis_v2.0/ml_v2.1/check_trees.R,DEBUG_ONLY,Low,Package availability probe,No,Archive,No
+R04,descriptive/analysis_v2.0/ml_v2.1/install_boruta.R,INSTALL_HELPER,Low,One-off install; active pipeline uses hand-rolled ranger,No,Archive,No
+R05,descriptive/analysis_v2.0/ml_v2.1/run.log,LOG_ONLY,Low,Console capture,No,Archive,No
+R06,descriptive/analysis_v2.0/ml_v2.1/strict_nested_run.log,LOG_ONLY,Low,Console capture,No,Archive,No
+R07,descriptive/analysis_v2.0/M12_pathway_v2.1/00_probe.R,DEBUG_ONLY,Low,Probe,No,Archive,No
+R08,descriptive/analysis_v2.0/M12_pathway_v2.1/probe2.R,DEBUG_ONLY,Low,Probe,No,Archive,No
+R09,descriptive/analysis_v2.0/M12_pathway_v2.1/probe3.R,DEBUG_ONLY,Low,Probe,No,Archive,No
+R10,descriptive/analysis_v2.0/M12_pathway_v2.1/check_anchors_fgsea.R,DEBUG_ONLY,Low,Fgsea anchor probe,No,Archive,No
+R11,descriptive/analysis_v2.0/M12_pathway_v2.1/install_msigdbdf.R,INSTALL_HELPER,Low,One-off install,No,Archive,No
+R12,descriptive/analysis_v2.0/M12_pathway_v2.1/m01.log,LOG_ONLY,Low,Console capture,No,Archive,No
+R13,descriptive/analysis_v2.0/M12_pathway_v2.1/m02.log,LOG_ONLY,Low,Console capture,No,Archive,No
+R14,descriptive/analysis_v2.0/M12_pathway_v2.1/m02b.log,LOG_ONLY,Low,Console capture,No,Archive,No
+R15,descriptive/analysis_v2.0/M12_pathway_v2.1/m03.log,LOG_ONLY,Low,Console capture,No,Archive,No
+R16,descriptive/analysis_v2.0/M12_pathway_v2.1/probe.log,LOG_ONLY,Low,Console capture,No,Archive,No
+R17,descriptive/analysis_v2.0/M12B_biological_context_v2.1/run.log,LOG_ONLY,Low,Console capture,No,Archive,No
+R18,descriptive/analysis_v2.0/figures_final_v2/*_preview.png,QA_PREVIEW,Low,QA-only PNG previews; not submission raster,No,Do not track; keep local,No
+R19,descriptive/analysis_v2.0/figures_final_v1/,SUPERSEDED_MAJOR,Medium,Figure v1 bundle superseded by v2,No,HISTORICAL_FROZEN; keep on disk but out of mainline,No
+R20,descriptive/analysis_v2.0/M12_pathway_enrichment/,SUPERSEDED_MAJOR,Medium,Old M12 v1; only block record remains,No,HISTORICAL_FROZEN,No
+R21,descriptive/analysis_v2.0/ml/,SUPERSEDED_MAJOR,High,Old ML pipeline with invalidated runners; large tree,No,HISTORICAL_FROZEN; do not delete,No
+R22,descriptive/discovery_validation/figures_prospective_v2.6/,SUPERSEDED_MINOR,Low,Superseded by v2.7,No,HISTORICAL_FROZEN,No
+R23,descriptive/analysis_v2.0/code/V2_M17_figures.r,SUPERSEDED_SCRIPT,Low,Old M17 v1 figure script,No,HISTORICAL_FROZEN,No
+R24,descriptive/analysis_v2.0/code/V2_M17_figures_v2.r,ACTIVE,None,Canonical M17 script,Yes,n/a,No
+R25,descriptive/analysis_v2.0/code/V2_M08_detection.r,SUPERSEDED_SCRIPT,Low,Non-Firth detection; replaced by Firth version,No,Archive,No
+R26,descriptive/analysis_v2.0/code/V2_M09_missingness_sensitivity.r,SUPERSEDED_SCRIPT,Low,Replaced by KNN version,No,Archive,No
+R27,descriptive/analysis_v2.0/code/V2_M10_environment_interaction.r,SUPERSEDED_SCRIPT,Low,Non-corrected interaction; replaced by corrected version,No,Archive,No
+R28,descriptive/analysis_v2.0/code/V2_M15v2_*.r,SUPERSEDED_SCRIPT,Medium,Legacy M15 lock/repair/audit scripts,No,Archive,No
+R29,descriptive/analysis_v2.0/code/V2_M16_holdout.r,SUPERSEDED_SCRIPT,Low,Reconciled into M14,No,Archive,No
+R30,descriptive/analysis_v2.0/M13_historical_reconciliation/,HISTORICAL_FROZEN,Low,Historical reconciliation table,No,Keep as HISTORICAL_FROZEN,No
+R31,descriptive/analysis_v2.0/qc/invalidated/,INVALIDATED,Medium,Invalidated QA bundles preserved,No,HISTORICAL_FROZEN,No
+R32,descriptive/analysis_v2.0/ml/code/archive_invalidated/,INVALIDATED,Medium,Invalidated ML runners,No,HISTORICAL_FROZEN,No
+R33,descriptive/analysis_v2.0/figures_final_v2/Fig5_replication_ml_source_data.csv,TERMINOLOGY_NOTE,Low,Contains "NOT external validation" disclaimer; not plotted,No,Keep; wording already correct,No
+R34,code/P1.py,code/P2.py,code/P3.py,UNKNOWN_REVIEW,Medium,Top-level exploratory scripts; purpose unclear,No,Review before archive,Yes
+R35,execute_discovery_validation_split.r,ONE_OFF,Low,Root-level split script; already consumed,No,Archive,HISTORICAL,No
+R36,tmp/,TEMPORARY,Low,Scratch directory,No,Add to .gitignore; do not track,No
+R37,descriptive/figures_nature_v2.2/,LEGACY_FIGURE_BUNDLE,Medium,Earlier descriptive QC figure bundle,No,SUPPLEMENTARY or HISTORICAL_FROZEN; review,No
+R38,descriptive/__pycache__/,TEMPORARY,Low,Python bytecode cache,No,Add to .gitignore,No
+R39,docs/archive/,EXISTING_ARCHIVE,None,Already-archived legacy docs,No,Keep,No
+R40,descriptive/analysis_v2.0/config/v2_config.md,ACTIVE_DOC,None,Current config,Yes,Keep,No
+R41,descriptive/analysis_v2.0/config/v2_no_overwrite.md,ACTIVE_DOC,None,No-overwrite policy,Yes,Keep,No
+R42,descriptive/analysis_v2.0/config/v2_provenance.md,ACTIVE_DOC,None,Provenance record,Yes,Keep,No
+R43,descriptive/analysis_v2.0/contracts/,ACTIVE_DOC,None,Input/universe contracts,Yes,Keep,No
+R44,descriptive/analysis_v2.0/registry/,ACTIVE_REGISTRY,None,Contaminant registry + freeze policies,Yes,Keep,No
+R45,descriptive/analysis_v2.0/universes/,ACTIVE_UNIVERSE,None,D515/Q515/Utech universe CSVs,Yes,Keep,No
+R46,descriptive/analysis_v2.0/manifests/,ACTIVE_MANIFEST,None,Universe manifests,Yes,Keep,No
+R47,descriptive/analysis_v2.0/qc/V2_*_QA.md,ACTIVE_QC,None,Universe QA reports,Yes,Keep,No
+R48,PROJECT_CONTEXT.md,ROOT_DOC,None,Top-level project context,Yes,Keep as entry point,No
+R49,descriptive/figure_display_labels.R,ACTIVE_HELPER,None,Sourced by V2_M17_figures_v2.R,Yes,Keep,No
+R50,descriptive/v21_common.r,ACTIVE_HELPER,None,Shared R helpers for v2.0 pipeline,Yes,Keep,No
