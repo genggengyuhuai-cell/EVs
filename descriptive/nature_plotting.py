@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 EXPOSURE_LABELS = {"control": "Control", "low": "Short exposure", "high": "Long exposure",
                    "unknown": "Unknown", "missing": "Missing"}
-EXPOSURE_COLORS = {"control": "#595959", "low": "#3178A5", "high": "#C78132",
+EXPOSURE_COLORS = {"control": "#A6A6A6", "low": "#4A85B3", "high": "#FF6347",
                    "unknown": "#A7ADB2", "missing": "#D8D8D8"}
 
 

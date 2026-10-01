@@ -1,4 +1,5 @@
 from pathlib import Path
+import hashlib  # [Phase7 FIX]
 
 import pandas as pd
 
@@ -9,6 +10,48 @@ import pandas as pd
 
 AUDIT_FILE = Path("../rawdata/sample_mapping_audit.xlsx")
 OUTPUT_FILE = Path("../rawdata/sample_mapping_ambiguous_context.xlsx")
+PROVENANCE_FILE = Path('../rawdata/sample_mapping_provenance.txt')  # [Phase7 FIX]
+
+
+
+
+# ============================================================
+# [Phase7 FIX] Source identity / provenance (SHA256) contract
+# ============================================================
+# P2 reads sample_mapping_audit.xlsx (produced by P1)
+# Verifies audit file hash matches the value recorded by P1/P3
+
+def sha256_file(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def check_provenance_p2():
+    h_audit = sha256_file(AUDIT_FILE)
+    if PROVENANCE_FILE.exists():
+        recorded = {}
+        with open(PROVENANCE_FILE, "r") as f:
+            for line in f:
+                line = line.strip()
+                if "=" in line and not line.startswith("#"):
+                    k, v = line.split("=", 1)
+                    recorded[k] = v
+        expected = recorded.get("sample_mapping_audit_xlsx_sha256")
+        if expected and expected.lower() != h_audit.lower():
+            raise RuntimeError(
+                f"[Phase7 PROVENANCE MISMATCH] sample_mapping_audit.xlsx hash changed!\n"
+                f"  Recorded: {expected}\n  Current:  {h_audit}\n"
+                f"  Refusing to write {OUTPUT_FILE.name}."
+            )
+        print(f"  [Phase7] Provenance OK: audit.xlsx SHA256 matches.")
+    else:
+        print(f"  [Phase7] WARNING: No provenance file found. Run P1 first to record hashes.")
+
+
+check_provenance_p2()
 
 
 # ============================================================

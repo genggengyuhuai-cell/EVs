@@ -25,6 +25,25 @@ contract <- read.csv(file.path(MAP_DIR, "M12_gene_mapping_contract.csv"),
                      stringsAsFactors=FALSE, check.names=FALSE)
 reps <- contract[contract$representative_status %in% c("REPRESENTATIVE","SINGLE") &
                  contract$mapping_status=="UNAMBIGUOUS_ONE_GENE", ]
+prot_to_gene <- setNames(reps$Gene_symbol, reps$PG.ProteinGroups)
+
+# [Phase 5 REPAIR] Use D02 primary model moderated t (log2FC/SE) instead of self-fit + imputation
+# Canonical ranking = D02 ~0+dose+environment, eBayes trend+robust, no imputation
+d02 <- read.csv("descriptive/discovery_validation/D02_discovery_primary/D02_Long_vs_Short_all_tested.csv",
+                stringsAsFactors=FALSE, check.names=FALSE)
+d02_est <- d02[d02$Model_status == "ESTIMABLE", ]
+d02_est$moderated_t <- d02_est$log2FC / d02_est$SE
+mapped_pgs <- reps$PG.ProteinGroups
+d02_mapped <- d02_est[d02_est$PG.ProteinGroups %in% mapped_pgs, ]
+d02_mapped$Gene_symbol_mapped <- prot_to_gene[d02_mapped$PG.ProteinGroups]
+stats_df <- d02_mapped[!is.na(d02_mapped$Gene_symbol_mapped), c("Gene_symbol_mapped", "moderated_t")]
+stats_df <- stats_df[!duplicated(stats_df$Gene_symbol_mapped), ]
+stats <- setNames(stats_df$moderated_t, stats_df$Gene_symbol_mapped)
+stats <- sort(stats, decreasing=TRUE)
+cat("Ranked genes (from D02, mapped + estimable):", length(stats), "\n")
+
+# Environment-stratified uses expression matrix for descriptive direction consistency
+# (per contract §3: descriptive only, not primary ranking)
 expr <- read.csv(gzfile("descriptive/PRIMARY_dose_log2_expression.csv.gz"),
                  row.names=1, check.names=FALSE)
 meta <- read.csv("descriptive/discovery_validation_split/discovery_validation_assignment.csv",
@@ -34,20 +53,8 @@ common_samps <- intersect(disc$UniqueSampleID, colnames(expr))
 disc <- disc[match(common_samps, disc$UniqueSampleID), ]
 use_prots <- intersect(reps$PG.ProteinGroups, rownames(expr))
 expr_use <- expr[use_prots, disc$UniqueSampleID]
-prot_to_gene <- setNames(reps$Gene_symbol, reps$PG.ProteinGroups)
 gene_vec <- prot_to_gene[rownames(expr_use)]
-
-group <- factor(disc$TREAT1_clean, levels=c("low","high"))
-design <- model.matrix(~ group); colnames(design) <- c("Intercept","High_vs_Low")
 mat <- as.matrix(expr_use)
-for (i in seq_len(nrow(mat))) {
-  rmed <- median(mat[i,], na.rm=TRUE); mat[i, is.na(mat[i,])] <- rmed
-}
-fit <- eBayes(lmFit(mat, design))
-tt <- topTable(fit, coef="High_vs_Low", number=Inf, sort.by="none")
-tt$Gene_symbol <- gene_vec[rownames(tt)]
-stats <- setNames(tt$t, tt$Gene_symbol)
-stats <- sort(stats, decreasing=TRUE)
 
 # Reload combined ranked results
 ranked <- read.csv(file.path(RANK_DIR, "M12_ranked_combined_FDR.csv"), stringsAsFactors=FALSE)

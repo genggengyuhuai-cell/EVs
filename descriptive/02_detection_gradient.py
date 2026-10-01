@@ -70,7 +70,7 @@ unexpected_conditions=sorted(set(condition_internal)-{'high_stress','high_temper
 if unexpected_conditions:
     raise ValueError(f'Unexpected environment labels: {unexpected_conditions}')
 group_env=sample.assign(_condition_internal=condition_internal).groupby('group')['_condition_internal'].first().to_dict()
-colors={'high_stress':'#527D9E','high_temperature':'#C48C59'}
+colors={'high_stress':'#4A85B3','high_temperature':'#FFB84D'}
 names={'high_stress':'高海拔','high_temperature':'湿热'}
 markers=['o','s','^','D','v']
 styles=['-','--','-.',':','-']
@@ -101,8 +101,8 @@ fig.colorbar(im,ax=ax,shrink=.8,pad=.02,label='Protein groups')
 save_nature(fig, OUT, 'Figure_03_detection_gradient_group_threshold_counts', main.reset_index())
 for level, sub in common.groupby('level'):
     fig, ax = new_figure()
-    ax.plot(sub.threshold_pct, sub.all_groups_meet_threshold, 'o-', color='#3178A5', label='All groups')
-    ax.plot(sub.threshold_pct, sub.any_group_meets_threshold, 's--', color='#C78132', label='Any group')
+    ax.plot(sub.threshold_pct, sub.all_groups_meet_threshold, 'o-', color='#4A85B3', label='All groups')
+    ax.plot(sub.threshold_pct, sub.any_group_meets_threshold, 's--', color='#FF6347', label='Any group')
     display_level = {'group': 'groups', 'condition': 'environments'}[level]
     ax.set(xlabel='Detection threshold (%)', ylabel='Protein groups', title=f'Shared protein coverage across {display_level}')
     ax.legend()

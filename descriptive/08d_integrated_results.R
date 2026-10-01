@@ -121,9 +121,9 @@ rownames(expression) <- expr_df$PG.ProteinGroups
 out <- v21_output(file.path(ROOT_DIR, "limma_dose_analysis", "figures_final", "06d_integrated_v2.2"))
 inputs <- c(rate_file, detect_file, fit_file, expr_file, meta_file, detection_meta_file)
 audit <- list(); evidence_counts <- list()
-signal_colors <- c("FDR < 0.05" = "#3178A5", "Not significant" = "#B8B8B8", "Not estimable" = "#595959")
-evidence_colors <- c("Abundance-only" = "#3178A5", "Detection-only" = "#C78132", "Both" = "#7A5195",
-                     "Neither" = "#B8B8B8", "Not jointly evaluable" = "#595959")
+signal_colors <- c("FDR < 0.05" = "#4A85B3", "Not significant" = "#B8B8B8", "Not estimable" = "#A6A6A6")
+evidence_colors <- c("Abundance-only" = "#4A85B3", "Detection-only" = "#FFB84D", "Both" = "#B266C4",
+                     "Neither" = "#B8B8B8", "Not jointly evaluable" = "#A6A6A6")
 fdr_evidence <- function(x) ifelse(is.finite(x), x < 0.05, NA)
 TOP_FOREST <- 12L; TOP_PROFILE <- 6L; LABEL_N <- 6L
 pair_groups <- list(Low_vs_Control = c("Short", "Control"),
@@ -203,7 +203,7 @@ for (contrast in names(CONTRAST_LABELS)) {
         if (is.na(display_label) || !nzchar(trimws(display_label))) display_label <- id
         one_protein <- means[means$Protein == id, , drop = FALSE]
         p_profile <- ggplot(one_protein, aes(Exposure, Mean, group = Protein)) +
-            geom_line(linewidth = 0.4, colour = "#595959", na.rm = TRUE) +
+            geom_line(linewidth = 0.4, colour = "#A6A6A6", na.rm = TRUE) +
             geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), width = 0.12, linewidth = 0.35, na.rm = TRUE) +
             geom_point(aes(colour = Exposure), size = 2, na.rm = TRUE) +
             scale_colour_manual(values = setNames(EXPOSURE_COLORS, unname(EXPOSURE_LABELS))) + v21_theme() +

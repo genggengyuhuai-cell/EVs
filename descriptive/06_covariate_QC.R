@@ -120,7 +120,7 @@ for (label in names(fields)[!is.na(fields)]) {
                 labs(x = NULL, y = "Proportion", fill = field)
         } else {
             p <- ggplot(count_page, aes(Exposure, Raw_value, fill = N)) + geom_tile(colour = "white", linewidth = 0.25) +
-                geom_text(aes(label = N), size = 2.1) + scale_fill_gradient(low = "#EEF4F7", high = "#3178A5") +
+                geom_text(aes(label = N), size = 2.1) + scale_fill_gradient(low = "#EEF4F7", high = "#4A85B3") +
                 labs(x = NULL, y = field, fill = "Samples")
         }
         p <- p + v21_theme() + labs(title = paste(label, "balance"), subtitle = "Raw tokens retained; no missing-code recoding")
@@ -128,7 +128,7 @@ for (label in names(fields)[!is.na(fields)]) {
     }
     missing_summary <- data %>% group_by(Exposure) %>% summarise(
         Missing_pct = mean(Missing) * 100, N_missing = sum(Missing), N_total = n(), .groups = "drop")
-    p_missing <- ggplot(missing_summary, aes(Exposure, Missing_pct)) + geom_col(fill = "#595959", width = 0.6) +
+    p_missing <- ggplot(missing_summary, aes(Exposure, Missing_pct)) + geom_col(fill = "#A6A6A6", width = 0.6) +
         v21_theme() + labs(x = NULL, y = "Blank / absent (%)", title = paste(label, "missingness"),
                            subtitle = "Literal Unknown, NA, missing and 0 are counted separately in raw-token tables")
     v21_save(p_missing, FIG_DIR, paste0(figure_stem, "_blank_missingness"), missing_summary, height_mm = 110)
@@ -177,7 +177,7 @@ v21_write(bind_rows(balance), file.path(out, "exposure_covariate_balance.csv"))
 v21_write(bind_rows(qc_summary), file.path(out, "QC_metric_covariate_summary.csv"))
 v21_write(bind_rows(plot_log), file.path(out, "figure_inclusion_audit.csv"))
 p_complete <- ggplot(completeness, aes(Missing_pct, reorder(Variable, Missing_pct))) +
-    geom_col(fill = "#3178A5", width = 0.7) +
+    geom_col(fill = "#4A85B3", width = 0.7) +
     labs(x = "Blank / absent (%)", y = NULL, title = "Metadata completeness") + v21_theme()
 v21_save(p_complete, FIG_DIR, "Figure_04_covariate_QC_metadata_completeness", completeness,
           height_mm = max(120, 35 + 6 * nrow(completeness)))

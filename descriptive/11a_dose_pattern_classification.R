@@ -119,7 +119,7 @@ write.csv(data.frame(Input = c(DEP_FILE, EXPR_FILE, META_FILE),
           file.path(RESULT_DIR, "input_provenance.csv"), row.names = FALSE)
 
 if (nrow(pattern_df) > 0L) {
-    p1 <- ggplot(pattern_summary, aes(Pattern, n)) + geom_col(fill = "#3B82F6") +
+    p1 <- ggplot(pattern_summary, aes(Pattern, n)) + geom_col(fill = "#4A85B3") +
         coord_flip() + theme_classic() +
         labs(x = NULL, y = "Protein groups", title = "Exposure-duration abundance patterns")
     v21_save(p1, FIG_DIR, "Pattern_distribution", pattern_summary, height_mm = 145)
@@ -135,7 +135,7 @@ if (nrow(pattern_df) > 0L) {
         p2 <- ggplot(shown, aes(Exposure, Centered_log2, group = Protein)) +
             geom_line(alpha = 0.18, colour = "#64748B") +
             stat_summary(aes(group = 1), fun = mean, geom = "line", linewidth = 0.9,
-                         colour = "#C78132") + theme_classic() +
+                         colour = "#FFB84D") + theme_classic() +
             labs(x = "Exposure group (categorical)", y = "Centered group mean log2 abundance",
                  title = gsub("_", " ", pattern_name), subtitle = "Observed group means; orange = mean across proteins; no trend test")
         v21_save(p2, FIG_DIR, paste0("Pattern_profile_", v22_slug(pattern_name)), shown)

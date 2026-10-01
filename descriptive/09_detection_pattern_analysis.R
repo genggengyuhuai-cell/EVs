@@ -256,7 +256,7 @@ for (model in names(all_results)) for (contrast in contrasts) {
     shown <- dplyr::count(tab, Model_status, name = "N")
     shown$Status_label <- gsub("_", " ", shown$Model_status, fixed = TRUE)
     figure_stem <- paste0("Figure_08_detection_", v22_slug(CONTRAST_LABELS[[contrast]]))
-    p <- ggplot(shown, aes(reorder(Status_label, N), N)) + geom_col(fill = "#3178A5", width = 0.65) +
+    p <- ggplot(shown, aes(reorder(Status_label, N), N)) + geom_col(fill = "#4A85B3", width = 0.65) +
         coord_flip() + labs(x = NULL, y = "Protein groups", title = paste(MODEL_LABELS[[model]], CONTRAST_LABELS[[contrast]], sep = ": "),
                             subtitle = "Model status across the >=60% detection-analysis universe")
     v21_save(p, FIG_DIR, paste0(figure_stem, "_model_status_", v22_slug(model)), shown)
@@ -273,7 +273,7 @@ for (contrast in contrasts) {
         p <- ggplot(shown, aes(logOR, Protein_label)) +
             geom_vline(xintercept = 0, linetype = 2, linewidth = 0.35) +
             geom_segment(aes(x = Lower, xend = Upper, yend = Protein_label), linewidth = 0.4) +
-            geom_point(colour = "#3178A5", size = 1.8) +
+            geom_point(colour = "#4A85B3", size = 1.8) +
             labs(x = "Log odds ratio (95% Wald interval)", y = NULL,
                  title = paste("Detection-model estimates:", CONTRAST_LABELS[[contrast]]),
                  subtitle = "Detection model: up to 20 estimable proteins ranked by BH FDR")
@@ -285,7 +285,7 @@ for (contrast in contrasts) {
     if (nrow(shown)) {
         p <- ggplot(shown, aes(Acquisition_matched_primary_logOR, Acquisition_adjusted_logOR)) +
             geom_abline(slope = 1, intercept = 0, linetype = 2, linewidth = 0.35) +
-            geom_point(colour = "#3178A5", size = 1.2, alpha = 0.55) + coord_equal() +
+            geom_point(colour = "#4A85B3", size = 1.2, alpha = 0.55) + coord_equal() +
             labs(x = "Acquisition-date-matched primary log odds ratio", y = "Acquisition-date-adjusted log odds ratio",
                  title = paste("Acquisition-date sensitivity:", CONTRAST_LABELS[[contrast]]),
                   subtitle = ">=60% detection-analysis universe; same acquisition-eligible cohort")

@@ -227,7 +227,7 @@ for (fi in seq_along(folds_list)) {
   # --- 5b. Elastic Net (alpha < 1, tuned over grid) ---
   en_grid <- data.frame(alpha=c(0.1, 0.3, 0.5, 0.7))
   best_auc <- -Inf; best_alpha <- NA; best_lambda <- NA
-  best_en_coef <- NULL
+  best_en_coef <- NULL; best_en_fit <- NULL
   for (a in en_grid$alpha) {
     set.seed(2000L + fi * 100L + as.integer(a*10))
     cv_en <- tryCatch(
@@ -236,12 +236,13 @@ for (fi in seq_along(folds_list)) {
                 standardize=FALSE, intercept=TRUE),
       error=function(e) { cat("      EN alpha=",a," error:", conditionMessage(e),"\n"); NULL })
     if (is.null(cv_en)) next
-    i_min <- which.min(cv_en$cvm)
-    # AUC: higher is better; track MAX cvm (since type.measure=auc, cvm is AUC)
-    if (cv_en$cvm[i_min] > best_auc) {
-      best_auc <- cv_en$cvm[i_min]
+    i_best <- which.max(cv_en$cvm)
+    # AUC: higher is better. Keep the original lambda.min rule.
+    if (cv_en$cvm[i_best] > best_auc) {
+      best_auc <- cv_en$cvm[i_best]
       best_alpha <- a
       best_lambda <- cv_en$lambda.min
+      best_en_fit <- cv_en
       cf <- as.matrix(coef(cv_en, s=best_lambda))[-1, 1]
       best_en_coef <- cf[abs(cf) > 1e-10]
     }
@@ -257,16 +258,38 @@ for (fi in seq_along(folds_list)) {
   if (!is.null(br)) boruta_res[[fi]] <- br
   cat("      Boruta done\n")
 
-  # --- 5d. XGBoost (tuned lightly, training-only) ---
-  dtrain <- xgb.DMatrix(data=Xtr, label=ytr)
-  dtest  <- xgb.DMatrix(data=Xte, label=yte)
+  # --- 5d. XGBoost (fixed hyperparameters; nrounds chosen inside outer train) ---
+  # Build one stratified 80/20 inner validation split. The outer test set is not
+  # constructed as a DMatrix until after best_iteration has been selected and
+  # the model has been refit on the complete outer-training set.
+  set.seed(4000 + fi)
+  inner_fold_id <- integer(length(ytr))
+  for (cls in c(0L, 1L)) {
+    cls_idx <- which(ytr == cls)
+    inner_fold_id[cls_idx] <- sample(rep(seq_len(5L), length.out=length(cls_idx)))
+  }
+  inner_val_idx <- which(inner_fold_id == 1L)
+  inner_train_idx <- setdiff(seq_along(ytr), inner_val_idx)
+  dtrain_inner <- xgb.DMatrix(data=Xtr[inner_train_idx, , drop=FALSE],
+                              label=ytr[inner_train_idx])
+  dval_inner <- xgb.DMatrix(data=Xtr[inner_val_idx, , drop=FALSE],
+                            label=ytr[inner_val_idx])
   params <- list(objective="binary:logistic", eval_metric="auc",
                  max_depth=3, eta=0.05, subsample=0.8,
                  colsample_bytree=0.8, min_child_weight=5)
   set.seed(4000 + fi)
-  bst <- xgb.train(params=params, data=dtrain, nrounds=200,
-                   verbose=0, watchlist=list(eval=dtest),
-                   early_stopping_rounds=20)
+  bst_inner <- xgb.train(params=params, data=dtrain_inner, nrounds=200,
+                         verbose=0, evals=list(validation=dval_inner),
+                         early_stopping_rounds=20)
+  # xgboost stores this model attribute as a zero-based iteration index.
+  best_iteration <- as.integer(xgb.attr(bst_inner, "best_iteration")) + 1L
+  if (length(best_iteration) != 1L || is.na(best_iteration) || best_iteration < 1L) {
+    stop("XGBoost failed to return a valid inner-training best_iteration for split ", fi)
+  }
+  dtrain <- xgb.DMatrix(data=Xtr, label=ytr)
+  set.seed(4000 + fi)
+  bst <- xgb.train(params=params, data=dtrain, nrounds=best_iteration, verbose=0)
+  dtest <- xgb.DMatrix(data=Xte, label=yte)
   imp <- xgb.importance(colnames(Xtr), model=bst)
   gain <- setNames(imp$Gain, imp$Feature)
   xgb_gain[[fi]] <- gain
@@ -274,16 +297,22 @@ for (fi in seq_along(folds_list)) {
 
   # Outer-test metric
   pred_te <- predict(cv_lasso, newx=Xte, s=lam_lasso, type="response")
+  pred_en_te <- predict(best_en_fit, newx=Xte, s=best_lambda, type="response")
   outer_metrics <- rbind(outer_metrics, data.frame(
     rep_id=fo$rep_id, fold=fo$fold,
     n_train=length(tr_idx), n_test=length(te_idx),
     lasso_auroc=as.numeric(roc(yte, pred_te, quiet=TRUE)$auc),
     en_alpha=best_alpha,
+    en_cv_auc=best_auc,
+    en_auroc=as.numeric(roc(yte, pred_en_te, quiet=TRUE)$auc),
+    xgb_best_iteration=best_iteration,
+    xgb_nrounds=best_iteration,
     xgb_auroc=as.numeric(roc(yte, predict(bst, dtest), quiet=TRUE)$auc)
   ))
-  cat(sprintf("         LASSO AUC=%.3f | EN(a=%.1f) CV-AUC=%.3f | XGB test-AUC=%.3f\n",
+  cat(sprintf("         LASSO AUC=%.3f | EN(a=%.1f) CV-AUC=%.3f test-AUC=%.3f | XGB nrounds=%d test-AUC=%.3f\n",
               outer_metrics$lasso_auroc[nrow(outer_metrics)],
-              best_alpha, 1-best_auc, outer_metrics$xgb_auroc[nrow(outer_metrics)]))
+              best_alpha, best_auc, outer_metrics$en_auroc[nrow(outer_metrics)],
+              best_iteration, outer_metrics$xgb_auroc[nrow(outer_metrics)]))
 }
 
 # -----------------------------------------------------------------------------
@@ -362,8 +391,9 @@ for (a in c(0.1,0.3,0.5,0.7)) {
   set.seed(5002 + a*100)
   cv_en <- cv.glmnet(Xfull, y, family="binomial", alpha=a, nfolds=5,
                      type.measure="auc", standardize=FALSE)
-  if (cv_en$cvm[which.min(cv_en$cvm)] < best_auc || is.null(best_en_full)) {
-    best_auc <- cv_en$cvm[which.min(cv_en$cvm)]
+  en_auc <- cv_en$cvm[which.max(cv_en$cvm)]
+  if (en_auc > best_auc || is.null(best_en_full)) {
+    best_auc <- en_auc
     best_a <- a
     best_en_full <- as.matrix(coef(cv_en, s=cv_en$lambda.min))[-1,1]
   }
@@ -373,12 +403,14 @@ for (a in c(0.1,0.3,0.5,0.7)) {
 cat("  Running full-data Boruta (25 iterations) ...\n")
 br_full <- boruta_ranger(Xfull, y, n_runs=25, seed=5003)
 
-# XGBoost on all 271
+# XGBoost on all 271. Use the median training-only best_iteration from the 15
+# outer splits, then fit once on all samples; no outer-test information enters.
 dtrain_full <- xgb.DMatrix(data=Xfull, label=y)
+xgb_full_nrounds <- as.integer(round(median(outer_metrics$xgb_best_iteration)))
 bst_full <- xgb.train(params=list(objective="binary:logistic", eval_metric="auc",
                                   max_depth=3, eta=0.05, subsample=0.8,
                                   colsample_bytree=0.8, min_child_weight=5),
-                      data=dtrain_full, nrounds=300, verbose=0)
+                      data=dtrain_full, nrounds=xgb_full_nrounds, verbose=0)
 imp_full <- xgb.importance(colnames(Xfull), model=bst_full)
 
 # -----------------------------------------------------------------------------
@@ -440,6 +472,8 @@ cat("\n=== Outer CV summary ===\n")
 print(summary(outer_metrics[, c("lasso_auroc","xgb_auroc")]))
 cat("\nElastic Net alpha chosen distribution:\n")
 print(table(outer_metrics$en_alpha))
+cat("Full-data Elastic Net alpha:", best_a, "(maximum CV AUC=", best_auc, ")\n")
+cat("Full-data XGBoost nrounds (median outer-training best_iteration):", xgb_full_nrounds, "\n")
 
 cat("\n=== Branch-specific selected protein lists (full-data fits) ===\n")
 cat("LASSO (nonzero):", sum(abs(lasso_full_coef) > 1e-10), "proteins\n")

@@ -271,12 +271,12 @@ shown$Direction <- ifelse(shown$Direction == "Higher_in_High", "Higher in Long",
 shown$Threshold <- factor(shown$Threshold, levels = summary_table$Threshold,
                           labels = c("FDR < 0.05", "FDR < 0.05 and |log2FC| ≥ 0.5", "FDR < 0.05 and |log2FC| ≥ 1"))
 p <- ggplot(shown, aes(Threshold, N, fill = Direction)) + geom_col(width = 0.65) +
-    coord_flip() + scale_fill_manual(values = c("Higher in Long" = "#C78132", "Higher in Short" = "#3178A5")) +
+    coord_flip() + scale_fill_manual(values = c("Higher in Long" = "#FFB84D", "Higher in Short" = "#4A85B3")) +
     labs(x = NULL, y = "Protein groups", title = "Long vs Short exposure: effect-size layers",
          subtitle = "Nested thresholds from the locked primary contrast")
 v21_save(p, FIG_DIR, "Figure_DEP_effect_size_summary_threshold_counts", shown)
 shown <- res[is.finite(res$logFC), , drop = FALSE]
-p <- ggplot(shown, aes(logFC)) + geom_histogram(bins = 50, fill = "#3178A5", colour = "white", linewidth = 0.2) +
+p <- ggplot(shown, aes(logFC)) + geom_histogram(bins = 50, fill = "#4A85B3", colour = "white", linewidth = 0.2) +
     geom_vline(xintercept = 0, linewidth = 0.35, linetype = 2) +
     labs(x = "log2 fold change (Long - Short exposure)", y = "Protein groups",
          title = "Long vs Short exposure: effect sizes across all tested proteins")

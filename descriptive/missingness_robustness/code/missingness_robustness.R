@@ -298,12 +298,12 @@ write_csv(long_supp_out, file.path(RESULT_DIR, "stage11a_canonical_seven_long_su
 
 # Required diagnostic figures.
 theme_set(theme_classic(base_size = 10))
-p1 <- ggplot(sample_missing, aes(exposure, missing_fraction, fill=exposure)) + geom_boxplot(outlier.shape=NA, width=.55) + geom_jitter(width=.15, alpha=.35, size=.8) + guides(fill="none") + labs(x=NULL,y="Missing fraction",title="Sample missingness by exposure")
+p1 <- ggplot(sample_missing, aes(exposure, missing_fraction, fill=exposure)) + geom_boxplot(outlier.shape=NA, width=.55) + geom_jitter(width=.15, alpha=.35, size=.8) + scale_fill_manual(values=c(Control="#A6A6A6",Short="#4A85B3",Long="#FF6347")) + guides(fill="none") + labs(x=NULL,y="Missing fraction",title="Sample missingness by exposure")
 save_plot(p1, "01_sample_missing_fraction_by_exposure")
-p2 <- ggplot(abundance_overall, aes(observed_mean, missing_fraction)) + geom_point(alpha=.45,size=1) + geom_smooth(method="loess",se=FALSE,color="#B44C43") + labs(x="Observed mean log2 abundance",y="Missing fraction",title="Protein missingness and observed abundance")
+p2 <- ggplot(abundance_overall, aes(observed_mean, missing_fraction)) + geom_point(alpha=.45,size=1) + geom_smooth(method="loess",se=FALSE,color="#FF6347") + labs(x="Observed mean log2 abundance",y="Missing fraction",title="Protein missingness and observed abundance")
 save_plot(p2, "02_protein_missing_fraction_vs_observed_mean")
 det_long <- rbind(data.frame(Exposure="Control",Detection=protein_missing$Control_detection_fraction),data.frame(Exposure="Short",Detection=protein_missing$Short_detection_fraction),data.frame(Exposure="Long",Detection=protein_missing$Long_detection_fraction))
-p3 <- ggplot(det_long,aes(Exposure,Detection,fill=Exposure))+geom_violin(trim=TRUE)+geom_boxplot(width=.15,outlier.shape=NA,fill="white")+guides(fill="none")+labs(x=NULL,y="Detection fraction",title="Protein detection rates by exposure")
+p3 <- ggplot(det_long,aes(Exposure,Detection,fill=Exposure))+geom_violin(trim=TRUE)+geom_boxplot(width=.15,outlier.shape=NA,fill="white")+scale_fill_manual(values=c(Control="#A6A6A6",Short="#4A85B3",Long="#FF6347"))+guides(fill="none")+labs(x=NULL,y="Detection fraction",title="Protein detection rates by exposure")
 save_plot(p3,"03_group_detection_rate_comparison")
 for(m in c("D1","D2","D3")){ z<-data.frame(D0=master$D0_logFC,Method=master[[paste0(m,"_logFC")]]); p<-ggplot(z,aes(D0,Method))+geom_abline(slope=1,intercept=0,color="grey60")+geom_point(alpha=.45,size=1)+coord_equal()+labs(x="D0 logFC",y=paste(m,"logFC"),title=paste("D0 versus",m,"logFC")); save_plot(p,paste0("0",as.integer(sub("D","",m))+3,"_D0_vs_",m,"_logFC")) }
 delta_long <- do.call(rbind,lapply(c("D1","D2","D3"),function(m)data.frame(Method=m,Delta_logFC=master[[paste0(m,"_logFC")]][canonical_mask]-master$D0_logFC[canonical_mask])))

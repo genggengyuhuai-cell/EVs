@@ -35,10 +35,10 @@ gsea <- read_result("M12_pathway_v2.1", "ranked_gsea", "M12_cameraPR_fgsea_conco
 ora <- read_result("M12_pathway_v2.1", "ora", "M12_ORA_combined_FDR.csv")
 path_member <- read_result("M12_pathway_v2.1", "integration", "M12_ML_candidate_pathway_membership.csv")
 
-pal <- c(Control = "#4C78A8", Low = "#72B7B2", High = "#E6954A",
-         Humid_hot = "#7A6FA8", High_altitude = "#C26D7A",
-         positive = "#B35C44", negative = "#3F7F93", neutral = "#8A8A8A",
-         dark = "#2F3337", light = "#D8DDE2", accent = "#D9A441")
+pal <- c(Control = "#A6A6A6", Low = "#4A85B3", High = "#FF6347",
+         Humid_hot = "#B266C4", High_altitude = "#4BBEB6",
+         positive = "#FF6347", negative = "#4A85B3", neutral = "#A6A6A6",
+         dark = "#2F3337", light = "#D8DDE2", accent = "#FFB84D")
 
 theme_m17 <- function(base_size = 7.2) {
   theme_classic(base_size = base_size, base_family = "Arial") +
@@ -224,7 +224,7 @@ cv_plot <- bind_rows(ml_cv %>% transmute(strategy = "Fixed-85 conditional ML", m
   strict_cv %>% transmute(strategy = "Strict nested ML", method = "Elastic Net", AUROC = en_auroc))
 p5b <- ggplot(cv_plot, aes(method, AUROC, fill = method)) + geom_hline(yintercept = 0.5, linewidth = 0.35, linetype = 2, colour = "#777777") +
   geom_boxplot(width = 0.62, outlier.shape = NA, linewidth = 0.4) + geom_jitter(width = 0.09, size = 0.7, alpha = 0.55) + facet_wrap(~strategy, scales = "free_x") +
-  scale_fill_manual(values = c("LASSO" = "#5F7FA3", "Elastic Net" = "#7FA89A", "XGBoost" = "#B58B65")) + coord_cartesian(ylim = c(0.35, 0.82)) +
+  scale_fill_manual(values = c("LASSO" = "#4A85B3", "Elastic Net" = "#4BBEB6", "XGBoost" = "#FFB84D")) + coord_cartesian(ylim = c(0.35, 0.82)) +
   labs(x = NULL, y = "Outer-fold AUROC", title = "Predictive performance by prespecified branch") + theme(legend.position = "none", axis.text.x = element_text(angle = 25, hjust = 1))
 ml_long <- ml85 %>% arrange(Display_label) %>% mutate(candidate_index = row_number()) %>%
   transmute(PG.ProteinGroups, Gene = Display_label, candidate_index,

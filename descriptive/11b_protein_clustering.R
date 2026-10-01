@@ -170,13 +170,13 @@ for (kk in 2:6) {
 write.csv(km_result, file.path(RESULT_DIR, "DEP_cluster_membership_kmeans.csv"), row.names = FALSE)
 cat("K-means retained: yes, exploratory sensitivity analysis only (K=2:6).\n")
 
-p <- ggplot(cluster_summary, aes(factor(Cluster), N)) + geom_col(fill = "#3178A5", width = 0.65) + labs(x = "Hierarchical cluster", y = "Protein groups", title = "Exploratory hierarchical cluster sizes (K = 4)")
+p <- ggplot(cluster_summary, aes(factor(Cluster), N)) + geom_col(fill = "#4A85B3", width = 0.65) + labs(x = "Hierarchical cluster", y = "Protein groups", title = "Exploratory hierarchical cluster sizes (K = 4)")
 v21_save(p, FIG_DIR, "Figure_10_protein_clustering_hierarchical_cluster_sizes", cluster_summary)
 p <- ggplot(cluster_table, aes(factor(Cluster), logFC)) + geom_hline(yintercept = 0, linetype = 2, linewidth = 0.35) + geom_boxplot(fill = "#DCE8EF", outlier.size = 0.6, linewidth = 0.35) + labs(x = "Hierarchical cluster", y = "log2 fold change (Long - Short exposure)", title = "Long vs Short exposure effects by exploratory cluster")
 v21_save(p, FIG_DIR, "Figure_10_protein_clustering_cluster_effect_distributions", cluster_table)
 for (kk in sort(unique(km_result$K))) {
     shown <- count(km_result[km_result$K == kk, , drop = FALSE], Cluster, name = "N")
-    p <- ggplot(shown, aes(factor(Cluster), N)) + geom_col(fill = "#3178A5", width = 0.65) + labs(x = "K-means cluster", y = "Protein groups", title = paste("Exploratory K-means sensitivity: K =", kk))
+    p <- ggplot(shown, aes(factor(Cluster), N)) + geom_col(fill = "#4A85B3", width = 0.65) + labs(x = "K-means cluster", y = "Protein groups", title = paste("Exploratory K-means sensitivity: K =", kk))
     v21_save(p, FIG_DIR, paste0("Figure_10_protein_clustering_kmeans_cluster_sizes_K", kk), shown)
 }
 cat("\nStage 11b exploratory DEP response-profile clustering completed.\n")

@@ -114,8 +114,8 @@ cross=pd.crosstab(sample['group'],sample['condition'])
 cross.to_csv(OUT/'region_environment_counts.csv',encoding='utf-8-sig')
 e1=ep.iloc[:,1].to_numpy()>0; e2=ep.iloc[:,2].to_numpy()>0
 overlap={'shared':int((e1&e2).sum()),str(ep.columns[1])+'_only':int((e1&~e2).sum()),str(ep.columns[2])+'_only':int((e2&~e1).sum())}
-COLORS={'high_stress':'#527D9E','high_temperature':'#C48C59',
-        '高海拔':'#527D9E','湿热':'#C48C59'}
+COLORS={'high_stress':'#4A85B3','high_temperature':'#FFB84D',
+        '高海拔':'#4A85B3','湿热':'#FFB84D'}
 LABELS={'high_stress':'高海拔','high_temperature':'湿热',
         '高海拔':'高海拔','湿热':'湿热'}
 def label(ax,title):
@@ -129,13 +129,13 @@ ax.set_yticks(y,region.category); ax.invert_yaxis(); ax.set_xlim(0,region.sample
 for i,n in enumerate(region.samples): ax.text(n+2,i,str(n),va='center',fontsize=6)
 label(ax,'Cohort composition')
 ax=axs[0,1]; x=np.arange(len(env)); width=.23
-for j,(col,name,c) in enumerate([('detected_any','At least 1 sample','#B8C4CE'),('detected_ge80pct','At least 80%','#527D9E'),('detected_all','All samples','#283D4D')]):
+for j,(col,name,c) in enumerate([('detected_any','At least 1 sample','#B8C4CE'),('detected_ge80pct','At least 80%','#4A85B3'),('detected_all','All samples','#2F3337')]):
     bars=ax.bar(x+(j-1)*width,env[col],width,color=c,label=name)
     ax.bar_label(bars,padding=2,fontsize=6,rotation=90)
 ax.set_xticks(x,[LABELS[z]+f'\n(n={n})' for z,n in zip(env.category,env.samples)]); ax.set_ylim(0,nprot*1.35); ax.set_ylabel('Detected protein groups'); ax.legend(loc='upper left',frameon=False)
 label(ax,'Coverage by environment')
 ax=axs[1,0]
-for col,name,c in [('detected_any','At least 1 sample','#B8C4CE'),('detected_ge80pct','At least 80%','#527D9E'),('detected_all','All samples','#283D4D')]:
+for col,name,c in [('detected_any','At least 1 sample','#B8C4CE'),('detected_ge80pct','At least 80%','#4A85B3'),('detected_all','All samples','#2F3337')]:
     ax.plot(region[col],y,'o',ms=4,color=c,label=name)
 ax.set_yticks(y,region.category); ax.invert_yaxis(); ax.set_xlim(0,nprot*1.05); ax.set_xlabel('Detected protein groups')
 label(ax,'Coverage by region')
@@ -159,9 +159,9 @@ for (condition,group),sub in sample.loc[ordered].groupby(['condition','group'],s
     last+=len(sub)
 ax.set_xticks(ticks,names,rotation=45,ha='right',rotation_mode='anchor'); ax.set_ylabel('Protein groups\n(sorted by missingness)'); ax.set_xlabel('All samples, ordered by environment and region')
 label(ax,'Missingness across the full matrix (dark = missing)')
-ax=missing_axes[1]; ax.hist(protein.missing_pct,bins=np.linspace(0,100,21),color='#527D9E',edgecolor='white',linewidth=.4); ax.set_xlabel('Missing samples per protein group (%)'); ax.set_ylabel('Protein groups'); label(ax,'Protein-level missingness')
+ax=missing_axes[1]; ax.hist(protein.missing_pct,bins=np.linspace(0,100,21),color='#4A85B3',edgecolor='white',linewidth=.4); ax.set_xlabel('Missing samples per protein group (%)'); ax.set_ylabel('Protein groups'); label(ax,'Protein-level missingness')
 ax=missing_axes[2]; good=protein.median_positive_abundance.notna(); xx=np.log10(protein.loc[good,'median_positive_abundance']); yy=protein.loc[good,'missing_pct']
-ax.scatter(xx,yy,s=3,alpha=.35,c='#527D9E',edgecolors='none',rasterized=True); ax.set_xlabel('Median observed abundance (log10)'); ax.set_ylabel('Missing samples (%)'); label(ax,'Abundance and missingness')
+ax.scatter(xx,yy,s=3,alpha=.35,c='#4A85B3',edgecolors='none',rasterized=True); ax.set_xlabel('Median observed abundance (log10)'); ax.set_ylabel('Missing samples (%)'); label(ax,'Abundance and missingness')
 missing_source = pd.DataFrame(missing[orderp][:,ordered],
                               index=annotation.iloc[orderp,0],
                               columns=sample.iloc[ordered].UniqueSampleID).rename_axis('PG.ProteinGroups').reset_index()

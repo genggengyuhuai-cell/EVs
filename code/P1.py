@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+import hashlib  # [Phase7 FIX] for provenance SHA256
 from collections import Counter, defaultdict
 
 import pandas as pd
@@ -12,7 +13,48 @@ from openpyxl import load_workbook
 
 INPUT_FILE = Path("../rawdata/processed.xlsx")
 OUTPUT_FILE = Path("../rawdata/sample_mapping_audit.xlsx")
+PROVENANCE_FILE = Path("../rawdata/sample_mapping_provenance.txt")  # [Phase7 FIX]
 
+
+# ============================================================
+# 1b. [Phase7 FIX] Source identity / provenance (SHA256) contract
+# ============================================================
+
+def sha256_file(path):
+    import hashlib
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def check_and_record_provenance_p1():
+    h_input = sha256_file(INPUT_FILE)
+    if PROVENANCE_FILE.exists():
+        recorded = {}
+        with open(PROVENANCE_FILE, "r") as f:
+            for line in f:
+                line = line.strip()
+                if "=" in line and not line.startswith("#"):
+                    k, v = line.split("=", 1)
+                    recorded[k] = v
+        expected = recorded.get("processed_xlsx_sha256")
+        if expected and expected.lower() != h_input.lower():
+            raise RuntimeError(
+                f"[Phase7 PROVENANCE MISMATCH] processed.xlsx hash changed!\n"
+                f"  Recorded: {expected}\n  Current:  {h_input}\n"
+                f"  Refusing to write {OUTPUT_FILE.name}."
+            )
+        print(f"  [Phase7] Provenance OK: processed.xlsx SHA256 matches.")
+    else:
+        with open(PROVENANCE_FILE, "w") as f:
+            f.write("# sample_mapping provenance (auto-generated)\n")
+            f.write(f"processed_xlsx_sha256={h_input}\n")
+        print(f"  [Phase7] First run: recorded processed.xlsx SHA256.")
+
+
+check_and_record_provenance_p1()
 
 # ============================================================
 # 2. Helper functions

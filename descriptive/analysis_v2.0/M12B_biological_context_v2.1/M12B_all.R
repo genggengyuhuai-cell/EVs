@@ -38,19 +38,23 @@ expr_use <- expr[use_prots, disc$UniqueSampleID]
 prot_to_gene <- setNames(reps$Gene_symbol, reps$PG.ProteinGroups)
 gene_vec <- prot_to_gene[rownames(expr_use)]
 
-# limma High vs Low
-group <- factor(disc$TREAT1_clean, levels=c("low","high"))
-design <- model.matrix(~ group); colnames(design) <- c("Intercept","High_vs_Low")
+# [Phase 5 REPAIR] Canonical ranking = D02 primary model moderated t (log2FC/SE)
+# No imputation, environment-adjusted.
+# Expression matrix (mat) is retained below only for descriptive Spearman correlation (M12B section 6).
+d02 <- read.csv("descriptive/discovery_validation/D02_discovery_primary/D02_Long_vs_Short_all_tested.csv",
+                stringsAsFactors=FALSE, check.names=FALSE)
+d02_est <- d02[d02$Model_status == "ESTIMABLE", ]
+d02_est$moderated_t <- d02_est$log2FC / d02_est$SE
+mapped_pgs <- reps$PG.ProteinGroups
+d02_mapped <- d02_est[d02_est$PG.ProteinGroups %in% mapped_pgs, ]
+d02_mapped$Gene_symbol_mapped <- prot_to_gene[d02_mapped$PG.ProteinGroups]
+stats_df <- d02_mapped[!is.na(d02_mapped$Gene_symbol_mapped), c("Gene_symbol_mapped", "moderated_t")]
+stats_df <- stats_df[!duplicated(stats_df$Gene_symbol_mapped), ]
+stats <- sort(setNames(stats_df$moderated_t, stats_df$Gene_symbol_mapped), decreasing=TRUE)
+cat("Ranked genes (D02, mapped + estimable):", length(stats), "\n")
+
+# Expression matrix for descriptive Spearman correlation only (M12B context layer)
 mat <- as.matrix(expr_use)
-for (i in seq_len(nrow(mat))) {
-  rmed <- median(mat[i,], na.rm=TRUE); mat[i, is.na(mat[i,])] <- rmed
-}
-fit <- eBayes(lmFit(mat, design))
-tt <- topTable(fit, coef="High_vs_Low", number=Inf, sort.by="none")
-tt$Gene_symbol <- gene_vec[rownames(tt)]
-tt$PG.ProteinGroups <- rownames(tt)
-stats <- sort(setNames(tt$t, tt$Gene_symbol), decreasing=TRUE)
-cat("Ranked genes:", length(stats), "\n")
 
 # Pathway gene sets for BP/MF/CC
 build_go_sets <- function(onto) {
@@ -495,11 +499,11 @@ for (i in seq_len(nrow(ml_tab))) {
     PG.ProteinGroups=pg, Gene_symbol=g,
     Discovery_log2FC=ml_tab$Discovery_log2FC.x[i],
     Discovery_BH_FDR=ml_tab$Discovery_BH_FDR[i],
-    strict_nested_DEP_freq=ifelse(nrow(ss), ss$dep_appearance_freq[1], NA),
+    strict_nested_DEP_freq=ifelse(nrow(ss), ss$appearance_frequency[1], NA),
     LASSO_conditional_stability=ml_tab$LASSO_selection_freq[i],
     EN_conditional_stability=ml_tab$EN_selection_freq[i],
-    strict_nested_LASSO_stability=ifelse(nrow(ss), ss$lasso_selection_freq[1], NA),
-    strict_nested_EN_stability=ifelse(nrow(ss), ss$en_selection_freq[1], NA),
+    strict_nested_LASSO_stability=ifelse(nrow(ss), ss$lasso_selection_frequency[1], NA),
+    strict_nested_EN_stability=ifelse(nrow(ss), ss$en_selection_frequency[1], NA),
     XGBoost_mean_rank=ml_tab$XGBoost_mean_rank[i],
     XGBoost_mean_gain=ml_tab$XGBoost_mean_gain[i],
     D08_direction_concordant=ml_tab$Direction_concordant[i],

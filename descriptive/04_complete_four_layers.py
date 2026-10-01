@@ -114,14 +114,14 @@ def save(fig,name):
     save_nature(fig, OUT, name)
 def panel(ax,letter,title):
     ax.set_title(title,loc='left',pad=8)
-palette=['#527D9E','#C48C59','#69958A','#957B9B','#7E8790','#A18E57']
+palette=['#4A85B3','#FFB84D','#4BBEB6','#B266C4','#A6A6A6','#A18E57']
 styles=['-','--','-.',':','-','--']; markers=['o','s','^','D','v','P']
 coverage_figures, coverage_axes = zip(*(new_figure() for _ in range(4)))
 axs = np.array(coverage_axes, dtype=object)
 curve_sets=[long[long.level.isin(['overall','condition'])],long[long.level=='TREAT1_clean'],long[(long.level=='MS_batch_proxy')&long.category.str.startswith('2025')],long[(long.level=='MS_batch_proxy')&long.category.str.startswith('2026')]]
 titles=['Overall and environments','TREAT1 (all labels retained)','Run dates in 2025 (batch proxies)','Run dates in 2026 (batch proxies)']
 displays={'high_stress':'High stress','high_temperature':'High temperature','control':'Control','low':'Short exposure','high':'Long exposure','unknown':'Unknown','missing':'Missing'}
-semantic_colors={'Overall':'#50575E','high_stress':'#527D9E','high_temperature':'#C48C59','control':'#929AA2','low':'#79A9BC','high':'#335C7B','unknown':'#CAA369','missing':'#A7ADB2'}
+semantic_colors={'Overall':'#50575E','high_stress':'#4A85B3','high_temperature':'#FFB84D','control':'#A6A6A6','low':'#79A9BC','high':'#FF6347','unknown':'#FFB84D','missing':'#A7ADB2'}
 for j,(ax,sub,title) in enumerate(zip(axs.ravel(),curve_sets,titles)):
     for i,(name,d) in enumerate(sub[sub.threshold_pct>=10].groupby('category')):
         ax.plot(d.threshold_pct,d.protein_groups,color=semantic_colors.get(name,palette[i]),linestyle=styles[i],marker=markers[i],ms=3,lw=1,label=f'{displays.get(name,name)} (n={d.samples.iloc[0]})')
@@ -165,16 +165,16 @@ ax.set_yticks(range(len(names_by['group'])),names_by['group']);ax.set_xlabel('Al
 panel(ax,'a','Detection landscape across regions')
 ax=landscape_axes[1];xx=np.arange(len(breadth))
 ax.bar(xx-.18,breadth.protein_groups_ge50pct,.36,color='#A8C1D1',label='Within-group ≥50%')
-ax.bar(xx+.18,breadth.protein_groups_ge80pct,.36,color='#476E88',label='Within-group ≥80%')
+ax.bar(xx+.18,breadth.protein_groups_ge80pct,.36,color='#4A85B3',label='Within-group ≥80%')
 ax.set_xticks(xx);ax.set_xlabel('Number of groups meeting threshold');ax.set_ylabel('Protein groups');ax.legend(frameon=False,fontsize=5.5)
 panel(ax,'b','Cross-group detection breadth')
 ax=landscape_axes[2];labs=['Global ≥80%','Global ≥90%','Every group ≥50%','Every group ≥80%','Both conditions ≥80%']
-bars=ax.barh(range(5),core.protein_groups,color='#527D9E');ax.set_yticks(range(5),labs);ax.invert_yaxis();ax.bar_label(bars,padding=3,fontsize=6);ax.set_xlim(0,core.protein_groups.max()*1.22);ax.set_xlabel('Protein groups')
+bars=ax.barh(range(5),core.protein_groups,color='#4A85B3');ax.set_yticks(range(5),labs);ax.invert_yaxis();ax.bar_label(bars,padding=3,fontsize=6);ax.set_xlim(0,core.protein_groups.max()*1.22);ax.set_xlabel('Protein groups')
 panel(ax,'c','Complementary core-coverage definitions')
 ax=landscape_axes[3];assert (p.mean_observed_abundance>0).all()
-ax.scatter(np.log10(p.mean_observed_abundance),p.missing_pct,s=3,c='#527D9E',alpha=.35,edgecolors='none',rasterized=True);ax.set_xlabel('Mean observed abundance (log10)');ax.set_ylabel('Missing samples (%)');panel(ax,'d','Observed abundance and missingness')
+ax.scatter(np.log10(p.mean_observed_abundance),p.missing_pct,s=3,c='#4A85B3',alpha=.35,edgecolors='none',rasterized=True);ax.set_xlabel('Mean observed abundance (log10)');ax.set_ylabel('Missing samples (%)');panel(ax,'d','Observed abundance and missingness')
 ax=landscape_axes[4];classorder=['Sparse (<50%)','Moderate (50–<80%)','High (80–<90%)','High (≥90%)'];sizes=p.coverage_class.value_counts().reindex(classorder)
-bars=ax.barh(range(4),sizes,color=['#D5DEE4','#A8C1D1','#7596AD','#3D607B']);ax.set_yticks(range(4),classorder);ax.invert_yaxis();ax.bar_label(bars,padding=3,fontsize=6);ax.set_xlim(0,sizes.max()*1.22);ax.set_xlabel('Protein groups');panel(ax,'e','Global detection classes')
+bars=ax.barh(range(4),sizes,color=['#D5DEE4','#A8C1D1','#7596AD','#4A85B3']);ax.set_yticks(range(4),classorder);ax.invert_yaxis();ax.bar_label(bars,padding=3,fontsize=6);ax.set_xlim(0,sizes.max()*1.22);ax.set_xlabel('Protein groups');panel(ax,'e','Global detection classes')
 save_series(landscape_figures, OUT, ['Figure11_protein_detection_landscape', 'Figure11_detection_breadth',
     'Figure11_core_definitions', 'Figure11_abundance_missingness', 'Figure11_detection_classes'])
 

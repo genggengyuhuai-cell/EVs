@@ -182,7 +182,7 @@ def main():
         subset = member.loc[member.Target_threshold.eq(target)]
         counts = subset.groupby("Detection_pattern").size().sort_values()
         fig, ax = new_figure(183, max(120, 45 + 7 * len(counts)))
-        ax.barh(counts.index.str.replace("_", " "), counts.values, color="#3178A5")
+        ax.barh(counts.index.str.replace("_", " "), counts.values, color="#4A85B3")
         ax.set(xlabel="Protein groups", title=f"Detection patterns: target {target:.0%}")
         save(fig, out, f"Detection_pattern_counts_{target:.0%}".replace("%", "pct"),
              counts.rename("N_proteins").reset_index())

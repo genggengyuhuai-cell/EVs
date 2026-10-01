@@ -1258,7 +1258,7 @@ save_nature(fig, OUT, "Quantitative_filter_sample_counts", dose_count_table)
 for column, ylabel, name in [("protein_groups", "Retained protein groups", "proteins"),
                               ("missing_pct", "Missing matrix entries (%)", "missingness")]:
     fig, ax = new_figure()
-    ax.plot(threshold_summary.threshold_pct, threshold_summary[column], "o-", color="#3178A5", linewidth=1)
+    ax.plot(threshold_summary.threshold_pct, threshold_summary[column], "o-", color="#4A85B3", linewidth=1)
     ax.axvline(PRIMARY_THRESHOLD, color="#595959", linestyle="--", linewidth=0.7, label="Primary threshold")
     ax.set(xlabel="Required detection in every exposure group (%)", ylabel=ylabel,
            title="Quantitative filter sensitivity")

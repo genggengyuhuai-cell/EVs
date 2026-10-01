@@ -13,8 +13,11 @@ files <- c(
   D06 = file.path(dv_stage_dir("D06_environment_interaction"), "D06_candidate_interaction_results.csv"),
   D07 = file.path(dv_stage_dir("D07_site_robustness"), "D07_leave_one_major_site_out.csv"),
   D08 = file.path(dv_stage_dir("D08_validation"), "D08_validation_results.csv"),
-  D09_detection = file.path(dv_stage_dir("D09_missingness_detection_peptides"), "D09_missingness_detection_by_stratum.csv"),
-  D09_peptide = file.path(dv_stage_dir("D09_missingness_detection_peptides"), "D09_unique_peptide_support.csv")
+  D09_detection = file.path(dv_stage_dir("D09_missingness_detection_peptides"), "D09_missingness_detection_by_stratum.csv")
+  # [P20 FIX] v2.1 protocol: unique-peptide evidence shall NOT enter new canonical outputs.
+  # D09_peptide (unique_peptide_support) is HISTORICAL_ONLY and no longer propagated.
+  # Historical output files are preserved on disk but excluded from D10 canonical master.
+  # D09_peptide = file.path(dv_stage_dir("D09_missingness_detection_peptides"), "D09_unique_peptide_support.csv")
 )
 missing <- files[!file.exists(files)]
 if (length(missing)) {
@@ -160,13 +163,19 @@ d09_detection_summary <- do.call(rbind, lapply(locked_ids, function(id) {
 rownames(d09_detection_summary) <- NULL
 assert_locked_universe(d09_detection_summary, "D09 Dose-detection summary")
 
-d09_peptide <- dv_read_csv(files["D09_peptide"], "PG.ProteinGroups")
-dv_assert_keys(d09_peptide, "PG.ProteinGroups", "D09 peptide support")
-d09_peptide_fields <- c("Unique_peptide_count", "Single_unique_peptide", "Peptide_support_status")
-if (!all(d09_peptide_fields %in% names(d09_peptide))) dv_stop("D09 peptide: missing required field(s)")
-d09_peptide_summary <- d09_peptide[, c("PG.ProteinGroups", d09_peptide_fields), drop = FALSE]
-names(d09_peptide_summary)[-1] <- paste0("D09_", names(d09_peptide_summary)[-1])
-assert_locked_universe(d09_peptide_summary, "D09 peptide summary")
+# [P20 FIX] v2.1 protocol: unique-peptide evidence (Unique_peptide_count,
+# Single_unique_peptide, Peptide_support_status) shall NOT be propagated into
+# new canonical outputs. The D09_peptide file and any historical output containing
+# these fields are retained as HISTORICAL_ONLY on disk.
+# The following block is disabled to prevent propagation into D10_integrated_candidate_evidence.csv.
+#
+# d09_peptide <- dv_read_csv(files["D09_peptide"], "PG.ProteinGroups")
+# dv_assert_keys(d09_peptide, "PG.ProteinGroups", "D09 peptide support")
+# d09_peptide_fields <- c("Unique_peptide_count", "Single_unique_peptide", "Peptide_support_status")
+# if (!all(d09_peptide_fields %in% names(d09_peptide))) dv_stop("D09 peptide: missing required field(s)")
+# d09_peptide_summary <- d09_peptide[, c("PG.ProteinGroups", d09_peptide_fields), drop = FALSE]
+# names(d09_peptide_summary)[-1] <- paste0("D09_", names(d09_peptide_summary)[-1])
+# assert_locked_universe(d09_peptide_summary, "D09 peptide summary")
 
 # Build the 85-row supportive evidence master. No filtering, ranking, or candidate redefinition.
 master <- base
@@ -176,7 +185,8 @@ master <- add_locked_summary(master, d06_summary, "D06 interaction")
 master <- add_locked_summary(master, d07_summary, "D07 site robustness")
 master <- add_locked_summary(master, d08_summary, "D08 validation")
 master <- add_locked_summary(master, d09_detection_summary, "D09 Dose detection")
-master <- add_locked_summary(master, d09_peptide_summary, "D09 peptide")
+# [P20 FIX] Removed: master <- add_locked_summary(master, d09_peptide_summary, "D09 peptide")
+# v2.1 protocol: unique-peptide fields are HISTORICAL_ONLY, not in new canonical outputs.
 assert_locked_universe(master, "D10 integrated candidate evidence")
 if (!identical(master$PG.ProteinGroups, locked_ids)) dv_stop("D10: locked candidate order changed")
 

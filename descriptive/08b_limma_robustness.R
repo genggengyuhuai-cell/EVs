@@ -165,9 +165,9 @@ CONTRAST_LABELS <- c(
 )
 
 CONTRAST_COLORS <- c(
-    Low_vs_Control = "#C0392B",
-    High_vs_Control = "#2C7A3F",
-    High_vs_Low = "#2C6E9B"
+    Low_vs_Control = "#FF6347",
+    High_vs_Control = "#4BBEB6",
+    High_vs_Low = "#4A85B3"
 )
 
 
@@ -660,7 +660,7 @@ p_b <- ggplot(
     ) +
     scale_fill_gradient(
         low = "#F4F4F4",
-        high = "#2C6E9B",
+        high = "#4A85B3",
         limits = c(
             0,
             1
@@ -820,8 +820,8 @@ save_plot(p_d, "Figure_06b_effect_correlation")
 for (metric in unique(as.character(metric_heat$Metric))) {
     shown <- metric_heat[as.character(metric_heat$Metric) == metric, , drop = FALSE]
     p <- (p_b %+% shown) + labs(title = metric)
-    if (grepl("Pearson", metric)) p <- p + scale_fill_gradient2(low = "#A65D57", mid = "white",
-        high = "#3178A5", midpoint = 0, limits = c(-1, 1), na.value = "#ECECEC")
+    if (grepl("Pearson", metric)) p <- p + scale_fill_gradient2(low = "#FF6347", mid = "white",
+        high = "#4A85B3", midpoint = 0, limits = c(-1, 1), na.value = "#ECECEC")
     save_plot(p, paste0("Figure_06b_", v22_slug(metric)))
 }
 
@@ -915,7 +915,7 @@ make_scatter <- function(
             intercept = 0,
             linetype = "dashed",
             linewidth = 0.50,
-            colour = "#C0392B"
+            colour = "#FF6347"
         ) +
         coord_equal(
             xlim = c(
@@ -1076,7 +1076,7 @@ p_b3 <- ggplot(
     ) +
     scale_fill_gradient(
         low = "#F5F5F5",
-        high = "#2C7A3F",
+        high = "#4BBEB6",
         limits = c(
             0,
             1

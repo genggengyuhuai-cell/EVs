@@ -2,7 +2,7 @@
 V21_VERSION <- "2.1"
 EXPOSURE_LEVELS <- c("control", "low", "high")
 EXPOSURE_LABELS <- c(control = "Control", low = "Short exposure", high = "Long exposure")
-EXPOSURE_COLORS <- c(control = "#595959", low = "#3178A5", high = "#C78132")
+EXPOSURE_COLORS <- c(control = "#A6A6A6", low = "#4A85B3", high = "#FF6347")
 CONTRAST_LABELS <- c(Low_vs_Control = "Short exposure vs Control",
                      High_vs_Control = "Long exposure vs Control",
                      High_vs_Low = "Long vs Short exposure")
@@ -37,6 +37,36 @@ v21_match <- function(reference_ids, other, label, exact = TRUE) {
 v21_output <- function(path, replace = TRUE) {
     # Callers must pass a directory wholly owned by the current analysis stage.
     # Generated contents are deterministically replaced at the canonical path.
+
+    # [P19 FIX] Safety guard for recursive delete (unlink recursive=TRUE):
+    # 1. Resolve to absolute path
+    # 2. Reject drive root (e.g. "F:\", "C:\")
+    # 3. Reject project root itself
+    # 4. Reject paths outside the project root (external paths)
+    # 5. Reject paths containing parent traversal that escapes project root
+    abs_path <- normalizePath(path, winslash = "/", mustWork = FALSE)
+    project_root <- normalizePath(getwd(), winslash = "/", mustWork = FALSE)
+
+    # Reject drive root (matches patterns like "X:/" or "X:\")
+    is_drive_root <- grepl("^[A-Za-z]:/$", abs_path)
+    if (is_drive_root)
+        stop("[P19 FATAL] v21_output: refusing recursive delete of drive root: ", abs_path)
+
+    # Reject project root itself
+    if (tolower(abs_path) == tolower(project_root))
+        stop("[P19 FATAL] v21_output: refusing recursive delete of project root: ", abs_path)
+
+    # Reject paths outside project root (must be inside, not equal)
+    # Check that abs_path starts with project_root + "/"
+    if (!startsWith(tolower(abs_path), tolower(paste0(project_root, "/"))))
+        stop("[P19 FATAL] v21_output: path is outside approved project root. ",
+             "path=", abs_path, " project_root=", project_root)
+
+    # Reject any ".." components that would escape the project root
+    # (normalizePath already resolves .. but double-check by string inspection)
+    if (grepl("\\.\\./", abs_path) || grepl("/\\.\\.", abs_path))
+        stop("[P19 FATAL] v21_output: path contains parent traversal (..): ", abs_path)
+
     if (file.exists(path) && !dir.exists(path))
         stop("Expected a generated-output directory but found a file: ", path)
     if (dir.exists(path) && isTRUE(replace)) {

@@ -1,6 +1,12 @@
 # =============================================================================
-# M12_02_ranked_ora.R — Ranked cameraPR + ORA (v2.1 §10)
-# Uses local Bioconductor resources (no msigdbdf dependency).
+# M12_02_ranked_ora.R — Ranked cameraPR + ORA (v2.1 §10, Phase 5 repaired)
+# [Phase 5 REPAIR]:
+#   - Removed self-fit lmFit/eBayes (~group, no environment adjustment)
+#   - Removed row-wise median imputation
+#   - Now reads D02 primary model output (D02_Long_vs_Short_all_tested.csv)
+#   - Ranking statistic = signed moderated t = log2FC / SE (from D02, environment-adjusted)
+#   - KEGG removed (NOT_RUN per contract §16)
+#   - Protein universe from D02 (1,445 eligible), intersected with mapped genes
 # =============================================================================
 suppressPackageStartupMessages({
   library(limma)
@@ -8,7 +14,7 @@ suppressPackageStartupMessages({
   library(AnnotationDbi)
   library(org.Hs.eg.db)
   library(GO.db)
-  library(clusterProfiler)
+  library(reactome.db)
   library(data.table)
 })
 
@@ -32,106 +38,106 @@ reps <- contract[contract$representative_status %in% c("REPRESENTATIVE","SINGLE"
 cat("Representative genes for pathway analysis:", nrow(reps), "\n")
 
 # -----------------------------------------------------------------------------
-# 2. Load expression + metadata, Discovery High vs Low
+# 2. [Phase 5 REPAIR] Load D02 primary model ranking statistic
+#    Canonical ranking = signed moderated t from D02 (~0+dose+environment, eBayes trend+robust)
+#    NO imputation. Model_status == "NON_ESTIMABLE" excluded.
 # -----------------------------------------------------------------------------
-cat("== 2. Loading expression and metadata ==\n")
-expr <- read.csv(gzfile("descriptive/PRIMARY_dose_log2_expression.csv.gz"),
-                 row.names=1, check.names=FALSE)
-meta <- read.csv("descriptive/discovery_validation_split/discovery_validation_assignment.csv",
-                 stringsAsFactors=FALSE)
-disc <- meta[meta$Split == "Discovery" & meta$TREAT1_clean %in% c("high","low"), ]
-common_samps <- intersect(disc$UniqueSampleID, colnames(expr))
-disc <- disc[match(common_samps, disc$UniqueSampleID), ]
+cat("== 2. Loading D02 primary model ranking ==\n")
+d02 <- read.csv("descriptive/discovery_validation/D02_discovery_primary/D02_Long_vs_Short_all_tested.csv",
+                stringsAsFactors=FALSE, check.names=FALSE)
+cat("D02 all tested proteins:", nrow(d02), "\n")
 
-use_prots <- intersect(reps$PG.ProteinGroups, rownames(expr))
-expr_use <- expr[use_prots, disc$UniqueSampleID]
-cat("Matrix:", nrow(expr_use), "proteins x", ncol(expr_use), "samples\n")
+# Filter to ESTIMABLE only
+d02_est <- d02[d02$Model_status == "ESTIMABLE", ]
+cat("D02 ESTIMABLE proteins:", nrow(d02_est), "\n")
+cat("D02 NON_ESTIMABLE (excluded):", nrow(d02) - nrow(d02_est), "\n")
 
+# Signed moderated t = log2FC / SE
+d02_est$moderated_t <- d02_est$log2FC / d02_est$SE
+cat("D02 moderated t range:", range(d02_est$moderated_t, na.rm=TRUE), "\n")
+
+# Merge with mapping contract (by PG.ProteinGroups)
+mapped_pgs <- reps$PG.ProteinGroups
+d02_mapped <- d02_est[d02_est$PG.ProteinGroups %in% mapped_pgs, ]
+cat("D02 ESTIMABLE + gene-mapped:", nrow(d02_mapped), "\n")
+
+# Map PG -> gene symbol (use representative gene from mapping contract)
 prot_to_gene <- setNames(reps$Gene_symbol, reps$PG.ProteinGroups)
-gene_vec <- prot_to_gene[rownames(expr_use)]
-stopifnot(!any(duplicated(gene_vec)))
+d02_mapped$Gene_symbol_mapped <- prot_to_gene[d02_mapped$PG.ProteinGroups]
+
+# Build named stats vector: gene symbol -> moderated t
+# Check for duplicate gene symbols (should be 0 duplicate groups per mapping)
+stats_df <- d02_mapped[!is.na(d02_mapped$Gene_symbol_mapped),
+                       c("Gene_symbol_mapped", "moderated_t")]
+stats_df <- stats_df[!duplicated(stats_df$Gene_symbol_mapped), ]
+stats <- setNames(stats_df$moderated_t, stats_df$Gene_symbol_mapped)
+stats <- sort(stats, decreasing=TRUE)
+cat("Ranked genes (unique, mapped, estimable):", length(stats), "\n")
+
+# P7 reporting fields
+N_primary_tested <- nrow(d02)
+N_gene_mapped <- nrow(reps)
+N_ranked <- length(stats)
+N_ORA_background <- length(stats)
+N_excluded_multigene <- sum(contract$mapping_status == "MULTI_GENE_AMBIGUOUS")
+N_unmapped <- sum(contract$mapping_status == "UNMAPPED")
+cat(sprintf("P7 fields: N_primary_tested=%d, N_gene_mapped=%d, N_ranked=%d, N_ORA_background=%d, N_excluded_multigene=%d, N_unmapped=%d\n",
+            N_primary_tested, N_gene_mapped, N_ranked, N_ORA_background, N_excluded_multigene, N_unmapped))
 
 # -----------------------------------------------------------------------------
-# 3. limma High vs Low
+# 3. Build pathway gene sets (gene-symbol level)
 # -----------------------------------------------------------------------------
-cat("== 3. Fitting limma High vs Low ==\n")
-group <- factor(disc$TREAT1_clean, levels=c("low","high"))
-design <- model.matrix(~ group); colnames(design) <- c("Intercept","High_vs_Low")
-mat <- as.matrix(expr_use)
-for (i in seq_len(nrow(mat))) {
-  rmed <- median(mat[i,], na.rm=TRUE)
-  mat[i, is.na(mat[i,])] <- rmed
-}
-fit <- lmFit(mat, design); fit <- eBayes(fit)
-tt <- topTable(fit, coef="High_vs_Low", number=Inf, sort.by="none")
-tt$PG.ProteinGroups <- rownames(tt)
-tt$Gene_symbol <- gene_vec[tt$PG.ProteinGroups]
-stats <- setNames(tt$t, tt$Gene_symbol)
-stats <- sort(stats[!is.na(names(stats))], decreasing=TRUE)
-cat("Ranked genes:", length(stats), "\n")
-
-# -----------------------------------------------------------------------------
-# 4. Build pathway gene sets (gene-symbol level)
-# -----------------------------------------------------------------------------
-cat("== 4. Building pathway gene sets ==\n")
+cat("\n== 3. Building pathway gene sets ==\n")
 
 # --- GO BP via org.Hs.eg.db (ENTREZ -> SYMBOL) ---
 go_map <- AnnotationDbi::select(org.Hs.eg.db,
     keys=keys(org.Hs.eg.db, keytype="ENTREZID"),
     columns=c("GO","ONTOLOGY","SYMBOL"), keytype="ENTREZID")
-go_map <- go_map[go_map$ONTOLOGY=="BP" & !is.na(go_map$GO) & !is.na(go_map$SYMBOL), ]
-go_terms <- split(go_map$SYMBOL, go_map$GO)
-go_terms <- lapply(go_terms, unique)
-cat("GO BP raw terms:", length(go_terms), "\n")
+go_bp_map <- go_map[go_map$ONTOLOGY=="BP" & !is.na(go_map$GO) & !is.na(go_map$SYMBOL), ]
+go_bp_terms <- split(go_bp_map$SYMBOL, go_bp_map$GO)
+go_bp_terms <- lapply(go_bp_terms, unique)
+cat("GO BP raw terms:", length(go_bp_terms), "\n")
 
-# GO term names
-go_names <- AnnotationDbi::select(GO.db, keys=names(go_terms),
+# GO BP term names
+go_bp_names <- AnnotationDbi::select(GO.db, keys=names(go_bp_terms),
                                   columns="TERM", keytype="GOID")
-go_name_map <- setNames(go_names$TERM, go_names$GOID)
+go_bp_name_map <- setNames(go_bp_names$TERM, go_bp_names$GOID)
 
-# --- KEGG via clusterProfiler download ---
-kegg_sets <- list()
-tryCatch({
-  kegg_list <- clusterProfiler::download_KEGG("hsa")
-  # kegg_list$KEGGPATHID2EXTID maps pathway -> Entrez
-  # Need Entrez -> Symbol
-  e2s <- AnnotationDbi::select(org.Hs.eg.db, keys=names(kegg_list$KEGGPATHID2EXTID),
-                              columns="SYMBOL", keytype="ENTREZID")
-  # Actually KEGGPATHID2EXTID is a named vector: pathway -> entrez
-  # Build list
-  for (pid in unique(names(kegg_list$KEGGPATHID2EXTID))) {
-    entrez <- kegg_list$KEGGPATHID2EXTID[names(kegg_list$KEGGPATHID2EXTID)==pid]
-    syms <- AnnotationDbi::select(org.Hs.eg.db, keys=entrez,
-                                  columns="SYMBOL", keytype="ENTREZID")$SYMBOL
-    syms <- unique(na.omit(syms))
-    if (length(syms) >= 10) kegg_sets[[pid]] <- syms
-  }
-  cat("KEGG sets (after >=10):", length(kegg_sets), "\n")
-}, error=function(e) {
-  cat("KEGG download failed:", conditionMessage(e), "\n")
-})
+# --- GO MF (secondary, for later use) ---
+go_mf_map <- go_map[go_map$ONTOLOGY=="MF" & !is.na(go_map$GO) & !is.na(go_map$SYMBOL), ]
+go_mf_terms <- split(go_mf_map$SYMBOL, go_mf_map$GO)
+go_mf_terms <- lapply(go_mf_terms, unique)
+cat("GO MF raw terms:", length(go_mf_terms), "\n")
+go_mf_names <- AnnotationDbi::select(GO.db, keys=names(go_mf_terms), columns="TERM", keytype="GOID")
+go_mf_name_map <- setNames(go_mf_names$TERM, go_mf_names$GOID)
 
-# --- Reactome via ReactomePA / reactome.db ---
+# --- GO CC (secondary, for later use) ---
+go_cc_map <- go_map[go_map$ONTOLOGY=="CC" & !is.na(go_map$GO) & !is.na(go_map$SYMBOL), ]
+go_cc_terms <- split(go_cc_map$SYMBOL, go_cc_map$GO)
+go_cc_terms <- lapply(go_cc_terms, unique)
+cat("GO CC raw terms:", length(go_cc_terms), "\n")
+go_cc_names <- AnnotationDbi::select(GO.db, keys=names(go_cc_terms), columns="TERM", keytype="GOID")
+go_cc_name_map <- setNames(go_cc_names$TERM, go_cc_names$GOID)
+
+# --- Reactome via reactome.db ---
 rea_sets <- list()
-tryCatch({
-  library(reactome.db)
-  rea_map <- AnnotationDbi::select(reactome.db,
-      keys=keys(reactome.db, keytype="ENTREZID"),
-      columns=c("REACTOMEID"), keytype="ENTREZID")
-  e2s <- AnnotationDbi::select(org.Hs.eg.db, keys=rea_map$ENTREZID,
-                               columns="SYMBOL", keytype="ENTREZID")
-  rea_map$SYMBOL <- e2s$SYMBOL[match(rea_map$ENTREZID, e2s$ENTREZID)]
-  rea_map <- rea_map[!is.na(rea_map$SYMBOL), ]
-  rea_list <- split(rea_map$SYMBOL, rea_map$REACTOMEID)
-  rea_list <- lapply(rea_list, unique)
-  rea_sets <- rea_list[lengths(rea_list) >= 10]
-  cat("Reactome sets (after >=10):", length(rea_sets), "\n")
-}, error=function(e) {
-  cat("Reactome via reactome.db failed:", conditionMessage(e), "\n")
-})
+rea_map <- AnnotationDbi::select(reactome.db,
+    keys=keys(reactome.db, keytype="ENTREZID"),
+    columns=c("REACTOMEID"), keytype="ENTREZID")
+e2s <- AnnotationDbi::select(org.Hs.eg.db, keys=rea_map$ENTREZID,
+                             columns="SYMBOL", keytype="ENTREZID")
+rea_map$SYMBOL <- e2s$SYMBOL[match(rea_map$ENTREZID, e2s$ENTREZID)]
+rea_map <- rea_map[!is.na(rea_map$SYMBOL), ]
+rea_list <- split(rea_map$SYMBOL, rea_map$REACTOMEID)
+rea_list <- lapply(rea_list, unique)
+rea_sets <- rea_list[lengths(rea_list) >= 10]
+cat("Reactome sets (after >=10):", length(rea_sets), "\n")
+
+# [Phase 5 REPAIR] KEGG NOT_RUN per contract §16. No download, no enrichment.
+cat("KEGG: NOT_RUN (per contract §16)\n")
 
 # -----------------------------------------------------------------------------
-# 5. cameraPR
+# 4. cameraPR (primary: GO BP + Reactome, FDR_pooled = BH across both)
 # -----------------------------------------------------------------------------
 run_camerapr <- function(stats, sets, label, cor=0.01, name_map=NULL) {
   cat("  cameraPR:", label, "with", length(sets), "sets\n")
@@ -160,43 +166,59 @@ run_camerapr <- function(stats, sets, label, cor=0.01, name_map=NULL) {
   res[order(res$PValue), ]
 }
 
-cat("\n== 5. cameraPR (cor=0.01) ==\n")
-go_res   <- run_camerapr(stats, go_terms, "GO_BP", cor=0.01, name_map=go_name_map)
-kegg_res <- if (length(kegg_sets)) run_camerapr(stats, kegg_sets, "KEGG", cor=0.01) else NULL
-rea_res  <- if (length(rea_sets))  run_camerapr(stats, rea_sets,  "Reactome", cor=0.01) else NULL
+cat("\n== 4. cameraPR primary (GO BP + Reactome, cor=0.01) ==\n")
+go_res   <- run_camerapr(stats, go_bp_terms, "GO_BP", cor=0.01, name_map=go_bp_name_map)
+rea_res  <- run_camerapr(stats, rea_sets,  "Reactome", cor=0.01, name_map=NULL)
 
 write.csv(go_res, file.path(RANK_DIR, "M12_ranked_GO_BP.csv"), row.names=FALSE)
-if (!is.null(kegg_res)) write.csv(kegg_res, file.path(RANK_DIR, "M12_ranked_KEGG.csv"), row.names=FALSE)
-if (!is.null(rea_res))  write.csv(rea_res,  file.path(RANK_DIR, "M12_ranked_Reactome.csv"), row.names=FALSE)
+write.csv(rea_res, file.path(RANK_DIR, "M12_ranked_Reactome.csv"), row.names=FALSE)
 
-# Combined
-all_rank <- do.call(rbind, Filter(Negate(is.null), list(go_res, kegg_res, rea_res)))
+# Combined primary: GO BP + Reactome, FDR_pooled = BH across both
+all_rank <- rbind(go_res, rea_res)
 all_rank$FDR_pooled <- p.adjust(all_rank$PValue, method="BH")
 all_rank <- all_rank[order(all_rank$FDR_pooled), ]
 write.csv(all_rank, file.path(RANK_DIR, "M12_ranked_combined_FDR.csv"), row.names=FALSE)
 cat("Pooled PATH-R FDR<0.05:", sum(all_rank$FDR_pooled < 0.05), "\n")
+cat("  GO_BP sig (pooled):", sum(all_rank$FDR_pooled < 0.05 & all_rank$database=="GO_BP"), "\n")
+cat("  Reactome sig (pooled):", sum(all_rank$FDR_pooled < 0.05 & all_rank$database=="Reactome"), "\n")
 
-# Sensitivity cor=0.05
-cat("\n== 5b. Sensitivity cor=0.05 ==\n")
-go_s   <- run_camerapr(stats, go_terms, "GO_BP", cor=0.05, name_map=go_name_map)
-kegg_s <- if (length(kegg_sets)) run_camerapr(stats, kegg_sets, "KEGG", cor=0.05) else NULL
-rea_s  <- if (length(rea_sets))  run_camerapr(stats, rea_sets,  "Reactome", cor=0.05) else NULL
-all_sens <- do.call(rbind, Filter(Negate(is.null), list(go_s, kegg_s, rea_s)))
-all_sens$FDR_pooled <- p.adjust(all_sens$PValue, method="BH")
-write.csv(all_sens, file.path(RANK_DIR, "M12_ranked_sensitivity_cor005.csv"), row.names=FALSE)
+# Secondary: GO MF + GO CC cameraPR (per-family FDR, M12B role)
+cat("\n== 4b. cameraPR secondary (GO MF + GO CC, per-family FDR) ==\n")
+mf_res <- run_camerapr(stats, go_mf_terms, "GO_MF", cor=0.01, name_map=go_mf_name_map)
+cc_res <- run_camerapr(stats, go_cc_terms, "GO_CC", cor=0.01, name_map=go_cc_name_map)
+write.csv(mf_res, file.path(RANK_DIR, "M12_ranked_GO_MF.csv"), row.names=FALSE)
+write.csv(cc_res, file.path(RANK_DIR, "M12_ranked_GO_CC.csv"), row.names=FALSE)
+cat("  GO_MF tested:", nrow(mf_res), "sig (FDR<0.05):", sum(mf_res$FDR<0.05), "\n")
+cat("  GO_CC tested:", nrow(cc_res), "sig (FDR<0.05):", sum(cc_res$FDR<0.05), "\n")
+
+# KEGG placeholder (NOT_RUN)
+kegg_placeholder <- data.frame(
+  database=character(0), pathway_id=character(0), pathway_name=character(0),
+  pathway_size=integer(0), direction=character(0), PValue=numeric(0),
+  FDR=numeric(0), NGenes=integer(0), stringsAsFactors=FALSE
+)
+write.csv(kegg_placeholder, file.path(RANK_DIR, "M12_ranked_KEGG.csv"), row.names=FALSE)
 
 # -----------------------------------------------------------------------------
-# 6. ORA on 85 DEPs
+# 5. ORA on 85 locked D03 DEPs
 # -----------------------------------------------------------------------------
-cat("\n== 6. ORA on 85 DEPs ==\n")
+cat("\n== 5. ORA on 85 locked D03 DEPs ==\n")
 d03 <- read.csv("descriptive/discovery_validation/D03_candidate_lock/D03_locked_candidates.csv",
                 stringsAsFactors=FALSE, check.names=FALSE)
-d03_genes <- unique(na.omit(prot_to_gene[d03$PG.ProteinGroups]))
-cat("85 DEPs ->", length(d03_genes), "unique genes\n")
-fg <- intersect(d03_genes, names(stats))
-bg <- names(stats)
+cat("D03 locked candidates:", nrow(d03), "\n")
 
-run_ora <- function(fg, bg, sets, label) {
+# Map D03 PGs to gene symbols via mapping contract
+d03_genes <- unique(na.omit(prot_to_gene[d03$PG.ProteinGroups]))
+cat("D03 DEPs -> mapped genes:", length(d03_genes), "\n")
+
+# Foreground = D03 genes that are in the ranked (mapped + estimable) universe
+fg <- intersect(d03_genes, names(stats))
+# Background = all mapped + estimable genes (NOT hardcoded 1414)
+bg <- names(stats)
+cat("ORA foreground (D03 mapped + estimable):", length(fg), "\n")
+cat("ORA background (mapped + estimable):", length(bg), "\n")
+
+run_ora <- function(fg, bg, sets, label, name_map=NULL) {
   sets_filt <- lapply(sets, function(s) intersect(s, bg))
   keep <- lengths(sets_filt) >= 10 & lengths(sets_filt) <= 500
   sets_filt <- sets_filt[keep]
@@ -207,7 +229,8 @@ run_ora <- function(fg, bg, sets, label) {
     m <- length(members)
     if (x == 0) return(NULL)
     ft <- fisher.test(matrix(c(x, m-x, K-x, N-m-K+x), nrow=2), alternative="greater")
-    data.frame(database=label, pathway_id=nm, pathway_name=nm,
+    pname <- if (!is.null(name_map) && nm %in% names(name_map)) name_map[[nm]] else nm
+    data.frame(database=label, pathway_id=nm, pathway_name=pname,
                foreground_mapped=x, background_pathway=m,
                foreground_total=K, background_total=N,
                enrichment_ratio=(x/K)/(m/N),
@@ -219,21 +242,31 @@ run_ora <- function(fg, bg, sets, label) {
   res[order(res$PValue), ]
 }
 
-ora_go   <- run_ora(fg, bg, go_terms, "GO_BP")
-ora_kegg <- if (length(kegg_sets)) run_ora(fg, bg, kegg_sets, "KEGG") else NULL
-ora_rea  <- if (length(rea_sets))  run_ora(fg, bg, rea_sets,  "Reactome") else NULL
-write.csv(ora_go, file.path(ORA_DIR, "M12_ORA_GO_BP.csv"), row.names=FALSE)
-if (!is.null(ora_kegg)) write.csv(ora_kegg, file.path(ORA_DIR, "M12_ORA_KEGG.csv"), row.names=FALSE)
-if (!is.null(ora_rea))  write.csv(ora_rea,  file.path(ORA_DIR, "M12_ORA_Reactome.csv"), row.names=FALSE)
+ora_go_bp   <- run_ora(fg, bg, go_bp_terms, "GO_BP", name_map=go_bp_name_map)
+ora_rea     <- run_ora(fg, bg, rea_sets,  "Reactome", name_map=NULL)
+ora_go_mf   <- run_ora(fg, bg, go_mf_terms, "GO_MF", name_map=go_mf_name_map)
+ora_go_cc   <- run_ora(fg, bg, go_cc_terms, "GO_CC", name_map=go_cc_name_map)
 
-ora_comb <- do.call(rbind, Filter(Negate(is.null), list(ora_go, ora_kegg, ora_rea)))
+write.csv(ora_go_bp, file.path(ORA_DIR, "M12_ORA_GO_BP.csv"), row.names=FALSE)
+write.csv(ora_rea, file.path(ORA_DIR, "M12_ORA_Reactome.csv"), row.names=FALSE)
+write.csv(ora_go_mf, file.path(ORA_DIR, "M12_ORA_GO_MF.csv"), row.names=FALSE)
+write.csv(ora_go_cc, file.path(ORA_DIR, "M12_ORA_GO_CC.csv"), row.names=FALSE)
+
+# Combined primary ORA: GO BP + Reactome, FDR_pooled = BH across both
+ora_comb <- rbind(ora_go_bp, ora_rea)
 ora_comb$FDR_pooled <- p.adjust(ora_comb$PValue, method="BH")
 ora_comb <- ora_comb[order(ora_comb$FDR_pooled), ]
 write.csv(ora_comb, file.path(ORA_DIR, "M12_ORA_combined_FDR.csv"), row.names=FALSE)
 cat("Pooled PATH-O FDR<0.05:", sum(ora_comb$FDR_pooled < 0.05), "\n")
+cat("  GO_BP sig (pooled):", sum(ora_comb$FDR_pooled < 0.05 & ora_comb$database=="GO_BP"), "\n")
+cat("  Reactome sig (pooled):", sum(ora_comb$FDR_pooled < 0.05 & ora_comb$database=="Reactome"), "\n")
 
-cat("\n=== Top ranked (PATH-R FDR<0.05) ===\n")
+# KEGG ORA placeholder
+write.csv(kegg_placeholder[, c("database","pathway_id","pathway_name")],
+          file.path(ORA_DIR, "M12_ORA_KEGG.csv"), row.names=FALSE)
+
+cat("\n=== Top ranked (PATH-R FDR_pooled<0.05) ===\n")
 print(head(all_rank[all_rank$FDR_pooled<0.05, c("database","pathway_name","pathway_size","direction","PValue","FDR_pooled")], 15), row.names=FALSE)
-cat("\n=== Top ORA (PATH-O FDR<0.05) ===\n")
+cat("\n=== Top ORA (PATH-O FDR_pooled<0.05) ===\n")
 print(head(ora_comb[ora_comb$FDR_pooled<0.05, c("database","pathway_name","foreground_mapped","background_pathway","enrichment_ratio","FDR_pooled")], 15), row.names=FALSE)
-cat("\nDone.\n")
+cat("\nDone M12_02.\n")

@@ -12,10 +12,18 @@ MAP_DIR <- file.path(M12, "mapping")
 dir.create(MAP_DIR, recursive=TRUE, showWarnings=FALSE)
 
 # 1. Load the tested universe = the 1434 proteins in PRIMARY matrix
+# [P2 FIX] 原代码使用 nrows=0 仅读取表头，导致 rownames(expr) 为空向量，
+#          tested_prots 长度为 0，后续 mapping 全部失效。
+#          修复：移除 nrows=0，完整读取矩阵以获取所有蛋白行名。
+#          预期值（重跑后核验）：tested_prots = 1434
 expr <- read.csv(gzfile("descriptive/PRIMARY_dose_log2_expression.csv.gz"),
-                 row.names=1, check.names=FALSE, nrows=0)
+                 row.names=1, check.names=FALSE)
 tested_prots <- rownames(expr)
 cat("Tested universe (PRIMARY matrix):", length(tested_prots), "proteins\n")
+# [P2 FIX] Assertion: 预期重跑后 tested_prots 长度为 1434（来自 PROJECT_CONTEXT 第6节 universe）
+#          此 assertion 为文档化预期，脚本本轮不运行，重跑后核验
+stopifnot("P2-EXPECTED: tested_prots should be 1434 after rerun" =
+            length(tested_prots) == 1434)
 
 # 2. Load canonical annotation (3817 protein groups)
 ann <- read.csv("descriptive/canonical_protein_annotation.csv",
@@ -122,6 +130,13 @@ n_total <- nrow(contract)
 n_unamb <- sum(contract$mapping_status=="UNAMBIGUOUS_ONE_GENE", na.rm=TRUE)
 n_multi <- sum(contract$mapping_status=="MULTI_GENE_AMBIGUOUS", na.rm=TRUE)
 n_unmap <- sum(contract$mapping_status=="UNMAPPED", na.rm=TRUE)
+# [P2 FIX] Assertions: 预期重跑后 universe 数值与 PROJECT_CONTEXT 第6节一致
+#          tested=1434 / mapped(unambiguous)=1414 / multi-gene ambiguous=15 / unmapped=5
+#          这些 assertion 是文档化预期，脚本本轮不运行，重跑后核验
+stopifnot("P2-EXPECTED: total tested should be 1434" = n_total == 1434)
+stopifnot("P2-EXPECTED: unambiguous (mapped) should be 1414" = n_unamb == 1414)
+stopifnot("P2-EXPECTED: multi-gene ambiguous should be 15" = n_multi == 15)
+stopifnot("P2-EXPECTED: unmapped should be 5" = n_unmap == 5)
 n_dup_groups <- length(dup_genes)
 n_rep <- sum(contract$representative_status %in% c("REPRESENTATIVE","SINGLE") &
              contract$mapping_status=="UNAMBIGUOUS_ONE_GENE", na.rm=TRUE)

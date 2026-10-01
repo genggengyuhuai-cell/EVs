@@ -141,33 +141,33 @@ theme_set(
     )
 )
 
-# Fixed semantic palette (Okabe-Ito derived, colorblind-safe).
+# Fixed semantic palette (reference publication palette: gray/orange/blue/coral/teal/purple).
 pal <- c(
-  "Control"        = "#6E6E6E",
-  "Low exposure"   = "#4C9BB8",
-  "High exposure"  = "#C4573B",
-  "Hot-humid"      = "#A64D6A",
-  "High land"      = "#3D8B7A",
-  "Discovery"      = "#2E6FA8",
-  "Reused hold-out" = "#C49A3D"
+  "Control"        = "#A6A6A6",
+  "Low exposure"   = "#4A85B3",
+  "High exposure"  = "#FF6347",
+  "Hot-humid"      = "#B266C4",
+  "High land"      = "#4BBEB6",
+  "Discovery"      = "#4A85B3",
+  "Reused hold-out" = "#FFB84D"
 )
 
 evidence_pal <- c(
-  "All tested proteins"          = "#C4C4C4",
-  "Discovery candidate"          = "#2E6FA8",
-  "Direction discordant"        = "#A64D6A",
-  "Direction concordant only"   = "#8A8A8A",
-  "Nominal replication only"    = "#4C9BB8",
-  "FDR-supported replication"   = "#2F7D5E"
+  "All tested proteins"          = "#C8C8C8",
+  "Discovery candidate"          = "#4A85B3",
+  "Direction discordant"        = "#FF6347",
+  "Direction concordant only"   = "#A6A6A6",
+  "Nominal replication only"    = "#FFB84D",
+  "FDR-supported replication"   = "#4BBEB6"
 )
 
 site_pal <- c(
-  "FJ_PQ" = "#C49A3D",
-  "FJ_QZ" = "#7A9A55",
-  "GZ_TH" = "#3D8B7A",
-  "XZ_GG" = "#4C9BB8",
-  "XZ_YC" = "#7E6FA8",
-  "XZ_YD" = "#A64D6A"
+  "FJ_PQ" = "#FFB84D",
+  "FJ_QZ" = "#4BBEB6",
+  "GZ_TH" = "#4A85B3",
+  "XZ_GG" = "#FF6347",
+  "XZ_YC" = "#B266C4",
+  "XZ_YD" = "#A6A6A6"
 )
 
 # ===========================================================================

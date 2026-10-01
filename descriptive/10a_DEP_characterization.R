@@ -259,7 +259,7 @@ library(ggplot2)
 FIG_DIR <- file.path(ROOT_DIR, "limma_dose_analysis", "figures_final", "09_DEP_characterization", "figures_nature_v2.2")
 counts <- count(DEP, Direction, name = "N")
 counts$Direction <- recode(counts$Direction, Higher_in_High = "Higher in Long", Higher_in_Low = "Higher in Short", No_change = "Zero estimated difference")
-p <- ggplot(counts, aes(Direction, N)) + geom_col(fill = "#3178A5", width = 0.65) + coord_flip() +
+p <- ggplot(counts, aes(Direction, N)) + geom_col(fill = "#4A85B3", width = 0.65) + coord_flip() +
     labs(x = NULL, y = "Protein groups", title = "Long vs Short exposure: DEP directions", subtitle = "Locked primary BH FDR < 0.05")
 v21_save(p, FIG_DIR, "Figure_09_DEP_characterization_direction_counts", counts)
 for (ranking in c("FDR", "absT")) {
@@ -267,7 +267,7 @@ for (ranking in c("FDR", "absT")) {
     if (!nrow(shown)) next
     shown$Protein_label <- factor(shown$Display_label, levels = rev(shown$Display_label))
     p <- ggplot(shown, aes(logFC, Protein_label)) + geom_vline(xintercept = 0, linetype = 2, linewidth = 0.35) +
-        geom_point(colour = "#3178A5", size = 2) +
+        geom_point(colour = "#4A85B3", size = 2) +
         labs(x = "log2 fold change (Long - Short)", y = NULL,
              title = paste("Top 30 Long vs Short DEP ranked by", if (ranking == "FDR") "BH FDR" else "absolute moderated t"),
              subtitle = "Point estimates; no uncertainty intervals shown")

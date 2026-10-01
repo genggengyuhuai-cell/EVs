@@ -227,12 +227,12 @@ DOSE_LABELS <- c(
 ENV_LABELS <- setNames(ENV_LEVELS, ENV_LEVELS)
 
 DOSE_COLORS <- c(
-    control = "#4D4D4D",
-    low = "#3B82F6",
-    high = "#D97706"
+    control = "#A6A6A6",
+    low = "#4A85B3",
+    high = "#FFB84D"
 )
 
-ENV_COLORS <- setNames(c("#7C3AED", "#0F9D8A"), ENV_LEVELS)
+ENV_COLORS <- setNames(c("#B266C4", "#4BBEB6"), ENV_LEVELS)
 
 as_environment_factor <- function(x, label) {
     aliases <- setNames(
@@ -249,20 +249,20 @@ as_environment_factor <- function(x, label) {
 }
 
 STATUS_COLORS <- c(
-    Higher = "#C0392B",
-    Lower = "#2C6E9B",
+    Higher = "#FF6347",
+    Lower = "#4A85B3",
     `Not significant` = "#B8B8B8"
 )
 
 RUN_PALETTE <- c(
-    "20250913" = "#4E79A7",
-    "20250914" = "#F28E2B",
-    "20251001" = "#E15759",
-    "20251026" = "#76B7B2",
-    "20251104" = "#59A14F",
-    "20251107" = "#EDC948",
-    "20260527" = "#B07AA1",
-    "20260717" = "#9C755F"
+    "20250913" = "#4A85B3",
+    "20250914" = "#FFB84D",
+    "20251001" = "#FF6347",
+    "20251026" = "#4BBEB6",
+    "20251104" = "#4BBEB6",
+    "20251107" = "#FFB84D",
+    "20260527" = "#B266C4",
+    "20260717" = "#FFB84D"
 )
 
 ACQUISITION_DATE_LEVELS <- names(RUN_PALETTE)
@@ -1403,9 +1403,9 @@ annotation_colors <- list(
 
 heat_colors <- colorRampPalette(
     c(
-        "#2C6E9B",
+        "#4A85B3",
         "#F7F7F7",
-        "#C0392B"
+        "#FF6347"
     )
 )(
     101

@@ -237,14 +237,14 @@ CONTRAST_LABELS <- c(
 )
 
 RUN_COLORS <- c(
-    "20260527" = "#7C3AED",
-    "20260717" = "#0F9D8A"
+    "20260527" = "#B266C4",
+    "20260717" = "#4BBEB6"
 )
 
 DOSE_COLORS <- c(
-    control = "#4D4D4D",
-    low = "#3B82F6",
-    high = "#D97706"
+    control = "#A6A6A6",
+    low = "#4A85B3",
+    high = "#FFB84D"
 )
 
 EBAYES_TREND <- TRUE
@@ -1062,7 +1062,7 @@ make_run_scatter <- function(
         scale_colour_manual(
             values = c(
                 `FALSE` = "#B8B8B8",
-                `TRUE` = "#C0392B"
+                `TRUE` = "#FF6347"
             ),
             labels = c(
                 `FALSE` = "Other protein",
