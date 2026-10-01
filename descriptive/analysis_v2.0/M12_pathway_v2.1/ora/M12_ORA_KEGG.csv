@@ -1,2 +1,1 @@
-database,pathway_id,pathway_name,status,reason
-KEGG,,KEGG_NOT_RUN,"KEGG REST API returned incomplete pathway list; see ranked/M12_ranked_KEGG.csv for provenance."
+"database","pathway_id","pathway_name"

@@ -1,0 +1,16 @@
+Method,Database,Ontology,Was_run,Primary_or_secondary,Tested_sets,Significant_family_FDR,Significant_pooled_FDR,Canonical_FDR_column,Result_file,Displayed_in_Fig6,Displayed_in_Supplement,Status
+cameraPR,GO,BP,YES,Primary,272,NA,29,FDR_pooled,ranked/M12_ranked_GO_BP.csv,YES (top 8),NO,REPAIRED_RERUN_COMPLETE
+cameraPR,Reactome,NA,YES,Primary,486,NA,176,FDR_pooled,ranked/M12_ranked_Reactome.csv,NO (scatter only),NO,REPAIRED_RERUN_COMPLETE
+cameraPR,GO,MF,YES,Secondary (M12B),107,16,NA,FDR (per-family),ranked/M12_ranked_GO_MF.csv,NO,NO,REPAIRED_RERUN_COMPLETE
+cameraPR,GO,CC,YES,Secondary (M12B),151,16,NA,FDR (per-family),ranked/M12_ranked_GO_CC.csv,NO,NO,REPAIRED_RERUN_COMPLETE
+cameraPR,KEGG,NA,NO,Primary,0,0,0,—,ranked/M12_ranked_KEGG.csv (empty),NO,NO,NOT_RUN
+ORA,GO,BP,YES,Primary,—,NA,3,FDR_pooled,ora/M12_ORA_GO_BP.csv,YES (top 10),NO,REPAIRED_RERUN_COMPLETE
+ORA,Reactome,NA,YES,Primary,—,NA,20,FDR_pooled,ora/M12_ORA_Reactome.csv,NO,NO,REPAIRED_RERUN_COMPLETE
+ORA,GO,MF,YES,Secondary (M12B),—,7,NA,FDR (per-family),ora/M12_ORA_GO_MF.csv,NO,NO,REPAIRED_RERUN_COMPLETE
+ORA,GO,CC,YES,Secondary (M12B),—,4,NA,FDR (per-family),ora/M12_ORA_GO_CC.csv,NO,NO,REPAIRED_RERUN_COMPLETE
+ORA,KEGG,NA,NO,Primary,0,0,0,—,ora/M12_ORA_KEGG.csv (empty),NO,NO,NOT_RUN
+fgsea,GO,BP,YES,Sensitivity,272,3,6,UNRESOLVED (padj_family vs padj_pooled),ranked_gsea/M12_fgsea_GO_BP.csv,NO (scatter y-axis),NO,REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD
+fgsea,GO,MF,YES,Sensitivity,107,8,7,UNRESOLVED,ranked_gsea/M12_fgsea_GO_MF.csv,NO,NO,REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD
+fgsea,GO,CC,YES,Sensitivity,151,11,10,UNRESOLVED,ranked_gsea/M12_fgsea_GO_CC.csv,NO,NO,REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD
+fgsea,Reactome,NA,YES,Sensitivity,486,22,18,UNRESOLVED,ranked_gsea/M12_fgsea_Reactome.csv,NO,NO,REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD
+fgsea,KEGG,NA,NO,Sensitivity,0,0,0,—,—,NO,NO,NOT_RUN

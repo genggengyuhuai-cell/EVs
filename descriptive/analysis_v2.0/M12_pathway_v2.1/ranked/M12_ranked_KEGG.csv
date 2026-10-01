@@ -1,2 +1,1 @@
-database,pathway_id,pathway_name,status,reason
-KEGG,,KEGG_NOT_RUN,"KEGG REST API returned incomplete pathway list (2 pathways); clusterProfiler download_KEGG failed on Entrez key mapping. Recorded as unavailable per v2.1 §10 (KEGG optional only if resource access meets threshold)."
+"database","pathway_id","pathway_name","pathway_size","direction","PValue","FDR","NGenes"

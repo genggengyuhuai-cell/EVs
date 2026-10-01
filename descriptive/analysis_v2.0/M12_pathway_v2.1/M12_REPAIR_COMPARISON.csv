@@ -1,0 +1,34 @@
+Metric,Old (pre-repair),Repaired,Changed?,Reason
+Tested universe (Q515),1434,1434,NO,nrows=0 bug fixed, mapping unchanged
+Mapped genes (unambiguous),1414,1414,NO,Mapping verified identical
+Multi-gene ambiguous,15,15,NO,
+Unmapped,5,5,NO,
+D02 primary tested,~1445 (estimated),1445,NO,Canonical ranking source confirmed
+N_ranked (D02 ∩ mapped),~1414 (estimated),1406,YES,D02=1445 vs Q515 mapping=1414, overlap=1406
+ORA background,1414 (hardcoded),1406,YES,Derived from D02∩mapped intersection (not hardcoded)
+cameraPR GO-BP tested,274,272,YES,Gene set size filter with new ranking universe
+cameraPR GO-BP sig (pooled FDR),25,29,YES,Ranking statistic changed (D02 moderated t vs self-fit+imputation)
+cameraPR Reactome tested,487,486,YES,Slight gene set size filter difference
+cameraPR Reactome sig (pooled FDR),170,176,YES,Ranking statistic changed
+cameraPR total sig (pooled),195,205,YES,Net +10 from BP(+4) + Reactome(+6)
+ORA GO-BP sig (pooled FDR),3,3,NO,Foreground=85 locked D03, stable
+ORA Reactome sig (pooled FDR),20,20,NO,
+ORA total sig (pooled),23,23,NO,Stable across rerun
+fgsea GO-BP tested,274,272,YES,
+fgsea GO-BP sig (padj_family),3,3,NO,
+fgsea GO-BP sig (padj_pooled),5,6,YES,Cross-family BH recalculated
+fgsea GO-MF tested,108,107,YES,
+fgsea GO-MF sig (padj_family),8,8,NO,
+fgsea GO-MF sig (padj_pooled),6,7,YES,
+fgsea GO-CC tested,151,151,NO,
+fgsea GO-CC sig (padj_family),11,11,NO,
+fgsea GO-CC sig (padj_pooled),11,10,YES,
+fgsea Reactome tested,487,486,YES,
+fgsea Reactome sig (padj_family),17,22,YES,Ranking statistic changed
+fgsea Reactome sig (padj_pooled),17,18,YES,
+fgsea total sig (padj_family),39,44,YES,Net +5 (Reactome +5)
+fgsea total sig (padj_pooled),39,41,YES,Net +2
+FDR family (cameraPR primary),FDR_pooled (BP+Reactome),FDR_pooled (BP+Reactome),NO,Contract confirmed
+FDR family (fgsea),UNRESOLVED,UNRESOLVED,NO,Per contract §12, dual columns output
+KEGG status,NOT_RUN,NOT_RUN,NO,
+M12B input source,pre-repair M12 outputs,repaired M12 outputs,YES,All pathway inputs now from rerun chain
