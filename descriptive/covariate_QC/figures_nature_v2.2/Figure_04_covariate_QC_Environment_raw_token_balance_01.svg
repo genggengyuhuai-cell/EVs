@@ -31,11 +31,11 @@
 <g clip-path='url(#cpMzguNzB8NTA2Ljc4fDQxLjU5fDI5MC42Mg==)'>
 <rect x='38.70' y='41.59' width='468.08' height='249.03' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <rect x='53.33' y='166.10' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #EEF4F7;' />
-<rect x='53.33' y='52.91' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #5A8DB3;' />
-<rect x='199.61' y='166.10' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #3178A5;' />
-<rect x='199.61' y='52.91' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #8CADC9;' />
-<rect x='345.88' y='166.10' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #ACC3D8;' />
-<rect x='345.88' y='52.91' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #3D7DA9;' />
+<rect x='53.33' y='52.91' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #6B98BF;' />
+<rect x='199.61' y='166.10' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #4A85B3;' />
+<rect x='199.61' y='52.91' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #97B5D1;' />
+<rect x='345.88' y='166.10' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #B3C9DD;' />
+<rect x='345.88' y='52.91' width='146.28' height='113.19' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #538AB6;' />
 <text x='126.47' y='224.84' text-anchor='middle' style='font-size: 5.98px; font-family: "Arial";' textLength='6.64px' lengthAdjust='spacingAndGlyphs'>58</text>
 <text x='126.47' y='111.64' text-anchor='middle' style='font-size: 5.98px; font-family: "Arial";' textLength='6.64px' lengthAdjust='spacingAndGlyphs'>95</text>
 <text x='272.74' y='224.84' text-anchor='middle' style='font-size: 5.98px; font-family: "Arial";' textLength='9.96px' lengthAdjust='spacingAndGlyphs'>103</text>
@@ -59,7 +59,7 @@
 <text transform='translate(15.69,166.10) rotate(-90)' text-anchor='middle' style='font-size: 8.00px; font-family: "Arial";' textLength='32.03px' lengthAdjust='spacingAndGlyphs'>condition</text>
 <rect x='208.97' y='308.65' width='127.56' height='35.72' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <text x='212.95' y='329.20' style='font-size: 7.50px; font-family: "Arial";' textLength='29.20px' lengthAdjust='spacingAndGlyphs'>Samples</text>
-<image width='86.40' height='17.28' x='246.14' y='312.64' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAn0lEQVQ4jZWTQQ6AMAgE1///1ZOJRzxUEBao7UnjNGUZ8DivWwQARDCegACQ8RUvnLBB7Z2Z3kss1LRvYjVSnoL5+h+jPI5ZL2VuZoUDrbHBcp/7DnxfKyz7i321s/5xO5+7nc4uE4s15zvDfuO9ejL51L5dn3NnxZ6sOlrIu5Ypu+97refd/ZNpx5yzOIuYufPCvqt7eO+kyRgYeWL+AF1sjV4FJhbzAAAAAElFTkSuQmCC'/>
+<image width='86.40' height='17.28' x='246.14' y='312.64' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAkUlEQVQ4jZ1Tyw7AIAjr/v9fd1qyIzugoqQ8sh1cYtNSCl7384oAgACiBwT6iSIYP4KP24Xrpek5zuLmnLL29DrwP5y49uat7dfjvSzbnL3WrL3nv+fNOK4nz+HZmJdyRg3/Vp9wDpz0VGYZ5MJ2NcklnfUP3c7Ox9mZbvb+WpmXs4x7ijXYDvueuL/I/6EbaHyc+FmSwpF3wgAAAABJRU5ErkJggg=='/>
 <polyline points='250.11,326.46 250.11,329.92 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='269.25,326.46 269.25,329.92 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='288.38,326.46 288.38,329.92 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />

@@ -1,49 +1,36 @@
-﻿
-# M17 manuscript figures — v2
+﻿# M17 manuscript figures — v2（Phase 6 rebuilt, 2026-10-01）
 
 ## Export contract
+- Backend: R only（ggplot2/patchwork/svglite/cairo_pdf/ragg）。
+- 宽度 183 mm；每图 editable PDF + editable SVG + source_data CSV + 300 dpi PNG（仅视觉 QA）。
+- 重建脚本：`descriptive/analysis_v2.0/code/V2_M17_phase6_rebuild.R`（只读 repaired canonical 输出；不重拟合模型、不改阈值、不重定义候选）。
+- 旧版快照：`figures_final_v2/phase6_pre_rebuild_snapshot/`。
 
-- Backend: R only (`ggplot2`, `patchwork`, `svglite`, `cairo_pdf`, `ragg`).
-- Final width: 183 mm.
-- Outputs per figure: editable PDF, editable SVG, paired source-data CSV, and a 300 dpi PNG used only for visual QA.
-- Source script: `descriptive/analysis_v2.0/code/V2_M17_figures_v2.R`.
-- The script reads finalized result tables only. It does not refit models, recalculate multiplicity adjustments, alter thresholds, or redefine candidates.
+## Figure 状态
+| Figure | 状态 | 重建来源 |
+|---|---|---|
+| Fig1 cohort design | UNCHANGED | D01/D03 frozen |
+| Fig2 proteome associations | UNCHANGED | M05/M06/M07/M08 frozen |
+| Fig3 candidate biology | PARTIALLY_REBUILT（panel c） | M09 repaired `M09_KNN_E_comparison.csv`（impute.knn） |
+| Fig4 environment/site | PARTIALLY_REBUILT（panel d） | M11 repaired `M11_site_LOO_stability.csv`（primary-contract adjusted LOO） |
+| Fig5 replication/ML | REBUILT（panel b） | ml_v2.1 repaired outer_cv + strict_nested outer_metrics |
+| Fig6 pathway integration | REBUILT（结构重做，a/b/c/d） | M12/M12B repaired ranked/ora/redundancy/membership |
 
-## Figure contracts
+## Panel contracts
+- **Fig3c**：overall-exposure imputation sensitivity（prespecified `impute::impute.knn`, k=10, full 515 cohort, Q515 universe, effect E）；sensitivity not validation。其余 panel 未变。
+- **Fig4d**：leave-one-site-out influence（primary-contract adjusted LOO，保留 same M05 estimator + Environment adjustment + fixed primary contract）；robustness，非 proof of no site heterogeneity。禁止 site-independent / batch-independent / validated across sites / replicated across sites。
+- **Fig5b**：fixed-85 conditional ML（locked 85 universe）与 strict nested ML（discovery redone inside folds）视觉与文字分开；strict nested 仅在 8/15 fit 折上画 AUROC，并标注 7/15 outer folds 无特征；不合并成单一“模型性能”。禁止 validated classifier / clinical model / diagnostic panel。
+- **Fig6**：
+  - a = representative GO-BP cameraPR（FDR_pooled<0.05，29 条按 FDR 取 top 8）。
+  - b = representative Reactome cameraPR（176 条显著中仅 redundancy-cluster REPRESENTATIVE，按 FDR 取 top 8）——Reactome 已进 main。
+  - c = candidate-family ORA（GO-BP 3 条全部 + Reactome 非冗余代表 top 5）。
+  - d = M12B contextual pathway-candidate network（top 4 通路 × 9 候选）。
+  - fgsea = sensitivity，不进 Fig6 main（Canonical_FDR 仍 UNRESOLVED，入 supplement）。
+  - selection rule：FDR_pooled<0.05 → Reactome 保留冗余簇代表 → arrange(FDR_pooled) → top N；非 cherry-pick。KEGG 不出现。
 
-### Figure 1 — Cohort, workflow and proteome landscape
-
-- Core message: cohort chronology, Discovery/hold-out separation, site nesting and protein gates were defined before downstream inference.
-- Panels: frozen chronology; Group counts; Site x Group composition; protein-universe gates.
-- Reading order: a → b → c → d.
-- Main-figure rationale: detailed Environment and covariate composition remain supporting material; the main figure retains only information needed to understand the design.
-
-### Figure 2 — Proteome-wide exposure associations
-
-- Core message: abundance, detection and descriptive dose architecture show heterogeneous exposure-associated patterns under prespecified FDR families.
-- Panels: overall exposure effect landscape; pairwise effect distributions; Firth detection results; descriptive architecture counts.
-- Statistical scope: overall abundance family A-E, pairwise A-LC/A-HC/A-HL families, detection family A-Det-Firth. Architecture is descriptive and is not a selection rule.
-
-### Figure 3 — Discovery High-vs-Low candidate biology
-
-- Core message: the locked 85-protein family has a coherent High-vs-Low effect landscape with heterogeneous Control/Low/High profiles and explicit missingness sensitivity.
-- Panels: all 85 Discovery effects; all 85 adjusted profiles; overall-exposure KNN sensitivity restricted to the locked family; candidate architecture.
-- Ordering: alphabetical candidate index. No figure-derived candidate rank is created.
-
-### Figure 4 — Environment, Site heterogeneity and LOO
-
-- Core message: Environment and Site analyses quantify effect heterogeneity and influence without equating subgroup significance differences with interaction.
-- Panels: Environment-stratified effects; corrected pure 2-df interaction FDR distribution; Site x Group composition; leave-one-site-out maximum shifts.
-- Statistical scope: corrected pure interaction result (0/1,430 at BH-FDR < 0.05); LOO is robustness evidence, not proof of absent heterogeneity.
-
-### Figure 5 — Replication and DEP-driven ML prioritization
-
-- Core message: replication, fixed-85 conditional ML and strict nested ML are complementary evidence streams; no algorithm is treated as the winner.
-- Panels: frozen 85/85/83/29/1 hierarchy; outer-fold AUROC by branch; all 85 candidate-level method evidence; separate method-specific support counts.
-- Statistical scope: hold-out denominator remains 85; CV points are outer folds; no composite score or new candidate definition is introduced.
-
-### Figure 6 — Pathway and integrated biological interpretation
-
-- Core message: ranked pathway analysis, fgsea sensitivity, ORA and candidate mapping converge on a compact set of biological themes.
-- Panels: top eight GO-BP cameraPR results by prespecified pooled FDR; cameraPR/fgsea concordance; all three FDR-supported GO-BP ORA terms; four top pathway themes linked to candidate proteins.
-- Selection rule: pathway panels are ordered by the finalized pooled FDR. Candidate membership is not re-ranked by the figure.
+## Phase 7（2026-10-01）Fig6b LABEL_ONLY_UPDATE
+- **FIG6B_LABEL_ONLY_UPDATE=YES**：仅 Fig6b y 轴刻度标签由 R-HSA ID 改为人类可读 pathway name；selected pathways / ranking / FDR / effect / panel 结构 / 选择规则均未变。
+- 注释源：reactome.db **1.86.2**（PATHID→PATHNAME，AnnotationDbi::select）；8 个 ID 全部解析，无 UNRESOLVED。
+- 脚本备份：`code/V2_M17_phase6_rebuild.R.phase7.bak`。
+- Fig6 状态：REBUILT + LABEL_ONLY_UPDATE；repaired version = Phase5 repaired M12/M12B（cameraPR 205/ORA 23/fgsea 44&41）。
+- 导出格式：PDF/SVG/PNG（main figure 矢量，无 TIFF——bundle 无 TIFF 要求）。
