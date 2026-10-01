@@ -1,0 +1,71 @@
+# 审计阻断闭合状态登记（AUDIT_BLOCKER_CLOSURE_STATUS）
+
+- 日期：2026-10-01（阻断闭合轮 · 状态与声称管线）
+- 权威总状态：**FREEZE_READINESS=BLOCKED · SUBMISSION_READINESS=BLOCKED · ANALYSIS_REOPEN_REQUIRED=YES · SAFE_TO_TAG_ANALYSIS_V2_1=NO**
+- 原则：只读静态审计 + 确定性文档/代码逻辑修复；本轮未运行任何项目脚本、未重算、未改 frozen 结果值。
+- 来源：`docs/P0_P1_REPAIR_PLAN.md`（2026-09-30，4 P0 + 8 P1 + 4 P2）、`P0_P1_RERUN_PLAN.csv`、`P0_P1_DEPENDENCY_IMPACT_MAP.csv`、`P0_P1_AFFECTED_OUTPUTS.csv`，与 `audit_output/06_data_chain/data_chain_audit.md`（2026-10-01）。
+
+字段：Issue / Severity / Evidence（文件+位置）/ Affected_module / Status_before / Action_taken（本轮）/ Requires_rerun / Requires_downstream_rebuild / Current_status。
+
+## A. P0 阻断项
+
+| Issue | Severity | Evidence | Affected_module | Status_before | Action_taken | Requires_rerun | Requires_downstream_rebuild | Current_status |
+|---|---|---|---|---|---|---|---|---|
+| P0-1 XGBoost outer-test 早停泄漏 | P0 | run_v2_1_ml.R 旧版：outer test 进 watchlist 选 boosting 长度 | fixed-85 ML | 结果泄漏、INVALIDATED | 代码已修（早停移 inner、refit outer-train 后仅预测）；pre_P0_repair_snapshot 标 HISTORICAL_INVALIDATED；results 已重生成 | YES（fixed-85 已重跑） | YES（integrated_table/Tier1/Fig5b-d） | **P0_REPAIRED**（代码+产物已重生；下游 intersection 待 rebuild） |
+| P0-2 EN AUC 用 which.min 方向错 | P0 | run_v2_1_ml.R 旧版 `which.min(cv_en$cvm)` | fixed-85 ML | alpha/lambda 选错、系数/选择频率无效 | 代码已修为 `which.max`；results 重生成（outer_cv_metrics 852→1530 字节） | YES（fixed-85 已重跑） | YES（Tier1/ML intersection/候选 ROC M3） | **P0_REPAIRED** |
+| P0-3 M12 mapping 入口 nrows=0 | P0 | M12_01_mapping.R L15–L17 `read.csv(..., nrows=0)` 后取 rownames，无法枚举 1434 | M12 | PROVENANCE_MISMATCH；1434/1414/15/5 无代码可重建 | 本轮仅在 PROJECT_CONTEXT §4/§9、ACTIVE_MAINLINE_MANIFEST、claim C24 标记 BLOCKED/REVIEW_REQUIRED；未改 R 脚本 | **YES**（M12 整条链） | YES（M12B/Fig6） | **BLOCKED（未闭合）** |
+| P0-4 canonical 链含 kegg_fix 却声明 KEGG NOT_RUN | P0 | M12_02b_kegg_fix.R L42 `download_KEGG("hsa")`、L90–132 重写 combined FDR；旧 PROJECT_CONTEXT §4/PIPELINE_STATUS L28/ACTIVE_MAINLINE_MANIFEST L19/M12_FILE_AUDIT L4 均列其在链 | M12 | canonical 重跑会执行 KEGG 检索 | **本轮已闭合文档侧**：PROJECT_CONTEXT §4 M12 行改为 M12_01→02→03；ACTIVE_MAINLINE_MANIFEST M12 行去 kegg_fix；M12_FILE_AUDIT L4 改 HISTORICAL_NON_CANONICAL；claim C23 注明 | NO（不得再跑 KEGG） | NO（不依赖 KEGG） | **文档侧 CLOSED；脚本保留 HISTORICAL，禁止 canonical 执行** |
+
+## B. P1 项
+
+| Issue | Severity | Evidence | Affected_module | Status_before | Action_taken | Requires_rerun | Requires_downstream_rebuild | Current_status |
+|---|---|---|---|---|---|---|---|---|
+| P1-1 strict nested 估计量未对齐 D02（Welch t vs limma+环境调整） | P1 | M15_FINALIZATION_REPORT §4 仍描述 Welch t.test、无 Environment | strict nested ML | REPAIR_PENDING | claim C17 降级 BLOCKED_BY_REPAIR；manifest Repair_Gate 标注 REPAIR_PENDING | YES | YES（Fig5b-d） | **REPAIR_PENDING** |
+| P1-2 内层 CV 未显式分层 foldid | P1 | strict_nested_sensitivity.R cv.glmnet 无 stratified foldid | strict nested ML | REPAIR_PENDING | claim C17 降级 | YES | YES | **REPAIR_PENDING** |
+| P1-3 M11 LOO 同时改 estimand/公式/权重 | P1 | V2_M11_site_robustness.R 删 site+Environment、`~0+Group`、重算权重 | M11 | REPAIR_PENDING | claim C15 降级 REVIEW_REQUIRED；manifest=REPAIR_PENDING | YES | YES（Fig4d） | **REPAIR_PENDING** |
+| P1-4 M09 代码/manifest imputation 契约不符 | P1 | V2_M09 用相关邻居+非加权中位数，manifest 写 correlation-weighted Euclidean | M09 | REPAIR_PENDING | claim C12 降级 REVIEW_REQUIRED；manifest=REPAIR_PENDING | YES | YES（Fig3c） | **REPAIR_PENDING** |
+| P1-5 M12 ranking estimand 未对齐 D02 | P1 | M12_02 用 High/Low-only + 全局 row-median 插补；D02 用非插补+Environment+trend/robust | M12 | REPAIR_PENDING | 随 P0-3 标 BLOCKED | YES | YES（M12B/Fig6） | **BLOCKED** |
+| P1-6 M14 层级硬编码且状态陈旧 | P1 | V2_M13_M14_reconciliation.R 直接编码 85/85/83/29/1；M14_frozen_status.csv 写 ML=NOT_STARTED | M14 | STALE_AND_HARDCODED | claim C06–C08 标 REBUILD_FROM_D08；manifest=REBUILD_FROM_D08 | NO（D08 不重跑） | YES（Fig5a） | **REBUILD_REQUIRED（数值有效，演示待重建）** |
+| P1-7 P3 无 workbook 身份绑定、失败仍写 FINAL | P1 | code/P3.py 依赖行位、未校验 hash、mapping_pass 失败不 fatal | P1/P2/P3 | INPUT_DRIFT/INVALID_OUTPUT_PERSISTENCE_RISK | manifest 标 ACTIVE_PROVISIONAL；未改脚本（依赖 Phase 7 provenance 修复） | CONDITIONAL（仅当身份审计发现漂移） | 全下游（若漂移） | **OPEN（保留现状产物，待 provenance 修复）** |
+| P1-8 D10 传播已弃用 peptide 证据 | P1 | D10_integrated_biology.R 读 unique-peptide 表写入新整合表 | D10 | PROTOCOL_IMPLEMENTATION_CONFLICT | manifest=BLOCKED_REBUILD | REBUILD（非 D03/D08 重跑） | D10 自身表 | **BLOCKED_REBUILD** |
+
+## C. P2 低severity观察项（含代码修复管线条目）
+
+| Issue | Severity | Evidence | Affected_module | Status_before | Action_taken | Requires_rerun | Requires_downstream_rebuild | Current_status |
+|---|---|---|---|---|---|---|---|---|
+| P2-a 共享 helper 用 normal-quantile 而非 finite-df 区间 | P2 | discovery/validation 共享 helper 区间构造 | dv_shared / helper | 待修 | 见代码修复管线交付的修复笔记（并行代理）；本轮文档未改脚本 | 待修复后随对应模块 | 低 | **OPEN（代码修复管线）** |
+| P2-b M17 硬编码演示假设 | P2 | V2_M17_figures_v2.R | M17 | 待修 | 见代码修复管线笔记；Fig6 已标 NOT_FINAL | NO（改演示） | Fig3–6 源数据 | **OPEN（代码修复管线）** |
+| P2-c 递归 output-cleanup helper 安全性依赖调用方路径 | P2 | cleanup helper | 共享工具 | 待修 | 见代码修复管线笔记 | NO | NO | **OPEN（代码修复管线）** |
+| P2-d R/Python 环境未锁定（无 renv.lock/requirements） | P2 | SOFTWARE_ENVIRONMENT_REPORT / FINAL_REPRODUCIBILITY_AUDIT §10 | 全局 | PARTIALLY_DOCUMENTED | 已在报告列为限制；tag 前补 sessionInfo/renv.lock | NO | NO | **OPEN（tag 前必做）** |
+| P18/P19/P20/P21（代码逻辑修复类，并行管线） | P2 | 由代码修复管线交付（如 EN/XGB fold 契约、M09/M11 契约对齐、M12 mapping 读取修复等） | 对应脚本 | 待修 | **见代码修复管线交付的修复笔记路径；本轮尚未落盘，最终报告统一核验。** 本轮未运行任何修复后脚本 | 按模块级事实（M12=YES） | 按依赖图 | **OPEN（并行管线交付，禁止伪造 PASS）** |
+
+## D. 下游重建与控制文档项
+
+| Issue | Severity | Evidence | Affected_module | Status_before | Action_taken | Requires_rerun | Requires_downstream_rebuild | Current_status |
+|---|---|---|---|---|---|---|---|---|
+| ML intersection / integrated_table_85 / Tier1 | P1 下游 | P0_P1_AFFECTED_OUTPUTS L7–L9 | ML integration | STALE | 随 fixed-85 REPAIRED；intersection 待 rebuild | REBUILD | Fig3a-d/Fig5c-d | **REBUILD_REQUIRED** |
+| 候选 ROC 诊断（M1–M5） | P1 下游 | candidate_diagnostics_roc/；M3=五基因 Tier1 | candidate ROC | EXPLORATORY_NOT_FINAL | 已在 claim/风险登记标 exploratory | REBUILD/RELABEL | 无主图 | **HOLD_AS_EXPLORATORY** |
+| M14 演示重建 | P1-6 | 见上 | M14 | STALE | manifest 标 REBUILD_FROM_D08 | NO | Fig5a | **REBUILD_REQUIRED** |
+| Fig3 | P1 下游 | Fig3 a-d 继承 integrated table；c 继承 M09 | Fig3 | NOT_FINAL | 随 ML/M09 | c 需 M09 重跑 | 整图源数据 | **BLOCKED_REBUILD** |
+| Fig4 | P1-3 | Fig4d 继承 M11；a-c 暂留 | Fig4 | a-c provisional / d rebuild | 随 M11 | d 需 M11 | Fig4d | **PARTIAL（a-c provisional）** |
+| Fig5 | P0-1/P0-2/P1-6 | Fig5a 硬编码；b-d 继承 ML | Fig5 | NOT_FINAL | claim C28 降级 | b-d 需 ML 重跑（fixed-85 已修） | 整图 | **REBUILD_REQUIRED** |
+| Fig6 | P0-3/P0-4/P1-5 | 全部继承 M12 | Fig6 | NOT_FINAL | claim C29 降级；权威状态 Fig6=NOT_FINAL | YES（M12） | 整图 | **BLOCKED_BY_M12** |
+| 控制文档陈旧（CONTROL_DOC_STALE） | 控制文档 | P0_P1_DEPENDENCY_IMPACT_MAP L20 | PROJECT_CONTEXT/README/FINAL_REPRODUCIBILITY_AUDIT/ACTIVE_MAINLINE_MANIFEST | STALE | **本轮已处理**：PROJECT_CONTEXT 加权威总状态节+§4/§9；README 加横幅；FINAL_REPRODUCIBILITY_AUDIT 加 SUPERSEDED；ACTIVE_MAINLINE_MANIFEST 改路径+Repair_Gate；新增本文件与 STATUS_OVERRIDE | NO（文档） | 控制文档自身 | **CLOSED_FOR_NOW（PIPELINE_STATUS 待 Phase 6 终态重写）** |
+| C05 分母错误（1430→1445） | claim | STATISTICAL_CLAIM_MAP C05 | claim map | 用错宇宙 | **本轮已修**：N=1445、family 改 Discovery Long-vs-Short、指针→D01+D03；新建 docs/CLAIM_C05_RECONCILIATION.md | NO | claim 正文 | **CLOSED** |
+| fgsea 分项口径（3BP/8MF vs 实测 5BP/6MF） | 重大发现 | PROJECT_CONTEXT §6 / claim C22 / CSV | M12 fgsea | 口径不一致 | claim C22 allowed wording 已改引冻结 CSV（5/6/11/17）并标 BLOCKED；PROJECT_CONTEXT §6 暂未改数值（待 M12 重跑） | YES（M12） | C22 | **REVIEW_REQUIRED（数值待 M12 重跑核定）** |
+
+## E. KEEP（不重跑，保留证据）
+
+| Issue | Severity | Evidence | Affected_module | Status_before | Action_taken | Requires_rerun | Requires_downstream_rebuild | Current_status |
+|---|---|---|---|---|---|---|---|---|
+| D03 锁定 85 | — | D03_candidate_lock_manifest candidate_count=85 | D03 | KEEP | 未动；manifest=ACTIVE | NO | NO | **KEEP_UNCHANGED** |
+| D08 raw 复制表 85/83/29/1 | — | D08_replication_summary N_locked=85/83/29/1 | D08 | KEEP | 未动；manifest=ACTIVE | NO | NO（仅 M14 演示重建） | **KEEP_UNCHANGED** |
+| Discovery/Validation 切分 | — | split_manifest seed=20260925 / 386+129 | split | REUSABLE_BUT_NOT_REGENERABLE | 未动；标注 REUSABLE | NO（不得重跑） | NO | **KEEP_UNCHANGED（generator 待 provenance 修复）** |
+
+## 闭合汇总
+
+- P0：4 项中 **P0-1/P0-2 已修（fixed-85 ML P0_REPAIRED）**；P0-3 未闭合（BLOCKED）；P0-4 文档侧已 CLOSED（脚本保留 HISTORICAL）。
+- P1：8 项全部 REPAIR_PENDING / REBUILD / BLOCKED，本轮仅做状态/文档/claim/路径层修复，未科学重跑。
+- P2：4 项 + P18–P21 代码修复管线 OPEN，由并行代码管线交付，最终报告统一核验。
+- 下游：M14/ML intersection/Fig3–Fig6/候选 ROC 均待重跑后重建。
+- 结论：**SAFE_TO_TAG_ANALYSIS_V2_1=NO**；须完成 RERUN_PLAN Phase 2–6 后，重写 PIPELINE_STATUS 并产出终态复现性审计，方可解除 BLOCKED。

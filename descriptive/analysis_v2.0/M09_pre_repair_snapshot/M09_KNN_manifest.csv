@@ -1,0 +1,7 @@
+"item","value"
+"k","10"
+"distance","correlation-weighted Euclidean on z-scored proteins"
+"corr_pearson","0.9311"
+"corr_spearman","0.9132"
+"direction_agreement_pct","92.3%"
+"timestamp","2026-09-28 08:13:13"

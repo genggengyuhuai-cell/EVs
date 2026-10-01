@@ -1,0 +1,33 @@
+Module,Canonical_entry,Canonical_results,Scientific_role,Manuscript_role,Reproducibility_role,Status,Notes
+D01_discovery_eligibility,descriptive/discovery_validation/code/D01*.py,descriptive/discovery_validation/D01_discovery_eligibility/,Primary discovery eligibility,Main R1 cohort/universe,Required,ACTIVE_MAINLINE,Eligibility gates feeding 515 analytical cohort.
+D02_discovery_primary,descriptive/discovery_validation/code/D02*.py,descriptive/discovery_validation/D02_discovery_primary/,Primary High-vs-Low discovery,Main R3 85 DEPs,Required,ACTIVE_MAINLINE,Produces candidate pool that D03 locks.
+D03_candidate_lock,descriptive/discovery_validation/D03_candidate_lock/D03_locked_candidates.csv,descriptive/discovery_validation/D03_candidate_lock/,Candidate lock,Main R3 + R4,Required,ACTIVE_MAINLINE,Asserted 85 rows; consumed by ml_v2.1 and M17 Fig3/Fig5.
+D04_dose_trajectory,descriptive/discovery_validation/code/D04*.py,descriptive/discovery_validation/D04_dose_trajectory/,Dose trajectory (descriptive),Supplementary,SUPPORT,SUPPLEMENTARY,Overall-exposure family is null; trajectory is descriptive.
+D05_environment_specific,descriptive/discovery_validation/code/D05*.py,descriptive/discovery_validation/D05_environment_specific/,Environment-stratified,Supplementary robustness,SUPPORT,SUPPLEMENTARY,Descriptive concordance; not interaction.
+D06_environment_interaction,descriptive/discovery_validation/code/D06*.py,descriptive/discovery_validation/D06_environment_interaction/,Formal interaction (legacy),Superseded by M10,Optional,ARCHIVE_CANDIDATE,Reconciled into M10.
+D07_site_robustness,descriptive/discovery_validation/code/D07*.py,descriptive/discovery_validation/D07_site_robustness/,Site robustness,Supplementary robustness,SUPPORT,SUPPLEMENTARY,Reconciled with M11.
+D08_validation,descriptive/discovery_validation/code/D08*.py,descriptive/discovery_validation/D08_validation/,Reused hold-out replication,Main R4 85/83/29/1,Required,ACTIVE_MAINLINE,Feeds M14 hierarchy.
+D09_missingness_detection_peptides,descriptive/discovery_validation/code/D09*.py,descriptive/discovery_validation/D09_missingness_detection_peptides/,Unique peptide / detection sensitivity,Supplementary,SUPPORT,SUPPLEMENTARY,
+D10_integrated_biology,descriptive/discovery_validation/code/D10*.py,descriptive/discovery_validation/D10_integrated_biology/,Integrated candidate context,Supplementary interpretation,SUPPORT,SUPPLEMENTARY,Feeds M12B-style context.
+M05_overall_exposure,code/V2_M05_overall_exposure.r,M05_overall_exposure/,Overall exposure landscape,Main R2,Required,ACTIVE_MAINLINE,0/1430 at BH-FDR<0.05.
+M06_ordered_omnibus_architecture,code/V2_M06_ordered_omnibus_architecture.r,M06_ordered_omnibus_architecture/,Adjusted means + architecture class,Main R2 panels,Required,ACTIVE_MAINLINE,
+M07_pairwise_contrasts,code/V2_M07_pairwise_contrasts.r,M07_pairwise_contrasts/,Pairwise contrasts,Main R2,Required,ACTIVE_MAINLINE,13/0/257 per contrast.
+M08_detection,code/V2_M08_firth_detection.r,M08_detection/Firth_primary/,Detection Firth,Supplementary robustness,SUPPORT,SUPPLEMENTARY,2/3054 at BH-FDR<0.05.
+M09_missingness_sensitivity,code/V2_M09_knn_sensitivity.r,M09_missingness_sensitivity/KNN_sensitivity/,KNN missingness on 85,Supplementary robustness,SUPPORT,SUPPLEMENTARY,
+M10_environment_interaction,code/V2_M10_corrected_interaction.r,M10_environment_interaction/corrected_pure_interaction/,Pure interaction,Main R5 null + Supplementary detail,Required (null statement),ACTIVE_MAINLINE,0/1430 at BH-FDR<0.05.
+M11_site_robustness,code/V2_M11_site_robustness.r,M11_site_robustness/,Site LOO robustness,Main R5 summary + Supplementary detail,SUPPORT,ACTIVE_MAINLINE,
+M12_pathway_v2.1,M12_01_mapping.R -> M12_02_ranked_ora.R -> M12_02b_kegg_fix.R -> M12_03_integration.r,M12_pathway_v2.1/{mapping,ranked,ora,ranked_gsea,integration,environment,diagnostics}/,Primary pathway inference,Main R6 representative themes,Required,ACTIVE_MAINLINE,
+M12B_biological_context_v2.1,M12B_all.R,M12B_biological_context_v2.1/{annotation,correlation,environment,integration,network,diagnostics}/,Biological context layer,Supplementary interpretation,SUPPORT,SUPPLEMENTARY,
+M14_frozen_replication,code/V2_M13_M14_reconciliation.r,M14_frozen_replication/,Replication hierarchy,Main R4,Required,ACTIVE_MAINLINE,
+M15_ml_v2.1,code/../../ml_v2.1/run_v2_1_ml.R + strict_nested_sensitivity.R,ml_v2.1/{results,strict_nested}/,Prioritization / sensitivity,Main R5 summary + Supplement tables,Required (entry scripts),ACTIVE_MAINLINE,
+M17_figures,code/V2_M17_figures_v2.r,figures_final_v2/,Manuscript figures 1-6,Main figures,Required,ACTIVE_MAINLINE,
+Upstream descriptive,descriptive/01..13*.R/.py,descriptive/*.csv.gz + figures_nature_v2.2/,QC / universe / descriptive figures,Supplemental QC context,SUPPORT,SUPPLEMENTARY,Earlier descriptive bundle; supports QC narrative.
+figures_final_v1,analysis_v2.0/figures_final_v1/,analysis_v2.0/figures_final_v1/,Superseded figure bundle,n/a,Optional,HISTORICAL_FROZEN,Superseded by figures_final_v2.
+figures_prospective_v2.6,discovery_validation/figures_prospective_v2.6/,discovery_validation/figures_prospective_v2.6/,Superseded figure bundle,n/a,Optional,HISTORICAL_FROZEN,Superseded by v2.7.
+figures_prospective_v2.7,discovery_validation/figures_prospective_v2.7/,discovery_validation/figures_prospective_v2.7/,Discovery figure bundle,Supplementary figures,SUPPORT,SUPPLEMENTARY,
+ml_legacy,analysis_v2.0/ml/,analysis_v2.0/ml/,Superseded ML pipeline,n/a,Optional,HISTORICAL_FROZEN,Invalidated runners preserved for audit.
+M12_pathway_enrichment_v1,analysis_v2.0/M12_pathway_enrichment/,analysis_v2.0/M12_pathway_enrichment/,Superseded M12 v1,n/a,Optional,HISTORICAL_FROZEN,Only M12_block_record.csv remains.
+M13_historical_reconciliation,analysis_v2.0/M13_historical_reconciliation/,analysis_v2.0/M13_historical_reconciliation/,Historical reconciliation,Optional,Optional,HISTORICAL_FROZEN,
+P1_sample_mapping_audit,code/P1.py,rawdata/sample_mapping_audit.xlsx,Upstream raw-data processing,Methods/QC,REQUIRED,ACTIVE_MAINLINE,Reads rawdata/processed.xlsx; maps Sheet1 Excel headers to Sheet2 metadata; classifies CONFIRMED_UNIQUE/AMBIGUOUS/UNMATCHED/CONFLICT. Relative paths only.
+P2_ambiguous_context,code/P2.py,rawdata/sample_mapping_ambiguous_context.xlsx,Upstream raw-data processing,Methods/QC,REQUIRED,ACTIVE_MAINLINE,Reads sample_mapping_audit.xlsx (01_All_Mapping); expands AMBIGUOUS rows for manual review.
+P3_sample_mapping_FINAL,code/P3.py,rawdata/sample_mapping_FINAL.xlsx,Upstream raw-data processing,Methods/QC,REQUIRED,ACTIVE_MAINLINE,Reads processed.xlsx + sample_mapping_audit.xlsx; emits final sample mapping consumed downstream by proteomics pipeline.

@@ -1,5 +1,5 @@
 POST-FREEZE MISSINGNESS ROBUSTNESS ANALYSIS
-Completed: 2026-09-25 08:07:28
+Completed: 2026-09-30 23:36:00
 Preflight: PASS
 D0 reproduction: PASS
 D0 DEP: 256; exact canonical set: TRUE

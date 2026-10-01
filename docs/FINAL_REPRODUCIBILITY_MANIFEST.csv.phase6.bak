@@ -1,0 +1,29 @@
+Stage,Module,Canonical_entry,Input,Output,Tracked,Randomness,Seed_status,Manual_step,Archive_dependency,Rerun_status,Overall_status,Notes
+Raw,P1_sample_mapping_audit,code/P1.py,rawdata/processed.xlsx,rawdata/sample_mapping_audit.xlsx,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,Relative paths; no manual step
+Raw,P2_ambiguous_context,code/P2.py,rawdata/sample_mapping_audit.xlsx,rawdata/sample_mapping_ambiguous_context.xlsx,Yes,Deterministic,N/A,DOCUMENTED_MANUAL_STEP,No,RERUN_READY_WITH_DOCUMENTED_MANUAL_STEP,PASS_WITH_LIMITATIONS,P2 only expands AMBIGUOUS rows for human review; P3 requires human-confirmed audit
+Raw,P3_final_mapping,code/P3.py,rawdata/processed.xlsx + sample_mapping_audit.xlsx,rawdata/sample_mapping_FINAL.xlsx,Yes,Deterministic,N/A,DOCUMENTED_MANUAL_STEP,No,RERUN_READY_WITH_DOCUMENTED_MANUAL_STEP,PASS_WITH_LIMITATIONS,Downstream cohort depends on human-confirmed ambiguous review
+Discovery,D01_eligibility,descriptive/discovery_validation/code/D01*.py,D01 inputs,D01_discovery_eligibility/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,1445 eligible proteins
+Discovery,D02_discovery_primary,D02*.py,D01 outputs,D02_discovery_primary/,Yes,Deterministic (limma),N/A,No,No,RERUN_READY,PASS,85 at BH-FDR<0.05
+Discovery,D03_candidate_lock,D03_locked_candidates.csv,D02 outputs,D03_candidate_lock/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,Exactly 85 rows
+Discovery,D04_dose_trajectory,D04*.py,D03 lock,D04_dose_trajectory/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,Supplementary
+Discovery,D05_environment_specific,D05*.py,D03 lock,D05_environment_specific/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,Supplementary
+Discovery,D06_environment_interaction,D06*.py,D03 lock,D06_environment_interaction/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,Supplementary; reconciled into M10
+Discovery,D07_site_robustness,D07*.py,D03 lock,D07_site_robustness/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,Supplementary; reconciled into M11
+Discovery,D08_reused_holdout,D08*.py,D03 lock + hold-out,D08_validation/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,83/29/1
+Discovery,D09_missingness_peptides,D09*.py,D03 lock,D09_missingness_detection_peptides/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,Supplementary
+Discovery,D10_integrated,D10*.py,D05/D06/D07/D09,D10_integrated_biology/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,85 rows x 67 cols
+v2,M05_overall_exposure,code/V2_M05_overall_exposure.R,Q515 universe,M05_overall_exposure/,Yes,Deterministic (limma eBayes),N/A,No,No,RERUN_READY,PASS,0/1430 FDR<0.05
+v2,M06_ordered_omnibus,code/V2_M06_ordered_omnibus_architecture.R,Q515,M06_ordered_omnibus_architecture/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,
+v2,M07_pairwise,code/V2_M07_pairwise_contrasts.R,Q515,M07_pairwise_contrasts/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,LC 13 / HC 0 / HL 257
+v2,M08_detection_firth,code/V2_M08_firth_detection.R,Q515,M08_detection/Firth_primary/,Yes,Deterministic (logistf),N/A,No,No,RERUN_READY,PASS,Supplementary
+v2,M09_missingness_knn,code/V2_M09_knn_sensitivity.R,Q515 log2 + full 515 + frozen M05 reference,M09_missingness_sensitivity/KNN_sensitivity/,Yes,Stochastic only if maxp block splitting is needed,20260925,No,No,RERUN_READY,PASS,"impute 1.76.0; k=10; rowmax=0.5; colmax=0.8; maxp=1500; no block split for 1430 rows"
+v2,M10_pure_interaction,code/V2_M10_corrected_interaction.R,Q515,M10_environment_interaction/corrected_pure_interaction/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,0/1430 FDR<0.05
+v2,M11_site_loo,code/V2_M11_site_robustness.R,Q515,M11_site_robustness/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS_WITH_LIMITATIONS,Phase 4 repaired: fixed frozen M05 E and Q515; Environment retained; LOO is sensitivity not replication
+v2,M12_pathway_v2.1,M12_01_mapping.R -> M12_02_ranked_ora.R -> M12_02b_kegg_fix.R -> M12_03_integration.R,85 DEPs + 1434 tested proteins,M12_pathway_v2.1/,Yes,Deterministic (fgsea stochastic, seeded),Documented,No,No,RERUN_READY,PASS,cameraPR 195 / ORA 23 / fgsea 39 / KEGG NOT_RUN
+v2,M12B_context_v2.1,M12B_all.R,M12 outputs + 85,M12B_biological_context_v2.1/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,Supplementary interpretation
+v2,M14_reconciliation,code/V2_M13_M14_reconciliation.R,D08 + D03,M14_frozen_replication/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,85/83/29/1 preserved
+ML,M15_fixed85,ml_v2.1/run_v2_1_ml.R,85 DEPs + Discovery,ml_v2.1/results/,Yes,Stochastic (CV/ranger/xgboost),SEED=20260928 (Mersenne-Twister/Inversion) + fold seeds 1000/2000/3000/4000/5000,No,No,RERUN_READY,PASS_WITH_LIMITATIONS,Conditional on frozen 85; not unbiased generalization
+ML,M15_strict_nested,ml_v2.1/strict_nested_sensitivity.R,Discovery full universe,ml_v2.1/strict_nested/,Yes,Stochastic (fold-local limma + CV),SEED=20260928 + OUTER_SEEDS,No,No,RERUN_READY,PASS_WITH_LIMITATIONS,Fold-local DEP range 8-618
+M17,Figure_1-6,code/V2_M17_figures_v2.R,frozen M05-M16 outputs,figures_final_v2/,Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,6 PDF + 6 SVG + 6 source_data CSVs
+Supp,figures_nature_v2.2,descriptive/06..11*.R + nature_plotting.py,upstream processed tables,descriptive/figures_nature_v2.2/ (+10 nested dirs),Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,649 files; upstream QC layer
+Supp,D_figures_v2.7,D01-D10 figure producer scripts,D01-D10 frozen outputs,descriptive/discovery_validation/figures_prospective_v2.7/ (79 root files),Yes,Deterministic,N/A,No,No,RERUN_READY,PASS,15 figures x 5 formats + 4 docs; SUPPLEMENTARY discovery-validation figure bundle; distinct from M17 figures_final_v2/

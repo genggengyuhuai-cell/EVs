@@ -30,7 +30,7 @@
 </defs>
 <g clip-path='url(#cpMzYuMDd8NTA2Ljc4fDUwLjIzfDI3OS44Mg==)'>
 <rect x='36.07' y='50.23' width='470.72' height='229.59' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<polyline points='124.33,115.14 271.43,83.38 418.53,243.83 ' style='stroke-width: 0.85; stroke: #595959; stroke-linecap: butt;' />
+<polyline points='124.33,115.14 271.43,83.38 418.53,243.83 ' style='stroke-width: 0.85; stroke: #A6A6A6; stroke-linecap: butt;' />
 <polyline points='115.50,91.32 133.15,91.32 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
 <polyline points='124.33,91.32 124.33,138.96 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
 <polyline points='115.50,138.96 133.15,138.96 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
@@ -40,9 +40,9 @@
 <polyline points='409.70,218.28 427.35,218.28 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
 <polyline points='418.53,218.28 418.53,269.38 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
 <polyline points='409.70,269.38 427.35,269.38 ' style='stroke-width: 0.75; stroke-linecap: butt;' />
-<circle cx='124.33' cy='115.14' r='2.39' style='stroke-width: 0.52; stroke: #595959; fill: #595959;' />
-<circle cx='271.43' cy='83.38' r='2.39' style='stroke-width: 0.52; stroke: #3178A5; fill: #3178A5;' />
-<circle cx='418.53' cy='243.83' r='2.39' style='stroke-width: 0.52; stroke: #C78132; fill: #C78132;' />
+<circle cx='124.33' cy='115.14' r='2.39' style='stroke-width: 0.52; stroke: #A6A6A6; fill: #A6A6A6;' />
+<circle cx='271.43' cy='83.38' r='2.39' style='stroke-width: 0.52; stroke: #4A85B3; fill: #4A85B3;' />
+<circle cx='418.53' cy='243.83' r='2.39' style='stroke-width: 0.52; stroke: #FF6347; fill: #FF6347;' />
 </g>
 <g clip-path='url(#cpMC4wMHw1MTguNzR8MC4wMHwzNTQuMzM=)'>
 <polyline points='36.07,279.82 36.07,50.23 ' style='stroke-width: 0.75; stroke-linecap: square;' />
@@ -67,11 +67,11 @@
 <rect x='179.43' y='297.85' width='184.00' height='46.52' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <text x='183.41' y='323.80' style='font-size: 7.50px; font-family: "Arial";' textLength='31.71px' lengthAdjust='spacingAndGlyphs'>Exposure</text>
 <rect x='219.11' y='301.84' width='17.28' height='17.28' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<circle cx='227.75' cy='310.48' r='2.39' style='stroke-width: 0.52; stroke: #595959; fill: #595959;' />
+<circle cx='227.75' cy='310.48' r='2.39' style='stroke-width: 0.52; stroke: #A6A6A6; fill: #A6A6A6;' />
 <rect x='290.69' y='301.84' width='17.28' height='17.28' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<circle cx='299.33' cy='310.48' r='2.39' style='stroke-width: 0.52; stroke: #3178A5; fill: #3178A5;' />
+<circle cx='299.33' cy='310.48' r='2.39' style='stroke-width: 0.52; stroke: #4A85B3; fill: #4A85B3;' />
 <rect x='219.11' y='323.10' width='17.28' height='17.28' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<circle cx='227.75' cy='331.74' r='2.39' style='stroke-width: 0.52; stroke: #C78132; fill: #C78132;' />
+<circle cx='227.75' cy='331.74' r='2.39' style='stroke-width: 0.52; stroke: #FF6347; fill: #FF6347;' />
 <text x='240.37' y='312.98' style='font-size: 7.00px; font-family: "Arial";' textLength='22.57px' lengthAdjust='spacingAndGlyphs'>Control</text>
 <text x='311.96' y='312.98' style='font-size: 7.00px; font-family: "Arial";' textLength='47.48px' lengthAdjust='spacingAndGlyphs'>Short exposure</text>
 <text x='240.37' y='334.25' style='font-size: 7.00px; font-family: "Arial";' textLength='46.33px' lengthAdjust='spacingAndGlyphs'>Long exposure</text>
