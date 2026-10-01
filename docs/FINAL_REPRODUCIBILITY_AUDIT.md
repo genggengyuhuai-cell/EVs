@@ -1,177 +1,52 @@
-# Final Reproducibility Audit — analysis-v2.1 freeze
+﻿# FINAL REPRODUCIBILITY AUDIT（Phase 7 终态版）
 
-Date: 2026-09-29. This is the technical gate before tagging `analysis-v2.1`.
-No analysis was rerun; no frozen result was modified; no files were moved.
+> 日期：2026-10-01（Phase 7）。旧版备份：`.phase6.bak`（Phase 6 重建）、`.phase7.bak`（本次）。
+> **全局：FREEZE_READINESS=BLOCKED · SUBMISSION_READINESS=BLOCKED · SAFE_TO_TAG=NO。**
+> 分析侧 OPEN_ANALYSIS=0；剩余为 reporting / provenance / git。
+> Ready_for_freeze=YES 仅当 Rerun_verified=YES 且 Reporting_frozen=YES 且 Provenance_complete=YES 且无未决重建。
 
-## 1. Scope
+## 逐模块表
 
-Raw-data processing (P1/P2/P3) -> discovery-validation (D01–D10) ->
-v2 abundance / robustness (M05–M11) -> pathway (M12 v2.1) -> biological context
-(M12B v2.1) -> replication reconciliation (M14) -> ML (ml_v2.1) -> manuscript
-figures (M17) -> supplementary upstream QC (figures_nature_v2.2/).
+| Module | Canonical_script | Canonical_input | Canonical_output | Rerun_verified | Reporting_frozen | Known_limitation | Provenance_complete | Ready_for_freeze |
+|---|---|---|---|---|---|---|---|---|
+| P1/P2/P3 upstream | code/P{1,2,3}.py | rawdata/processed.xlsx | rawdata/sample_mapping_FINAL.xlsx | N/A (deterministic) | N/A | no workbook identity binding (P1-7); manual ambiguous review | NO | NO |
+| D01 eligibility | discovery_validation/D01_discovery_eligibility.py | raw 3817 | D01_discovery_eligibility/ (1445) | YES (frozen) | YES | depends on P1/P2/P3 provenance | NO | NO |
+| D02 discovery | code/D02_discovery_primary.R | D01 | D02_discovery_primary/ | YES (frozen) | YES | M12 ranking source; depends upstream provenance | NO | NO |
+| D03 lock | code/D03_candidate_lock.R | D02 | D03_candidate_lock/ (85) | YES (frozen) | YES | — | NO | NO |
+| D04–D07,D09 | code/D0*.R | D03 | 各自目录 | YES (frozen) | YES | descriptive / reconciled | NO | NO |
+| D08 hold-out | code/D08_validation.R | D03 + 129 | D08_validation/ (85/83/29/1) | YES (frozen) | YES | reused not external | NO | NO |
+| D10 integrated | code/D10_integrated_biology.R | D05/D06/D07/D09 | D10_integrated_biology/ | NO | NO | P1-8 peptide propagation; rebuild pending | NO | NO |
+| M05–M07,M10 | code/V2_M0[5-7,10]_*.R | Q515/1430 | 各 M0*_*/ | YES (frozen) | YES | M10 0/1430 null | NO | NO |
+| M08 Firth | code/V2_M08_firth_detection.R | Q515 | M08_detection/Firth_primary/ | YES (frozen) | YES | supplementary | NO | NO |
+| M09 KNN sensitivity | code/V2_M09_knn_sensitivity.R | Q515 + full515 + frozen M05 E | M09_missingness_sensitivity/KNN_sensitivity/ | YES (repaired) | YES | Fig3c rebuild pending (figure only) | NO | NO |
+| M11 site LOO | code/V2_M11_site_robustness.R | Q515 | M11_site_robustness/ | YES (repaired) | YES | LOO sensitivity not replication; Fig4d rebuild pending | NO | NO |
+| M12 pathway | M12_01→02→03 | D02 ranking + 85 fg + mapped | M12_pathway_v2.1/ | YES (repaired) | YES (fgsea dual frozen) | R03 universe switch deferred; Fig6b caption pending | NO | NO |
+| M12B context | M12B_all.R | repaired M12 + 85 | M12B_biological_context_v2.1/ | YES (repaired) | YES | Spearman descriptive; secondary GO-MF/CC | NO | NO |
+| M14 replication | code/V2_M13_M14_reconciliation.R | D08 + D03 | M14_frozen_replication/ | NO | NO | P1-6 hard-coded stale; rebuild from D08 | NO | NO |
+| ML fixed-85 | ml_v2.1/run_v2_1_ml.R | 85 DEPs + Discovery | ml_v2.1/results/ | YES (repaired) | YES | conditional on frozen 85; Fig5 rebuild pending | NO | NO |
+| ML strict nested | ml_v2.1/strict_nested_sensitivity.R | Discovery full | ml_v2.1/strict_nested/ | YES (repaired) | YES | 7/15 zero-feature; split generator provenance open | NO | NO |
+| M17 figures | code/V2_M17_figures_v2.R | M05–M16 outputs | figures_final_v2/ | NO | NO | Fig3–6 rebuild required | NO | NO |
+| KEGG | — | — | 0-row placeholder | N/A | N/A | NOT_RUN | N/A | N/A |
 
-Archive layer is inspected only to confirm no active dependency.
+## 统计
+- Rerun_verified=YES 的模块：D01/D02/D03/D04-D07/D09/D08（frozen）+ M05-M08/M10（frozen）+ M09/M11/M12/M12B（repaired）+ ML fixed-85/strict nested（repaired）。
+- Reporting_frozen=YES：除 D10/M14/M17 外全部（fgsea dual 已冻结为 sensitivity-only）。
+- Provenance_complete=YES：**0**（全部受 P1/P2/P3 workbook 身份绑定 + 环境锁定 + proteomics QC gap 影响）。
+- **Ready_for_freeze=YES：0 个模块。**
+  原因：分析侧已闭合，但全局 tag 被 OPEN_PROVENANCE（P1/P2/P3、环境锁定、QC gap）与 OPEN_REPORTING（Fig6/M14/D10 重建）阻断。
 
-## 2. Authority documents
+## 数值一致性（Phase 7 复核后）
+- Cohort：519/515/153/186/176；Discovery 386 / hold-out 129。
+- Discovery：1,445 eligible → 85 DEPs；replication 83/29/1。
+- Interaction：0/1,430。
+- Pathway（repaired）：cameraPR 205（29 BP+176 Reactome）/ ORA 23（3+20）/
+  fgsea family 44（3/8/11/22）& pooled 41（6/7/10/18，DUAL sensitivity-only，REPORTING_FROZEN）/ KEGG NOT_RUN。
+- Mapping：1434/1414/15/5；rankable N_ranked=1406。
+- ML：fixed-85 mean outer AUROC LASSO 0.6651/EN 0.6687/XGB 0.6488；
+  strict nested 7/15 zero-feature、8 evaluable、evaluable mean LASSO 0.5967/EN 0.5937。
+- Universe distinction preserved：1445 inferential ≠ 1430 abundance Q515 ≠ 1434 pathway mapping ≠ 1414 mapped ≠ 1406 rankable。
 
-`PROJECT_CONTEXT.md`, `docs/PIPELINE_STATUS.md`,
-`docs/ACTIVE_MAINLINE_MANIFEST.csv`, `docs/SUPPLEMENTARY_ANALYSIS_MANIFEST.csv`,
-`docs/FINAL_REPOSITORY_RECONSTRUCTION_AUDIT.md`,
-`archive/ARCHIVE_MANIFEST.csv`, `archive/HISTORICAL_MANIFEST.csv`,
-`manuscript_v2_1/audit/STATISTICAL_REPORTING_AUDIT.md`,
-`WHOLE_PROJECT_SCIENTIFIC_REVIEW.md`, `PROJECT_RECONSTRUCTION_PLAN.md`,
-plus per-module finalization reports (M12, M12B, M15, M17).
-
-## 3. Raw-data processing
-
-| Script | Input | Output | Manual step | Deterministic | Downstream | Status |
-|---|---|---|---|---|---|---|
-| P1.py | rawdata/processed.xlsx | rawdata/sample_mapping_audit.xlsx | No | Yes | P2, P3 | PASS |
-| P2.py | sample_mapping_audit.xlsx | sample_mapping_ambiguous_context.xlsx | DOCUMENTED_MANUAL_STEP (human review of AMBIGUOUS rows) | Yes | P3 | PASS_WITH_LIMITATIONS |
-| P3.py | processed.xlsx + sample_mapping_audit.xlsx | sample_mapping_FINAL.xlsx | DOCUMENTED_MANUAL_STEP (consumes human-reviewed audit) | Yes | all D01+ / M05+ | PASS_WITH_LIMITATIONS |
-
-All four rawdata files exist on disk and are tracked. Paths are relative
-(`../rawdata/` from `code/`). The manual ambiguity review is documented in
-`sample_mapping_ambiguous_context.xlsx` and is a reproducibility limitation, not
-a blocker.
-
-## 4. Canonical pipeline completeness
-
-| Module | Canonical entry exists | Inputs exist | Outputs exist | Status |
-|---|---|---|---|---|
-| D01–D10 | Yes | Yes | Yes (3–6 files each) | PASS |
-| M05–M11 | Yes | Yes | Yes (2–5 files each) | PASS |
-| M12 v2.1 (4-script chain) | Yes | Yes | 40 files | PASS |
-| M12B v2.1 | Yes | Yes | 15 files | PASS |
-| M14 reconciliation | Yes | Yes | 2 files | PASS |
-| ml_v2.1 (fixed-85 + strict nested) | Yes | Yes | 20 files | PASS |
-| M17 figures | Yes | Yes | 26 files (6 PDF + 6 SVG + 6 source_data CSV + manifest + QC + 6 preview PNGs) | PASS |
-
-No duplicate current authority found.
-
-## 5. Dependency audit
-
-Static grep across active `.R` / `.py` (excluding `archive/`):
-- References to `archive/`, `historical_frozen/`, `debug/`, `installers/`,
-  `superseded_code/`: **0**.
-- References to runtime `.log` files: **0**.
-- **Active -> archive dependency count: 0.** No blocker.
-
-## 6. Hard-coded path audit
-
-Grep for `F:\`, `C:\`, `Users/`, `Desktop`, `Downloads`, `OneDrive`, `setwd(`:
-- One hit: `descriptive/archive/run_active_r.R:15 setwd(SCRIPT_DIR)` — already
-  archived; not active code.
-- **Active-code hard-coded environment-specific paths: 0.**
-
-## 7. Input / output existence
-
-All key inputs exist (rawdata ×4, contracts, universes, D01–D10 result dirs,
-M05–M14 result dirs, M12/M12B/ml_v2.1/figures_final_v2). All expected outputs
-exist and are non-empty. See `docs/FINAL_REPRODUCIBILITY_MANIFEST.csv`.
-
-## 8. Git tracking
-
-Sampled required artifacts all tracked: P1/P2/P3, M17 Fig1 PDF + source_data
-CSV + FIGURE_MANIFEST.md + VISUAL_QC.md, ml_v2.1 entry scripts, M12/M12B entry
-scripts. Working tree clean (previous batches committed between turns). No
-untracked scientific file.
-
-## 9. Seed audit
-
-See `docs/SOFTWARE_ENVIRONMENT_REPORT.md`. ML seeds are explicit and
-Mersenne-Twister/Inversion; D01–M14 and M17 are deterministic. fgsea permutations
-are internally seeded by the package.
-
-## 10. Software environment
-
-R 4.3.1; Python 3.14.7. Major R packages listed. Version pinning is
-PARTIALLY_DOCUMENTED (no renv.lock / sessionInfo.txt checked in) — a
-PASS_WITH_LIMITATIONS, not a blocker.
-
-## 11. Manual steps
-
-Only the P2/P3 ambiguity review is a documented manual step. No current pipeline
-depends on a hand-edited CSV, Excel, or copy-pasted value for a scientific result.
-
-## 12. Figure 1–6 traceability
-
-| Figure | Producer | Source data CSV | PDF | SVG | Traceable |
-|---|---|---|---|---|---|
-| Fig1 cohort design | V2_M17_figures_v2.R | Fig1_cohort_design_source_data.csv | Fig1_cohort_design.pdf | Fig1_cohort_design.svg | Yes |
-| Fig2 proteome associations | same | Fig2_proteome_associations_source_data.csv | yes | yes | Yes |
-| Fig3 candidate biology | same | Fig3_candidate_biology_source_data.csv | yes | yes | Yes |
-| Fig4 environment/site | same | Fig4_environment_site_source_data.csv | yes | yes | Yes |
-| Fig5 replication+ML | same | Fig5_replication_ml_source_data.csv | yes | yes | Yes |
-| Fig6 pathway integration | same | Fig6_pathway_integration_source_data.csv | yes | yes | Yes |
-
-**6/6 fully traceable.** `FIGURE_MANIFEST.md` and `VISUAL_QC.md` present.
-
-## 13. Supplementary QC traceability
-
-`descriptive/figures_nature_v2.2/` (+10 nested dirs, 649 files) is produced by
-10 tracked upstream descriptive scripts (06–11 + nature_plotting.py). No archive
-dependency. No conflict with M17. Classified SUPPLEMENTARY.
-
-## 14. Numerical consistency
-
-Frozen numbers cross-checked against PROJECT_CONTEXT / PIPELINE_STATUS /
-finalization reports:
-- Cohort: 519 / 515 / 386 / 129.
-- Discovery: 1,445 eligible -> 85 DEPs.
-- Replication: 83 direction / 29 nominal / 1 FDR-supported.
-- Interaction: 0/1,430 at BH-FDR<0.05.
-- Pathway: cameraPR 195 (25 GO BP + 170 Reactome) / ORA 23 (3+20) / fgsea 39
-  (3 BP + 8 MF + 11 CC + 17 Reactome) / KEGG NOT_RUN.
-- Mapping: 1434 tested / 1414 unambiguous / 15 multi-gene / 5 unmapped.
-- ML: strict-nested fold-local DEP range 8–618.
-- Universe distinction preserved: 1430 abundance Q515 ≠ 1434 pathway-tested ≠
-  1414 pathway-mapped.
-
-**No numerical conflicts.**
-
-## 15. Orphan audit
-
-No active script lacks a documented output; no manuscript figure lacks source
-data; no source_data CSV lacks a figure; no manifest entry points to a missing
-file. **NONE (non-blocking).**
-
-## 16. Rerun feasibility
-
-| Stage | Rerun status |
-|---|---|
-| Raw processing (P1/P2/P3) | RERUN_READY_WITH_DOCUMENTED_MANUAL_STEP |
-| D01–D10 | RERUN_READY |
-| M05–M11 | RERUN_READY (M09 KNN: RERUN_READY_WITH_ENVIRONMENT_LIMITATION) |
-| M12 / M12B | RERUN_READY |
-| ML v2.1 | RERUN_READY |
-| M17 | RERUN_READY |
-| Supplementary QC | RERUN_READY |
-
-## 17. Remaining limitations (non-blocking)
-
-- P2/P3 manual ambiguity review is a documented manual step.
-- R package minor versions not pinned (no renv.lock / sessionInfo.txt).
-- Python env not pinned (no requirements.txt).
-- Manuscript captions / tables / methods prose / TIFF submission export are not
-  yet produced — out of scope for this freeze gate.
-- `docs/workflow/*.md` and `docs/task/TASK_CURRENT.md` remain on disk as
-  historical snapshots; flagged in CONTROL_DOCUMENT_INDEX.csv.
-
-## 18. Freeze blockers
-
-**None.** No missing canonical script, missing required input/output, active
-->archive dependency, untracked required artifact, numerical inconsistency, or
-undocumented manual intervention affecting a scientific result.
-
-## 19. Final recommendation
-
-**PASS_WITH_LIMITATIONS.**
-
-**Freeze readiness: READY_TO_TAG_WITH_LIMITATIONS.**
-
-The limitations are documentation/version-pinning hygiene, not scientific
-inconsistencies. The analysis-v2.1 tag can be cut after this audit is committed;
-the remaining work (captions, tables, methods prose, TIFF export, nature
-writing/polishing/ref-verifier/reviewer/pre-submission review) is manuscript
-assembly, not analysis reopening.
+## 结论
+- 分析复现性：核心模块全部 Rerun_verified；**OPEN_ANALYSIS=0**。
+- 不可 tag 的唯一原因已转移到 provenance + reporting + git，不再是分析缺陷。
+- 首个 Ready_for_freeze=YES 的前置：P1/P2/P3 身份绑定 + 环境锁定 + Fig6/M14/D10 重建闭合。

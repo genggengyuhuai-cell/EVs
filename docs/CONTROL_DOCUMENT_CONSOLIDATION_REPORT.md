@@ -98,7 +98,7 @@ rewritten doc separates:
 - Cohort: 519 / 515 / 386 / 129.
 - Discovery: 1,445 Discovery-eligible proteins -> 85 High-vs-Low DEPs.
 - Replication: 83 / 29 / 1.
-- Pathway: cameraPR 195 / ORA 23 / fgsea 39 / KEGG NOT_RUN; mapping 1434 / 1414 / 15 / 5.
+- Pathway: cameraPR 205 / ORA 23 / fgsea 44 (family-wise) & 41 (pooled, sensitivity) / KEGG NOT_RUN; mapping 1434 / 1414 / 15 / 5.
 - Interaction: 0/1,430 at BH-FDR<0.05.
 - ML: fixed-85 conditional + strict nested (range 8–618).
 

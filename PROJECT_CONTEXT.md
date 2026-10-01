@@ -4,6 +4,29 @@ This file is the top-level authoritative entry point for the current project sta
 It supersedes the historical v1.0 / v2.0 long-form narrative that previously lived here.
 For frozen analytical detail, read the protocol and module manifests listed below.
 
+> ## ⚠️ 权威总状态（2026-10-01 阻断闭合轮写入；覆盖本文件及 PIPELINE_STATUS 中一切旧 READY/FROZEN 表述）
+>
+> ```
+> FREEZE_READINESS          = BLOCKED
+> SUBMISSION_READINESS      = BLOCKED
+> ANALYSIS_REOPEN_REQUIRED  = YES
+> SAFE_TO_TAG_ANALYSIS_V2_1 = NO
+> ```
+>
+> 模块级（2026-10-01 Phase 6 更新）：
+> fixed-85 ML=REPAIRED_AND_VERIFIED；strict nested=REPAIRED_AND_VERIFIED；
+> M09=REPAIRED_AND_VERIFIED；M11=REPAIRED_AND_VERIFIED；
+> M12=REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD；M12B=REPAIRED_RERUN_COMPLETE；
+> D03 85 candidates retained；D08 85→83→29→1 retained；Fig6=NOT_FINAL（待重建）；
+> 历史 195/23/39=PRE_REPAIR_EXISTING_OUTPUT（仅存于 pre_repair_snapshot，不得标 FINAL_FROZEN）；
+> FGSEA_FROZEN_FAMILY=UNRESOLVED_REPORTING_HOLD；KEGG=NOT_RUN。
+>
+> 分析侧阻断已基本闭合，全局仍 BLOCKED 的原因为：OPEN_REPORTING（fgsea canonical FDR
+> 家族裁定 + Fig6 重建）、OPEN_PROVENANCE（P1/P2/P3 workbook 身份绑定）、OPEN_GIT（未清理）。
+> 本状态优先于 `docs/FINAL_REPRODUCIBILITY_AUDIT.md`（2026-09-29，已 SUPERSEDED；Phase 6 重建版见同文件）。
+> 逐项证据见 `docs/AUDIT_BLOCKER_CLOSURE_STATUS.md`、`docs/FINAL_BLOCKER_STATUS.md`、
+> `docs/PHASE6_STATUS_BASELINE.md` 与 `audit_output/STATUS_OVERRIDE_2026-10-01.md`。
+
 > Terminology rule: manuscript-facing wording uses **High land** and **Hot-humid**.
 > The internal keys `High-pressure/high-altitude` and `Humid-hot` (and `Short`/`Long`
 > dose labels) appear only inside frozen result tables and are **internal keys only**.
@@ -49,9 +72,9 @@ Relative paths only. Protected; do not archive, move, or rename.
 | Layer | Module | Canonical entry |
 |---|---|---|
 | Upstream raw data | P1/P2/P3 | `code/P{1,2,3}.py` |
-| Discovery-validation | D01–D10 | `descriptive/discovery_validation/code/D0*.py` |
+| Discovery-validation | D01–D10 | D01 = `descriptive/discovery_validation/D01_discovery_eligibility.py`（根目录 Python）；D02–D10 = `descriptive/discovery_validation/code/D0*.R`（R；D08 另有 `D08_prepare_validation.py`） |
 | v2 abundance | M05–M11 | `descriptive/analysis_v2.0/code/V2_M0[5-11]_*.R` (Firth / KNN / corrected-interaction variants are canonical) |
-| M12 pathway | M12 v2.1 | `M12_01_mapping.R -> M12_02_ranked_ora.R -> M12_02b_kegg_fix.R -> M12_03_integration.R` |
+| M12 pathway | M12 v2.1 | `M12_01_mapping.R -> M12_02_ranked_ora.R -> M12_03_integration.R`（**REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD**；`M12_02b_kegg_fix.R` 已移出 canonical 链，标 HISTORICAL/NON_CANONICAL——修复见 M12_REPAIR_REPORT.md；KEGG=NOT_RUN，canonical 重跑不得依赖 KEGG download/API/enrichment/term merge；fgsea canonical FDR 家族 UNRESOLVED 待团队裁定） |
 | M12B context | M12B v2.1 | `M12B_all.R` |
 | M14 replication | M14 | `V2_M13_M14_reconciliation.R` -> `M14_frozen_replication/` |
 | M15 ML | ml_v2.1 | `ml_v2.1/run_v2_1_ml.R` (fixed-85) + `ml_v2.1/strict_nested_sensitivity.R` (sensitivity) |
@@ -83,22 +106,30 @@ are **HISTORICAL_FROZEN** under `archive/` and are not current entrypoints.
 ## 6. Pathway frozen numbers
 
 ```
-cameraPR (primary, competitive)        195 FDR-significant pathways
-                                        GO BP 25; Reactome 170
-ORA (complementary, one-sided Fisher)  23 pathways
+cameraPR (primary, competitive)        205 FDR-significant pathways (FDR_pooled<0.05, GO-BP+Reactome)
+                                        GO BP 29; Reactome 176
+ORA (complementary, one-sided Fisher)    23 pathways (FDR_pooled<0.05)
                                         GO BP 3; Reactome 20
-fgsea (sensitivity, ranked)             39 pathways
-                                        GO BP 3; GO MF 8; GO CC 11; Reactome 17
+fgsea (sensitivity, ranked, dual-col)   family padj<0.05 = 44 ; pooled padj_pooled<0.05 = 41
+                                        family: GO BP 3; GO MF 8; GO CC 11; Reactome 22
+                                        pooled: GO BP 6; GO MF 7; GO CC 10; Reactome 18
+                                        Canonical_FDR = UNRESOLVED (reporting HOLD)
 KEGG                                   NOT_RUN (placeholder CSVs only)
 Mapping universe:
   tested protein groups                1434
   unambiguous one-gene mappings        1414
   multi-gene ambiguous                 15
   unmapped                              5
+  rankable gene-set subset (N_ranked)  1406  (= mapped 1414 ∩ D02 ESTIMABLE; R03 见下)
 ```
 
-Do NOT add 195 + 23 + 39 and call it a single pathway count. The three methods answer
-different questions; they are primary / complementary / sensitivity.
+> 历史值（pre-repair，仅存于 `pre_repair_snapshot/`）：cameraPR 195（25 BP+170 Reactome）、
+> ORA 23（不变）、fgsea family 39（3/8/11/17）。这些不得再作为 current 数字引用。
+> 三层 universe 语义见 `docs/PATHWAY_UNIVERSE_RECONCILIATION.md`。
+
+Do NOT add 205 + 23 + 44 and call it a single pathway count. The three methods answer
+different questions; they are primary / complementary / sensitivity. fgsea 44 vs 41 为双列口径，
+未裁定前两套都不标 FINAL_FROZEN。
 
 ## 7. Repository layers
 
@@ -124,15 +155,22 @@ R4 reused-hold-out hierarchy (85/83/29/1) -> R5 robustness summary ->
 R6 representative pathway themes. ML and full pathway tables are supplementary.
 M12B is biological context / interpretation, not mechanistic validation.
 
-## 9. Remaining tasks (not started)
+## 9. Remaining tasks (as of 2026-10-01 Phase 6)
 
-- Final reproducibility audit.
-- analysis-v2.1 freeze tag.
-- Manuscript assembly: captions, tables, methods prose, TIFF export.
-- Nature-style writing / polishing / ref-verifier / reviewer simulation / pre-submission review.
+> **状态变更（2026-10-01 Phase 6）**：分析侧修复已基本闭合——fixed-85 ML、strict nested、
+> M09、M11 均已 REPAIRED_AND_VERIFIED；M12/M12B 已 canonical 重跑（fgsea FDR 家族 HOLD）。
+> 全局仍 BLOCKED，剩余项为 reporting / provenance / git，不再要求重跑核心分析：
 
-All M01–M17 statistical analysis is frozen. Do not rerun, retune, or reopen unless a
-verified bug is found.
+1. **OPEN_REPORTING**：fgsea canonical FDR 家族团队裁定（解除 44/41 HOLD）；Fig6 整图重建
+   （a/c/d 可先建，b 待 fgsea 口径冻结；Reactome 必须进主图；GO-MF/CC 归 supplement）。
+2. **OPEN_PROVENANCE**：P1/P2/P3 workbook 身份绑定（P1-7）；proteomics QC provenance；
+   strict-nested split generator  provenance。
+3. **OPEN_GIT**：仓库大量未跟踪/未提交文件，需按 `docs/FINAL_GIT_CLEANUP_PLAN.md` 分类分批提交；
+   本轮不 commit。
+4. 全部闭合后，才进入：analysis-v2.1 freeze tag（当前 **NO**）；Manuscript assembly；
+   Nature-style writing / polishing / reviewer simulation / pre-submission review。
+
+在上述完成前，不得 rerun Discovery/D08，不得改 frozen 结果值、通路阈值或 GO/Reactome 数据库，不得 git tag。
 
 ## 10. Canonical control documents
 

@@ -22,17 +22,26 @@ Per-module status as of 2026-09-29. Status vocabulary:
 | M06 ordered / omnibus | `code/V2_M06_ordered_omnibus_architecture.R` | `M06_ordered_omnibus_architecture/` | R2 architecture | FROZEN_COMPLETE |  |
 | M07 pairwise | `code/V2_M07_pairwise_contrasts.R` | `M07_pairwise_contrasts/` | R2 contrasts | FROZEN_COMPLETE | LC 13 / HC 0 / HL 257 |
 | M08 detection (Firth) | `code/V2_M08_firth_detection.R` | `M08_detection/Firth_primary/` | Detection robustness | SUPPLEMENTARY | 2/3,054 at BH-FDR<0.05 |
-| M09 missingness KNN | `code/V2_M09_knn_sensitivity.R` | `M09_missingness_sensitivity/KNN_sensitivity/` | Missingness sensitivity | SUPPLEMENTARY | corr=0.931 vs primary |
+| M09 missingness KNN | `code/V2_M09_knn_sensitivity.R` | `M09_missingness_sensitivity/KNN_sensitivity/` | Missingness sensitivity | SUPPLEMENTARY | Pearson 0.9740605 / Spearman 0.9644384 / direction 1343/1430 |
 | M10 pure interaction | `code/V2_M10_corrected_interaction.R` | `M10_environment_interaction/corrected_pure_interaction/` | Interaction null | FROZEN_COMPLETE | 0/1,430 at BH-FDR<0.05 |
 | M11 site LOO | `code/V2_M11_site_robustness.R` | `M11_site_robustness/` | Site robustness | PASS_WITH_LIMITATIONS | LOO not replication |
-| M12 pathway v2.1 | `M12_01_mapping.R -> M12_02_ranked_ora.R -> M12_02b_kegg_fix.R -> M12_03_integration.R` | `M12_pathway_v2.1/` | R6 representative themes | FROZEN_COMPLETE | cameraPR 195 / ORA 23 / fgsea 39 / KEGG NOT_RUN |
+| M12 pathway v2.1 | `M12_01_mapping.R -> M12_02_ranked_ora.R -> M12_02b_kegg_fix.R -> M12_03_integration.R` | `M12_pathway_v2.1/` | R6 representative themes | FROZEN_COMPLETE | cameraPR 205 / ORA 23 / fgsea 44 (family-wise) & 41 (pooled, sensitivity) / KEGG NOT_RUN |
 | M12B biological context v2.1 | `M12B_all.R` | `M12B_biological_context_v2.1/` | Biological interpretation layer | SUPPLEMENTARY | Not mechanistic validation |
 | M13 historical reconciliation | read-only | `M13_historical_reconciliation/` | Historical | HISTORICAL |  |
 | M14 frozen replication | `code/V2_M13_M14_reconciliation.R` | `M14_frozen_replication/` | R4 hierarchy | FROZEN_COMPLETE | 85/83/29/1 preserved |
 | M15 ML fixed-85 conditional | `ml_v2.1/run_v2_1_ml.R` | `ml_v2.1/results/` | Secondary predictive / prioritization | PASS_WITH_LIMITATIONS | Conditional on frozen 85; not unbiased generalization |
 | M15 strict nested sensitivity | `ml_v2.1/strict_nested_sensitivity.R` | `ml_v2.1/strict_nested/` | Sensitivity | SUPPLEMENTARY | Fold-local DEP range 8–618 |
-| M17 figures | `code/V2_M17_figures_v2.R` | `figures_final_v2/` | Manuscript Fig 1–6 | FROZEN_COMPLETE | 6 PDF + 6 SVG + 6 source_data CSVs |
+| M17 figures (main manuscript) | `code/V2_M17_figures_v2.R` | `descriptive/analysis_v2.0/figures_final_v2/` | Main manuscript Fig 1–6 | FROZEN_COMPLETE | 6 PDF + 6 SVG + 6 source_data CSVs; MAIN_MANUSCRIPT_FIGURE_BUNDLE |
+| Discovery-validation prospective figures v2.7 | D01–D10 figure producer scripts | `descriptive/discovery_validation/figures_prospective_v2.7/` | Supplementary discovery/reused-hold-out figures | SUPPLEMENTARY | 15 figures × {PDF,PNG,SVG,TIFF,source_data.csv} + 4 docs = 79 root files; SUPPLEMENTARY / REPRODUCIBILITY_REQUIRED / CURRENT_V2_7; distinct from M17 and from figures_nature_v2.2 |
 | Upstream descriptive figures | `descriptive/06..11*.R`, `nature_plotting.py` | `descriptive/figures_nature_v2.2/` (+10 nested dirs) | Methods/QC | SUPPLEMENTARY | 649 files; provenance audited 2026-09-29 |
+
+## Three-layer figure architecture (do not conflate)
+
+1. `descriptive/analysis_v2.0/figures_final_v2/` — **M17 main manuscript figures** (Fig 1–6).
+2. `descriptive/discovery_validation/figures_prospective_v2.7/` — **discovery-validation supplementary figures** (15 figures, current v2.7).
+3. `descriptive/figures_nature_v2.2/` — **upstream QC/descriptive supplementary figures** (10 producers, 649 files).
+
+These are three distinct bundles; none is a duplicate of another.
 
 ## Archive layer (do not run, do not edit)
 

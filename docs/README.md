@@ -1,5 +1,20 @@
 # Project Documentation Index
 
+> ## 🚧 项目总状态（2026-10-01）：BLOCKED，禁止打 tag
+>
+> **FREEZE_READINESS=BLOCKED · SUBMISSION_READINESS=BLOCKED · ANALYSIS_REOPEN_REQUIRED=YES · SAFE_TO_TAG_ANALYSIS_V2_1=NO**
+>
+> **分析侧已修复闭合，全局仍 BLOCKED 的原因为 reporting/provenance/git：**
+> fixed-85 ML=REPAIRED_AND_VERIFIED；strict nested=REPAIRED_AND_VERIFIED；M09=REPAIRED_AND_VERIFIED；
+> M11=REPAIRED_AND_VERIFIED；M12=REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD；M12B=REPAIRED_RERUN_COMPLETE；
+> Fig6=NOT_FINAL（待重建）；fgsea canonical FDR=UNRESOLVED（HOLD）；KEGG=NOT_RUN。
+> 历史通路 195/23/39=PRE_REPAIR_EXISTING_OUTPUT（仅存于 pre_repair_snapshot，非 FINAL_FROZEN）；
+> current 通路数：cameraPR 205（29+176）、ORA 23（3+20）、fgsea family 44 / pooled 41。
+>
+> 本目录下 `FINAL_REPRODUCIBILITY_AUDIT.md`（2026-09-29 "PASS / READY_TO_TAG" 原版已 SUPERSEDED；
+> Phase 6 重建版同文件顶部）；以根目录 `PROJECT_CONTEXT.md` 顶部权威总状态、
+> `docs/FINAL_BLOCKER_STATUS.md` 与 `docs/PHASE6_STATUS_BASELINE.md` 为准。
+
 ## 权威层级（谁说了算）
 
 当文档之间出现差异时，按以下优先级从高到低裁决：

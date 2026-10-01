@@ -1,26 +1,26 @@
-Module,Analysis,Reason_supplementary,Primary_link,Output_location,Manuscript_usage
-M08_detection_Firth,Firth group-LR on 3054 proteins,Only 2/3054 at FDR<0.05; robustness not headline,R5 robustness summary,M08_detection/Firth_primary/,Supplementary detection table
-M09_KNN_missingness,KNN imputation sensitivity on 85,Missingness sensitivity on locked candidates,R5 robustness summary,M09_missingness_sensitivity/KNN_sensitivity/,Supplementary sensitivity table
-M10_stratified_details,Per-protein environment-stratified estimates,Descriptive concordance; not interaction,R5 robustness,M10_environment_interaction/,Supplementary stratified table
-M11_LOO_details,Per-protein LOO max shift,Robustness not replication,R5 robustness,M11_site_robustness/,Supplementary LOO table
-D04_dose_trajectory,Dose trajectory descriptive,Overall-exposure family null; trajectory is descriptive,R2 landscape,descriptive/discovery_validation/D04_dose_trajectory/,Supplementary
-D05_environment_specific,Environment-stratified discovery,Descriptive; coupled to site,R5 robustness,descriptive/discovery_validation/D05_environment_specific/,Supplementary
-D07_site_robustness,Legacy site robustness,Reconciled with M11,R5 robustness,descriptive/discovery_validation/D07_site_robustness/,Supplementary
-D09_detection_peptides,Unique-peptide detection,Technical robustness,Supplementary methods,descriptive/discovery_validation/D09_missingness_detection_peptides/,Supplementary
-D10_integrated_biology,Integrated candidate context,Interpretation layer,R6 context,descriptive/discovery_validation/D10_integrated_biology/,Supplementary
-M08_legacy,code/V2_M08_detection.r,Non-Firth detection superseded by Firth,Replaced by V2_M08_firth_detection.r,n/a,Not used
-M09_legacy,code/V2_M09_missingness_sensitivity.r,Superseded by KNN version,Replaced by V2_M09_knn_sensitivity.r,n/a,Not used
-M10_legacy,code/V2_M10_environment_interaction.r,Non-corrected interaction superseded,Replaced by V2_M10_corrected_interaction.r,n/a,Not used
-M15v2_legacy_scripts,code/V2_M15v2_*.r,Legacy M15 lock/repair/audit scripts,Replaced by ml_v2.1/,n/a,Not used
-M16_holdout,code/V2_M16_holdout.r,Legacy hold-out script,Reconciled into M14/n/a,n/a,Not used
-M17_legacy_figures,code/V2_M17_figures.r,Legacy M17 v1 script,Replaced by V2_M17_figures_v2.r,n/a,Not used
-ML_fixed85_full_tables,ml_v2.1/results/outer_cv_metrics.csv + integrated_table_85.csv,Detailed CV tables; summary stays main,Main R5 summary,ml_v2.1/results/,Supplementary table
-ML_strict_nested_full,ml_v2.1/strict_nested/*.csv,Fold-local DEP instability detail,Main R5 one sentence,ml_v2.1/strict_nested/,Supplementary table
-ML_boruta_xgb_importance,ml_v2.1/results/boruta_full_data.csv + XGBoost importance,Post-selection descriptive importance,Not main text,ml_v2.1/results/,Supplementary
-ORA_full,M12_pathway_v2.1/ora/*.csv,23 ORA pathways complementary,R6 representative themes,M12_pathway_v2.1/ora/,Supplementary table
-fgsea_full,M12_pathway_v2.1/ranked_gsea/*.csv,39 fgsea pathways sensitivity,R6 concordance,M12_pathway_v2.1/ranked_gsea/,Supplementary table
-M12B_correlation,M12B_biological_context_v2.1/correlation/*.csv,Pairwise Spearman not network,R6 context,M12B_biological_context_v2.1/correlation/,Supplementary
-M12B_network,M12B_biological_context_v2.1/network/*.csv,Bipartite pathway-candidate edges,R6 context,M12B_biological_context_v2.1/network/,Supplementary
-M12B_annotation,M12B_biological_context_v2.1/annotation/*.csv,Protein annotation provenance,Methods/context,M12B_biological_context_v2.1/annotation/,Supplementary
-Upstream_QC_descriptive,11 figures_nature_v2.2/ dirs (649 files; producers 06-11 + nature_plotting.py),Upstream descriptive/QC layer (coverage, missingness, detection gradient, design composition, MS batch proxy, normalization, PCA, clustering). M17 does not consume these. Provenance audited 2026-09-29.,R1/R2 Methods+QC context,descriptive/figures_nature_v2.2/ + 10 nested dirs,Supplementary QC / Methods figures
-D_figures_v2.7,descriptive/discovery_validation/figures_prospective_v2.7/,Discovery figures bundle,Supplementary figures,descriptive/discovery_validation/figures_prospective_v2.7/,Supplementary figures
+Module,Analysis,Reason_supplementary,Primary_link,Output_location,Manuscript_usage,Status
+M08_detection_Firth,Firth group-LR on 3054 proteins,Only 2/3054 at FDR<0.05; robustness not headline,R5 robustness summary,M08_detection/Firth_primary/,Supplementary detection table,SUPPLEMENTARY
+M09_KNN_missingness,impute::impute.knn sensitivity on full 1430-by-515 Q515 matrix,M05 effect sensitivity; not validation,R5 robustness summary,M09_missingness_sensitivity/KNN_sensitivity/,Supplementary sensitivity table,SUPPLEMENTARY
+M10_stratified_details,Per-protein environment-stratified estimates,Descriptive concordance; not interaction,R5 robustness,M10_environment_interaction/,Supplementary stratified table,SUPPLEMENTARY
+M11_LOO_details,Per-protein fixed-Q515 LOO effects and max shift,Primary-contract sensitivity not replication,R5 robustness,M11_site_robustness/,Supplementary LOO table,SUPPLEMENTARY
+D04_dose_trajectory,Dose trajectory descriptive,Overall-exposure family null; descriptive,R2 landscape,descriptive/discovery_validation/D04_dose_trajectory/,Supplementary,SUPPLEMENTARY
+D05_environment_specific,Environment-stratified discovery,Descriptive; coupled to site,R5 robustness,descriptive/discovery_validation/D05_environment_specific/,Supplementary,SUPPLEMENTARY
+D07_site_robustness,Legacy site robustness,Reconciled with M11,R5 robustness,descriptive/discovery_validation/D07_site_robustness/,Supplementary,SUPPLEMENTARY
+D09_detection_peptides,Unique-peptide detection,Technical robustness,Supplementary methods,descriptive/discovery_validation/D09_missingness_detection_peptides/,Supplementary,SUPPLEMENTARY
+D10_integrated_biology,Integrated candidate context,Interpretation layer; P1-8 rebuild pending,R6 context,descriptive/discovery_validation/D10_integrated_biology/,Supplementary (rebuild pending),BLOCKED
+M08_legacy,code/V2_M08_detection.r,Non-Firth detection superseded by Firth,Replaced by V2_M08_firth_detection.r,n/a,Not used,HISTORICAL
+M09_legacy,code/V2_M09_missingness_sensitivity.r,Superseded by KNN version,Replaced by V2_M09_knn_sensitivity.r,n/a,Not used,HISTORICAL
+M10_legacy,code/V2_M10_environment_interaction.r,Non-corrected interaction superseded,Replaced by V2_M10_corrected_interaction.r,n/a,Not used,HISTORICAL
+M15v2_legacy_scripts,code/V2_M15v2_*.r,Legacy M15 lock/repair/audit scripts,Replaced by ml_v2.1/,n/a,Not used,HISTORICAL
+M16_holdout,code/V2_M16_holdout.r,Legacy hold-out script,Reconciled into M14,n/a,Not used,HISTORICAL
+M17_legacy_figures,code/V2_M17_figures.r,Legacy M17 v1 script,Replaced by V2_M17_figures_v2.r,n/a,Not used,HISTORICAL
+ML_fixed85_full_tables,ml_v2.1/results/outer_cv_metrics.csv + integrated_table_85.csv,Detailed CV tables; summary stays main,Main R5 summary,ml_v2.1/results/,Supplementary table,SUPPLEMENTARY
+ML_strict_nested_full,ml_v2.1/strict_nested/*.csv,Fold-local DEP instability detail,Main R5 one sentence,ml_v2.1/strict_nested/,Supplementary table,SUPPLEMENTARY
+ML_boruta_xgb_importance,ml_v2.1/results/boruta_full_data.csv + XGBoost importance,Post-selection descriptive importance,Not main text,ml_v2.1/results/,Supplementary,SUPPLEMENTARY
+ORA_full,M12_pathway_v2.1/ora/*.csv,23 ORA pathways complementary,R6 representative themes,M12_pathway_v2.1/ora/,Supplementary table,SUPPLEMENTARY
+fgsea_full,M12_pathway_v2.1/ranked_gsea/*.csv,fgsea sensitivity dual counts family 44 / pooled 41 (DUAL_REPORTED_SENSITIVITY, sensitivity only),R6 concordance,M12_pathway_v2.1/ranked_gsea/,Supplementary table (dual columns; sensitivity only),SUPPLEMENTARY
+M12B_correlation,M12B_biological_context_v2.1/correlation/*.csv,Pairwise Spearman not network,R6 context,M12B_biological_context_v2.1/correlation/,Supplementary,SUPPLEMENTARY
+M12B_network,M12B_biological_context_v2.1/network/*.csv,Bipartite pathway-candidate edges,R6 context,M12B_biological_context_v2.1/network/,Supplementary,SUPPLEMENTARY
+M12B_annotation,M12B_biological_context_v2.1/annotation/*.csv,Protein annotation provenance,Methods/context,M12B_biological_context_v2.1/annotation/,Supplementary,SUPPLEMENTARY
+Upstream_QC_descriptive,11 figures_nature_v2.2/ dirs (649 files; producers 06-11 + nature_plotting.py),Upstream descriptive/QC layer. M17 does not consume these. Provenance audited 2026-09-29.,R1/R2 Methods+QC context,descriptive/figures_nature_v2.2/ + 10 nested dirs,Supplementary QC / Methods figures,SUPPLEMENTARY
+D_figures_v2.7,descriptive/discovery_validation/figures_prospective_v2.7/,CURRENT v2.7 discovery-validation figure bundle; 15 figures x 5 formats + 4 docs = 79 root files; SUPPLEMENTARY / REPRODUCIBILITY_REQUIRED,R1-R5 discovery/reused hold-out figure set,descriptive/discovery_validation/figures_prospective_v2.7/,Supplementary discovery-validation figures,SUPPLEMENTARY

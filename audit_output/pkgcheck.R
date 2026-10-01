@@ -1,0 +1,1 @@
+pkgs <- c("limma","fgsea","AnnotationDbi","org.Hs.eg.db","GO.db","clusterProfiler","data.table","reactome.db","statmod","BiocParallel","msigdbr","GSEABase"); for (p in pkgs) cat(p, "=", requireNamespace(p, quietly=TRUE), "\n", sep="")

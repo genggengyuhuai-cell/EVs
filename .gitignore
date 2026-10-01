@@ -11,3 +11,11 @@ tmp/
 
 # Runtime console logs (provenance preserved in archive/ARCHIVE_MANIFEST.csv)
 *.log
+
+# Generated QA preview directories (already-tracked current baselines remain;
+# this rule only prevents future untracked QA renders from being added)
+qa_preview/
+
+# Generated QA preview variants (prefix-stamped superseded renders)
+**/qa_preview/v26_*.png
+**/qa_preview/v27_*.png
