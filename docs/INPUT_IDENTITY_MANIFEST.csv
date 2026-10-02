@@ -1,0 +1,9 @@
+File_role,Path,SHA256,Size_bytes,Expected_rows,Expected_columns,Sheet_names,Producer,Consumer,Status
+P1_input_processed_xlsx,rawdata/processed.xlsx,42ECDA9F52E45B3351BABE08F23365D472625C405B6001CA32166654E7A26680,14144395,UNKNOWN,UNKNOWN,UNKNOWN,Upstream raw processing,P1.py,ACTIVE
+P1_output_audit_xlsx,rawdata/sample_mapping_audit.xlsx,5844FDF1871B34B753778DB8D8EFC80B003D6BB916DB2DCBD4248F59BB6DE4C3,119664,UNKNOWN,UNKNOWN,UNKNOWN,P1.py,P2.py + P3.py,ACTIVE
+P2_output_ambiguous_xlsx,rawdata/sample_mapping_ambiguous_context.xlsx,BA89C86E738B4283D0153C978D2A9C1A546CB93EFE37771A36DF574DFC96F9F5,20813,UNKNOWN,UNKNOWN,UNKNOWN,P2.py,Manual review,ACTIVE
+P3_output_FINAL_xlsx,rawdata/sample_mapping_FINAL.xlsx,5971F5859EF29F9E635614717E412646B1439309C027C11D1E1E53A01F43663A,82349,UNKNOWN,UNKNOWN,UNKNOWN,P3.py,Downstream all modules,ACTIVE
+Discovery_validation_split,descriptive/discovery_validation_split/discovery_validation_assignment.csv,062E51026B7420DCA2077D5807BFDAA760AC08AC5F19A9AF98CF89DA2B7B6791,74462,515,UNKNOWN,N/A,Split generator (seed=20260925),D01-D08 + all downstream,ACTIVE
+Split_manifest,descriptive/discovery_validation_split/split_manifest.txt,D48C6FD7BCE25C51A9D42A48274E53EDEEBC59D67B2BD1D979EE7017BE1FCB64,2141,N/A,N/A,N/A,Split generator,Split provenance,ACTIVE
+Primary_abundance_matrix,descriptive/PRIMARY_dose_log2_expression.csv.gz,65A6CAE19F94A18F84471DC0AC1CC29D6482F9EDDE2BD0E3D1B51115A95F0FDC,5931307,1434 (proteins),515 (samples),N/A,Upstream proteomics processing,All M-modules + D01-D08,ACTIVE
+Sample_metadata,descriptive/dose_defined_metadata.csv,UNKNOWN,UNKNOWN,515,UNKNOWN,N/A,Upstream sample annotation,D01-D08 + split generator,UNKNOWN
