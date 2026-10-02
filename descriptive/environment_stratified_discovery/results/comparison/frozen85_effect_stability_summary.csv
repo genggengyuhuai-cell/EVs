@@ -1,0 +1,17 @@
+"metric","value"
+"HH_vs_D02_Pearson",0.589521276722095
+"HH_vs_D02_Spearman",0.476670911287426
+"HA_vs_D02_Pearson",0.6832079386678
+"HA_vs_D02_Spearman",0.615328522763139
+"HH_vs_HA_Pearson",-0.178139432247518
+"HH_vs_HA_Spearman",-0.289015139147375
+"HH_same_sign_as_D02",1
+"HA_same_sign_as_D02",1
+"both_HH_HA_same_sign_as_D02",1
+"HH_HA_same_sign_each_other",1
+"median_abs_log2FC_D02",0.329869776410081
+"median_abs_log2FC_HH",0.408245688124218
+"median_abs_log2FC_HA",0.263788545696379
+"median_SE_HH",0.15540588505992
+"median_SE_HA",0.118077942850341
+"N_frozen85",85

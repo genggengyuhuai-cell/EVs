@@ -1,0 +1,3 @@
+"Contrast","N_parent","N_estimable","N_non_estimable","N_raw_P_lt_0.05","N_BH_FDR_lt_0.05","N_positive","N_negative","median_log2FC","median_abs_log2FC","median_SE","median_CI_width"
+"Short_vs_Control",1445,1445,0,114,0,961,484,0.0672654407586908,0.110407867526838,0.143666489937864,0.563162292126997
+"Long_vs_Control",1445,1445,0,145,0,360,1085,-0.105380536691204,0.135401760137427,0.145364583762484,0.569818697604248

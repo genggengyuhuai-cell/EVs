@@ -1,0 +1,10 @@
+"comparison","intersection","set_A_size","set_B_size"
+"Overall_LVC_vs_Frozen_HvL_85",0,0,85
+"Overall_HVC_vs_Frozen_HvL_85",0,0,85
+"Overall_LVC_vs_HA_HvC_75",0,0,75
+"Overall_HVC_vs_HA_HvC_75",0,0,75
+"Overall_LVC_vs_HA_EC_7",0,0,7
+"Overall_HVC_vs_HA_EC_7",0,0,7
+"HA_EC_7_in_Overall_LVC",0,7,0
+"HA_EC_7_in_Overall_HVC",0,7,0
+"HA_EC_7_in_Frozen_HvL_85",1,7,85

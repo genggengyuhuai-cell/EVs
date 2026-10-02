@@ -1,0 +1,7 @@
+"Environment","Contrast","N_parent","N_environment_eligible","N_estimable","N_non_estimable","N_raw_P_lt_0.05","N_BH_FDR_lt_0.05","median_SE","median_CI_width","median_residual_df"
+"High-pressure/high-altitude","Long_vs_Control",1445,1394,1394,0,377,75,0.205139623358688,0.804132547170279,172
+"Humid-hot","Long_vs_Control",1445,1373,1373,0,111,1,0.193848043758968,0.759870368482244,203
+"High-pressure/high-altitude","Long_vs_Short",1445,1394,1394,0,231,0,0.179455844629539,0.703453984578224,172
+"Humid-hot","Long_vs_Short",1445,1373,1373,0,207,0,0.200648551387011,0.78652786853735,203
+"High-pressure/high-altitude","Short_vs_Control",1445,1394,1394,0,108,0,0.190814582816089,0.747979420089138,172
+"Humid-hot","Short_vs_Control",1445,1373,1373,0,265,0,0.203538013652624,0.79785435248793,203

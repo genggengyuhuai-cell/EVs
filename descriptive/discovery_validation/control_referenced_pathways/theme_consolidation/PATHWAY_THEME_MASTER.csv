@@ -1,0 +1,32 @@
+theme,pathway_id,pathway_name,database,direction_lvc,FDR_lvc,direction_hvc,FDR_hvc,direction_hvl,FDR_hvl
+Complement_innate_immune,GO:0006956,complement activation classical pathway,GO_BP,Up,0.00167,Up,1.75e-05,NA,NA
+Complement_innate_immune,GO:0006957,complement activation alternative pathway,GO_BP,NA,NA,Up,0.0203,NA,NA
+Complement_innate_immune,GO:0006958,complement activation (generic),GO_BP,Up,0.0471,Up,0.00127,NA,NA
+Complement_innate_immune,GO:0002718,antibacterial humoral response,GO_BP,NA,NA,Up,0.0418,NA,NA
+Adaptive_immunoglobulin,GO:0002398,immunoglobulin mediated immune response,GO_BP,Up,0.0314,Up,1.34e-07,Up,0.002
+Adaptive_immunoglobulin,GO:0002460,adaptive immune response,GO_BP,Up,0.0170,Up,1.00e-08,Up,0.002
+Adaptive_immunoglobulin,GO:0006955,immune response,GO_BP,NA,NA,Up,1.69e-05,Up,0.005
+Adaptive_immunoglobulin,GO:0002377,immunoglobulin production,GO_BP,NA,NA,Up,2.73e-11,NA,NA
+Acute_phase_inflammation,GO:0002526,acute-phase response,GO_BP,Up,3.45e-05,Up,5.32e-05,NA,NA
+ECM_adhesion,GO:0030198,extracellular matrix organization,GO_BP,Up,0.00366,NA,NA,NA,NA
+ECM_adhesion,GO:0030199,collagen fibril organization,GO_BP,Up,0.00808,NA,NA,Down,0.0019
+ECM_adhesion,GO:0007155,cell adhesion,GO_BP,NA,NA,Down,0.0116,NA,NA
+ECM_adhesion,GO:0007156,homophilic cell adhesion,GO_BP,Up,0.0142,NA,NA,Down,0.0035
+ECM_adhesion,GO:0007162,calcium-dependent cell-cell adhesion,GO_BP,Up,0.00857,NA,NA,Down,0.0367
+Proteasome_proteostasis,GO:0006511,proteasomal protein catabolic process,GO_BP,Down,0.000826,NA,NA,Up,0.0016
+Proteasome_proteostasis,GO:0010498,proteasome-mediated ubiquitin-dependent catabolism,GO_BP,Down,5.50e-06,NA,NA,Up,0.0019
+Proteasome_proteostasis,GO:0016567,protein ubiquitination,GO_BP,Down,0.0351,NA,NA,NA,NA
+Cytoskeleton_actin,GO:0007015,actin filament organization,GO_BP,Down,0.00134,NA,NA,Up,0.0284
+Cytoskeleton_actin,GO:0007010,cytoskeleton organization,GO_BP,Down,0.0133,NA,NA,NA,NA
+Cytoskeleton_actin,GO:0007018,microtubule cytoskeleton organization,GO_BP,Down,0.00627,NA,NA,NA,NA
+Oxidative_stress_redox,GO:0006979,response to oxidative stress,GO_BP,Down,0.00458,NA,NA,Up,0.0231
+Oxidative_stress_redox,GO:0006749,cellular oxidant detoxification,GO_BP,NA,NA,NA,NA,Up,0.0128
+Oxidative_stress_redox,GO:0042744,hydrogen peroxide catabolic process,GO_BP,NA,NA,NA,NA,Up,0.0280
+Lipid_metabolism,GO:0006629,lipid metabolic process,GO_BP,Up,0.00425,NA,NA,NA,NA
+Lipid_metabolism,GO:0034361,HDL particle remodeling,GO_BP,Up,0.0314,NA,NA,NA,NA
+Cell_cycle,GO:0007049,mitotic cell cycle,GO_BP,Down,0.00957,NA,NA,NA,NA
+Phosphorylation_signaling,GO:0016310,phosphorylation,GO_BP,Down,0.00419,NA,NA,Up,0.0150
+Skeletal_development,GO:0001501,ossification,GO_BP,Up,0.0371,NA,NA,NA,NA
+Skeletal_development,GO:0001501,skeletal system development,GO_BP,NA,NA,NA,NA,Down,0.00068
+Skeletal_development,GO:0001525,angiogenesis,GO_BP,NA,NA,NA,NA,Down,0.0020
+Skeletal_development,GO:0000165,ERK1/2 cascade,GO_BP,NA,NA,NA,NA,Down,0.0121

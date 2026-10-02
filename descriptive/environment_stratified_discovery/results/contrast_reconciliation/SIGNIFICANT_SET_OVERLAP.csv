@@ -1,0 +1,8 @@
+"comparison","intersection","set_A_size","set_B_size"
+"Overall_HvL_85_vs_M07_LVC_13",1,85,13
+"Overall_HvL_85_vs_M07_HVC_0",0,85,0
+"HA_HvC_75_vs_HA_EC_7",7,75,7
+"HA_EC_7_in_Overall_HvL_85",1,7,85
+"HA_EC_7_in_M07_HVC_ref",0,7,0
+"HA_EC_7_in_M07_LVC_ref",0,7,13
+"HA_EC_7_in_HA_HvC_75",7,7,75

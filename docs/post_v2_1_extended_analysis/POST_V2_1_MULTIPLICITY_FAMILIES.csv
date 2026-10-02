@@ -1,0 +1,25 @@
+family_id,scope,contrast,family_size,correction,applied_in
+F1,Overall Discovery protein-level,High vs Low,1445,BH,D02 frozen
+F2,Overall Discovery protein-level,Low vs Control,1445,BH,D02 pairwise completion
+F3,Overall Discovery protein-level,High vs Control,1445,BH,D02 pairwise completion
+F4,Overall Discovery protein-level,Exposure vs Control,1445,BH,Phase 3
+F5,Humid-heat protein-level,Low vs Control,1373,BH,Phase 1
+F6,Humid-heat protein-level,High vs Control,1373,BH,Phase 1
+F7,Humid-heat protein-level,High vs Low,1373,BH,Phase 1
+F8,Humid-heat protein-level,Exposure vs Control,1373,BH,Phase 3
+F9,High-altitude protein-level,Low vs Control,1394,BH,Phase 1
+F10,High-altitude protein-level,High vs Control,1394,BH,Phase 1
+F11,High-altitude protein-level,High vs Low,1394,BH,Phase 1
+F12,High-altitude protein-level,Exposure vs Control,1394,BH,Phase 3
+F13,M10 interaction,Group x Environment,1430,BH,M10 canonical
+F14,M12 pathway pooled,High vs Low,~1406 mapped genes,Pooled BH GO-BP+Reactome,M12 canonical
+F15,Control pathway pooled,Low vs Control,1406 mapped genes,Pooled BH GO-BP+Reactome,Control-referenced
+F16,Control pathway pooled,High vs Control,1406 mapped genes,Pooled BH GO-BP+Reactome,Control-referenced
+F17,Control ORA directional,Low vs Control UP,108 mapped foreground,BH per directional family,Control-referenced
+F18,Control ORA directional,Low vs Control DOWN,4 mapped foreground,BH per directional family,Control-referenced
+F19,Control ORA directional,High vs Control UP,14 mapped foreground,BH per directional family,Control-referenced
+F20,Control ORA directional,High vs Control DOWN,129 mapped foreground,BH per directional family,Control-referenced
+F21,Env HH pathway pooled,Humid-heat Low vs Control cameraPR,1344 mapped genes (254 GO-BP + 472 Reactome),Pooled BH GO-BP+Reactome,Env-control-pathway
+F22,Env HH pathway pooled,Humid-heat High vs Control cameraPR,1344 mapped genes (254 GO-BP + 472 Reactome),Pooled BH GO-BP+Reactome,Env-control-pathway
+F23,Env HA pathway pooled,High-altitude Low vs Control cameraPR,1361 mapped genes (263 GO-BP + 481 Reactome),Pooled BH GO-BP+Reactome,Env-control-pathway
+F24,Env HA pathway pooled,High-altitude High vs Control cameraPR,1361 mapped genes (263 GO-BP + 481 Reactome),Pooled BH GO-BP+Reactome,Env-control-pathway

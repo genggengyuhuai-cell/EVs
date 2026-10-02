@@ -1,0 +1,5 @@
+"Contrast","N_samples","Universe_N","N_BH_FDR_lt_0.05","Status"
+"Low_vs_Control",386,1445,,"NOT_EXPORTED_FROM_D02"
+"High_vs_Control",386,1445,,"NOT_EXPORTED_FROM_D02"
+"High_vs_Low",386,1445,85,"FROZEN_PRIMARY"
+"Exposure_vs_Control",386,1445,0,"PHASE3"

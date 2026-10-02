@@ -1,0 +1,12 @@
+theme,N_pathways,best_LVC_FDR,best_HVC_FDR,best_HvL_FDR,predominant_direction_LVC,predominant_direction_HVC,predominant_direction_HvL,cross_contrast_classification
+Complement_innate_immune,4,0.00167,1.75e-05,NA,Up,Up,NA,Shared_same_direction
+Adaptive_immunoglobulin,4,0.0170,2.73e-11,0.002,Up,Up,Up,Shared_same_direction
+Acute_phase_inflammation,1,3.45e-05,5.32e-05,NA,Up,Up,NA,Shared_same_direction
+ECM_adhesion,5,0.00366,0.0116,0.0019,Up,Down,Down,Mixed_Low_up_High_and_HvL_down
+Proteasome_proteostasis,3,5.50e-06,NA,0.0019,Down,NA,Up,Opposite_direction_Low_down_HvL_up
+Cytoskeleton_actin,3,0.00134,NA,0.0284,Down,NA,Up,Opposite_direction_Low_down_HvL_up
+Oxidative_stress_redox,3,0.00458,NA,0.0128,Down,NA,Up,Opposite_direction_Low_down_HvL_up
+Lipid_metabolism,2,0.00425,NA,NA,Up,NA,NA,Low_dominant
+Cell_cycle,1,0.00957,NA,NA,Down,NA,NA,Low_dominant
+Phosphorylation_signaling,1,0.00419,NA,0.0150,Down,NA,Up,Opposite_direction_Low_down_HvL_up
+Skeletal_development,4,0.0371,NA,0.00068,Up,NA,Down,High_vs_Low_dominant_directional

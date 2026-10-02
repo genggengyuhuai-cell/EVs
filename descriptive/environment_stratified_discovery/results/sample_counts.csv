@@ -1,0 +1,13 @@
+Split,Environment,Dose,n
+Discovery,Humid-hot,control,71
+Discovery,Humid-hot,low,62
+Discovery,Humid-hot,high,76
+Discovery,High-pressure/high-altitude,control,44
+Discovery,High-pressure/high-altitude,low,77
+Discovery,High-pressure/high-altitude,high,56
+Validation,Humid-hot,control,24
+Validation,Humid-hot,low,21
+Validation,Humid-hot,high,25
+Validation,High-pressure/high-altitude,control,14
+Validation,High-pressure/high-altitude,low,26
+Validation,High-pressure/high-altitude,high,19

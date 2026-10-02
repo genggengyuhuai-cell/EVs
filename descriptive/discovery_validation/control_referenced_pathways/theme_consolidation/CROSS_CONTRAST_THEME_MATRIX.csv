@@ -1,0 +1,12 @@
+theme,Low_vs_Control,High_vs_Control,High_vs_Low,Interpretation
+Complement_innate_immune,Up FDR=0.002,Up FDR=1.8e-05,NS,Shared immune activation; strongest at High
+Adaptive_immunoglobulin,Up FDR=0.017,Up FDR=2.7e-11,Up FDR=0.002,Shared; strongest at High; present in all three
+Acute_phase_inflammation,Up FDR=3.5e-05,Up FDR=5.3e-05,NS,Shared inflammatory response; similar magnitude
+ECM_adhesion,Up FDR=0.004,Down FDR=0.012,Down FDR=0.002,Direction reversal Low to High; HvL separation driven by Low-Up vs High-Down
+Proteasome_proteostasis,Down FDR=5.5e-06,NS,Up FDR=0.002,Strongly opposite: Low suppresses, High elevates proteasome
+Cytoskeleton_actin,Down FDR=0.001,NS,Up FDR=0.028,Opposite: Low suppresses actin, High elevates
+Oxidative_stress_redox,Down FDR=0.005,NS,Up FDR=0.013,Opposite: Low suppresses redox response, High elevates
+Lipid_metabolism,Up FDR=0.004,NS,NS,Low-only HDL/lipid remodeling
+Cell_cycle,Down FDR=0.010,NS,NS,Low-only mitotic suppression
+Phosphorylation_signaling,Down FDR=0.004,NS,Up FDR=0.015,Opposite: Low suppresses, High elevates phosphorylation
+Skeletal_development,Up FDR=0.037,NS,Down FDR=0.0007,HvL-driven: Low shifts up, High shifts down

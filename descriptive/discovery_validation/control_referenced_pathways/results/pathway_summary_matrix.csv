@@ -1,0 +1,6 @@
+"Analysis","Method","GO_BP_FDR_lt_0.05","Reactome_FDR_lt_0.05","Total_FDR_lt_0.05"
+"Low vs Control","cameraPR pooled",21,237,258
+"High vs Control","cameraPR pooled",10,28,38
+"Low vs Control","ORA nominal UP+DOWN",0,0,0
+"High vs Control","ORA nominal UP+DOWN",1,11,12
+"Frozen High vs Low (reference)","cameraPR pooled",29,176,205

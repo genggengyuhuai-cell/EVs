@@ -1,0 +1,5 @@
+"contrast","direction","n_nominal_proteins","n_pathways_tested","n_FDR_lt_0.05"
+"Low_vs_Control","UP",108,379,0
+"Low_vs_Control","DOWN",4,21,0
+"High_vs_Control","UP",14,70,0
+"High_vs_Control","DOWN",129,675,12

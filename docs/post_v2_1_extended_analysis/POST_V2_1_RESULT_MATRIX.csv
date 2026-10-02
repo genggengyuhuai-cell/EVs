@@ -1,0 +1,26 @@
+analysis,population,samples,contrast,universe,n_estimable,raw_P_lt_0.05,bh_fdr_lt_0.05,bh_family,status
+D02_frozen,Overall Discovery,386,High vs Low,1445,1445,365,85,BH over 1445,FROZEN_PRIMARY
+D02_pairwise,Overall Discovery,386,Low vs Control,1445,1445,114,0,BH over 1445,POST_V2_1
+D02_pairwise,Overall Discovery,386,High vs Control,1445,1445,145,0,BH over 1445,POST_V2_1
+Phase3,Overall Discovery,386,Exposure vs Control,1445,1445,65,0,BH over 1445,POST_V2_1
+Phase1,Humid-heat Discovery,209,Low vs Control,1373,1373,265,0,BH over 1373,POST_V2_1
+Phase1,Humid-heat Discovery,209,High vs Control,1373,1373,111,1,BH over 1373,POST_V2_1
+Phase1,Humid-heat Discovery,209,High vs Low,1373,1373,207,0,BH over 1373,POST_V2_1
+Phase3,Humid-heat Discovery,209,Exposure vs Control,1373,1373,169,0,BH over 1373,POST_V2_1
+Phase1,High-altitude Discovery,177,Low vs Control,1394,1394,108,0,BH over 1394,POST_V2_1
+Phase1,High-altitude Discovery,177,High vs Control,1394,1394,377,75,BH over 1394,POST_V2_1
+Phase1,High-altitude Discovery,177,High vs Low,1394,1394,231,0,BH over 1394,POST_V2_1
+Phase3,High-altitude Discovery,177,Exposure vs Control,1394,1394,220,7,BH over 1394,POST_V2_1
+M07_reference,Full cohort Q515,515,Low vs Control,1430,1430,253,13,BH over 1430,REFERENCE_DIFF_UNIVERSE
+M07_reference,Full cohort Q515,515,High vs Control,1430,1430,184,0,BH over 1430,REFERENCE_DIFF_UNIVERSE
+M07_reference,Full cohort Q515,515,High vs Low,1430,1430,460,257,BH over 1430,REFERENCE_DIFF_UNIVERSE
+M10_canonical,Overall Discovery,386,Group x Environment interaction,1430,1430,NA,0,BH over 1430,FROZEN_PRIMARY
+M12_canonical,Overall Discovery,386,High vs Low ranked pathway,1406 mapped,NA,NA,205,BH pooled GO-BP+Reactome,FROZEN_PRIMARY
+Control_pathway,Overall Discovery,386,Low vs Control cameraPR,1406 mapped,NA,NA,258,BH pooled GO-BP+Reactome,POST_V2_1_EXPLORATORY
+Control_pathway,Overall Discovery,386,High vs Control cameraPR,1406 mapped,NA,NA,38,BH pooled GO-BP+Reactome,POST_V2_1_EXPLORATORY
+Control_ORA,Overall Discovery,386,Low vs Control nominal ORA,108 UP+4 DOWN mapped,NA,NA,0,BH per directional family,POST_V2_1_EXPLORATORY
+Control_ORA,Overall Discovery,386,High vs Control nominal ORA,14 UP+129 DOWN mapped,NA,NA,12,BH per directional family,POST_V2_1_EXPLORATORY
+Env_control_pathway,Humid-heat Discovery,209,Low vs Control cameraPR,1344 mapped,NA,NA,328,BH pooled GO-BP+Reactome (52+276),POST_V2_1_ENV_PATHWAY
+Env_control_pathway,Humid-heat Discovery,209,High vs Control cameraPR,1344 mapped,NA,NA,172,BH pooled GO-BP+Reactome (14+158),POST_V2_1_ENV_PATHWAY
+Env_control_pathway,High-altitude Discovery,177,Low vs Control cameraPR,1361 mapped,NA,NA,78,BH pooled GO-BP+Reactome (6+72),POST_V2_1_ENV_PATHWAY
+Env_control_pathway,High-altitude Discovery,177,High vs Control cameraPR,1361 mapped,NA,NA,11,BH pooled GO-BP+Reactome (3+8),POST_V2_1_ENV_PATHWAY

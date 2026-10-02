@@ -1,0 +1,17 @@
+"metric","value"
+"Q_HH",1373
+"Q_HA",1394
+"HH_LVC_estimable",1373
+"HH_HVC_estimable",1373
+"HA_LVC_estimable",1394
+"HA_HVC_estimable",1394
+"HH_LVC_ranked_genes",1344
+"HH_HVC_ranked_genes",1344
+"HA_LVC_ranked_genes",1361
+"HA_HVC_ranked_genes",1361
+"HH_LVC_sig",328
+"HH_HVC_sig",172
+"HA_LVC_sig",78
+"HA_HVC_sig",11
+"Overall_LVC_sig_reference",258
+"Overall_HVC_sig_reference",38

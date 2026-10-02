@@ -1,0 +1,5 @@
+"Environment","Contrast","Q_universe","N_estimable","N_ranked_genes","GO_BP_tested","GO_BP_sig","Reactome_tested","Reactome_sig","Total_sig"
+"Humid-heat","Low vs Control",1373,1373,1344,254,52,472,276,328
+"Humid-heat","High vs Control",1373,1373,1344,254,14,472,158,172
+"High-altitude","Low vs Control",1394,1394,1361,263,6,481,72,78
+"High-altitude","High vs Control",1394,1394,1361,263,3,481,8,11
