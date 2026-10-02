@@ -4,28 +4,38 @@ This file is the top-level authoritative entry point for the current project sta
 It supersedes the historical v1.0 / v2.0 long-form narrative that previously lived here.
 For frozen analytical detail, read the protocol and module manifests listed below.
 
-> ## ⚠️ 权威总状态（2026-10-01 阻断闭合轮写入；覆盖本文件及 PIPELINE_STATUS 中一切旧 READY/FROZEN 表述）
+> ## ✅ 权威总状态（2026-10-02 Phase 7 终局；覆盖本文件及 PIPELINE_STATUS 中一切旧 BLOCKED/READY/FROZEN 表述）
 >
 > ```
-> FREEZE_READINESS          = BLOCKED
-> SUBMISSION_READINESS      = BLOCKED
-> ANALYSIS_REOPEN_REQUIRED  = YES
-> SAFE_TO_TAG_ANALYSIS_V2_1 = NO
+> FREEZE_READINESS          = CODE_FREEZE_COMPLETE
+> SUBMISSION_READINESS      = BLOCKED（仅剩 manuscript/provenance 派生层）
+> ANALYSIS_REOPEN_REQUIRED  = NO
+> SAFE_TO_TAG_ANALYSIS_V2_1 = YES (qualified, TAG_WITH_PROVENANCE_LIMITATION)
+> OPEN_ANALYSIS             = 0
+> ANALYSIS_V2_1             = FINAL
+> FROZEN_COMMIT             = 6d0e004 (annotated tag analysis-v2.1 peeled to 6d0e004)
 > ```
 >
-> 模块级（2026-10-01 Phase 6 更新）：
-> fixed-85 ML=REPAIRED_AND_VERIFIED；strict nested=REPAIRED_AND_VERIFIED；
-> M09=REPAIRED_AND_VERIFIED；M11=REPAIRED_AND_VERIFIED；
-> M12=REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD；M12B=REPAIRED_RERUN_COMPLETE；
-> D03 85 candidates retained；D08 85→83→29→1 retained；Fig6=NOT_FINAL（待重建）；
-> 历史 195/23/39=PRE_REPAIR_EXISTING_OUTPUT（仅存于 pre_repair_snapshot，不得标 FINAL_FROZEN）；
-> FGSEA_FROZEN_FAMILY=UNRESOLVED_REPORTING_HOLD；KEGG=NOT_RUN。
+> 模块级（2026-10-02 Phase 7 终态）：
+> fixed-85 ML=REPAIRED_AND_VERIFIED（mean outer AUROC LASSO 0.6651 / EN 0.6687 / XGB 0.6488）；
+> strict nested=REPAIRED_AND_VERIFIED（15 outer folds / 7 zero-feature / 8 evaluable）；
+> M09=REPAIRED_AND_VERIFIED（Pearson 0.9741 / Spearman 0.9644）；
+> M11=REPAIRED_AND_VERIFIED（9 sites LOO；Pearson 0.790–0.983）；
+> M12=REPAIRED_RERUN_COMPLETE（cameraPR 205 / ORA 23 / fgsea dual 44 family + 41 pooled）；
+> M12B=REPAIRED_RERUN_COMPLETE；D03 85 candidates retained；D08 85→83→29→1 retained；
+> Fig6=REBUILT_PASS（6/6 main figures pass integrity audit；Fig6b Reactome 8/8 readable）；
+> fgsea=FROZEN_AS_DUAL_REPORTED_SENSITIVITY（44 family / 41 pooled；sensitivity-only，永不作 primary）；
+> KEGG=NOT_RUN；历史 195/23/39=PRE_REPAIR（仅存于 pre_repair_snapshot，不引用）。
 >
-> 分析侧阻断已基本闭合，全局仍 BLOCKED 的原因为：OPEN_REPORTING（fgsea canonical FDR
-> 家族裁定 + Fig6 重建）、OPEN_PROVENANCE（P1/P2/P3 workbook 身份绑定）、OPEN_GIT（未清理）。
-> 本状态优先于 `docs/FINAL_REPRODUCIBILITY_AUDIT.md`（2026-09-29，已 SUPERSEDED；Phase 6 重建版见同文件）。
-> 逐项证据见 `docs/AUDIT_BLOCKER_CLOSURE_STATUS.md`、`docs/FINAL_BLOCKER_STATUS.md`、
-> `docs/PHASE6_STATUS_BASELINE.md` 与 `audit_output/STATUS_OVERRIDE_2026-10-01.md`。
+> 冻结 split：386 discovery / 129 reused within-cohort hold-out（seed 20260925，SHA256 062E5102…B6791）。
+> Hold-out 为同队列 reused，**非外部/独立验证**。
+>
+> 全局 BLOCKED 仅剩 submission 层（非分析）：OPEN_REPORTING（M14/D10 派生表重建、R03 universe 决策）、
+> OPEN_PROVENANCE（Python ML 环境补录、proteomics QC gap 转 Methods limitation）、OPEN_GIT（关闭文档分批提交）。
+> 本状态优先于 `docs/FINAL_REPRODUCIBILITY_AUDIT.md`（2026-09-29，已 SUPERSEDED）。
+> 逐项证据见 `docs/FINAL_BLOCKER_STATUS.md`、`docs/TAG_READINESS_GATE.md`、
+> `docs/FINAL_FIGURE_INTEGRITY_AUDIT.md`、`docs/FGSEA_REPORTING_FREEZE.md`、
+> `audit_output/FINAL_ANALYSIS_FREEZE_HANDOFF.md`。
 
 > Terminology rule: manuscript-facing wording uses **High land** and **Hot-humid**.
 > The internal keys `High-pressure/high-altitude` and `Humid-hot` (and `Short`/`Long`
