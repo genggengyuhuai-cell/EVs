@@ -84,9 +84,9 @@
 
 - **M12 当前状态**：REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD → **fgsea FDR hold 已通过本冻结解除**（DUAL_REPORTED_SENSITIVITY 为终态，不再 UNRESOLVED）。
 - **M12 剩余 hold**：
-  1. **R03 inferential universe 切换延期**（从 Q515=1,434 切到 D01 eligible=1,445）——已声明延期项，M12 暂不标 FINAL_FROZEN。
+  1. ~~R03 inferential universe 切换延期~~ **CLOSED 2026-10-02**：作者裁定接受当前三层 universe（1445 discovery inferential / 1434 mapping registry / 1406 rankable tested），不重跑；M12 升级为 **FINAL_FROZEN**（见 `docs/R03_FINAL_AUTHOR_DECISION.md`）。
   2. **Fig6b label 更新**——待 Fig6b 重导出后确认 caption 无 stale fgsea 措辞（P18 暂缓项）。
-- M12 升级为 **REPAIRED_RERUN_COMPLETE** 的条件：R03 团队裁定 + Fig6 全部 panel caption 终审通过。
+- M12 升级为 **FINAL_FROZEN** 的条件：~~R03 团队裁定~~ **已闭合（2026-10-02）** + Fig6 全部 panel caption 终审通过。
 
 ---
 

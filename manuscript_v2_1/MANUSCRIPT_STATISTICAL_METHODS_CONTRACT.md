@@ -111,8 +111,24 @@ The following universes are distinct and **must never be conflated**:
 - **1,430** = full-cohort Q515 abundance-model universe (M05 / M09 / M11 / interaction).
 - **NEVER write** "85 of 1,430 proteins were discovery DEPs." If 85 is reported against a
   denominator, that denominator is **1,445**.
-- R03 pathway-universe wording is recorded as a reporting/provenance limitation
-  (see Limitations Contract); do not manufacture a 1,445-row pathway result.
+- **R03 (closed 2026-10-02)**: author accepted the current three-layer universe. Do **not**
+  write "pathway mapping started from the complete 1,445 Discovery universe" — that is factually
+  false. Use the distinction in §E below. See `docs/R03_FINAL_AUTHOR_DECISION.md`.
+
+### E. Pathway analysis universe wording (mandatory, post-R03-closure)
+
+Write exactly this distinction in Methods:
+
+- **Discovery differential inference** (85 DEPs) used the **1,445-protein Discovery-eligible
+  universe** (D01; frozen Discovery n=386).
+- **Pathway mapping** used the **existing full-cohort quantitative mapping registry** (1,434
+  proteins; derived from the full 515 cohort).
+- **Ranked pathway testing** (cameraPR, fgsea) used **D02 moderated statistics among mapped and
+  estimable proteins**, yielding **1,406 rankable proteins**.
+- **ORA** used the 85 locked candidates as foreground against the 1,406 mapped/estimable
+  background.
+
+Do not collapse these into a single number. Do not manufacture a 1,445-row pathway result.
 
 ---
 

@@ -25,7 +25,7 @@
 | Fig3–Fig5 面板重建 | OPEN | 继承 repaired ML/M09/M11 数值 |
 | D10 整合表重建（P1-8） | OPEN | 消除 deprecated peptide 传播 |
 | manuscript_v2_1/audit 文档旧数 195/39 | OPEN | 待稿件/措辞管线同步为 205/23/44&41 |
-| R03 inferential universe 切 1445 | OPEN（已声明延期决策项） | M12 保持 Q515=1434；团队裁定是否最终执行。不要求重跑，不计分析缺陷 |
+| R03 inferential universe 切 1445 | **CLOSED 2026-10-02** | 作者裁定：接受当前三层 universe（1445 discovery / 1434 mapping / 1406 rankable），不重跑 M12；见 `docs/R03_FINAL_AUTHOR_DECISION.md` |
 
 ## OPEN_PROVENANCE（无法在仓库内闭合，转 Methods limitation）
 | 项 | 状态 | 说明 |
@@ -50,7 +50,7 @@
 
 ## 汇总
 - CLOSED_ANALYSIS：4 P0 + 5 P1 + fgsea 裁定 = 全部闭合；**OPEN_ANALYSIS = 0**。
-- OPEN_REPORTING：Fig6/M14/Fig3-5/D10 重建 + manuscript 文档同步 + R03 决策。
+- OPEN_REPORTING：Fig6/M14/Fig3-5/D10 重建 + manuscript 文档同步（R03 已于 2026-10-02 闭合）。
 - OPEN_PROVENANCE：P1/P2/P3 + proteomics QC gap（转 limitation）+ split + 环境锁定。
 - OPEN_GIT：分批提交 + 暂缓 tag。
 - OPEN_MANUSCRIPT_ONLY：纯写作。

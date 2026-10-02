@@ -47,7 +47,7 @@ Commit chain (frozen tip to baseline):
 12. protein FDR provenance unresolved.
 13. peptide/PSM-level FDR export unavailable.
 14. ML Python environment not located/to confirm.
-15. R03 pathway-universe wording remains a reporting/provenance issue, not an analysis blocker.
+15. ~~R03 pathway-universe wording remains a reporting/provenance issue, not an analysis blocker.~~ **CLOSED 2026-10-02**: author accepted current three-layer universe (1445 discovery inferential / 1434 mapping registry / 1406 rankable tested); no rerun. See `docs/R03_FINAL_AUTHOR_DECISION.md`. Methods wording must preserve the three-layer distinction.
 
 ## Manuscript-stage workflow (verbatim)
 - NO MORE ANALYSIS AUDIT.

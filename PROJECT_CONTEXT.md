@@ -30,8 +30,10 @@ For frozen analytical detail, read the protocol and module manifests listed belo
 > 冻结 split：386 discovery / 129 reused within-cohort hold-out（seed 20260925，SHA256 062E5102…B6791）。
 > Hold-out 为同队列 reused，**非外部/独立验证**。
 >
-> 全局 BLOCKED 仅剩 submission 层（非分析）：OPEN_REPORTING（M14/D10 派生表重建、R03 universe 决策）、
+> 全局 BLOCKED 仅剩 submission 层（非分析）：OPEN_REPORTING（M14/D10 派生表重建）、
 > OPEN_PROVENANCE（Python ML 环境补录、proteomics QC gap 转 Methods limitation）、OPEN_GIT（关闭文档分批提交）。
+> R03（pathway universe 1434 vs 1445）已于 2026-10-02 由作者裁定关闭：接受当前三层 universe，不重跑
+> （见 `docs/R03_FINAL_AUTHOR_DECISION.md`）。
 > 本状态优先于 `docs/FINAL_REPRODUCIBILITY_AUDIT.md`（2026-09-29，已 SUPERSEDED）。
 > 逐项证据见 `docs/FINAL_BLOCKER_STATUS.md`、`docs/TAG_READINESS_GATE.md`、
 > `docs/FINAL_FIGURE_INTEGRITY_AUDIT.md`、`docs/FGSEA_REPORTING_FREEZE.md`、
@@ -130,7 +132,7 @@ Mapping universe:
   unambiguous one-gene mappings        1414
   multi-gene ambiguous                 15
   unmapped                              5
-  rankable gene-set subset (N_ranked)  1406  (= mapped 1414 ∩ D02 ESTIMABLE; R03 见下)
+  rankable gene-set subset (N_ranked)  1406  (= mapped 1414 ∩ D02 ESTIMABLE; R03 已关闭，见 docs/R03_FINAL_AUTHOR_DECISION.md)
 ```
 
 > 历史值（pre-repair，仅存于 `pre_repair_snapshot/`）：cameraPR 195（25 BP+170 Reactome）、

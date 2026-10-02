@@ -24,9 +24,10 @@
 - 1,445 = Discovery 资格宇宙（D01 eligible，High-vs-Low discovery 的检验族）。
 - 1,434 = Q515 PRIMARY 表达矩阵中可做丰度模型的蛋白行（M05–M10/M12 mapping 宇宙）。
 - 差异 11 个蛋白：属 D01 eligible 但不在 Q515 丰度矩阵 tested 行内（或反之）。
-- **根因：R03 未执行**。方法合同 `M12_CANONICAL_METHOD_CONTRACT.md §4` 原要求 pathway ranking
-  宇宙切到 D01 eligible=1,445；Phase 5 重跑**保持 Q515=1,434 口径**，并在 `M12_REPAIR_REPORT.md §B`
-  与 `FGSEA_FDR_RECONCILIATION.md` **显式声明此为已声明延期项（R03 deferred）**，未造假凑 1,445。
+- **根因：R03 已关闭（作者 2026-10-02 裁定）**。方法合同 `M12_CANONICAL_METHOD_CONTRACT.md §4`
+  原要求 pathway ranking 宇宙切到 D01 eligible=1,445；Phase 5 重跑保持 Q515=1,434 口径，
+  并在 `M12_REPAIR_REPORT.md §B` 与 `FGSEA_FDR_RECONCILIATION.md` 显式声明此为已声明延期项。
+  作者 2026-10-02 接受当前三层结构为终态，不重跑（见 `docs/R03_FINAL_AUTHOR_DECISION.md`）。
 
 ### B→mapping 中间层：1,434 → 1,414（drop 20）
 - unmapped（无 gene 映射）= **5**。
@@ -49,11 +50,16 @@
 | cameraPR / ORA / fgsea 的 gene-set 背景 | **1,406**（层 C，rankable）；ORA 背景行数 153/178 由 mapping 派生，未硬编码 1,414 | 出现在 ranked/ora 表的 tested 列 |
 | mapping 登记 | 1,434 / 1,414 | 见 mapping summary |
 
-## 4. R03 处理结论（不造假）
+## 4. R03 处理结论（不造假，作者已裁定）
+
+> **2026-10-02 作者最终决定**：R03 = **CLOSED_ACCEPT_CURRENT_UNIVERSE_STRUCTURE**。
+> 详见 `docs/R03_FINAL_AUTHOR_DECISION.md`。不重跑 M12，不冻结数字不变。
 
 - R03 原文（合同 §4）要求 pathway inferential universe = D01 eligible = 1,445。
 - Phase 5 实际：**未切换，保持 Q515=1,434**，并在三处文档显式声明延期。
 - 因此本文件**不**把 1,434 改写成 1,445，也不把 1,406 写成 1,445；而是用 §0 那句统一措辞，
   如实说明 mapping 概念上承接 primary inferential universe、实际 gene-set 分析用透明派生的 mapped/rankable subset。
-- M12 模块状态因此保持 **REPAIRED_RERUN_COMPLETE_WITH_FGSEA_FDR_HOLD**，不标 FINAL_FROZEN，
-  直至团队裁定 R03 是否最终执行（若执行，需重跑 mapping+全链）。
+- **作者裁定（2026-10-02）**：接受当前三层 universe 结构（1,445 discovery inferential / 1,434 mapping registry /
+  1,406 rankable tested）为终态。理由：rankable set 1,406 已是干净交集；8 个 full-cohort-only 蛋白未进入 D02 ranked
+  检验；19 个 discovery-only 蛋白未进 mapping 是已登记的 universe 差异，非 hidden bug；合同 §4 的 1,445 要求是 repair
+  期间写入的 forward-looking 注记，非前瞻 preregistered 要求。M12 模块状态升级为 **FINAL_FROZEN**。
