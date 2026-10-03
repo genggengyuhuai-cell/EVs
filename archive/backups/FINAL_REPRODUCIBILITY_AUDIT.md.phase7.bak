@@ -1,0 +1,55 @@
+﻿# FINAL REPRODUCIBILITY AUDIT（Phase 6 重建版）
+
+> 日期：2026-10-01。
+> **本版取代 2026-09-29 原版**（原版判定 "PASS_WITH_LIMITATIONS / READY_TO_TAG / D01–M17 all RERUN_READY"，
+> 已备份为 `FINAL_REPRODUCIBILITY_AUDIT.md.phase6.bak`，保留作历史）。原版的 "all RERUN_READY / no blockers"
+> 在 P0_P1_REPAIR_PLAN（2026-09-30）后被证伪；本版按 Phase 2–5 实际修复结果逐模块重写。
+>
+> **全局：FREEZE_READINESS=BLOCKED · SUBMISSION_READINESS=BLOCKED · SAFE_TO_TAG_ANALYSIS_V2_1=NO**。
+> 分析侧修复已闭合；剩余阻断为 reporting / provenance / git（见 `FINAL_BLOCKER_STATUS.md`）。
+
+## 状态分级定义
+- FROZEN_INPUT：未重跑，历史 frozen 输入，不重跑。
+- RERUN_VERIFIED：已修复并重跑，产物经独立只读 QA 复核通过。
+- RERUN_VERIFIED_WITH_REPORTING_HOLD：已重跑验证，但报告口径（fgsea canonical FDR）待裁定。
+- REBUILD_FROM_FROZEN_SOURCE：数值有效，演示/图表待由 frozen 源重建（不需重跑分析）。
+- OPEN_PROVENANCE：代码/产物存在，但身份绑定/provenance 未闭合。
+
+## 逐模块表
+
+| Module | Input provenance | Code status | Canonical script | Canonical output | Rerun status | Known limitation | Downstream deps | Ready_for_freeze |
+|---|---|---|---|---|---|---|---|---|
+| D01 eligibility | raw 3817 → eligible 1445 | ACTIVE | D01_discovery_eligibility.py | D01_discovery_eligibility/ | FROZEN_INPUT | 不得重跑 | D02 | frozen（不重跑） |
+| D02 primary | D01 | ACTIVE | code/D02_discovery_primary.R | D02_discovery_primary/ | FROZEN_INPUT | M12 ranking 来源 | D03/M12 | frozen |
+| D03 lock | D02 | ACTIVE | code/D03_candidate_lock.R | D03_candidate_lock/（85） | FROZEN_KEEP | — | D08/M12 foreground | frozen |
+| D08 hold-out | D03+129 | ACTIVE | code/D08_validation.R | D08_validation/（85/83/29/1） | FROZEN_KEEP | reused 非 external | M14 | frozen |
+| D04–D07,D09 | D03 | ACTIVE | code/D0*.R | 各自目录 | FROZEN/SUPPORT | 描述性 | 图 | frozen |
+| D10 integrated | D05/D06/D07/D09 | BLOCKED_REBUILD | code/D10_integrated_biology.R | D10_integrated_biology/ | REBUILD_REQUIRED | P1-8 peptide 传播 | D10 表 | 待重建 |
+| M05–M08,M10 | Q515 | ACTIVE frozen | code/V2_M0[5-8,10]_*.R | 各 M0*_*/ | FROZEN_INPUT | M10 interaction 0/1430 | Fig2/Fig4 | frozen |
+| M09 KNN sensitivity | Q515+full515+frozen M05 | REPAIRED | code/V2_M09_knn_sensitivity.R | M09_missingness_sensitivity/ | **RERUN_VERIFIED** | Pearson 0.9740605/1343-1430/0 FDR | Fig3c 重建 | 分析侧 yes；图待重建 |
+| M11 site LOO | Q515 | REPAIRED | code/V2_M11_site_robustness.R | M11_site_robustness/ | **RERUN_VERIFIED** | 9 sites；LOO 非 replication | Fig4d 重建 | 分析侧 yes；图待重建 |
+| M12 pathway | D02 ranking + D03 fg + mapped | REPAIRED | M12_01→02→03 | M12_pathway_v2.1/ | **RERUN_VERIFIED_WITH_REPORTING_HOLD** | fgsea canonical FDR UNRESOLVED；R03 universe deferred | Fig6/M12B | 否（reporting hold） |
+| M12B context | repaired M12 | REPAIRED | M12B_all.R | M12B_biological_context_v2.1/ | **RERUN_VERIFIED** | integrated 85 行；Spearman 描述性 | supplement | 分析侧 yes |
+| M14 replication | D08 | ACTIVE(演示陈旧) | code/V2_M13_M14_reconciliation.R | M14_frozen_replication/ | REBUILD_FROM_D08 | P1-6 硬编码；D08 数值有效 | Fig5a | 否（演示待重建） |
+| fixed-85 ML | 85 DEPs | REPAIRED | run_v2_1_ml.R | ml_v2.1/results/ | **RERUN_VERIFIED** | conditional on 85；mean AUROC 0.65–0.67 | Fig5b-d | 分析侧 yes |
+| strict nested ML | Discovery full | REPAIRED | strict_nested_sensitivity.R | ml_v2.1/strict_nested/ | **RERUN_VERIFIED** | 7/15 zero-feature；8 evaluable | Fig5b-d | 分析侧 yes |
+| M17 figures | M05–M16 | BLOCKED_REBUILD | code/V2_M17_figures_v2.R | figures_final_v2/ | REBUILD_REQUIRED | Fig3–6 全部 invalidated | 主图 | 否（图待重建） |
+| P1/P2/P3 upstream | processed.xlsx | ACTIVE_PROVISIONAL | code/P{1,2,3}.py | sample_mapping_FINAL.xlsx | OPEN_PROVENANCE | P1-7 无 workbook 身份绑定 | 全队列 | 否（provenance） |
+| KEGG | — | NOT_RUN | — | 0 行占位 | NOT_RUN | 不得执行 | — | n/a |
+
+## 数值一致性（Phase 6 复核后）
+- Cohort：519/515/153/186/176；Discovery 386 / hold-out 129。
+- Discovery：1,445 eligible → 85 DEPs；replication 83/29/1。
+- Interaction：0/1,430。
+- Pathway（repaired）：cameraPR 205（29 BP+176 Reactome）/ ORA 23（3+20）/
+  fgsea family 44（3/8/11/22）& pooled 41（6/7/10/18，UNRESOLVED）/ KEGG NOT_RUN。
+- Mapping：1434/1414/15/5；rankable N_ranked=1406。
+- ML：fixed-85 mean outer AUROC LASSO 0.6651/EN 0.6687/XGB 0.6488；
+  strict nested 7/15 zero-feature、8 evaluable、evaluable mean LASSO 0.5967/EN 0.5937。
+- Universe distinction preserved：1445 inferential ≠ 1430 abundance Q515 ≠ 1434 pathway mapping ≠ 1414 mapped ≠ 1406 rankable。
+
+## 复现性结论
+- 4 P0 全部闭合；核心分析模块（ML fixed-85/strict nested/M09/M11/M12/M12B）均 RERUN_VERIFIED。
+- 全局不 ready 的原因已从"分析未修复"转移到 **OPEN_REPORTING（fgsea FDR 裁定 + Fig6 重建）+
+  OPEN_PROVENANCE（P1/P2/P3）+ OPEN_GIT（未清理 + sessionInfo/renv.lock）**。
+- 解除 BLOCKED 条件：fgsea 裁定 → Fig6 重建 → P1/P2/P3 身份绑定 → git 清理 + 环境锁定 → tag。

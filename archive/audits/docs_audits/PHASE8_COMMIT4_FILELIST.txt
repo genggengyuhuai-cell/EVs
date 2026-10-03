@@ -1,0 +1,67 @@
+# PHASE8 COMMIT4 FILELIST - docs / audit / manifests
+# Purpose: PROJECT_CONTEXT, docs/ current docs, manifests CSV, claim map, audit_output reports.
+# Commit_batch: Commit4
+# Exclude: .bak backups, historical snapshots.
+
+# 文件数: 59
+
+# --- paths (repo-relative) ---
+.gitignore
+PROJECT_CONTEXT.md
+archive/ARCHIVE_MANIFEST.csv
+docs/ACTIVE_MAINLINE_MANIFEST.csv
+docs/CONTROL_DOCUMENT_CONSOLIDATION_REPORT.md
+docs/FINAL_REPRODUCIBILITY_AUDIT.md
+docs/FINAL_REPRODUCIBILITY_MANIFEST.csv
+docs/PIPELINE_STATUS.md
+docs/README.md
+docs/SUPPLEMENTARY_ANALYSIS_MANIFEST.csv
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv
+audit_output/
+descriptive/analysis_v2.0/M09_FIG3_REBUILD_REQUIREMENT.md
+descriptive/analysis_v2.0/M09_M05_CONTRACT.md
+descriptive/analysis_v2.0/M09_METHOD_CONTRACT.md
+descriptive/analysis_v2.0/M09_REPAIR_REPORT.md
+descriptive/analysis_v2.0/M11_FIG4_REBUILD_REQUIREMENT.md
+descriptive/analysis_v2.0/M11_METHOD_CONTRACT.md
+descriptive/analysis_v2.0/M11_PRE_REPAIR_MISMATCH.md
+descriptive/analysis_v2.0/M11_REPAIR_REPORT.md
+descriptive/analysis_v2.0/M12B_biological_context_v2.1/M12B_INPUT_PROVENANCE.md
+descriptive/analysis_v2.0/M12B_biological_context_v2.1/M12B_REPAIR_REPORT.md
+descriptive/analysis_v2.0/ml_v2.1/FIG5_REBUILD_REQUIREMENT.md
+descriptive/analysis_v2.0/ml_v2.1/ML_P0_REPAIR_COMPARISON.csv
+descriptive/analysis_v2.0/ml_v2.1/ML_P0_REPAIR_FEATURE_CHANGES.csv
+descriptive/analysis_v2.0/ml_v2.1/ML_P0_REPAIR_REPORT.md
+descriptive/analysis_v2.0/ml_v2.1/ROC_REBUILD_REQUIREMENT.md
+descriptive/analysis_v2.0/ml_v2.1/STRICT_NESTED_D02_CONTRACT.md
+descriptive/analysis_v2.0/ml_v2.1/STRICT_NESTED_DOWNSTREAM_IMPACT.md
+descriptive/analysis_v2.0/ml_v2.1/STRICT_NESTED_REPAIR_COMPARISON.csv
+descriptive/analysis_v2.0/ml_v2.1/STRICT_NESTED_REPAIR_REPORT.md
+descriptive/analysis_v2.0/ml_v2.1/STRICT_NESTED_VS_FIXED85.csv
+docs/AUDIT_BLOCKER_CLOSURE_STATUS.md
+docs/CLAIM_C05_RECONCILIATION.md
+docs/CURRENT_AUTHORITATIVE_RESULTS.md
+docs/FGSEA_REPORTING_FREEZE.md
+docs/FINAL_BLOCKER_STATUS.md
+docs/FINAL_GIT_CLEANUP_PLAN.md
+docs/FINAL_METHODS_STATISTICS_CHECKLIST.md
+docs/FINAL_ML_PROTEIN_MAP.csv
+docs/FINAL_ML_RESULT_AUDIT.md
+docs/ML_ALGORITHM_INTERSECTION_AUDIT.md
+docs/ML_ALGORITHM_INTERSECTION_MAP.csv
+docs/P0_P1_AFFECTED_OUTPUTS.csv
+docs/P0_P1_DEPENDENCY_IMPACT_MAP.csv
+docs/P0_P1_REPAIR_PLAN.md
+docs/P0_P1_RERUN_PLAN.csv
+docs/P25_STALE_OUTPUT_AUDIT.md
+docs/P2_P18_P19_P20_P21_DETERMINISTIC_FIX_LOG.md
+docs/PATHWAY_FIGURE_INVENTORY_AUDIT.md
+docs/PATHWAY_UNIVERSE_RECONCILIATION.md
+docs/PHASE6_STATUS_BASELINE.md
+docs/PREANALYTICAL_LIMITATIONS_FREEZE.md
+docs/PREANALYTICAL_METADATA_AUDIT.md
+docs/PROTEOMICS_IDENTIFICATION_QC_AUDIT.md
+docs/PROTEOMICS_QC_PROVENANCE_FINAL.md
+docs/SITE_ACQUISITION_CONFOUNDING_AUDIT.md
+docs/SUPPLEMENT_REBUILD_MANIFEST.csv
+docs/WORDING_AND_QC_AUDIT.md

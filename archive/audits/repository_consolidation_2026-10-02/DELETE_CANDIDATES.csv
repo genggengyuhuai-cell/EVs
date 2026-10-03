@@ -1,0 +1,20 @@
+﻿Path,Git_status,Proposed_class,Justification,Git_recoverable
+code\P1.py.phase7.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes
+code\P2.py.phase7.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes
+code\P3.py.orig.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes
+descriptive\__pycache__\nature_plotting.cpython-311.pyc,tracked,DELETE_CANDIDATE,Cached bytecode,yes
+descriptive\__pycache__\stage05_detection_helper.cpython-311.pyc,tracked,DELETE_CANDIDATE,Cached bytecode,yes
+descriptive\v21_common.R.orig.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes
+docs\ACTIVE_MAINLINE_MANIFEST.csv.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant (git-recoverable),yes
+docs\ACTIVE_MAINLINE_MANIFEST.csv.phase5.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant (git-recoverable),yes
+docs\ACTIVE_MAINLINE_MANIFEST.csv.phase6.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant (git-recoverable),yes
+docs\AUDIT_BLOCKER_CLOSURE_STATUS.md.phase6.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant (git-recoverable),yes
+docs\FINAL_REPRODUCIBILITY_AUDIT.md.phase6.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant (git-recoverable),yes
+docs\FINAL_REPRODUCIBILITY_MANIFEST.csv.phase6.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant (git-recoverable),yes
+docs\README.md.phase6.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant (git-recoverable),yes
+docs\SUPPLEMENTARY_ANALYSIS_MANIFEST.csv.phase6.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant (git-recoverable),yes
+manuscript_v2_1\audit\STATISTICAL_CLAIM_MAP.csv.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes
+manuscript_v2_1\audit\STATISTICAL_CLAIM_MAP.csv.phase6.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes
+manuscript_v2_1\audit\STATISTICAL_CLAIM_MAP.csv.phase6b.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes
+manuscript_v2_1\audit\STATISTICAL_CLAIM_MAP.csv.phase6c.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes
+PROJECT_CONTEXT.md.phase6.bak,tracked,DELETE_CANDIDATE,Tracked .bak redundant,yes

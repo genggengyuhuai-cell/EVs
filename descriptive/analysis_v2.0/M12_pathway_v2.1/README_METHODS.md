@@ -1,8 +1,33 @@
 # M12 — Pathway / enrichment (v2.1 §10)
 
 Protocol: `docs/protocol/ANALYSIS_PLAN_v2.1.md` §10.
-Run date: 2026-09-28.
+Run date: 2026-09-28 (repaired rerun complete).
 Location: `descriptive/analysis_v2.0/M12_pathway_v2.1/`.
+Current status: **REPAIRED_RERUN_COMPLETE** (module frozen). Authoritative counts:
+`docs/FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md` (§10) and
+`docs/post_v2_1_extended_analysis/POST_V2_1_EXTENDED_ANALYSIS_FREEZE.md`.
+
+## Frozen results (accepted counts — do not cite older values)
+
+- **cameraPR (PRIMARY)**: **205** pooled BH-FDR<0.05 pathways = **29 GO-BP + 176 Reactome**
+  (High vs Low; 1,406 rankable mapped+estimable genes; inter.gene.cor=0.01).
+- **ORA (COMPLEMENTARY)**: **23** = **3 GO-BP + 20 Reactome** (85 candidates foreground;
+  1,414 mapped background).
+- **fgsea (SENSITIVITY ONLY, dual-reported)**: family-wise **44** (GO-BP 3 / GO-MF 8 /
+  GO-CC 11 / Reactome 22); pooled **41** (GO-BP 6 / GO-MF 7 / GO-CC 10 / Reactome 18).
+  Report both `padj_family` and `padj_pooled`; sensitivity only, never primary.
+- **KEGG**: **NOT_RUN** (no reproducible local source; resource gap, not a scientific exclusion).
+- **Do NOT sum counts across methods** (primary/complementary/sensitivity answer different
+  questions).
+- Pathway universes (R03 closed by author decision, `docs/R03_FINAL_AUTHOR_DECISION.md`):
+  mapping registry 1,434; unambiguous one-gene 1,414; multi-gene ambiguous 15; unmapped 5;
+  rankable tested (N_ranked) 1,406.
+
+## Provenance note
+
+- The pre-repair run (cameraPR 195 / fgsea family 39) exists only as historical provenance
+  under `archive/provenance/M12_pathway_v2.1_pre_repair_snapshot/` and must NOT be cited as
+  current. `pre_repair_snapshot/` was moved out of this module in Phase 2.
 
 ## Scope
 

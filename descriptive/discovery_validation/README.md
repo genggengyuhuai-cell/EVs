@@ -12,9 +12,18 @@ candidates or thresholds.
 The frozen split contains 386 Discovery and 129 Validation participants
 and must never be regenerated or modified.
 
-**Current state:** D01--D10 have been executed, reviewed and committed
-through Git checkpoint `d46aee3`. The exact D03 candidate family remains
-fixed at 85 proteins.
+**Current state:** D01--D10 have been executed, reviewed and committed. The
+D01--D10 core is frozen; the current repository scientific HEAD is `8695ae6`
+(which also carries the post-v2.1 extended analyses). The exact D03 candidate
+family remains fixed at 85 proteins.
+
+**Post-v2.1 additions in this module:** `D02_pairwise_completion/` (pairwise vs-Control
+completion), `control_referenced_pathways/` (cameraPR + nominal ORA), and
+`descriptive/environment_stratified_discovery/` (environment-stratified de novo discovery).
+All are secondary/exploratory Level-2/3; the frozen 85 and frozen High-vs-Low results are
+unchanged. The old `D06_environment_interaction/` outputs were archived to
+`archive/historical_results/`; the authoritative environment-interaction analysis is M10
+(corrected pure 2-df, 0/1,430) under `descriptive/analysis_v2.0/`.
 
 ## Stage architecture and executed results
 
@@ -46,6 +55,8 @@ fixed at 85 proteins.
     Secondary BH-FDR\<0.05 results were 0/85 for each of the three
     interaction contrasts. Differences in D05 significant-count totals
     must therefore not be presented as proof of formal interaction.
+    (Historical; superseded by the corrected pure 2-df M10 interaction —
+    0/1,430 — under `descriptive/analysis_v2.0/`.)
 -   **D07 --- Site robustness.** Leave-one-major-site-out analysis used
     five major sites. All 85 candidates were direction stable across all
     five LOO scenarios. This supports influence/site robustness but is
@@ -67,7 +78,10 @@ fixed at 85 proteins.
     interaction evidence, D07 site-robustness summaries, frozen D08
     Validation evidence, and D09 Dose detection/peptide status. D10 does
     not rank, filter, promote or redefine candidates. Pathway analysis
-    remains `NOT_RUN_NO_APPROVED_MAPPING`.
+    for the frozen High-vs-Low contrast is complete under
+    `descriptive/analysis_v2.0/M12_pathway_v2.1/` (cameraPR 205 primary / ORA 23
+    complementary / fgsea 44&41 sensitivity / KEGG NOT_RUN); control-referenced
+    pathway analysis lives in `control_referenced_pathways/`.
 
 ## Validation firewall and frozen replication definitions
 
@@ -159,10 +173,12 @@ Validation protocol: FROZEN BEFORE OUTCOME INSPECTION
 Validation outcomes: ACCESSED ONLY AFTER AUTHORIZATION; D08 COMPLETED
 D09 evidence layers: COMPLETED
 D10 integrated master: COMPLETED (85 rows × 67 columns)
-Pathway analysis: NOT RUN — NO APPROVED MAPPING/UNIVERSE
-Unique-peptide support: SOURCE_NOT_AVAILABLE
-Git checkpoint: d46aee3
-NEXT ACTION: audit figures_prospective.R against finalized D01–D10 schemas before figure generation.
+Pathway analysis: COMPLETE (M12 v2.1: cameraPR 205 / ORA 23 / fgsea 44&41 sensitivity / KEGG NOT_RUN)
+Control-referenced pathways: COMPLETE (post-v2.1, Level-3 exploratory)
+Environment-stratified discovery: COMPLETE (post-v2.1, Level-2 supplementary)
+Unique-peptide support: SOURCE_NOT_AVAILABLE (deprecated; not active)
+Git checkpoint / scientific HEAD: 8695ae6
+NEXT ACTION: see docs/NEXT_STEPS.md (manuscript presentation sync; no analysis rerun).
 ```
 
 ## ACTIVE V2.1 AMENDMENT — 2026-09-28

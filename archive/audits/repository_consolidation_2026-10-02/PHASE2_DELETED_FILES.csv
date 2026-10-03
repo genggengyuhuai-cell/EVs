@@ -1,0 +1,3 @@
+﻿Path,Type,Reason,Git_tracked,Recoverable,Approved_by_phase1
+descriptive/__pycache__/nature_plotting.cpython-311.pyc,.pyc,"Cached bytecode, regenerable",yes,regenerable,yes
+descriptive/__pycache__/stage05_detection_helper.cpython-311.pyc,.pyc,"Cached bytecode, regenerable",yes,regenerable,yes

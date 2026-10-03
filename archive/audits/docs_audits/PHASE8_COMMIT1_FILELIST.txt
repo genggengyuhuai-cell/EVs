@@ -1,0 +1,46 @@
+# PHASE8 COMMIT1 FILELIST - canonical code repairs
+# Purpose: repaired canonical analysis scripts + upstream producers + fail-closed guards.
+# Commit_batch: Commit1
+# Exclude: results tables, figures, audit/docs, historical snapshots, .bak.
+# Note: code/P2.py verified git status=M (tracked, modified) - Phase7 added fail-closed guard; added per patch 2026-10-01.
+
+# 文件数: 37
+
+# --- paths (repo-relative) ---
+code/P1.py
+code/P2.py
+code/P3.py
+descriptive/01_describe_proteomics.py
+descriptive/02_detection_gradient.py
+descriptive/04_complete_four_layers.py
+descriptive/05_dose_quantitative_filtering.py
+descriptive/06_covariate_QC.R
+descriptive/08a_limma_core_figures.R
+descriptive/08b_limma_robustness.R
+descriptive/08c_run_replication.R
+descriptive/08d_integrated_results.R
+descriptive/09_detection_pattern_analysis.R
+descriptive/10a_DEP_characterization.R
+descriptive/10b_DEP_effect_size_summary.R
+descriptive/11a_dose_pattern_classification.R
+descriptive/11b_protein_clustering.R
+descriptive/analysis_v2.0/M12B_biological_context_v2.1/M12B_all.R
+descriptive/analysis_v2.0/M12_pathway_v2.1/M12_01_mapping.R
+descriptive/analysis_v2.0/M12_pathway_v2.1/M12_02_ranked_ora.R
+descriptive/analysis_v2.0/M12_pathway_v2.1/M12_03_integration.R
+descriptive/analysis_v2.0/code/V2_M09_knn_sensitivity.R
+descriptive/analysis_v2.0/code/V2_M11_site_robustness.R
+descriptive/analysis_v2.0/code/V2_M13_M14_reconciliation.R
+descriptive/analysis_v2.0/code/V2_M17_figures_v2.R
+descriptive/analysis_v2.0/code/V2_M17_figures_v3_ml_supplement.R
+descriptive/analysis_v2.0/ml_v2.1/run_v2_1_ml.R
+descriptive/analysis_v2.0/ml_v2.1/strict_nested_sensitivity.R
+descriptive/analysis_v2.0/ml_v2.1/summarize_results.R
+descriptive/discovery_validation/code/D10_integrated_biology.R
+descriptive/discovery_validation/code/figures_prospective_v2.7.R
+descriptive/missingness_robustness/code/missingness_robustness.R
+descriptive/nature_plotting.py
+descriptive/stage05_detection_helper.py
+descriptive/v21_common.R
+descriptive/analysis_v2.0/code/V2_M17_phase6_rebuild.R
+descriptive/analysis_v2.0/ml_v2.1/strict_nested_d02_helpers.R

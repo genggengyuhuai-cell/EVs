@@ -1,0 +1,82 @@
+PROPOSED FINAL REPOSITORY TREE (after Phase 2 consolidation; READ-ONLY proposal)
+=============================================================================
+Root notes: README.md (human entry) + PROJECT_CONTEXT.md (machine/human context)
+to be added at root in Phase 2. cleanup_plan/ is temporary planning infra and
+should itself be archived/removed after Phase 2.
+
+F:\env
+|-- README.md                         (Phase 2: create - human entry point)
+|-- PROJECT_CONTEXT.md                (existing; top-level authoritative overview; update banner to HEAD 8695ae6)
+|-- PROJECT_CONTEXT.md.phase6.bak     -> DELETE (tracked, git-recoverable) / archive
+|-- .gitignore / .nature-figure.json
+|-- docs/
+|   |-- README.md                     (update banner; currently stale 10-01 BLOCKED wording)
+|   |-- PROJECT_CONTEXT.md            (root-level; NOT duplicated here)
+|   |-- PIPELINE_STATUS.md            (authoritative per-module status; needs update for post-v2.1)
+|   |-- ACTIVE_MAINLINE_MANIFEST.csv  (authoritative; update to include post-v2.1 modules + M14/D10 rebuilt)
+|   |-- SUPPLEMENTARY_ANALYSIS_MANIFEST.csv
+|   |-- CONTROL_DOCUMENT_INDEX.csv    (authoritative; refresh after consolidation)
+|   |-- FINAL_MAINLINE_MANIFEST.csv   (Phase 2: create - file-level source-of-truth registry)
+|   |-- FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md (Phase 2: create)
+|   |-- LIMITATIONS.md                (Phase 2: create; consolidate accepted limitations)
+|   |-- NEXT_STEPS.md                 (Phase 2: create - SINGLE future-work list)
+|   |-- post_v2_1_extended_analysis/  (NEWEST current closure layer; keep active)
+|   |-- protocol/                     (ANALYSIS_PLAN_v2.1 + DISCOVERY_VALIDATION_* current)
+|   |-- archive/                      (docs historical layer; keep)
+|   |-- workflow/, task/              -> move to docs/archive/ (Phase 2)
+|   |-- *.phaseN.bak                  -> DELETE (tracked) / archive (untracked)
+|-- code/
+|   |-- P1.py P2.py P3.py            (active mainline)
+|   |-- *.bak                          -> DELETE (tracked) / archive (untracked)
+|-- rawdata/                          (raw inputs + P1/P2/P3 outputs; keep)
+|-- descriptive/
+|   |-- README.md (or RUN_ORDER.md)   (update as module README)
+|   |-- 01..12 upstream scripts + root results   (supplementary upstream bundle; keep)
+|   |-- 13a_canonical_256_DEP_master.R -> archive/historical_results/
+|   |-- discovery_validation/
+|   |   |-- README.md / PIPELINE_STATUS.md / WORKFLOW.md / DATA_CONTRACTS.md / FIGURE_PLAN.md  (module READMEs; update for post-v2.1)
+|   |   |-- D01..D03, D08              (primary frozen; keep)
+|   |   |-- D02_pairwise_completion/   (post-v2.1; keep active)
+|   |   |-- control_referenced_pathways/  (post-v2.1; keep active)
+|   |   |-- D04 D05 D07 D09            (supplementary; keep)
+|   |   |-- D06_environment_interaction/ -> archive/historical_results/
+|   |   |-- D10_integrated_biology/    (keep active; pre_p20_fix_snapshot -> archive/provenance/)
+|   |   |-- figures_prospective_v2.7/  (keep; qa_preview -> archive/diagnostics/)
+|   |   |-- code/                      (D0*.R; keep active)
+|   |-- environment_stratified_discovery/  (post-v2.1; keep active)
+|   |-- discovery_validation_split/    (frozen split; keep)
+|   |-- analysis_v2.0/
+|   |   |-- README.md (rewrite; currently stale ml/ refs), PIPELINE_STATUS.md (09-27 stale; rewrite)
+|   |   |-- code/                      (V2_M05-M17 canonical; keep)
+|   |   |-- M05..M11, M12_pathway_v2.1, M12B, M14_frozen_replication, ml_v2.1   (keep active)
+|   |   |-- *_pre_repair_snapshot / pre_P0 / pre_p20 / phase6_pre_rebuild_snapshot  -> archive/provenance/
+|   |   |-- candidate_diagnostics_roc/ , diagnostics/  -> archive/diagnostics/
+|   |   |-- ml_postfreeze_svm_rfe/     -> archive/sensitivity/
+|   |   |-- M13_historical_reconciliation/ -> archive/historical_results/
+|   |   |-- M10_environment_interaction/ (parent, non-corrected) -> archive/historical_results/
+|   |   |-- qc/invalidated/            -> archive/historical_results/
+|   |   |-- figures_final_v2/          (keep active; phase6_pre_rebuild_snapshot -> archive/provenance/)
+|   |   |-- supplement_figures/        (keep)
+|   |   |-- config/ contracts/ universes/ registry/ manifests/  (keep)
+|   |-- covariate_QC/ detection_pattern/ figures_nature_v2.2/   (supplementary QC figures; keep)
+|   |-- missingness_robustness/        (early; README_METHODS.md rewrite; results/figures/diagnostics -> archive/sensitivity/)
+|   |-- limma_dose_analysis/           -> archive/sensitivity/ + archive/historical_results/ (early 256-DEP era)
+|   |-- archive/                       (existing descriptive archive; keep; extends with Phase 2 moves)
+|-- manuscript_v2_1/
+|   |-- MANUSCRIPT_*_CONTRACT.md, MANUSCRIPT_STATISTICS_HANDOFF.md  (keep active)
+|   |-- audit/                         (authoritative audits; keep; *.bak -> delete/archive)
+|-- audit_output/
+|   |-- FINAL_ANALYSIS_FREEZE_HANDOFF.md  (keep active)
+|   |-- PHASE*/ROUND2/reviewer/*audits  -> archive/audits/ (Phase 2)
+|-- archive/                           (existing top-level archive)
+|   |-- audits/                        (Phase 2: receive audit_output + docs phase/audit docs)
+|   |-- historical_code/               (receive superseded code if not already)
+|   |-- historical_results/            (receive M13/M06/D06/limma/256-DEP historical)
+|   |-- diagnostics/                   (receive diagnostics)
+|   |-- sensitivity/                   (receive ml_postfreeze_svm_rfe, missingness_robustness, limma sensitivity)
+|   |-- provenance/                    (receive pre-fix snapshots + untracked baks)
+|   |-- backups/                       (receive remaining .bak not deleted)
+|   |-- README.md                      (Phase 2: create - explains archive rules)
+|   |-- (existing debug/, installers/, logs/, superseded_code/, historical_frozen/)
+|-- tmp/                               (empty; remove if unused)
+|-- cleanup_plan/                      (TEMPORARY planning infra; archive/remove after Phase 2)

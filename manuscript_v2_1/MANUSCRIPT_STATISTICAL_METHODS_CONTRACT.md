@@ -14,14 +14,18 @@
 > **Source hierarchy** (in priority order, all FROZEN):
 > 1. `audit_output/FINAL_ANALYSIS_FREEZE_HANDOFF.md`
 > 2. `docs/CURRENT_AUTHORITATIVE_RESULTS.md` (FROZEN_20261001)
-> 3. `docs/FINAL_REPRODUCIBILITY_AUDIT.md`
-> 4. `manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv`
+> 3. `docs/post_v2_1_extended_analysis/POST_V2_1_EXTENDED_ANALYSIS_FREEZE.md` (current closure freeze)
+> 4. `docs/post_v2_1_extended_analysis/POST_V2_1_CLAIM_MAP.csv` (SOLE authoritative claim map)
 > 5. Repaired module reports / canonical results
 > 6. Final figure source_data
 > 7. Provenance / limitations documents
 >
-> Historical / `pre_repair_snapshot` material may be used ONLY to confirm that an old value is
-> deprecated; it is **never** a manuscript statistics source.
+> Historical / `archive/provenance/*_pre_repair_snapshot` material may be used ONLY to confirm
+> that an old value is deprecated; it is **never** a manuscript statistics source. The older
+> claim map `manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv` and the older
+> `docs/FINAL_REPRODUCIBILITY_AUDIT.md` are archived (historical) under
+> `archive/audits/manuscript_claim_map/` and `archive/audits/docs_audits/`, respectively, and are
+> not active authority.
 >
 > **Conflict rule**: if two active frozen sources conflict, **STOP** and flag
 > `STATISTICAL_CONTRACT_SOURCE_CONFLICT`. Do not silently choose. (Checked 2026-10-01: no conflict.)

@@ -41,7 +41,7 @@
 | **合计** | **1,016** | **44** | **41** |
 
 - 数字出处：`descriptive/analysis_v2.0/M12_pathway_v2.1/ranked_gsea/M12_fgsea_combined.csv`（Phase 5 repaired）。
-- 历史 PRE_REPAIR 数字（39 total）仅存于 `pre_repair_snapshot/`，不引用。
+- 历史 PRE_REPAIR 数字（39 total）仅存于 `archive/provenance/*_pre_repair_snapshot/`，不引用。
 
 ---
 

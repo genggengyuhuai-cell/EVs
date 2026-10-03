@@ -1,0 +1,66 @@
+Path,Module,File_type,Role,Status,Scientific_role,Manuscript_use,Source_of_truth,Primary_or_secondary,Supersedes,Archive_location_if_superseded,Notes
+README.md,repository_governance,md,Human entry point,ACTIVE_PRIMARY,governance,-,Y,PRIMARY,-,-,Root README; authoritative entry point
+PROJECT_CONTEXT.md,repository_governance,md,Machine/human project context,ACTIVE_PRIMARY,governance,-,Y,PRIMARY,-,archive/backups/PROJECT_CONTEXT.md.phase6.bak,Rewritten in Phase 2; no longer claims 6d0e004 is current complete state
+docs/README.md,docs,md,Control-document navigation + precedence,ACTIVE_PRIMARY,governance,-,Y,PRIMARY,older CONTROL_DOCUMENT_INDEX + docs/workflow,archive/audits/docs_audits/CONTROL_DOCUMENT_INDEX.csv,States precedence: manifest > contract > context > module README > archive
+docs/FINAL_MAINLINE_MANIFEST.csv,docs,csv,Single authoritative active file registry,ACTIVE_PRIMARY,governance,-,Y,PRIMARY,ACTIVE_MAINLINE_MANIFEST.csv + SUPPLEMENTARY_ANALYSIS_MANIFEST.csv,archive/audits/docs_audits/ACTIVE_MAINLINE_MANIFEST.csv + SUPPLEMENTARY_ANALYSIS_MANIFEST.csv,THE only active manifest after Phase 2
+docs/FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md,docs,md,Sole statistical/reporting contract,ACTIVE_PRIMARY,statistical_contract,-,Y,PRIMARY,consolidates prior contract docs,archive/audits/docs_audits/,Authoritative for all manuscript Methods/Results claims
+docs/LIMITATIONS.md,docs,md,Accepted unresolved limitations,ACTIVE_PRIMARY,limitations,-,Y,PRIMARY,POST_V2_1_LIMITATIONS.md + MANUSCRIPT_LIMITATIONS_CONTRACT.md,-,Consolidated; resolved bugs NOT included
+docs/NEXT_STEPS.md,docs,md,Only project-level future-work list,ACTIVE_PRIMARY,future_work,-,Y,PRIMARY,TASK_CURRENT.md,archive/audits/docs_task/TASK_CURRENT.md,THE only active NEXT_STEPS after Phase 2
+docs/CURRENT_AUTHORITATIVE_RESULTS.md,docs,md,Frozen current results authority,ACTIVE_PRIMARY,results_authority,results,Y,PRIMARY,-,-,FROZEN_20261001
+docs/FINAL_BLOCKER_STATUS.md,docs,md,Blocker/analysis status,ACTIVE_PRIMARY,status,-,Y,PRIMARY,AUDIT_BLOCKER_CLOSURE_STATUS.md,archive/audits/docs_audits/AUDIT_BLOCKER_CLOSURE_STATUS.md,OPEN_ANALYSIS = 0
+docs/R03_FINAL_AUTHOR_DECISION.md,docs,md,R03 author closure record,ACTIVE_PRIMARY,decision_record,-,Y,PRIMARY,-,-,Author closed R03; accepted 3-layer universe (1445/1434/1406)
+docs/post_v2_1_extended_analysis/POST_V2_1_CLAIM_MAP.csv,post_v2_1,csv,Authoritative manuscript claim map,ACTIVE_PRIMARY,claim_authority,all_claims,Y,PRIMARY,manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv,archive/audits/manuscript_claim_map/STATISTICAL_CLAIM_MAP.csv,THE only active authoritative claim map after Phase 2
+docs/post_v2_1_extended_analysis/POST_V2_1_EXTENDED_ANALYSIS_FREEZE.md,post_v2_1,md,Post-v2.1 freeze + accepted counts,ACTIVE_PRIMARY,freeze,methods_results,Y,PRIMARY,-,-,Level-1..4 claim hierarchy; 85/205/23/44&41; R03-closed universe
+docs/post_v2_1_extended_analysis/POST_V2_1_RESULT_MATRIX.csv,post_v2_1,csv,Post-v2.1 result matrix,ACTIVE_PRIMARY,results_authority,results,Y,PRIMARY,-,-,
+docs/post_v2_1_extended_analysis/POST_V2_1_MULTIPLICITY_FAMILIES.csv,post_v2_1,csv,Multiplicity family registry,ACTIVE_PRIMARY,multiplicity_families,methods,Y,PRIMARY,-,-,
+docs/post_v2_1_extended_analysis/POST_V2_1_SOURCE_MANIFEST.csv,post_v2_1,csv,Source-file manifest for post-v2.1,ACTIVE_PRIMARY,source_manifest,-,Y,PRIMARY,-,-,
+docs/post_v2_1_extended_analysis/POST_V2_1_MANUSCRIPT_HANDOFF.md,post_v2_1,md,Manuscript handoff (prose/checklist),ACTIVE_PRIMARY,handoff,writing,Y,PRIMARY,-,-,
+docs/post_v2_1_extended_analysis/POST_V2_1_LIMITATIONS.md,post_v2_1,md,Post-v2.1 limitations,ACTIVE_SUPPORTING,limitations,-,N,SECONDARY,-,-,Content folded into docs/LIMITATIONS.md; kept for provenance
+docs/post_v2_1_extended_analysis/POST_V2_1_ENV_PATHWAY_AMENDMENT.md,post_v2_1,md,Env-stratified pathway amendment,ACTIVE_SUPPORTING,amendment,-,N,SECONDARY,-,-,
+audit_output/FINAL_ANALYSIS_FREEZE_HANDOFF.md,audit_freeze,md,Authoritative analysis-freeze handoff,ACTIVE_SUPPORTING,freeze_handoff,-,Y,SECONDARY,-,-,Kept active as primary freeze handoff; all other audit_output archived
+descriptive/discovery_validation/README.md,discovery_validation,md,Module README,ACTIVE_PRIMARY,module_readme,-,Y,PRIMARY,-,-,
+descriptive/RUN_ORDER.md,descriptive,md,Descriptive module README (run order),ACTIVE_SUPPORTING,module_readme,-,N,SECONDARY,-,-,Covers descriptive bundle; 256-DEP layer superseded
+descriptive/discovery_validation/D01_discovery_eligibility,discovery_validation,dir,Eligibility + 1445 universe,ACTIVE_PRIMARY,universe,methods,Y,PRIMARY,-,-,Discovery-eligible universe = 1445
+descriptive/discovery_validation/D02_discovery_primary,discovery_validation,dir,Primary HvL discovery (85/1445),ACTIVE_PRIMARY,primary_discovery,primary_results,Y,PRIMARY,-,-,Primary endpoint; High vs Low; n=386
+descriptive/discovery_validation/D02_pairwise_completion,discovery_validation,dir,Post-v2.1 pairwise completion (LVC/HVC/EC),ACTIVE_PRIMARY,secondary,supplementary,Y,PRIMARY,-,-,LVC=0 / HVC=0 / EC=0 FDR; frozen HvL reconciled
+descriptive/discovery_validation/D03_candidate_lock,discovery_validation,dir,Candidate lock (85),ACTIVE_PRIMARY,candidate_lock,-,Y,PRIMARY,-,-,85 locked candidates
+descriptive/discovery_validation/D08_validation,discovery_validation,dir,Reused within-cohort hold-out,ACTIVE_PRIMARY,holdout,replication,Y,PRIMARY,-,-,85/83/29/1; NOT external validation
+descriptive/discovery_validation/D04_dose_trajectory,discovery_validation,dir,Dose trajectory (descriptive),ACTIVE_SUPPORTING,descriptive,supplementary,N,SECONDARY,-,-,Descriptive only
+descriptive/discovery_validation/D05_environment_specific,discovery_validation,dir,Environment-stratified discovery,ACTIVE_SUPPORTING,secondary,supplementary,N,SECONDARY,-,-,
+descriptive/discovery_validation/D07_site_robustness,discovery_validation,dir,Legacy site robustness,ACTIVE_SUPPORTING,sensitivity,supplementary,N,SECONDARY,-,-,Reconciled with M11
+descriptive/discovery_validation/D09_missingness_detection_peptides,discovery_validation,dir,Unique-peptide detection,ACTIVE_SUPPORTING,technical,supplementary,N,SECONDARY,-,-,Deprecated peptide evidence NOT active (see D10)
+descriptive/discovery_validation/D10_integrated_biology,discovery_validation,dir,Integrated candidate context,ACTIVE_SUPPORTING,interpretation,supplementary,N,SECONDARY,-,-,Active D10 excludes pre_p20_fix_snapshot (archived); deprecated peptide columns not active
+descriptive/discovery_validation/control_referenced_pathways,discovery_validation,dir,Control-referenced pathway (cameraPR+ORA),ACTIVE_SUPPORTING,exploratory_pathway,supplementary,N,SECONDARY,-,-,LVC=258 / HVC=38 cameraPR; exploratory
+descriptive/discovery_validation/figures_prospective_v2.7,discovery_validation,dir,CURRENT discovery-validation figure bundle,ACTIVE_SUPPORTING,figures,figures,N,SECONDARY,-,-,qa_preview subdir archived
+descriptive/analysis_v2.0/README.md,analysis_v2.0,md,Module README,ACTIVE_PRIMARY,module_readme,-,Y,PRIMARY,-,-,
+descriptive/analysis_v2.0/PIPELINE_STATUS.md,analysis_v2.0,md,Module status pointer,ACTIVE_SUPPORTING,status,-,N,SECONDARY,-,-,Summary only; authority = docs/FINAL_BLOCKER_STATUS.md
+descriptive/analysis_v2.0/M05_overall_exposure,analysis_v2.0,dir,Overall-exposure estimator,ACTIVE_PRIMARY,model,methods,Y,PRIMARY,-,-,
+descriptive/analysis_v2.0/M08_detection/Firth_primary,analysis_v2.0,dir,Firth group-LR detection,ACTIVE_SUPPORTING,robustness,supplementary,N,SECONDARY,-,-,2/3054 at FDR<0.05; Firth primary
+descriptive/analysis_v2.0/M09_missingness_sensitivity/KNN_sensitivity,analysis_v2.0,dir,KNN imputation sensitivity,ACTIVE_SUPPORTING,sensitivity,supplementary,N,SECONDARY,-,-,r=0.974; 0/1430; sensitivity only
+descriptive/analysis_v2.0/M10_environment_interaction/corrected_pure_interaction,analysis_v2.0,dir,Corrected pure 2-df interaction,ACTIVE_PRIMARY,interaction,methods,Y,PRIMARY,M10_environment_interaction parent,archive/historical_results/M10_environment_interaction_parent/,0/1430; pure 2-df
+descriptive/analysis_v2.0/M11_site_robustness,analysis_v2.0,dir,LOO site robustness,ACTIVE_SUPPORTING,robustness,supplementary,N,SECONDARY,-,-,Influence diagnostic; not validation
+descriptive/analysis_v2.0/M12_pathway_v2.1,analysis_v2.0,dir,Pathway analysis (cameraPR/ORA/fgsea),ACTIVE_PRIMARY,pathway,methods_results,Y,PRIMARY,-,-,205/23/44&41; KEGG NOT_RUN; pre_repair_snapshot archived
+descriptive/analysis_v2.0/M12B_biological_context_v2.1,analysis_v2.0,dir,Biological context (corr/network/annotation),ACTIVE_SUPPORTING,context,supplementary,N,SECONDARY,-,-,Contextual association structure; not regulatory network
+descriptive/analysis_v2.0/M14_frozen_replication,analysis_v2.0,dir,Frozen replication,ACTIVE_PRIMARY,replication,replication,Y,PRIMARY,-,-,
+descriptive/analysis_v2.0/ml_v2.1/results,analysis_v2.0,dir,Fixed-85 ML results,ACTIVE_SUPPORTING,ml,ml,N,SECONDARY,-,-,Conditional discrimination; modest AUROC
+descriptive/analysis_v2.0/ml_v2.1/strict_nested,analysis_v2.0,dir,Strict nested ML (diagnostic),ACTIVE_SUPPORTING,ml_diagnostic,supplementary,N,SECONDARY,-,-,Feature-selection instability; 7/15 zero-feature folds
+descriptive/analysis_v2.0/ml_v2.1/README.md,analysis_v2.0,md,ML module README,ACTIVE_SUPPORTING,module_readme,-,N,SECONDARY,-,-,
+descriptive/analysis_v2.0/figures_final_v2,analysis_v2.0,dir,Current final figure set (v2),ACTIVE_PRIMARY,figures,figures,Y,PRIMARY,-,-,phase6_pre_rebuild_snapshot archived
+descriptive/environment_stratified_discovery,environment_stratified,dir,Env-stratified de novo discovery (post-v2.1),ACTIVE_SUPPORTING,secondary,supplementary,N,SECONDARY,-,-,HH/HA; HA HvC 75; M10 null; diagnostics archived
+descriptive/missingness_robustness/README_METHODS.md,missingness_robustness,md,Module README (historical marker),ACTIVE_SUPPORTING,module_readme,-,N,SECONDARY,-,archive/sensitivity/missingness_robustness/,Early sensitivity; outputs archived
+manuscript_v2_1/README.md,manuscript_v2_1,md,Manuscript module README,ACTIVE_PRIMARY,module_readme,-,Y,PRIMARY,-,-,
+manuscript_v2_1/MANUSCRIPT_STATISTICAL_METHODS_CONTRACT.md,manuscript_v2_1,md,Manuscript-specific methods contract,ACTIVE_PRIMARY,manuscript_contract,methods,Y,PRIMARY,-,-,Binds to FINAL_STATISTICAL_AND_REPORTING_CONTRACT
+manuscript_v2_1/MANUSCRIPT_RESULTS_NUMERIC_CONTRACT.md,manuscript_v2_1,md,Manuscript numeric contract,ACTIVE_PRIMARY,manuscript_contract,results,Y,PRIMARY,-,-,
+manuscript_v2_1/MANUSCRIPT_LIMITATIONS_CONTRACT.md,manuscript_v2_1,md,Manuscript limitations contract,ACTIVE_SUPPORTING,limitations,-,N,SECONDARY,-,-,Folded into docs/LIMITATIONS.md
+manuscript_v2_1/MANUSCRIPT_STATISTICS_HANDOFF.md,manuscript_v2_1,md,Statistics handoff,ACTIVE_SUPPORTING,handoff,-,N,SECONDARY,-,-,
+external_templates/README.md,external_templates,md,External templates note,ACTIVE_PRIMARY,governance,-,Y,PRIMARY,-,-,User-supplied; not scientific input; not provenance
+external_templates/报告模板.docx,external_templates,docx,User-owned report template,ACTIVE_SUPPORTING,user_template,-,N,SECONDARY,-,-,Moved unchanged; do not cite as analysis source
+external_templates/报告模板.rar,external_templates,rar,User-owned report template,ACTIVE_SUPPORTING,user_template,-,N,SECONDARY,-,-,Moved unchanged; do not cite as analysis source
+archive/README.md,archive,md,Archive readme,ACTIVE_PRIMARY,governance,-,Y,PRIMARY,-,-,Archive is NOT current source of truth
+archive/audits,archive,dir,Archived audits/freeze/phase/status docs,ACTIVE_SUPPORTING,provenance,provenance_only,N,SECONDARY,-,-,Collection-level row
+archive/provenance,archive,dir,Pre-fix snapshots + repair comparison,ACTIVE_SUPPORTING,provenance,provenance_only,N,SECONDARY,-,-,Includes D10_p20_fix; collection-level row
+archive/historical_code,archive,dir,Superseded code,ACTIVE_SUPPORTING,historical_code,provenance_only,N,SECONDARY,-,-,formerly archive/superseded_code
+archive/historical_results,archive,dir,Superseded results,ACTIVE_SUPPORTING,historical_results,provenance_only,N,SECONDARY,-,-,collection-level row
+archive/diagnostics,archive,dir,Diagnostic-only outputs,ACTIVE_SUPPORTING,diagnostic,provenance_only,N,SECONDARY,-,-,collection-level row
+archive/sensitivity,archive,dir,Valid non-primary sensitivity,ACTIVE_SUPPORTING,sensitivity,provenance_only,N,SECONDARY,-,-,collection-level row
+archive/backups,archive,dir,Backup .bak/.orig.bak files,ACTIVE_SUPPORTING,backup,provenance_only,N,SECONDARY,-,-,collection-level row

@@ -46,9 +46,9 @@ Paths below are relative to `F:/env`. They are intended as exact, inspectable re
 
 | Anchor | Inspected sources | What they establish |
 |---|---|---|
-| R1 | `PROJECT_CONTEXT.md`, `docs/task/TASK_CURRENT.md`, `docs/workflow/FILE_STATUS.md`, `docs/archive/early_plans/README_LIMMA_ANALYSIS_PLAN_v1.0.md` | Frozen historical architecture, handling and terminology; historical outputs precede the split |
+| R1 | `PROJECT_CONTEXT.md`, `archive/audits/docs_task/TASK_CURRENT.md`, `archive/audits/docs_workflow/FILE_STATUS.md`, `docs/archive/early_plans/README_LIMMA_ANALYSIS_PLAN_v1.0.md` | Frozen historical architecture, handling and terminology; historical outputs precede the split |
 | R2 | `docs/protocol/DISCOVERY_VALIDATION_PROTOCOL.md`, `docs/protocol/DISCOVERY_VALIDATION_SPLIT_SPEC.md`, `descriptive/discovery_validation_split/discovery_validation_assignment.csv` | 515 independent participants as documented; fixed assignment and strata |
-| R3 | `descriptive/05_dose_quantitative_filtering.py`, `descriptive/07_limma_dose_analysis.R`, `descriptive/limma_dose_analysis/analysis_manifest.csv`, `PRIMARY_summary.csv` in that directory | Historical eligibility, abundance model, contrasts and counts |
+| R3 | `descriptive/05_dose_quantitative_filtering.py`, `descriptive/07_limma_dose_analysis.R`, `archive/sensitivity/limma_dose_analysis/analysis_manifest.csv`, `archive/sensitivity/limma_dose_analysis/PRIMARY_summary.csv` | Historical eligibility, abundance model, contrasts and counts |
 | R4 | `descriptive/discovery_validation/D01_discovery_eligibility.py`, `code/D02_discovery_primary.R`, `code/dv_shared.R` within that branch; D01 and D02 outputs | Discovery-only eligibility; 1,445 tests and model implementation |
 | R5 | `descriptive/discovery_validation/code/D03_candidate_lock.R`, `D03_candidate_lock/D03_locked_candidates.csv`, `VALIDATION_UNLOCKED.txt`, `code/D08_validation.R`, `D08_validation/D08_replication_summary.csv` | Lock, authorization, actual Validation rules and outcomes |
 | R6 | `descriptive/11a_dose_pattern_classification.R`, `11b_protein_clustering.R`, `descriptive/discovery_validation/code/D04_dose_trajectory.R` | Selected-universe descriptive profiles, tolerance and means |

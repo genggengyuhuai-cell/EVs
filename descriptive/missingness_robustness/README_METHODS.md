@@ -1,5 +1,13 @@
 # Missingness robustness analysis
 
+> **Status (Phase 2, 2026-10-03): EARLY / SUPERSEDED — sensitivity only.**
+> This module documents the early v1.0-era missingness robustness analysis (D0–D3 against the
+> 256-DEP framework). It was **superseded** by the repaired M09 KNN missingness sensitivity
+> (`descriptive/analysis_v2.0/M09_missingness_sensitivity/`, Pearson r=0.974, 0/1,430) and by
+> D09 (`descriptive/discovery_validation/D09_missingness_detection_peptides/`). Its outputs were
+> archived to `archive/sensitivity/missingness_robustness/`. **Do not cite the 256-DEP / D0–D3
+> results as current scientific truth.** This README remains as a historical marker.
+
 ## Analysis status
 
 This directory is a **POST-FREEZE DOWNSTREAM ROBUSTNESS ANALYSIS**. It does not replace or modify the **PRIMARY FROZEN ANALYSIS**. The primary pipeline remains `analysis-v1.0 — FROZEN / VALIDATED`, and the canonical Long-versus-Short result remains the 256 proteins defined by the frozen Stage 07 analysis. This optional module is not called by `run_all.py`.

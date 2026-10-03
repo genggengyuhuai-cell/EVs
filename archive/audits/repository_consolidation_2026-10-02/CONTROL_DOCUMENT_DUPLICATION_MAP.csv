@@ -1,0 +1,77 @@
+Document,Date_or_phase,Scope,Current_status_claim,Superseded_by,Unique_information,Proposed_action
+docs/FINAL_REPRODUCIBILITY_AUDIT.md,2026-10-01 (Phase 6 rebuilt; original 09-29),Whole-repo reproducibility audit,FROZEN / READY_TO_TAG (original) then Phase-6 rebuild at same path,PROJECT_CONTEXT.md banner + docs/FINAL_BLOCKER_STATUS.md + TAG_READINESS_GATE.md,Limited; historical reproducibility verdict,Archive to archive/audits/ (keep as provenance; do not cite as current authority)
+docs/FINAL_REPRODUCIBILITY_AUDIT.md.phase6.bak,2026-09-30,Backup of pre-Phase-6 audit version,Historical snapshot,Current FINAL_REPRODUCIBILITY_AUDIT.md,None beyond git history,Delete (tracked; git-recoverable)
+docs/FINAL_REPRODUCIBILITY_AUDIT.md.phase7.bak,2026-10-01 (untracked),Backup during Phase-7,Historical snapshot,Current FINAL_REPRODUCIBILITY_AUDIT.md,None beyond git history,Preserve as provenance (untracked; not git-recoverable) then archive
+docs/FINAL_REPRODUCIBILITY_MANIFEST.csv,2026-10-01,Reproducibility file-level manifest,Current reproducibility registry,To be merged into Phase-2 FINAL_MAINLINE_MANIFEST.csv,sha256 provenance rows (unique),Merge unique sha256 rows into FINAL_MAINLINE_MANIFEST.csv, then archive to archive/audits/
+docs/FINAL_REPRODUCIBILITY_MANIFEST.csv.phase6.bak,2026-10-01 (tracked),Backup,Historical,Current manifest,None,Delete (tracked; git-recoverable)
+docs/FINAL_REPRODUCIBILITY_MANIFEST.csv.phase7.bak,2026-10-01 (untracked),Backup,Historical,Current manifest,None,Preserve as provenance then archive
+docs/FINAL_BLOCKER_STATUS.md,2026-10-02,Authoritative blocker classification (Phase 7 terminal),CLOSED_ANALYSIS=all; OPEN_REPORTING/PROVENANCE/GIT/MANUSCRIPT_ONLY,None (current authority),All blocker classifications,Keep active (authoritative current)
+docs/AUDIT_BLOCKER_CLOSURE_STATUS.md,2026-10-01,Earlier blocker closure status,Pre-FINAL_BLOCKER_STATUS closure view,FINAL_BLOCKER_STATUS.md,Mostly duplicated by FINAL_BLOCKER_STATUS,Archive to archive/audits/ (keep as historical)
+docs/AUDIT_BLOCKER_CLOSURE_STATUS.md.phase6.bak,2026-10-01 (tracked),Backup,Historical,Current AUDIT_BLOCKER_CLOSURE_STATUS.md,None,Delete (tracked; git-recoverable)
+audit_output/STATUS_OVERRIDE_2026-10-01.md,2026-10-01,Status override record,Historical override,FINAL_BLOCKER_STATUS.md,Override rationale,Archive to archive/audits/
+docs/ACTIVE_MAINLINE_MANIFEST.csv,2026-10-01,Canonical mainline module registry,Current authoritative (ACTIVE),Needs update for post-v2.1 modules (D02_pairwise_completion/control_referenced/environment_stratified; M14/D10 rebuilt),Full mainline registry,Keep active; update to add post-v2.1 modules and flip M14/D10 to REBUILT/ACTIVE
+docs/ACTIVE_MAINLINE_MANIFEST.csv.bak,2026-09-28 (tracked),Backup,Historical,Current manifest,None,Delete (tracked; git-recoverable)
+docs/ACTIVE_MAINLINE_MANIFEST.csv.phase5.bak,2026-10-01 (tracked),Backup,Historical,Current manifest,None,Delete (tracked; git-recoverable)
+docs/ACTIVE_MAINLINE_MANIFEST.csv.phase6.bak,2026-10-01 (tracked),Backup,Historical,Current manifest,None,Delete (tracked; git-recoverable)
+docs/ACTIVE_MAINLINE_MANIFEST.csv.phase7.bak,2026-10-01 (untracked),Backup,Historical,Current manifest,None,Preserve as provenance then archive
+docs/post_v2_1_extended_analysis/POST_V2_1_SOURCE_MANIFEST.csv,2026-10-02,Post-v2.1 frozen inputs/outputs manifest,Current (HEAD layer),To be folded into ACTIVE_MAINLINE_MANIFEST + FINAL_MAINLINE_MANIFEST,Post-v2.1 sha256 rows,Keep active; fold rows into mainline manifests in Phase 2
+docs/SUPPLEMENTARY_ANALYSIS_MANIFEST.csv,2026-10-01,Supplementary module registry,Current authoritative,None,Supplementary registry,Keep active
+docs/SUPPLEMENTARY_ANALYSIS_MANIFEST.csv.phase6.bak,2026-10-01 (tracked),Backup,Historical,Current manifest,None,Delete (tracked; git-recoverable)
+docs/SUPPLEMENTARY_ANALYSIS_MANIFEST.csv.phase7.bak,2026-10-01 (untracked),Backup,Historical,Current manifest,None,Preserve as provenance then archive
+docs/PIPELINE_STATUS.md,2026-10-01,Authoritative per-module status table,Current authoritative (ACTIVE),Needs update for post-v2.1/M14/D10,Module status table,Keep active; update for post-v2.1 state
+docs/PIPELINE_STATUS.md.phase8.bak,2026-09-28 (untracked),Backup,Historical,Current PIPELINE_STATUS.md,None,Preserve as provenance then archive
+descriptive/discovery_validation/PIPELINE_STATUS.md,2026-10-01 (module),D01-D10 module status,Current module status (needs post-v2.1 update),docs/PIPELINE_STATUS.md (repo-level),D01-D10 stage status,Keep active; update for post-v2.1 (D02 pairwise/control-referenced)
+descriptive/analysis_v2.0/PIPELINE_STATUS.md,2026-09-27 (stale),V2 ML-era module status,Historical ML freeze status (V2-02..V2-05),docs/PIPELINE_STATUS.md; analysis_v2.0 README,Old ML universes/panel-refit status,Keep as module file; rewrite/refresh for current state (do not cite as current)
+docs/CONTROL_DOCUMENT_INDEX.csv,2026-09-28,Classification of every control document,Current authoritative index,None (master registry),Control-doc classification,Keep active; refresh after Phase 2
+docs/CONTROL_DOCUMENT_CONSOLIDATION_REPORT.md,2026-10-01,Control-doc consolidation report (2026-09-29 scope),Consolidation report,AUTHORITATIVE but predates post-v2.1; superseded by post_v2_1 layer,Consolidation decisions log,Keep as audit (archive/audits/ optional); cite only as historical consolidation record
+docs/CONTROL_DOCUMENT_CONSOLIDATION_REPORT.md.phase8.bak,2026-09-28 (untracked),Backup,Historical,Current consolidation report,None,Preserve as provenance then archive
+docs/FINAL_REPOSITORY_RECONSTRUCTION_AUDIT.md,2026-09-28,Repository reconstruction audit + Batch-1/2 log,Current authoritative (per CONTROL_DOCUMENT_INDEX),Phase-2 FINAL_MAINLINE_MANIFEST (partial),Reconstruction/batch log,Keep active for now; fold into Phase-2 manifests then archive
+docs/README.md,2026-10-01,docs/ index + authority hierarchy,Banner says BLOCKED/no-tag (stale 10-01),PROJECT_CONTEXT.md banner (10-02 SAFE_TO_TAG qualified),docs/ authority precedence,Keep active; update banner to HEAD state (10-02)
+docs/README.md.phase6.bak,2026-09-30 (tracked),Backup,Historical,Current docs/README.md,None,Delete (tracked; git-recoverable)
+audit_output/FINAL_ANALYSIS_FREEZE_HANDOFF.md,2026-10-01,Analysis freeze handoff,Canonical freeze handoff (referenced by PROJECT_CONTEXT),None for core; newest manuscript handoff = POST_V2_1_MANUSCRIPT_HANDOFF.md,Core v2.1 freeze handoff,Keep active (canonical freeze handoff)
+docs/post_v2_1_extended_analysis/POST_V2_1_MANUSCRIPT_HANDOFF.md,2026-10-02,Post-v2.1 manuscript handoff,Current (HEAD layer),Supersedes earlier manuscript handoff for extended claims,Allowed-prose + prohibited-claims for Level2-4,Keep active (newest manuscript handoff)
+manuscript_v2_1/MANUSCRIPT_STATISTICS_HANDOFF.md,2026-10-02,Statistics handoff to nature-statistics,Current,None,Statistical checklist for writing,Keep active
+descriptive/discovery_validation/DISCOVERY_VALIDATION_HANDOFF_2026-09-26_PAUSE.md,2026-09-26,Historical pause handoff,Historical pause record,Completed by D01-D10 execution,Historical pause rationale,Archive to archive/audits/
+docs/FGSEA_REPORTING_FREEZE.md,2026-10-02,fgsea dual-reporting freeze,Current (FROZEN_AS_DUAL_REPORTED_SENSITIVITY),None,fgsea 44/41 sensitivity-only ruling,Keep active
+docs/SPLIT_PROVENANCE_FREEZE.md,2026-10-01,Frozen split provenance,Current,None,Split hash/seed,Keep active
+docs/PREANALYTICAL_LIMITATIONS_FREEZE.md,2026-10-01,Preamble limitations freeze,Current,None,Limitations wording,Keep active
+docs/PATHWAY_UNIVERSE_RECONCILIATION.md,2026-10-02,Pathway universe layers,Current,None,3-layer universe semantics,Keep active
+docs/TAG_READINESS_GATE.md,2026-10-02,Tag gate,Current (SAFE_TO_TAG qualified),None,Tag gate criteria,Keep active
+docs/R03_FINAL_AUTHOR_DECISION.md,2026-10-02,R03 author decision,CLOSED_ACCEPT_CURRENT_UNIVERSE_STRUCTURE,None (author decision record),R03 closure ruling,Keep active (author decision record)
+docs/SOFTWARE_ENVIRONMENT_LOCK.md,2026-10-02,Environment lock,Current,None,Environment lock,Keep active
+docs/PROTEOMICS_QC_PROVENANCE_FINAL.md,2026-10-01,Proteomics QC provenance,Current (MANUSCRIPT_LIMITATION),None,QC gap classification,Keep active
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv,2026-10-01,Core v2.1 statistical claim map,Current authoritative (per CONTROL_DOCUMENT_INDEX),Extended claims superseded by POST_V2_1_CLAIM_MAP.csv (post-v2.1),Core v2.1 claims,Keep active; reconcile with POST_V2_1_CLAIM_MAP so one claim map is authoritative
+docs/post_v2_1_extended_analysis/POST_V2_1_CLAIM_MAP.csv,2026-10-02,Post-v2.1 claim map (Level 1-4),Current (HEAD layer),Extends/supersedes manuscript STATISTICAL_CLAIM_MAP for post-v2.1 claims,All Level-2/3/4 extended claims,Keep active; designate as authoritative claim map for post-v2.1 in Phase 2
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv.bak,2026-10-01 (tracked),Backup,Historical,Current claim map,None,Delete (tracked; git-recoverable)
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv.phase6.bak,2026-10-01 (tracked),Backup,Historical,Current claim map,None,Delete (tracked; git-recoverable)
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv.phase6b.bak,2026-10-01 (tracked),Backup,Historical,Current claim map,None,Delete (tracked; git-recoverable)
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv.phase6c.bak,2026-10-01 (tracked),Backup,Historical,Current claim map,None,Delete (tracked; git-recoverable)
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv.phase7.bak,2026-10-01 (untracked),Backup,Historical,Current claim map,None,Preserve as provenance then archive
+audit_output/PHASE5_MASTER_REPORT.md,2026-10-01,Phase 5 master report,Historical phase report,FINAL_BLOCKER_STATUS/PROJECT_CONTEXT,Phase-5 detail,Archive to archive/audits/
+audit_output/PHASE6_MASTER_REPORT.md,2026-10-01,Phase 6 master report,Historical phase report,FINAL_BLOCKER_STATUS/PROJECT_CONTEXT,Phase-6 detail,Archive to archive/audits/
+audit_output/PHASE7_MASTER_REPORT.md,2026-10-01,Phase 7 master report,Historical phase report,PROJECT_CONTEXT banner (10-02),Phase-7 detail,Archive to archive/audits/
+audit_output/PHASE8_MASTER_REPORT.md,2026-10-01,Phase 8 master report,Historical phase report,HEAD commit state,Phase-8 commit detail,Archive to archive/audits/
+audit_output/PHASE8_EXECUTION_REPORT.md,2026-10-01,Phase 8 execution report,Historical,HEAD commit state,Phase-8 execution detail,Archive to archive/audits/
+audit_output/ROUND2_MASTER_REPORT.md,2026-10-01,Round-2 master report,Historical,PROJECT_CONTEXT/FINAL_BLOCKER_STATUS,Round-2 detail,Archive to archive/audits/
+audit_output/PHASE10_PUSH_REPORT.md,2026-10-01,Phase 10 push report,Historical,None (reproducibility only),Phase-10 detail,Archive to archive/audits/
+audit_output/PHASE11_VERIFICATION_REPORT.md,2026-10-01,Phase 11 verification report,Historical,None (verification only),Phase-11 detail,Archive to archive/audits/
+docs/PHASE6_STATUS_BASELINE.md,2026-10-01,Phase 6 status baseline,Historical baseline,FINAL_BLOCKER_STATUS (10-02),Phase-6 baseline,Archive to archive/audits/
+docs/PHASE8_FINAL_TAG_GATE.md,2026-10-01,Phase 8 tag gate,Historical,Tag_READINESS_GATE.md (10-02),Phase-8 tag gate,Archive to archive/audits/
+docs/PHASE8_SUBMISSION_STATUS.md,2026-10-01,Phase 8 submission status,Historical,HEAD state,Phase-8 submission detail,Archive to archive/audits/
+docs/PHASE8_COMMIT_QA_REPORT.md,2026-10-01,Phase 8 commit QA,Historical,HEAD state,Phase-8 commit QA,Archive to archive/audits/
+docs/PHASE8_GIT_COMMANDS.md,2026-10-01 (untracked),Phase 8 git commands,Historical planning,Actual commits at HEAD,Phase-8 git commands,Archive to archive/audits/
+docs/PHASE8_GIT_EXECUTION_PLAN.md,2026-10-01 (untracked),Phase 8 git execution plan,Historical planning,Actual commits at HEAD,Phase-8 git plan,Archive to archive/audits/
+docs/PHASE8_COMMIT1_FILELIST.txt,2026-10-01 (untracked),Phase 8 commit 1 filelist,Historical planning,Actual commits,Filelists,Archive to archive/audits/
+docs/PHASE8_COMMIT2_FILELIST.txt,2026-10-01 (untracked),Phase 8 commit 2 filelist,Historical planning,Actual commits,Filelists,Archive to archive/audits/
+docs/PHASE8_COMMIT3_FILELIST.txt,2026-10-01 (untracked),Phase 8 commit 3 filelist,Historical planning,Actual commits,Filelists,Archive to archive/audits/
+docs/PHASE8_COMMIT4_FILELIST.txt,2026-10-01 (untracked),Phase 8 commit 4 filelist,Historical planning,Actual commits,Filelists,Archive to archive/audits/
+docs/PHASE8_COMMIT5_FILELIST.txt,2026-10-01 (untracked),Phase 8 commit 5 filelist,Historical planning,Actual commits,Filelists,Archive to archive/audits/
+docs/FINAL_GIT_CLEANUP_PLAN.md,2026-10-01,Authoritative OPEN_GIT cleanup plan,Current (OPEN_GIT),None,Untracked-file batch plan,Keep active (authoritative git plan)
+docs/workflow/MASTER_PROJECT_STATUS_2026-09-28.md,2026-09-28,Repo status snapshot,Historical snapshot,PIPELINE_STATUS.md + PROJECT_CONTEXT.md,Dated snapshot 09-28,Archive to docs/archive/ or archive/audits/
+docs/workflow/PROJECT_LOGIC_AUDIT_2026-09-28.md,2026-09-28,Logic audit snapshot,Historical,FINAL_REPOSITORY_RECONSTRUCTION_AUDIT.md,Dated snapshot,Archive to docs/archive/
+docs/workflow/CODEX_WORKFLOW.md,2026-09-25,Workflow notes,Historical,PIPELINE_STATUS.md,Workflow notes,Archive to docs/archive/
+docs/workflow/FILE_STATUS.md,2026-09-28,File status snapshot,Historical,CONTROL_DOCUMENT_INDEX.csv,File status,Archive to docs/archive/
+docs/workflow/MASTER_PROJECT_AUDIT_BACKLOG.md,2026-09-27,Audit backlog snapshot,Historical,NEXT_STEPS.md (Phase 2),Backlog,Archive to docs/archive/
+docs/task/TASK_CURRENT.md,2026-09-28,Task state,Stale (says next M07),PROJECT_CONTEXT.md,Historical task,Archive to docs/archive/
+PROJECT_CONTEXT.md,2026-10-02,Top-level authoritative overview,Banner Phase-7 terminal (FROZEN_COMMIT=6d0e004),None for overview; banner should be updated to note HEAD 8695ae6 post-v2.1 closure,Project identity + frozen numbers + entrypoints,Keep active; update banner/section to reflect HEAD 8695ae6 as current candidate final (analysis-v2.1 stays the frozen tag)
+PROJECT_CONTEXT.md.phase6.bak,2026-10-02 (tracked),Backup,Historical,Current PROJECT_CONTEXT.md,None,Delete (tracked; git-recoverable)

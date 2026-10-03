@@ -147,3 +147,15 @@ modules rather than by modifying the frozen primary pipeline.
 DOWNSTREAM ROBUSTNESS ANALYSIS**. It is not part of the canonical Stage 01–12 / 17-step
 execution order and is not called by `run_all.py`. Its sensitivity results do not
 replace or redefine the frozen primary analysis or canonical 256 DEP set.
+
+## I. Supersession note (Phase 2, 2026-10-03)
+
+- This Stage 01–12 bundle and its `13a_canonical_256_DEP_master.R` / historical 256-DEP results
+  are the **historical descriptive layer**. They were superseded by the Discovery–Validation
+  redesign (D01–D10 under `descriptive/discovery_validation/`) and the v2 abundance/pathway/ML
+  mainline (`descriptive/analysis_v2.0/`). Do not cite the 256 DEP set as current discovery.
+- `descriptive/limma_dose_analysis/` and `descriptive/missingness_robustness/` outputs were
+  archived to `archive/sensitivity/` (valid non-primary sensitivity). Their module READMEs remain
+  as historical markers.
+- Current scientific source of truth is defined by `docs/FINAL_MAINLINE_MANIFEST.csv` and
+  `docs/FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md`.

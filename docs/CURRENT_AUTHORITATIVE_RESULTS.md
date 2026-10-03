@@ -3,7 +3,7 @@
 > **FROZEN_20261001** — 本快照为 analysis-v2.1 当前权威数字，供稿件/表格引用。
 > 日期：2026-10-01。**只列 repaired / current 数字**；pre-repair 旧值（195/23/39、0.710294、
 > 0.686813、8–618 旧 ML、correlation-weighted Euclidean 等）一律不进入本文件。
-> 每个数字逐字引自 repaired 产物并标出处。旧值仅存于 `pre_repair_snapshot/`，标 HISTORICAL。
+> 每个数字逐字引自 repaired 产物并标出处。旧值仅存于 `archive/provenance/*_pre_repair_snapshot/`，标 HISTORICAL。
 > Phase 7 更新：fgsea reporting hold 已解除（DUAL_REPORTED_SENSITIVITY 终态，见 FGSEA_REPORTING_FREEZE.md）；
 > fgsea 44/41 为 sensitivity-only 双列，非 primary。
 
@@ -53,7 +53,7 @@
 - 出处：`M12B_biological_context_v2.1/integration/M12B_integrated_candidate_context.csv`、`M12B_REPAIR_REPORT.md`。
 
 ## 8. 不得作为 current 引用的旧值（仅登记）
-- cameraPR 195（25 BP+170 Reactome）、fgsea family 39（3/8/11/17）= pre-repair，仅 `pre_repair_snapshot/`。
+- cameraPR 195（25 BP+170 Reactome）、fgsea family 39（3/8/11/17）= pre-repair，仅 `archive/provenance/*_pre_repair_snapshot/`。
 - fixed-85 ML 旧 AUROC（泄漏/which.min 方向错）= pre-P0 repair，仅 `pre_P0_repair_snapshot/`。
 - M09 旧 "correlation-weighted Euclidean" / M11 旧 estimand = pre-Phase3/4 repair。
 - fold-local DEP 8–618 为历史 strict nested 描述，不得作为生物学结论。

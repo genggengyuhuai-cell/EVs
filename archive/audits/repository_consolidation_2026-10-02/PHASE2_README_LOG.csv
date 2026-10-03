@@ -1,0 +1,18 @@
+README_path,Action,Module,Authoritative_sources,Status
+F:\env\README.md,CREATE,repository_governance,PROJECT_CONTEXT.md, docs/FINAL_MAINLINE_MANIFEST.csv, docs/FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md, docs/LIMITATIONS.md, docs/NEXT_STEPS.md, POST_V2_1_CLAIM_MAP.csv,CREATED
+F:\env\PROJECT_CONTEXT.md,REWRITE,repository_governance,docs/ (controls), state fields, frozen results summary,REWRITTEN
+docs/README.md,UPDATE,docs,docs/FINAL_MAINLINE_MANIFEST.csv, docs/FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md, PROJECT_CONTEXT.md, archive/README.md,UPDATED
+archive/README.md,CREATE,archive,docs/FINAL_MAINLINE_MANIFEST.csv, Git tags (analysis-v2.1->6d0e004, HEAD 8695ae6),CREATED
+external_templates/README.md,CREATE,external_templates,user-supplied templates (not scientific input),CREATED
+descriptive/RUN_ORDER.md,UPDATE,descriptive,docs/FINAL_MAINLINE_MANIFEST.csv (descriptive rows), 256-DEP supersession,UPDATED
+descriptive/discovery_validation/README.md,UPDATE,discovery_validation,DATA_CONTRACTS.md, WORKFLOW.md, POST_V2_1_CLAIM_MAP.csv, docs/protocol/UPDATED
+descriptive/discovery_validation/D02_pairwise_completion/README.md,CREATE,D02_pairwise_completion,POST_V2_1_CLAIM_MAP.csv (A1-A5), FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md,CREATED
+descriptive/discovery_validation/control_referenced_pathways/README.md,CREATE,control_referenced_pathways,POST_V2_1_CLAIM_MAP.csv (C1-C4,D1-D4), FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md,CREATED
+descriptive/environment_stratified_discovery/README.md,CREATE,environment_stratified_discovery,POST_V2_1_CLAIM_MAP.csv (B1-B4,E1-E4), FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md,CREATED
+descriptive/analysis_v2.0/README.md,REWRITE,analysis_v2.0,FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md, CURRENT_AUTHORITATIVE_RESULTS.md, ml_v2.1 README,REWRITTEN
+descriptive/analysis_v2.0/PIPELINE_STATUS.md,REFRESH,analysis_v2.0,docs/FINAL_BLOCKER_STATUS.md, FINAL_MAINLINE_MANIFEST.csv,REFRESHED
+descriptive/analysis_v2.0/M12_pathway_v2.1/README_METHODS.md,UPDATE,M12_pathway_v2.1,POST_V2_1_EXTENDED_ANALYSIS_FREEZE.md, R03_FINAL_AUTHOR_DECISION.md, FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md,UPDATED
+descriptive/analysis_v2.0/ml_v2.1/README.md,CREATE,ml_v2.1,FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md (section 9), ml_v2.1/results/outer_cv_metrics.csv,CREATED
+descriptive/missingness_robustness/README_METHODS.md,UPDATE,missingness_robustness,archive/sensitivity/missingness_robustness/, FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md (M09),UPDATED
+descriptive/archive/README.md,UPDATE,descriptive_archive,archive/README.md, FINAL_MAINLINE_MANIFEST.csv,UPDATED
+manuscript_v2_1/README.md,CREATE,manuscript_v2_1,MANUSCRIPT contracts, POST_V2_1_MANUSCRIPT_HANDOFF.md, POST_V2_1_CLAIM_MAP.csv,CREATED

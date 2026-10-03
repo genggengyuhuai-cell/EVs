@@ -1,0 +1,18 @@
+Historical_document,Unique_information_preserved,Destination_authoritative_document,Archive_destination,Status
+docs/ACTIVE_MAINLINE_MANIFEST.csv,Active-mainline file classifications merged into FINAL_MAINLINE_MANIFEST.csv,docs/FINAL_MAINLINE_MANIFEST.csv,archive/audits/docs_audits/ACTIVE_MAINLINE_MANIFEST.csv,CONSOLIDATED
+docs/SUPPLEMENTARY_ANALYSIS_MANIFEST.csv,Supplementary-role rows merged into FINAL_MAINLINE_MANIFEST.csv (Manuscript_use=SUPPLEMENTARY),docs/FINAL_MAINLINE_MANIFEST.csv,archive/audits/docs_audits/SUPPLEMENTARY_ANALYSIS_MANIFEST.csv,CONSOLIDATED
+docs/CONTROL_DOCUMENT_INDEX.csv,Control-doc classification superseded by docs/README.md precedence + FINAL_MAINLINE_MANIFEST,docs/README.md,archive/audits/docs_audits/CONTROL_DOCUMENT_INDEX.csv,CONSOLIDATED
+docs/FINAL_REPRODUCIBILITY_MANIFEST.csv,sha256 row-level hashes preserved via archive (recoverable; collection-level manifest rows only, no per-file hash duplication),docs/FINAL_MAINLINE_MANIFEST.csv,archive/audits/docs_audits/FINAL_REPRODUCIBILITY_MANIFEST.csv,CONSOLIDATED
+docs/FINAL_REPRODUCIBILITY_AUDIT.md,Historical reproducibility audit narrative preserved,docs/FINAL_STATISTICAL_AND_REPORTING_CONTRACT.md,archive/audits/docs_audits/FINAL_REPRODUCIBILITY_AUDIT.md,ARCHIVED_HISTORICAL
+docs/AUDIT_BLOCKER_CLOSURE_STATUS.md,Superseded by FINAL_BLOCKER_STATUS.md,docs/FINAL_BLOCKER_STATUS.md,archive/audits/docs_audits/AUDIT_BLOCKER_CLOSURE_STATUS.md,CONSOLIDATED
+manuscript_v2_1/audit/STATISTICAL_CLAIM_MAP.csv,Still-valid claims represented by POST_V2_1_CLAIM_MAP.csv; unique historical claim history preserved via archive,docs/post_v2_1_extended_analysis/POST_V2_1_CLAIM_MAP.csv,archive/audits/manuscript_claim_map/STATISTICAL_CLAIM_MAP.csv,SUPERSEDED_BY_SOLE_AUTHORITY
+docs/CONTROL_DOCUMENT_CONSOLIDATION_REPORT.md,Historical consolidation narrative preserved,docs/README.md,archive/audits/docs_audits/CONTROL_DOCUMENT_CONSOLIDATION_REPORT.md,ARCHIVED_HISTORICAL
+docs/FINAL_REPOSITORY_RECONSTRUCTION_AUDIT.md,Historical reconstruction audit preserved,docs/README.md,archive/audits/docs_audits/FINAL_REPOSITORY_RECONSTRUCTION_AUDIT.md,ARCHIVED_HISTORICAL
+docs/PIPELINE_STATUS.md,Authoritative module-status summary retained active; module-local analysis_v2.0/PIPELINE_STATUS.md refreshed as pointer,docs/FINAL_BLOCKER_STATUS.md,retained in place,REFRESHED
+docs/workflow/*,Historical workflow/file-status snapshots preserved,archive/README.md,archive/audits/docs_workflow/,ARCHIVED_HISTORICAL
+docs/task/TASK_CURRENT.md,Old task list superseded by single NEXT_STEPS.md,docs/NEXT_STEPS.md,archive/audits/docs_task/TASK_CURRENT.md,CONSOLIDATED
+docs/PHASE6_STATUS_BASELINE.md,Historical baseline preserved,archive/README.md,archive/audits/docs_audits/PHASE6_STATUS_BASELINE.md,ARCHIVED_HISTORICAL
+docs/PHASE8_* (status/planning/reports),Historical Phase-8 git/status planning preserved,archive/README.md,archive/audits/docs_audits/,ARCHIVED_HISTORICAL
+audit_output/* (all except FINAL_ANALYSIS_FREEZE_HANDOFF.md),Historical phase/reviewer audits preserved,audit_output/FINAL_ANALYSIS_FREEZE_HANDOFF.md,archive/audits/audit_output/,ARCHIVED_HISTORICAL
+docs/FINAL_COMMIT_PLAN.md,FINAL_GIT_CLEANUP_PLAN.md,TAG_READINESS_GATE.md (retained in place),Historical Phase-8 git-planning docs retained as supporting (not active authority; no TODO role),docs/NEXT_STEPS.md,retained in place,SUPERSEDED_RETAINED
+docs/*.bak + *.phase*.bak + *.orig.bak,Backup snapshots preserved (hashes recorded),archive/README.md,archive/backups/,ARCHIVED_BACKUP
